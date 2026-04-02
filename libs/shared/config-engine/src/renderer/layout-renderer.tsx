@@ -1,18 +1,24 @@
-import type { LayoutNode, FieldDefinition } from '../types';
-import type { WidgetRegistry } from '../registry/widget-registry';
-import type { UseFormReturn } from 'react-hook-form';
-import { FieldRenderer } from './field-renderer';
 import { Separator } from '@erp/ui';
+import type { UseFormReturn } from 'react-hook-form';
+import type { WidgetRegistry } from '../registry/widget-registry';
+import type { FieldDefinition, LayoutNode } from '../types';
+import { FieldRenderer } from './field-renderer';
 
 interface LayoutRendererProps {
   node: LayoutNode;
   fields: FieldDefinition[];
-  form: UseFormReturn<any>;
+  form: UseFormReturn<Record<string, unknown>>;
   widgetRegistry: WidgetRegistry;
   disabled?: boolean;
 }
 
-export function LayoutRenderer({ node, fields, form, widgetRegistry, disabled }: LayoutRendererProps) {
+export function LayoutRenderer({
+  node,
+  fields,
+  form,
+  widgetRegistry,
+  disabled,
+}: LayoutRendererProps) {
   switch (node.type) {
     case 'section':
       return (
@@ -57,7 +63,9 @@ export function LayoutRenderer({ node, fields, form, widgetRegistry, disabled }:
     case 'field': {
       const fieldDef = fields.find((f) => f.name === node.name);
       if (!fieldDef) return null;
-      const merged = node.overrides ? { ...fieldDef, ...node.overrides } : fieldDef;
+      const merged = node.overrides
+        ? { ...fieldDef, ...node.overrides }
+        : fieldDef;
       return (
         <FieldRenderer
           field={merged}

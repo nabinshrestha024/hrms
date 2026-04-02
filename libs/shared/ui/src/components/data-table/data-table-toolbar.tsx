@@ -24,7 +24,8 @@ function DataTableToolbar<TData>({
   actionSlot,
   enableColumnVisibility = true,
 }: DataTableToolbarProps<TData>) {
-  const isControlled = searchValue !== undefined && onSearchChange !== undefined;
+  const isControlled =
+    searchValue !== undefined && onSearchChange !== undefined;
   const currentSearchValue = isControlled
     ? searchValue
     : (table.getState().globalFilter as string) ?? '';
@@ -38,8 +39,7 @@ function DataTableToolbar<TData>({
   };
 
   const isFiltered =
-    currentSearchValue.length > 0 ||
-    table.getState().columnFilters.length > 0;
+    currentSearchValue.length > 0 || table.getState().columnFilters.length > 0;
 
   const handleReset = () => {
     handleSearchChange('');

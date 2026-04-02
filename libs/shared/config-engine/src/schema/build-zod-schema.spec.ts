@@ -15,9 +15,7 @@ describe('buildZodSchema', () => {
   });
 
   it('creates optional field when not required', () => {
-    const fields: FieldDefinition[] = [
-      { name: 'notes', type: 'text' },
-    ];
+    const fields: FieldDefinition[] = [{ name: 'notes', type: 'text' }];
     const schema = buildZodSchema(fields);
     const result = schema.safeParse({});
     expect(result.success).toBe(true);
@@ -25,7 +23,11 @@ describe('buildZodSchema', () => {
 
   it('validates number with min/max', () => {
     const fields: FieldDefinition[] = [
-      { name: 'age', type: 'number', validation: { required: true, min: 18, max: 65 } },
+      {
+        name: 'age',
+        type: 'number',
+        validation: { required: true, min: 18, max: 65 },
+      },
     ];
     const schema = buildZodSchema(fields);
     expect(schema.safeParse({ age: 17 }).success).toBe(false);
@@ -35,7 +37,11 @@ describe('buildZodSchema', () => {
 
   it('validates string pattern', () => {
     const fields: FieldDefinition[] = [
-      { name: 'email', type: 'text', validation: { required: true, pattern: '^[\\w.-]+@[\\w.-]+\\.\\w+$' } },
+      {
+        name: 'email',
+        type: 'text',
+        validation: { required: true, pattern: '^[\\w.-]+@[\\w.-]+\\.\\w+$' },
+      },
     ];
     const schema = buildZodSchema(fields);
     expect(schema.safeParse({ email: 'bad' }).success).toBe(false);
@@ -43,9 +49,7 @@ describe('buildZodSchema', () => {
   });
 
   it('handles boolean field type', () => {
-    const fields: FieldDefinition[] = [
-      { name: 'active', type: 'boolean' },
-    ];
+    const fields: FieldDefinition[] = [{ name: 'active', type: 'boolean' }];
     const schema = buildZodSchema(fields);
     expect(schema.safeParse({ active: true }).success).toBe(true);
   });

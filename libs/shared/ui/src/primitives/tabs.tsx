@@ -2,9 +2,7 @@ import * as React from 'react';
 import * as TabsPrimitive from '@radix-ui/react-tabs';
 import { cn } from '@erp/utils';
 
-function Tabs({
-  ...props
-}: React.ComponentProps<typeof TabsPrimitive.Root>) {
+function Tabs({ ...props }: React.ComponentProps<typeof TabsPrimitive.Root>) {
   return <TabsPrimitive.Root data-slot="tabs" {...props} />;
 }
 

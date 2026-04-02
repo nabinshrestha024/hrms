@@ -19,15 +19,27 @@ interface UseEmployeeTableOptions {
  */
 export function useEmployeeTable(
   navigate: (opts: { to: string; params: Record<string, string> }) => void,
-  options?: UseEmployeeTableOptions,
+  options?: UseEmployeeTableOptions
 ) {
   // URL-synced state
   const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
-  const [pageSize, setPageSize] = useQueryState('pageSize', parseAsInteger.withDefault(10));
-  const [sortBy, setSortBy] = useQueryState('sortBy', parseAsString.withDefault(''));
-  const [sortOrder, setSortOrder] = useQueryState('sortOrder', parseAsString.withDefault(''));
+  const [pageSize, setPageSize] = useQueryState(
+    'pageSize',
+    parseAsInteger.withDefault(10)
+  );
+  const [sortBy, setSortBy] = useQueryState(
+    'sortBy',
+    parseAsString.withDefault('')
+  );
+  const [sortOrder, setSortOrder] = useQueryState(
+    'sortOrder',
+    parseAsString.withDefault('')
+  );
   const [search, setSearch] = useQueryState('q', parseAsString.withDefault(''));
-  const [branch, setBranch] = useQueryState('branch', parseAsString.withDefault(''));
+  const [branch, setBranch] = useQueryState(
+    'branch',
+    parseAsString.withDefault('')
+  );
 
   // API data
   const { data: result, isLoading } = useEmployees({
@@ -47,7 +59,8 @@ export function useEmployeeTable(
     {
       label: 'View',
       icon: Eye,
-      onClick: (row) => navigate({ to: '/employees/$id', params: { id: row.id } }),
+      onClick: (row) =>
+        navigate({ to: '/employees/$id', params: { id: row.id } }),
     },
     {
       label: 'Edit',
@@ -57,7 +70,8 @@ export function useEmployeeTable(
     {
       label: 'Assign Access',
       icon: Shield,
-      onClick: (row) => options?.onAssignAccess?.(`${row.firstName} ${row.lastName}`),
+      onClick: (row) =>
+        options?.onAssignAccess?.(`${row.firstName} ${row.lastName}`),
     },
     {
       label: 'Delete',

@@ -1,12 +1,6 @@
 import { type ComponentType } from 'react';
 import { cn } from '@erp/utils';
-import {
-  ChartPie,
-  UserCog,
-  TentTree,
-  Users,
-  FileCog,
-} from 'lucide-react';
+import { ChartPie, UserCog, TentTree, Users, FileCog } from 'lucide-react';
 import type { NavLinkProps } from './shell-layout';
 
 const mobileNavItems = [
@@ -23,7 +17,11 @@ interface MobileNavProps {
 }
 
 function DefaultLink({ to, children, className }: NavLinkProps) {
-  return <a href={to} className={className}>{children}</a>;
+  return (
+    <a href={to} className={className}>
+      {children}
+    </a>
+  );
 }
 
 export function MobileNav({ currentPath, linkComponent }: MobileNavProps) {
@@ -32,7 +30,11 @@ export function MobileNav({ currentPath, linkComponent }: MobileNavProps) {
   return (
     <nav className="fixed inset-x-0 bottom-0 z-50 flex h-16 items-center justify-around border-t border-border bg-card md:hidden">
       {mobileNavItems.map((item) => {
-        const isActive = currentPath === item.href || currentPath.startsWith(item.href.split('/').slice(0, 2).join('/') + '/');
+        const isActive =
+          currentPath === item.href ||
+          currentPath.startsWith(
+            item.href.split('/').slice(0, 2).join('/') + '/'
+          );
         const Icon = item.icon;
 
         return (

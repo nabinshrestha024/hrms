@@ -37,12 +37,26 @@ describe('PluginRegistry', () => {
   it('sorts slot components by order', () => {
     const registry = new PluginRegistry();
     const pluginA: PluginDefinition = {
-      id: 'a', name: 'A', version: '1.0.0',
-      register(r) { r.addToSlot('dashboard.widgets', { component: TestComponent as any, order: 20 }); },
+      id: 'a',
+      name: 'A',
+      version: '1.0.0',
+      register(r) {
+        r.addToSlot('dashboard.widgets', {
+          component: TestComponent as any,
+          order: 20,
+        });
+      },
     };
     const pluginB: PluginDefinition = {
-      id: 'b', name: 'B', version: '1.0.0',
-      register(r) { r.addToSlot('dashboard.widgets', { component: TestComponent as any, order: 5 }); },
+      id: 'b',
+      name: 'B',
+      version: '1.0.0',
+      register(r) {
+        r.addToSlot('dashboard.widgets', {
+          component: TestComponent as any,
+          order: 5,
+        });
+      },
     };
     registry.registerPlugin(pluginA);
     registry.registerPlugin(pluginB);
@@ -54,20 +68,30 @@ describe('PluginRegistry', () => {
   it('prevents duplicate plugin registration', () => {
     const registry = new PluginRegistry();
     registry.registerPlugin(testPlugin);
-    expect(() => registry.registerPlugin(testPlugin)).toThrow('already registered');
+    expect(() => registry.registerPlugin(testPlugin)).toThrow(
+      'already registered'
+    );
   });
 
   it('runs bootstrap after all plugins are registered', () => {
     const bootstrapOrder: string[] = [];
     const p1: PluginDefinition = {
-      id: 'p1', name: 'P1', version: '1.0.0',
+      id: 'p1',
+      name: 'P1',
+      version: '1.0.0',
       register() {},
-      bootstrap() { bootstrapOrder.push('p1'); },
+      bootstrap() {
+        bootstrapOrder.push('p1');
+      },
     };
     const p2: PluginDefinition = {
-      id: 'p2', name: 'P2', version: '1.0.0',
+      id: 'p2',
+      name: 'P2',
+      version: '1.0.0',
       register() {},
-      bootstrap() { bootstrapOrder.push('p2'); },
+      bootstrap() {
+        bootstrapOrder.push('p2');
+      },
     };
     const registry = new PluginRegistry();
     registry.registerPlugin(p1);

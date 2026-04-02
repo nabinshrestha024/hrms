@@ -9,7 +9,9 @@ function DashboardPage() {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold">Dashboard</h1>
-      <p className="mt-1 text-sm text-muted-foreground">Welcome to the ERP Platform.</p>
+      <p className="mt-1 text-sm text-muted-foreground">
+        Welcome to the ERP Platform.
+      </p>
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {Array.from({ length: 4 }).map((_, i) => (
           <div key={i} className="rounded-lg border border-border bg-card p-4">

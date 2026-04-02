@@ -1,16 +1,19 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { z } from 'zod';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useApiClient } from '../api-provider';
 import {
-  employeeSchema,
+  paginatedSchema,
+  type ListParams,
+  type PaginatedResponse,
+} from '../schemas/common.schema';
+import {
   createEmployeeSchema,
+  employeeSchema,
   updateEmployeeSchema,
-  type Employee,
   type CreateEmployeeInput,
-  type UpdateEmployeeInput,
+  type Employee,
   type EmployeeFilters,
+  type UpdateEmployeeInput,
 } from '../schemas/employee.schema';
-import { paginatedSchema, type ListParams, type PaginatedResponse } from '../schemas/common.schema';
 
 // ---------------------------------------------------------------------------
 // Schema for paginated employee response
@@ -25,7 +28,8 @@ const employeeListResponseSchema = paginatedSchema(employeeSchema);
 export const employeeKeys = {
   all: ['employees'] as const,
   lists: () => [...employeeKeys.all, 'list'] as const,
-  list: (params?: ListParams & EmployeeFilters) => [...employeeKeys.lists(), params] as const,
+  list: (params?: ListParams & EmployeeFilters) =>
+    [...employeeKeys.lists(), params] as const,
   details: () => [...employeeKeys.all, 'detail'] as const,
   detail: (id: string) => [...employeeKeys.details(), id] as const,
 };
@@ -34,16 +38,15 @@ export const employeeKeys = {
 // Hooks
 // ---------------------------------------------------------------------------
 
-export function useEmployees(
-  params?: ListParams & EmployeeFilters,
-) {
+export function useEmployees(params?: ListParams & EmployeeFilters) {
   const client = useApiClient();
   return useQuery<PaginatedResponse<Employee>>({
     queryKey: employeeKeys.list(params),
     queryFn: async () => {
       const searchParams = new URLSearchParams();
       if (params?.page) searchParams.set('page', String(params.page));
-      if (params?.pageSize) searchParams.set('pageSize', String(params.pageSize));
+      if (params?.pageSize)
+        searchParams.set('pageSize', String(params.pageSize));
       if (params?.sortBy) searchParams.set('sortBy', params.sortBy);
       if (params?.sortOrder) searchParams.set('sortOrder', params.sortOrder);
       if (params?.search) searchParams.set('search', params.search);

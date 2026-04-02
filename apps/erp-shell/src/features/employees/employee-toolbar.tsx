@@ -34,7 +34,9 @@ export function EmployeeToolbar({
   return (
     <div className="px-6 pt-6 pb-4">
       <div className="flex items-center justify-between gap-4">
-        <h1 className="text-xl font-semibold tracking-tight">Employee Management</h1>
+        <h1 className="text-xl font-semibold tracking-tight">
+          Employee Management
+        </h1>
 
         <div className="flex items-center gap-3">
           {/* Search */}
@@ -56,7 +58,9 @@ export function EmployeeToolbar({
             <SelectContent>
               <SelectItem value="all">All</SelectItem>
               {branches.map((b) => (
-                <SelectItem key={b} value={b}>{b}</SelectItem>
+                <SelectItem key={b} value={b}>
+                  {b}
+                </SelectItem>
               ))}
             </SelectContent>
           </Select>
@@ -65,14 +69,20 @@ export function EmployeeToolbar({
           <div className="flex items-center border border-primary rounded-lg overflow-hidden">
             <button
               type="button"
-              className={cn('p-2 transition-colors', view === 'list' ? 'bg-primary text-white' : 'text-primary')}
+              className={cn(
+                'p-2 transition-colors',
+                view === 'list' ? 'bg-primary text-white' : 'text-primary'
+              )}
               onClick={() => onViewChange('list')}
             >
               <List className="size-4" />
             </button>
             <button
               type="button"
-              className={cn('p-2 transition-colors', view === 'grid' ? 'bg-primary text-white' : 'text-primary')}
+              className={cn(
+                'p-2 transition-colors',
+                view === 'grid' ? 'bg-primary text-white' : 'text-primary'
+              )}
               onClick={() => onViewChange('grid')}
             >
               <Grid2X2 className="size-4" />

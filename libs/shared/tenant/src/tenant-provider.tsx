@@ -27,9 +27,10 @@ export function TenantProvider({ children, fallback }: TenantProviderProps) {
     return localStorage.getItem('erp-theme') === 'dark';
   });
 
-  const slug = typeof window !== 'undefined'
-    ? resolveTenantSlug(window.location.hostname, window.location.search)
-    : 'demo';
+  const slug =
+    typeof window !== 'undefined'
+      ? resolveTenantSlug(window.location.hostname, window.location.search)
+      : 'demo';
 
   useEffect(() => {
     fetchTenantConfig(slug)
@@ -60,14 +61,24 @@ export function TenantProvider({ children, fallback }: TenantProviderProps) {
       <div className="flex h-screen items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-red-600">Tenant Not Found</h1>
-          <p className="mt-2 text-gray-600">Could not load configuration for "{slug}"</p>
+          <p className="mt-2 text-gray-600">
+            Could not load configuration for "{slug}"
+          </p>
         </div>
       </div>
     );
   }
 
   if (!tenant) {
-    return <>{fallback ?? <div className="flex h-screen items-center justify-center"><p>Loading...</p></div>}</>;
+    return (
+      <>
+        {fallback ?? (
+          <div className="flex h-screen items-center justify-center">
+            <p>Loading...</p>
+          </div>
+        )}
+      </>
+    );
   }
 
   return (

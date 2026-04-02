@@ -38,7 +38,11 @@ mkdir src/mocks/modules/your-module
 import { Button, Input, Badge, DataTable, FormField, useDialog } from '@erp/ui';
 
 // Data
-import { useEmployees, useCreateEmployee, type Employee } from '@erp/data-access';
+import {
+  useEmployees,
+  useCreateEmployee,
+  type Employee,
+} from '@erp/data-access';
 
 // Auth
 import { useAuth, Can, AUTH_TOKEN_KEY } from '@erp/auth';
@@ -61,7 +65,11 @@ type Input = z.infer<typeof schema>;
 const mutation = useCreateEntity();
 
 // 3. Form
-const { register, handleSubmit, formState: { errors } } = useForm<Input>({
+const {
+  register,
+  handleSubmit,
+  formState: { errors },
+} = useForm<Input>({
   resolver: zodResolver(schema),
 });
 
@@ -75,7 +83,7 @@ const onSubmit = handleSubmit((data) => {
 // 5. Field
 <FormField label="Name" htmlFor="name" error={errors.name?.message} required>
   <Input id="name" {...register('name')} />
-</FormField>
+</FormField>;
 ```
 
 ## Dialog Pattern
@@ -112,20 +120,20 @@ const dialog = useDialog<Employee>(); // with data
 
 ## State Decision
 
-| What | Use |
-|------|-----|
-| API data | `useQuery` / `useMutation` from `@erp/data-access` |
-| URL params | `useQueryState` from `nuqs` |
-| Global (auth) | `useAuth()` / `useAuthStore` |
-| Local (modal) | `useState` / `useDialog` |
+| What          | Use                                                |
+| ------------- | -------------------------------------------------- |
+| API data      | `useQuery` / `useMutation` from `@erp/data-access` |
+| URL params    | `useQueryState` from `nuqs`                        |
+| Global (auth) | `useAuth()` / `useAuthStore`                       |
+| Local (modal) | `useState` / `useDialog`                           |
 
 ## File Naming
 
-| Type | Pattern |
-|------|---------|
+| Type      | Pattern          |
+| --------- | ---------------- |
 | Component | `kebab-case.tsx` |
-| Hook | `use-name.ts` |
-| Schema | `schema.ts` |
-| Step form | `step-name.tsx` |
-| Mock seed | `seed.ts` |
-| Barrel | `index.ts` |
+| Hook      | `use-name.ts`    |
+| Schema    | `schema.ts`      |
+| Step form | `step-name.tsx`  |
+| Mock seed | `seed.ts`        |
+| Barrel    | `index.ts`       |

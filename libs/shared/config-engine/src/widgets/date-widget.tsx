@@ -1,5 +1,5 @@
-import type { WidgetProps } from '../types';
 import { Input } from '@erp/ui';
+import type { WidgetProps } from '../types';
 
 export function DateWidget({ field, form, disabled }: WidgetProps) {
   const { register } = form;
@@ -11,7 +11,9 @@ export function DateWidget({ field, form, disabled }: WidgetProps) {
       {field.label && (
         <label htmlFor={field.name} className="mb-1 block text-sm font-medium">
           {field.label}
-          {field.validation?.required && <span className="ml-1 text-destructive">*</span>}
+          {field.validation?.required && (
+            <span className="ml-1 text-destructive">*</span>
+          )}
         </label>
       )}
       <Input

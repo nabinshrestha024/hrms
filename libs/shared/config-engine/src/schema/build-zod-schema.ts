@@ -1,7 +1,9 @@
 import { z } from 'zod';
 import type { FieldDefinition } from '../types';
 
-export function buildZodSchema(fields: FieldDefinition[]): z.ZodObject<Record<string, z.ZodTypeAny>> {
+export function buildZodSchema(
+  fields: FieldDefinition[]
+): z.ZodObject<Record<string, z.ZodTypeAny>> {
   const shape: Record<string, z.ZodTypeAny> = {};
 
   for (const field of fields) {
@@ -24,7 +26,10 @@ export function buildZodSchema(fields: FieldDefinition[]): z.ZodObject<Record<st
           s = s.min(1, requiredMsg);
         }
         if (field.validation?.max != null) {
-          s = s.max(field.validation.max, `Maximum ${field.validation.max} characters`);
+          s = s.max(
+            field.validation.max,
+            `Maximum ${field.validation.max} characters`
+          );
         }
         if (field.validation?.pattern) {
           s = s.regex(new RegExp(field.validation.pattern), 'Invalid format');
@@ -40,10 +45,16 @@ export function buildZodSchema(fields: FieldDefinition[]): z.ZodObject<Record<st
           invalid_type_error: 'Must be a number',
         });
         if (field.validation?.min != null) {
-          n = n.min(field.validation.min, `Minimum value is ${field.validation.min}`);
+          n = n.min(
+            field.validation.min,
+            `Minimum value is ${field.validation.min}`
+          );
         }
         if (field.validation?.max != null) {
-          n = n.max(field.validation.max, `Maximum value is ${field.validation.max}`);
+          n = n.max(
+            field.validation.max,
+            `Maximum value is ${field.validation.max}`
+          );
         }
         schema = n;
         break;
@@ -74,10 +85,9 @@ export function buildZodSchema(fields: FieldDefinition[]): z.ZodObject<Record<st
     if (!isRequired && field.type !== 'boolean') {
       // For optional number fields, allow empty string from input → transform to undefined
       if (field.type === 'number' || field.type === 'currency') {
-        schema = z.union([
-          z.literal('').transform(() => undefined),
-          schema,
-        ]).optional();
+        schema = z
+          .union([z.literal('').transform(() => undefined), schema])
+          .optional();
       } else {
         schema = schema.optional();
       }

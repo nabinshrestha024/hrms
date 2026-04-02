@@ -51,13 +51,18 @@ export class ApiError extends Error {
     public status: number,
     public code: string,
     message: string,
-    errors: unknown[] = [],
+    errors: unknown[] = []
   ) {
     super(message);
     this.name = 'ApiError';
     // Normalize errors to ApiErrorDetail[]
     this.errors = errors.map((e) => {
-      if (typeof e === 'object' && e !== null && 'errorCode' in e && 'errorMessage' in e) {
+      if (
+        typeof e === 'object' &&
+        e !== null &&
+        'errorCode' in e &&
+        'errorMessage' in e
+      ) {
         return e as ApiErrorDetail;
       }
       return { errorCode: 'UNKNOWN', errorMessage: String(e) };
@@ -77,7 +82,7 @@ export class ApiClient {
 
   private async request<T>(
     path: string,
-    options?: RequestInit,
+    options?: RequestInit
   ): Promise<ApiResponse<T>> {
     const url = `${this.config.baseUrl}${path}`;
     const token = this.config.getToken?.();
@@ -85,7 +90,7 @@ export class ApiClient {
     const controller = new AbortController();
     const timeoutId = setTimeout(
       () => controller.abort(),
-      this.config.timeout ?? 30000,
+      this.config.timeout ?? 30000
     );
 
     try {
@@ -113,7 +118,12 @@ export class ApiClient {
       // ── HTTP-level error (4xx, 5xx) ──
       if (!res.ok) {
         const error = envelope.success
-          ? new ApiError(res.status, envelope.data.code, envelope.data.message, envelope.data.errors as unknown[])
+          ? new ApiError(
+              res.status,
+              envelope.data.code,
+              envelope.data.message,
+              envelope.data.errors as unknown[]
+            )
           : new ApiError(res.status, String(res.status), res.statusText);
 
         if (res.status === 401) {
@@ -129,7 +139,12 @@ export class ApiClient {
         const { code, message, data, errors } = envelope.data;
 
         if (code !== '200' && code !== '201') {
-          const error = new ApiError(res.status, code, message, errors as unknown[]);
+          const error = new ApiError(
+            res.status,
+            code,
+            message,
+            errors as unknown[]
+          );
           this.config.onError?.(error);
           throw error;
         }

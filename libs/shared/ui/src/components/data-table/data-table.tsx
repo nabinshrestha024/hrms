@@ -51,8 +51,7 @@ function DataTable<TData>({
   pageSizeOptions,
   className,
 }: DataTableProps<TData>) {
-  const hasSelectedRows =
-    table.getFilteredSelectedRowModel().rows.length > 0;
+  const hasSelectedRows = table.getFilteredSelectedRowModel().rows.length > 0;
 
   return (
     <div data-slot="data-table" className={cn('space-y-4', className)}>
@@ -131,7 +130,8 @@ function DataTable<TData>({
               <TableRow>
                 <TableCell
                   colSpan={
-                    columns.length + (rowActions && rowActions.length > 0 ? 1 : 0)
+                    columns.length +
+                    (rowActions && rowActions.length > 0 ? 1 : 0)
                   }
                   className="h-24 text-center"
                 >
@@ -143,10 +143,7 @@ function DataTable<TData>({
         </Table>
       </div>
 
-      <DataTablePagination
-        table={table}
-        pageSizeOptions={pageSizeOptions}
-      />
+      <DataTablePagination table={table} pageSizeOptions={pageSizeOptions} />
     </div>
   );
 }

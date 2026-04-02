@@ -1,8 +1,16 @@
-import type { ComponentType } from 'react';
 import type { UseFormReturn } from 'react-hook-form';
 
-export type FieldType = 'text' | 'number' | 'date' | 'select' | 'boolean' |
-  'currency' | 'relation' | 'richtext' | 'file' | 'textarea';
+export type FieldType =
+  | 'text'
+  | 'number'
+  | 'date'
+  | 'select'
+  | 'boolean'
+  | 'currency'
+  | 'relation'
+  | 'richtext'
+  | 'file'
+  | 'textarea';
 
 export interface FieldDefinition {
   name: string;
@@ -62,6 +70,6 @@ export interface FormViewConfig {
 
 export interface WidgetProps {
   field: FieldDefinition;
-  form: UseFormReturn<any>;
+  form: UseFormReturn<Record<string, unknown>>;
   disabled?: boolean;
 }

@@ -21,7 +21,12 @@ export const useAuthStore = create<AuthStore>((set) => ({
 
   logout: () => {
     sessionStorage.removeItem(AUTH_TOKEN_KEY);
-    set({ user: null, permissions: [], isAuthenticated: false, isLoading: false });
+    set({
+      user: null,
+      permissions: [],
+      isAuthenticated: false,
+      isLoading: false,
+    });
   },
 
   setLoading: (isLoading) => set({ isLoading }),

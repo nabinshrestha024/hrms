@@ -29,6 +29,7 @@ pnpm generate
 ```
 
 The CLI will ask you:
+
 - Route path (e.g. `leave/requests`)
 - Page title
 - Authenticated? (yes/no)
@@ -56,9 +57,7 @@ function YourPage() {
   return (
     <div>
       <PageHeader title="Your Page" subtitle="Description here" />
-      <div className="px-6">
-        {/* Your content */}
-      </div>
+      <div className="px-6">{/* Your content */}</div>
     </div>
   );
 }
@@ -79,6 +78,7 @@ routes/_authenticated/
 ```
 
 **Layout route** (`leave.tsx`):
+
 ```tsx
 import { createFileRoute, Outlet } from '@tanstack/react-router';
 
@@ -99,7 +99,13 @@ The generator handles this automatically — if you create a nested route under 
 ```tsx
 import { createFileRoute } from '@tanstack/react-router';
 import { type ColumnDef } from '@tanstack/react-table';
-import { TablePage, DataTableColumnHeader, Badge, Button, type RowAction } from '@erp/ui';
+import {
+  TablePage,
+  DataTableColumnHeader,
+  Badge,
+  Button,
+  type RowAction,
+} from '@erp/ui';
 import { Plus, Eye, Pencil, Trash2 } from 'lucide-react';
 import { mockGetLeaveRequests } from '../../mocks/leave-request.mock';
 
@@ -120,19 +126,37 @@ interface LeaveRequest {
 const columns: ColumnDef<LeaveRequest, unknown>[] = [
   {
     accessorKey: 'employeeName',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Employee" />,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Employee" />
+    ),
     enableSorting: true,
   },
   {
     accessorKey: 'type',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Type" />,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Type" />
+    ),
   },
   {
     accessorKey: 'status',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Status" />,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Status" />
+    ),
     cell: ({ row }) => {
       const v = row.original.status;
-      return <Badge variant={v === 'approved' ? 'success' : v === 'rejected' ? 'destructive' : 'warning'}>{v}</Badge>;
+      return (
+        <Badge
+          variant={
+            v === 'approved'
+              ? 'success'
+              : v === 'rejected'
+              ? 'destructive'
+              : 'warning'
+          }
+        >
+          {v}
+        </Badge>
+      );
     },
   },
 ];
@@ -141,7 +165,13 @@ const columns: ColumnDef<LeaveRequest, unknown>[] = [
 const rowActions: RowAction<LeaveRequest>[] = [
   { label: 'View', icon: Eye, onClick: (row) => alert(row.id) },
   { label: 'Edit', icon: Pencil, onClick: (row) => alert(row.id) },
-  { label: 'Delete', icon: Trash2, onClick: (row) => alert(row.id), variant: 'destructive', separator: true },
+  {
+    label: 'Delete',
+    icon: Trash2,
+    onClick: (row) => alert(row.id),
+    variant: 'destructive',
+    separator: true,
+  },
 ];
 
 // 4. Render
@@ -153,13 +183,19 @@ function LeaveRequestsPage() {
       fetchData={mockGetLeaveRequests}
       rowActions={rowActions}
       searchPlaceholder="Search by employee..."
-      headerActions={<Button><Plus className="mr-2 size-4" />Add Request</Button>}
+      headerActions={
+        <Button>
+          <Plus className="mr-2 size-4" />
+          Add Request
+        </Button>
+      }
     />
   );
 }
 ```
 
 **What `<TablePage>` gives you for free:**
+
 - URL-synced pagination (`?page=2&pageSize=10`)
 - URL-synced sorting (`?sortBy=name&sortOrder=asc`)
 - URL-synced search (`?q=john`)
@@ -189,6 +225,7 @@ async function fetchData(params: FetchParams): Promise<FetchResult<YourType>> {
 This is the recommended pattern for all forms. It gives you type-safe validation, proper loading/error states, and API integration via React Query.
 
 **Step 1: Define Zod schema** (in `data-access/schemas/`)
+
 ```typescript
 // libs/shared/data-access/src/schemas/leave.schema.ts
 import { z } from 'zod';
@@ -204,6 +241,7 @@ export type CreateLeaveInput = z.infer<typeof createLeaveSchema>;
 ```
 
 **Step 2: Create mutation hook** (in `data-access/queries/`)
+
 ```typescript
 // libs/shared/data-access/src/queries/leave.queries.ts
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -225,17 +263,27 @@ export function useCreateLeave(client: ApiClient) {
 ```
 
 **Step 3: Build form with RHF + Zod**
+
 ```tsx
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useApiClient, useCreateLeave, createLeaveSchema, type CreateLeaveInput } from '@erp/data-access';
+import {
+  useApiClient,
+  useCreateLeave,
+  createLeaveSchema,
+  type CreateLeaveInput,
+} from '@erp/data-access';
 import { Button, Input, FormField } from '@erp/ui';
 
 function LeaveRequestForm({ onClose }: { onClose: () => void }) {
   const api = useApiClient();
   const mutation = useCreateLeave(api);
 
-  const { register, handleSubmit, formState: { errors } } = useForm<CreateLeaveInput>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<CreateLeaveInput>({
     resolver: zodResolver(createLeaveSchema),
   });
 
@@ -245,15 +293,27 @@ function LeaveRequestForm({ onClose }: { onClose: () => void }) {
 
   return (
     <form onSubmit={onSubmit} className="space-y-4">
-      <FormField label="Leave Type" htmlFor="type" error={errors.type?.message} required>
+      <FormField
+        label="Leave Type"
+        htmlFor="type"
+        error={errors.type?.message}
+        required
+      >
         <Input id="type" {...register('type')} />
       </FormField>
 
-      <FormField label="Reason" htmlFor="reason" error={errors.reason?.message} required>
+      <FormField
+        label="Reason"
+        htmlFor="reason"
+        error={errors.reason?.message}
+        required
+      >
         <Input id="reason" {...register('reason')} />
       </FormField>
 
-      {mutation.error && <p className="text-sm text-destructive">{mutation.error.message}</p>}
+      {mutation.error && (
+        <p className="text-sm text-destructive">{mutation.error.message}</p>
+      )}
 
       <Button type="submit" disabled={mutation.isPending}>
         {mutation.isPending ? 'Submitting...' : 'Submit'}
@@ -264,6 +324,7 @@ function LeaveRequestForm({ onClose }: { onClose: () => void }) {
 ```
 
 **Why this pattern:**
+
 - Validation runs client-side before API call (instant feedback)
 - `useMutation` handles loading, error, success states automatically
 - `onSuccess` invalidates related queries (table refreshes automatically)
@@ -301,53 +362,90 @@ import type { FormViewConfig } from '@erp/config-engine';
 const employeeForm: FormViewConfig = {
   entity: 'employee',
   fields: [
-    { name: 'firstName', type: 'text', label: 'First Name', validation: { required: true, max: 50 } },
-    { name: 'lastName', type: 'text', label: 'Last Name', validation: { required: true } },
-    { name: 'email', type: 'text', label: 'Email', validation: { required: true, pattern: '^[\\w.-]+@[\\w.-]+\\.\\w+$' } },
-    { name: 'department', type: 'select', label: 'Department', options: ['engineering', 'hr', 'finance'] },
+    {
+      name: 'firstName',
+      type: 'text',
+      label: 'First Name',
+      validation: { required: true, max: 50 },
+    },
+    {
+      name: 'lastName',
+      type: 'text',
+      label: 'Last Name',
+      validation: { required: true },
+    },
+    {
+      name: 'email',
+      type: 'text',
+      label: 'Email',
+      validation: { required: true, pattern: '^[\\w.-]+@[\\w.-]+\\.\\w+$' },
+    },
+    {
+      name: 'department',
+      type: 'select',
+      label: 'Department',
+      options: ['engineering', 'hr', 'finance'],
+    },
     { name: 'salary', type: 'number', label: 'Salary', validation: { min: 0 } },
-    { name: 'startDate', type: 'date', label: 'Start Date', validation: { required: true } },
+    {
+      name: 'startDate',
+      type: 'date',
+      label: 'Start Date',
+      validation: { required: true },
+    },
     { name: 'active', type: 'boolean', label: 'Active' },
   ],
   layout: {
     type: 'section',
     title: 'Employee Details',
     children: [
-      { type: 'columns', columns: 2, children: [
-        { type: 'field', name: 'firstName' },
-        { type: 'field', name: 'lastName' },
-      ]},
+      {
+        type: 'columns',
+        columns: 2,
+        children: [
+          { type: 'field', name: 'firstName' },
+          { type: 'field', name: 'lastName' },
+        ],
+      },
       { type: 'field', name: 'email' },
-      { type: 'columns', columns: 2, children: [
-        { type: 'field', name: 'department' },
-        { type: 'field', name: 'salary' },
-      ]},
+      {
+        type: 'columns',
+        columns: 2,
+        children: [
+          { type: 'field', name: 'department' },
+          { type: 'field', name: 'salary' },
+        ],
+      },
     ],
   },
 };
 
 // Usage:
-<FormRenderer config={employeeForm} onSubmit={(data) => console.log(data)} submitLabel="Save" />
+<FormRenderer
+  config={employeeForm}
+  onSubmit={(data) => console.log(data)}
+  submitLabel="Save"
+/>;
 ```
 
 ### Field Types
 
-| Type | Widget | Validation Options |
-|------|--------|-------------------|
-| `text` | Input | `required`, `max`, `pattern` |
-| `number` | Input (number) | `required`, `min`, `max` |
-| `select` | Select dropdown | `required`, `options: string[]` |
-| `date` | Date picker | `required` |
-| `boolean` | Toggle switch | — |
+| Type      | Widget          | Validation Options              |
+| --------- | --------------- | ------------------------------- |
+| `text`    | Input           | `required`, `max`, `pattern`    |
+| `number`  | Input (number)  | `required`, `min`, `max`        |
+| `select`  | Select dropdown | `required`, `options: string[]` |
+| `date`    | Date picker     | `required`                      |
+| `boolean` | Toggle switch   | —                               |
 
 ### Layout Nodes
 
-| Type | Props | Description |
-|------|-------|-------------|
-| `section` | `title`, `children` | Fieldset with title |
-| `columns` | `columns: number`, `children` | Grid layout |
-| `field` | `name` | Renders a field widget |
-| `divider` | — | Horizontal separator |
+| Type      | Props                         | Description            |
+| --------- | ----------------------------- | ---------------------- |
+| `section` | `title`, `children`           | Fieldset with title    |
+| `columns` | `columns: number`, `children` | Grid layout            |
+| `field`   | `name`                        | Renders a field widget |
+| `divider` | —                             | Horizontal separator   |
 
 ---
 
@@ -357,7 +455,18 @@ For entity detail views (e.g. `/employees/123`):
 
 ```tsx
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
-import { PageHeader, Card, CardContent, Tabs, TabsList, TabsTrigger, TabsContent, Badge, Button, Skeleton } from '@erp/ui';
+import {
+  PageHeader,
+  Card,
+  CardContent,
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+  Badge,
+  Button,
+  Skeleton,
+} from '@erp/ui';
 import { ArrowLeft } from 'lucide-react';
 
 export const Route = createFileRoute('/_authenticated/employees/$id')({
@@ -376,7 +485,10 @@ function EmployeeDetailPage() {
       <PageHeader
         title="Employee Details"
         actions={
-          <Button variant="ghost" onClick={() => navigate({ to: '/employees' })}>
+          <Button
+            variant="ghost"
+            onClick={() => navigate({ to: '/employees' })}
+          >
             <ArrowLeft className="mr-2 size-4" /> Back
           </Button>
         }
@@ -387,12 +499,8 @@ function EmployeeDetailPage() {
             <TabsTrigger value="personal">Personal Info</TabsTrigger>
             <TabsTrigger value="work">Work Info</TabsTrigger>
           </TabsList>
-          <TabsContent value="personal">
-            {/* Content */}
-          </TabsContent>
-          <TabsContent value="work">
-            {/* Content */}
-          </TabsContent>
+          <TabsContent value="personal">{/* Content */}</TabsContent>
+          <TabsContent value="work">{/* Content */}</TabsContent>
         </Tabs>
       </div>
     </div>
@@ -414,6 +522,7 @@ export const Route = createFileRoute('/_authenticated/leave/requests')({
 ```
 
 For nested routes, each parent also defines its breadcrumb:
+
 ```
 _authenticated.tsx     → breadcrumb: 'Home'
 leave.tsx              → breadcrumb: 'Leave'
@@ -481,7 +590,14 @@ function MyPage() {
 For non-form dialogs, use `<Dialog>` directly:
 
 ```tsx
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, Button } from '@erp/ui';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+  Button,
+} from '@erp/ui';
 
 <Dialog open={open} onOpenChange={setOpen}>
   <DialogContent>
@@ -490,11 +606,15 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, Button 
     </DialogHeader>
     <p>Are you sure?</p>
     <DialogFooter>
-      <Button variant="ghost" onClick={() => setOpen(false)}>Cancel</Button>
-      <Button variant="destructive" onClick={handleDelete}>Delete</Button>
+      <Button variant="ghost" onClick={() => setOpen(false)}>
+        Cancel
+      </Button>
+      <Button variant="destructive" onClick={handleDelete}>
+        Delete
+      </Button>
     </DialogFooter>
   </DialogContent>
-</Dialog>
+</Dialog>;
 ```
 
 ---
@@ -539,7 +659,7 @@ import { RouteGuard } from '@erp/auth';
 
 <RouteGuard action="read" subject="payroll:runs">
   <PayrollPage />
-</RouteGuard>
+</RouteGuard>;
 ```
 
 ---
@@ -596,14 +716,20 @@ export interface YourEntity {
   name: string;
 }
 
-const MOCK_DATA: YourEntity[] = [/* ... */];
+const MOCK_DATA: YourEntity[] = [
+  /* ... */
+];
 
-export async function mockGetEntities(params: FetchParams): Promise<FetchResult<YourEntity>> {
-  await new Promise(r => setTimeout(r, 100));
+export async function mockGetEntities(
+  params: FetchParams
+): Promise<FetchResult<YourEntity>> {
+  await new Promise((r) => setTimeout(r, 100));
 
   let filtered = [...MOCK_DATA];
   if (params.search) {
-    filtered = filtered.filter(item => item.name.toLowerCase().includes(params.search!.toLowerCase()));
+    filtered = filtered.filter((item) =>
+      item.name.toLowerCase().includes(params.search!.toLowerCase())
+    );
   }
 
   const total = filtered.length;
@@ -658,7 +784,11 @@ import { toast } from '@erp/ui';
 toast({ title: 'Saved successfully', variant: 'success' });
 
 // Error
-toast({ title: 'Failed to save', description: 'Please try again', variant: 'destructive' });
+toast({
+  title: 'Failed to save',
+  description: 'Please try again',
+  variant: 'destructive',
+});
 
 // Default
 toast({ title: 'Processing...', description: 'Please wait' });
@@ -680,15 +810,15 @@ toast({ title: 'Processing...', description: 'Please wait' });
 
 ### Key Design Tokens
 
-| Token | Usage |
-|-------|-------|
-| `bg-background` | Page background |
-| `bg-card` | Card/panel background |
-| `bg-primary` | Primary buttons, active states |
-| `text-foreground` | Main text |
-| `text-muted-foreground` | Secondary text |
-| `border-border` | Default borders |
-| `bg-destructive` | Error/delete states |
+| Token                   | Usage                          |
+| ----------------------- | ------------------------------ |
+| `bg-background`         | Page background                |
+| `bg-card`               | Card/panel background          |
+| `bg-primary`            | Primary buttons, active states |
+| `text-foreground`       | Main text                      |
+| `text-muted-foreground` | Secondary text                 |
+| `border-border`         | Default borders                |
+| `bg-destructive`        | Error/delete states            |
 
 ### Class Merge Utility
 
@@ -697,7 +827,7 @@ Always use `cn()` for conditional classes:
 ```tsx
 import { cn } from '@erp/utils';
 
-<div className={cn('base-classes', isActive && 'active-classes', className)} />
+<div className={cn('base-classes', isActive && 'active-classes', className)} />;
 ```
 
 ### Badge Variants
@@ -753,11 +883,11 @@ E2E tests are in `apps/erp-shell-e2e/src/`.
 ```tsx
 import { formatCurrency, formatDate } from '@erp/utils';
 
-formatCurrency(50000)                              // "$50,000.00"
-formatCurrency(50000, { currency: 'NPR' })         // "NPR 50,000.00"
-formatCurrency(50000, { compact: true })            // "$50K"
-formatDate('2024-01-15')                           // "Jan 15, 2024"
-formatDate('2024-01-15', { format: 'relative' })   // "2 months ago"
+formatCurrency(50000); // "$50,000.00"
+formatCurrency(50000, { currency: 'NPR' }); // "NPR 50,000.00"
+formatCurrency(50000, { compact: true }); // "$50K"
+formatDate('2024-01-15'); // "Jan 15, 2024"
+formatDate('2024-01-15', { format: 'relative' }); // "2 months ago"
 ```
 
 ### Loading States
@@ -790,9 +920,17 @@ function MyComponent() {
 For custom URL-synced state beyond what `<TablePage>` provides:
 
 ```tsx
-import { useQueryState, parseAsInteger, parseAsString, parseAsStringEnum } from 'nuqs';
+import {
+  useQueryState,
+  parseAsInteger,
+  parseAsString,
+  parseAsStringEnum,
+} from 'nuqs';
 
 const [tab, setTab] = useQueryState('tab', parseAsString.withDefault('all'));
 const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
-const [status, setStatus] = useQueryState('status', parseAsStringEnum(['pending', 'approved', 'rejected']));
+const [status, setStatus] = useQueryState(
+  'status',
+  parseAsStringEnum(['pending', 'approved', 'rejected'])
+);
 ```

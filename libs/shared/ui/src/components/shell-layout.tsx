@@ -1,4 +1,9 @@
-import { useState, useCallback, type ReactNode, type ComponentType } from 'react';
+import {
+  useState,
+  useCallback,
+  type ReactNode,
+  type ComponentType,
+} from 'react';
 import { cn } from '@erp/utils';
 import { ArrowRightCircle } from 'lucide-react';
 import { useIsMobile } from '../hooks/use-mobile';
@@ -52,11 +57,21 @@ export function ShellLayout({
   const [subNavExpanded, setSubNavExpanded] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const toggleSubNav = useCallback(() => setSubNavExpanded((prev) => !prev), []);
-  const toggleMobileMenu = useCallback(() => setMobileMenuOpen((prev) => !prev), []);
+  const toggleSubNav = useCallback(
+    () => setSubNavExpanded((prev) => !prev),
+    []
+  );
+  const toggleMobileMenu = useCallback(
+    () => setMobileMenuOpen((prev) => !prev),
+    []
+  );
 
   return (
-    <div className={cn('flex h-screen overflow-hidden bg-background text-foreground')}>
+    <div
+      className={cn(
+        'flex h-screen overflow-hidden bg-background text-foreground'
+      )}
+    >
       {/* Desktop sidebar group — icon bar + sub-nav + toggle */}
       <div className="relative hidden md:flex shrink-0">
         {/* Icon bar (always visible) */}
@@ -119,7 +134,7 @@ export function ShellLayout({
       <div className="flex flex-1 flex-col overflow-hidden">
         <TopBar
           isDark={isDark}
-          onToggleTheme={onToggleTheme ?? (() => {})}
+          onToggleTheme={onToggleTheme ?? (() => undefined)}
           onMobileMenuToggle={toggleMobileMenu}
           userName={userName}
           userRole={userRole}
@@ -128,9 +143,7 @@ export function ShellLayout({
           onLogout={onLogout}
         />
 
-        <main className="flex-1 overflow-y-auto pb-16 md:pb-0">
-          {children}
-        </main>
+        <main className="flex-1 overflow-y-auto pb-16 md:pb-0">{children}</main>
       </div>
 
       {/* Mobile bottom nav */}

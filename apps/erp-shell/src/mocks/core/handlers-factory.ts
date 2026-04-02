@@ -37,13 +37,15 @@ interface CrudOptions<T> {
 
 function parseParams(url: string): Record<string, string> {
   const out: Record<string, string> = {};
-  new URL(url).searchParams.forEach((v, k) => { out[k] = v; });
+  new URL(url).searchParams.forEach((v, k) => {
+    out[k] = v;
+  });
   return out;
 }
 
 export function createCrudHandlers<T extends { id: string }>(
   resource: string,
-  opts: CrudOptions<T> = {},
+  opts: CrudOptions<T> = {}
 ) {
   const d = opts.delayMs ?? 150;
   const prefix = opts.idPrefix ?? resource.slice(0, 3);
@@ -58,7 +60,7 @@ export function createCrudHandlers<T extends { id: string }>(
         if (p.search && opts.searchFields) {
           const q = p.search.toLowerCase();
           const match = opts.searchFields.some((f) =>
-            String(item[f]).toLowerCase().includes(q),
+            String(item[f]).toLowerCase().includes(q)
           );
           if (!match) return false;
         }
@@ -127,10 +129,14 @@ export function createCrudHandlers<T extends { id: string }>(
           }
         }
 
-        const updated = db.update<T>(resource, params.id as string, {
-          ...body,
-          updatedAt: new Date().toISOString(),
-        } as Partial<T>);
+        const updated = db.update<T>(
+          resource,
+          params.id as string,
+          {
+            ...body,
+            updatedAt: new Date().toISOString(),
+          } as Partial<T>
+        );
 
         if (!updated) return notFound(resource);
         return success(updated, 'Record_updated');

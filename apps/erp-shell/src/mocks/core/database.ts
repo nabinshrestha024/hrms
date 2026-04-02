@@ -16,12 +16,16 @@ export class MockDatabase {
     return (this.collections.get(collection) as T[]) ?? [];
   }
 
-  findById<T extends { id: string }>(collection: string, id: string): T | undefined {
+  findById<T extends { id: string }>(
+    collection: string,
+    id: string
+  ): T | undefined {
     return this.getAll<T>(collection).find((item) => item.id === id);
   }
 
   nextId(collection: string, prefix: string): string {
-    const current = this.idCounters.get(collection) ?? this.getAll(collection).length;
+    const current =
+      this.idCounters.get(collection) ?? this.getAll(collection).length;
     const next = current + 1;
     this.idCounters.set(collection, next);
     return `${prefix}-${String(next).padStart(3, '0')}`;
@@ -32,7 +36,11 @@ export class MockDatabase {
     return item;
   }
 
-  update<T extends { id: string }>(collection: string, id: string, patch: Partial<T>): T | null {
+  update<T extends { id: string }>(
+    collection: string,
+    id: string,
+    patch: Partial<T>
+  ): T | null {
     const items = this.getAll<T>(collection);
     const index = items.findIndex((item) => item.id === id);
     if (index === -1) return null;
@@ -61,7 +69,7 @@ export class MockDatabase {
       sortOrder?: 'asc' | 'desc';
       page?: number;
       pageSize?: number;
-    } = {},
+    } = {}
   ) {
     let items = this.getAll<T>(collection);
 
@@ -78,7 +86,8 @@ export class MockDatabase {
         if (aVal == null && bVal == null) return 0;
         if (aVal == null) return 1;
         if (bVal == null) return -1;
-        if (typeof aVal === 'number' && typeof bVal === 'number') return (aVal - bVal) * order;
+        if (typeof aVal === 'number' && typeof bVal === 'number')
+          return (aVal - bVal) * order;
         return String(aVal).localeCompare(String(bVal)) * order;
       });
     }

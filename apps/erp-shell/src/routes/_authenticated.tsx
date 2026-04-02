@@ -1,4 +1,10 @@
-import { createFileRoute, Outlet, useNavigate, useRouterState, Link } from '@tanstack/react-router';
+import {
+  createFileRoute,
+  Outlet,
+  useNavigate,
+  useRouterState,
+  Link,
+} from '@tanstack/react-router';
 import { useEffect } from 'react';
 import { ShellLayout, Skeleton, type NavLinkProps } from '@erp/ui';
 import { useAuth } from '@erp/auth';
@@ -70,7 +76,13 @@ function AuthenticatedLayout() {
       currentPath={location.pathname}
       brandName={tenant.branding.appTitle}
       userName={user?.name}
-      userRole={user?.role === 'admin' ? 'Admin' : user?.role === 'hr_manager' ? 'HR Manager' : 'Employee'}
+      userRole={
+        user?.role === 'admin'
+          ? 'Admin'
+          : user?.role === 'hr_manager'
+          ? 'HR Manager'
+          : 'Employee'
+      }
       userInitials={userInitials}
       modulesEnabled={tenant.modulesEnabled}
       isDark={isDark}

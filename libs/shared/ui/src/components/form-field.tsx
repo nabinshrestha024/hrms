@@ -19,7 +19,14 @@ interface FormFieldProps {
  *     <Input id="email" {...register('email')} />
  *   </FormField>
  */
-export function FormField({ label, htmlFor, error, required, className, children }: FormFieldProps) {
+export function FormField({
+  label,
+  htmlFor,
+  error,
+  required,
+  className,
+  children,
+}: FormFieldProps) {
   return (
     <div className={cn('space-y-1.5', className)}>
       <label htmlFor={htmlFor} className="block text-sm font-medium">
@@ -27,9 +34,7 @@ export function FormField({ label, htmlFor, error, required, className, children
         {required && <span className="ml-0.5 text-destructive">*</span>}
       </label>
       {children}
-      {error && (
-        <p className="text-xs text-destructive">{error}</p>
-      )}
+      {error && <p className="text-xs text-destructive">{error}</p>}
     </div>
   );
 }

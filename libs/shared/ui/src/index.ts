@@ -132,10 +132,17 @@ export { FormField } from './components/form-field';
 // Page templates — use these for quick route creation
 export { PageHeader } from './components/page-header';
 export { TablePage } from './components/table-page';
-export type { TablePageProps, FetchParams, FetchResult } from './components/table-page';
+export type {
+  TablePageProps,
+  FetchParams,
+  FetchResult,
+} from './components/table-page';
 export { FormDialog } from './components/form-dialog';
 export { MultiStepForm } from './components/multi-step-form';
-export type { StepConfig, MultiStepFormProps } from './components/multi-step-form';
+export type {
+  StepConfig,
+  MultiStepFormProps,
+} from './components/multi-step-form';
 
 // Data table components
 export {

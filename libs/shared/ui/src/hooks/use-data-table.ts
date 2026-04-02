@@ -1,22 +1,22 @@
-import { useState, useMemo, useCallback } from 'react';
 import {
   type ColumnDef,
   type ColumnFiltersState,
   type PaginationState,
   type RowSelectionState,
   type SortingState,
-  type VisibilityState,
-  type TableOptions,
   type Table,
+  type TableOptions,
+  type VisibilityState,
   getCoreRowModel,
+  getFacetedMinMaxValues,
+  getFacetedRowModel,
+  getFacetedUniqueValues,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  getFacetedRowModel,
-  getFacetedUniqueValues,
-  getFacetedMinMaxValues,
   useReactTable,
 } from '@tanstack/react-table';
+import { useCallback, useMemo, useState } from 'react';
 
 export interface UseDataTableProps<TData> {
   data: TData[];
@@ -86,11 +86,16 @@ export function useDataTable<TData>({
   const [columnFilters, setColumnFilters] =
     useState<ColumnFiltersState>(initialColumnFilters);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
-  const [columnVisibility, setColumnVisibility] =
-    useState<VisibilityState>(initialColumnVisibility);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(
+    initialColumnVisibility
+  );
 
   const handlePaginationChange = useCallback(
-    (updaterOrValue: PaginationState | ((old: PaginationState) => PaginationState)) => {
+    (
+      updaterOrValue:
+        | PaginationState
+        | ((old: PaginationState) => PaginationState)
+    ) => {
       setPagination((prev) => {
         const next =
           typeof updaterOrValue === 'function'
@@ -118,7 +123,11 @@ export function useDataTable<TData>({
   );
 
   const handleColumnFiltersChange = useCallback(
-    (updaterOrValue: ColumnFiltersState | ((old: ColumnFiltersState) => ColumnFiltersState)) => {
+    (
+      updaterOrValue:
+        | ColumnFiltersState
+        | ((old: ColumnFiltersState) => ColumnFiltersState)
+    ) => {
       setColumnFilters((prev) => {
         const next =
           typeof updaterOrValue === 'function'
@@ -169,11 +178,7 @@ export function useDataTable<TData>({
   const table = useReactTable(tableOptions);
 
   const selectedRows = useMemo(
-    () =>
-      table
-        .getFilteredSelectedRowModel()
-        .rows.map((row) => row.original),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    () => table.getFilteredSelectedRowModel().rows.map((row) => row.original),
     [table, rowSelection]
   );
 

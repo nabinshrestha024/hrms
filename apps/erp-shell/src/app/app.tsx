@@ -1,8 +1,18 @@
 import { useCallback } from 'react';
 import { RouterProvider, createRouter } from '@tanstack/react-router';
 import { TenantProvider } from '@erp/tenant';
-import { QueryProvider, ApiProvider, useApiClient, type ApiError } from '@erp/data-access';
-import { AuthProvider, AbilityProvider, useAuthStore, AUTH_TOKEN_KEY } from '@erp/auth';
+import {
+  QueryProvider,
+  ApiProvider,
+  useApiClient,
+  type ApiError,
+} from '@erp/data-access';
+import {
+  AuthProvider,
+  AbilityProvider,
+  useAuthStore,
+  AUTH_TOKEN_KEY,
+} from '@erp/auth';
 import { PluginProvider } from '@erp/plugin-core';
 import { toast } from '@erp/ui';
 import { routeTree } from '../routeTree.gen';
@@ -34,7 +44,13 @@ function AuthenticatedApp() {
     if (!token) return null;
     try {
       const { data } = await api.get<{
-        user: { id: string; email: string; name: string; role: string; tenantId: string };
+        user: {
+          id: string;
+          email: string;
+          name: string;
+          role: string;
+          tenantId: string;
+        };
         permissions: string[];
       }>('/auth/session');
       return data;

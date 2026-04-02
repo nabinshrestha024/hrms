@@ -71,7 +71,11 @@ describe('ShellLayout', () => {
 
   it('renders user name when provided', () => {
     render(
-      <ShellLayout currentPath="/dashboard" userName="John Doe" userRole="Admin">
+      <ShellLayout
+        currentPath="/dashboard"
+        userName="John Doe"
+        userRole="Admin"
+      >
         <div>Content</div>
       </ShellLayout>
     );

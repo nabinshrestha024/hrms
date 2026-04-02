@@ -30,20 +30,26 @@ describe('applyTenantTheme', () => {
   it('sets light mode CSS variables on :root', () => {
     applyTenantTheme(mockTheme, false);
     const root = document.documentElement;
-    expect(root.style.getPropertyValue('--primary')).toBe('oklch(0.50 0.20 145)');
+    expect(root.style.getPropertyValue('--primary')).toBe(
+      'oklch(0.50 0.20 145)'
+    );
     expect(root.style.getPropertyValue('--background')).toBe('oklch(1 0 0)');
   });
 
   it('sets dark mode CSS variables when isDark is true', () => {
     applyTenantTheme(mockTheme, true);
     const root = document.documentElement;
-    expect(root.style.getPropertyValue('--primary')).toBe('oklch(0.60 0.22 145)');
+    expect(root.style.getPropertyValue('--primary')).toBe(
+      'oklch(0.60 0.22 145)'
+    );
     expect(root.style.getPropertyValue('--background')).toBe('oklch(0.15 0 0)');
   });
 
   it('sets border radius', () => {
     applyTenantTheme(mockTheme, false);
-    expect(document.documentElement.style.getPropertyValue('--radius')).toBe('0.75rem');
+    expect(document.documentElement.style.getPropertyValue('--radius')).toBe(
+      '0.75rem'
+    );
   });
 
   it('handles theme without optional fields', () => {

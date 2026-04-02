@@ -1,5 +1,15 @@
 // Types
-export type { FieldType, FieldDefinition, LayoutNode, SectionNode, ColumnsNode, FieldRef, DividerNode, FormViewConfig, WidgetProps } from './types';
+export type {
+  FieldType,
+  FieldDefinition,
+  LayoutNode,
+  SectionNode,
+  ColumnsNode,
+  FieldRef,
+  DividerNode,
+  FormViewConfig,
+  WidgetProps,
+} from './types';
 
 // Registry
 export { WidgetRegistry } from './registry/widget-registry';

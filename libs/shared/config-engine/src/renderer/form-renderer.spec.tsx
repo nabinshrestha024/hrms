@@ -1,8 +1,8 @@
-import { describe, it, expect, vi, beforeAll } from 'vitest';
-import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/vitest';
-import { FormRenderer } from './form-renderer';
+import { render, screen } from '@testing-library/react';
+import { beforeAll, describe, expect, it } from 'vitest';
 import type { FormViewConfig } from '../types';
+import { FormRenderer } from './form-renderer';
 
 // Mock ResizeObserver for jsdom (required by Radix UI)
 beforeAll(() => {
@@ -16,7 +16,12 @@ beforeAll(() => {
 const simpleConfig: FormViewConfig = {
   entity: 'employee',
   fields: [
-    { name: 'firstName', type: 'text', label: 'First Name', validation: { required: true } },
+    {
+      name: 'firstName',
+      type: 'text',
+      label: 'First Name',
+      validation: { required: true },
+    },
     { name: 'age', type: 'number', label: 'Age' },
     { name: 'active', type: 'boolean', label: 'Active' },
   ],
@@ -25,10 +30,14 @@ const simpleConfig: FormViewConfig = {
     title: 'Basic Info',
     children: [
       { type: 'field', name: 'firstName' },
-      { type: 'columns', columns: 2, children: [
-        { type: 'field', name: 'age' },
-        { type: 'field', name: 'active' },
-      ]},
+      {
+        type: 'columns',
+        columns: 2,
+        children: [
+          { type: 'field', name: 'age' },
+          { type: 'field', name: 'active' },
+        ],
+      },
     ],
   },
 };
@@ -52,13 +61,23 @@ describe('FormRenderer', () => {
   });
 
   it('renders custom submit label', () => {
-    render(<FormRenderer config={simpleConfig} onSubmit={() => {}} submitLabel="Save Employee" />);
-    expect(screen.getByRole('button', { name: /save employee/i })).toBeInTheDocument();
+    render(
+      <FormRenderer
+        config={simpleConfig}
+        onSubmit={() => {}}
+        submitLabel="Save Employee"
+      />
+    );
+    expect(
+      screen.getByRole('button', { name: /save employee/i })
+    ).toBeInTheDocument();
   });
 
   it('shows required indicator for required fields', () => {
     render(<FormRenderer config={simpleConfig} onSubmit={() => {}} />);
     const label = screen.getByText(/first name/i);
-    expect(label.parentElement?.querySelector('.text-destructive')).toBeInTheDocument();
+    expect(
+      label.parentElement?.querySelector('.text-destructive')
+    ).toBeInTheDocument();
   });
 });

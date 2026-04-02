@@ -12,8 +12,12 @@ export function applyTenantBranding(branding: TenantBranding): void {
   link.href = branding.faviconUrl;
 
   if (branding.fontFamily) {
-    const fontUrl = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(branding.fontFamily)}:wght@400;500;600;700&display=swap`;
-    let fontLink = document.querySelector<HTMLLinkElement>('link[data-tenant-font]');
+    const fontUrl = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(
+      branding.fontFamily
+    )}:wght@400;500;600;700&display=swap`;
+    let fontLink = document.querySelector<HTMLLinkElement>(
+      'link[data-tenant-font]'
+    );
     if (!fontLink) {
       fontLink = document.createElement('link');
       fontLink.rel = 'stylesheet';
@@ -21,6 +25,9 @@ export function applyTenantBranding(branding: TenantBranding): void {
       document.head.appendChild(fontLink);
     }
     fontLink.href = fontUrl;
-    document.documentElement.style.setProperty('--font-sans', `'${branding.fontFamily}', ui-sans-serif, system-ui, sans-serif`);
+    document.documentElement.style.setProperty(
+      '--font-sans',
+      `'${branding.fontFamily}', ui-sans-serif, system-ui, sans-serif`
+    );
   }
 }

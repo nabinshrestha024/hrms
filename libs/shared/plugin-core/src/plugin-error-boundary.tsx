@@ -24,10 +24,12 @@ export class PluginErrorBoundary extends Component<Props, State> {
 
   render() {
     if (this.state.hasError) {
-      return this.props.fallback ?? (
-        <div className="rounded border border-destructive/50 bg-destructive/10 p-3 text-sm text-destructive">
-          Plugin &quot;{this.props.pluginId}&quot; encountered an error.
-        </div>
+      return (
+        this.props.fallback ?? (
+          <div className="rounded border border-destructive/50 bg-destructive/10 p-3 text-sm text-destructive">
+            Plugin &quot;{this.props.pluginId}&quot; encountered an error.
+          </div>
+        )
       );
     }
     return this.props.children;

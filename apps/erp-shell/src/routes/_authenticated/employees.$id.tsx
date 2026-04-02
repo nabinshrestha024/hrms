@@ -1,28 +1,31 @@
-import { createFileRoute, Link, useParams } from '@tanstack/react-router';
-import { ArrowLeft } from 'lucide-react';
 import { useEmployee, type EmployeeStatus } from '@erp/data-access';
-import { formatCurrency, formatDate } from '@erp/utils';
 import {
+  Badge,
+  Button,
   Card,
+  CardContent,
   CardHeader,
   CardTitle,
-  CardContent,
+  Separator,
+  Skeleton,
   Tabs,
+  TabsContent,
   TabsList,
   TabsTrigger,
-  TabsContent,
-  Badge,
-  Skeleton,
-  Separator,
-  Button,
 } from '@erp/ui';
+import { formatCurrency, formatDate } from '@erp/utils';
+import { createFileRoute, Link, useParams } from '@tanstack/react-router';
+import { ArrowLeft } from 'lucide-react';
 
 export const Route = createFileRoute('/_authenticated/employees/$id')({
   component: EmployeeDetailPage,
   beforeLoad: ({ params }) => ({ breadcrumb: `Employee #${params.id}` }),
 });
 
-const statusVariantMap: Record<EmployeeStatus, 'success' | 'destructive' | 'warning'> = {
+const statusVariantMap: Record<
+  EmployeeStatus,
+  'success' | 'destructive' | 'warning'
+> = {
   active: 'success',
   inactive: 'destructive',
   on_leave: 'warning',
@@ -71,7 +74,9 @@ function EmployeeDetailPage() {
     return (
       <div className="p-6">
         <Button variant="ghost" size="sm" asChild>
-          <Link to="/employees"><ArrowLeft /> Back to Employees</Link>
+          <Link to="/employees">
+            <ArrowLeft /> Back to Employees
+          </Link>
         </Button>
         <p className="mt-6 text-muted-foreground">Employee not found.</p>
       </div>
@@ -81,7 +86,9 @@ function EmployeeDetailPage() {
   return (
     <div className="space-y-6 p-6">
       <Button variant="ghost" size="sm" asChild>
-        <Link to="/employees"><ArrowLeft /> Back to Employees</Link>
+        <Link to="/employees">
+          <ArrowLeft /> Back to Employees
+        </Link>
       </Button>
 
       <div className="flex items-start justify-between gap-4">
@@ -109,36 +116,59 @@ function EmployeeDetailPage() {
 
         <TabsContent value="personal">
           <Card>
-            <CardHeader><CardTitle>Personal Information</CardTitle></CardHeader>
+            <CardHeader>
+              <CardTitle>Personal Information</CardTitle>
+            </CardHeader>
             <CardContent className="space-y-3">
               <DetailRow label="Employee ID" value={employee.employeeId} />
               <DetailRow label="Email" value={employee.email} />
-              <DetailRow label="Phone" value={employee.phone ?? 'Not provided'} />
+              <DetailRow
+                label="Phone"
+                value={employee.phone ?? 'Not provided'}
+              />
               <DetailRow label="Department" value={employee.department} />
               <DetailRow label="Branch" value={employee.branch} />
               <DetailRow label="Job Level" value={employee.jobLevel} />
               <DetailRow label="Designation" value={employee.designation} />
-              <DetailRow label="Manager ID" value={employee.managerId ?? 'None'} />
-              <DetailRow label="Joining Date" value={formatDate(employee.startDate)} />
+              <DetailRow
+                label="Manager ID"
+                value={employee.managerId ?? 'None'}
+              />
+              <DetailRow
+                label="Joining Date"
+                value={formatDate(employee.startDate)}
+              />
             </CardContent>
           </Card>
         </TabsContent>
 
         <TabsContent value="compensation">
           <Card>
-            <CardHeader><CardTitle>Compensation</CardTitle></CardHeader>
+            <CardHeader>
+              <CardTitle>Compensation</CardTitle>
+            </CardHeader>
             <CardContent className="space-y-3">
-              <DetailRow label="Salary" value={formatCurrency(employee.salary)} />
-              <DetailRow label="Start Date" value={formatDate(employee.startDate)} />
+              <DetailRow
+                label="Salary"
+                value={formatCurrency(employee.salary)}
+              />
+              <DetailRow
+                label="Start Date"
+                value={formatDate(employee.startDate)}
+              />
             </CardContent>
           </Card>
         </TabsContent>
 
         <TabsContent value="activity">
           <Card>
-            <CardHeader><CardTitle>Activity</CardTitle></CardHeader>
+            <CardHeader>
+              <CardTitle>Activity</CardTitle>
+            </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground">Activity timeline coming soon</p>
+              <p className="text-sm text-muted-foreground">
+                Activity timeline coming soon
+              </p>
             </CardContent>
           </Card>
         </TabsContent>

@@ -12,7 +12,10 @@ interface AddEmployeeDialogProps {
   onOpenChange: (open: boolean) => void;
 }
 
-export function AddEmployeeDialog({ open, onOpenChange }: AddEmployeeDialogProps) {
+export function AddEmployeeDialog({
+  open,
+  onOpenChange,
+}: AddEmployeeDialogProps) {
   const createMutation = useCreateEmployee();
 
   const form = useForm<AddEmployeeInput>({
@@ -24,7 +27,10 @@ export function AddEmployeeDialog({ open, onOpenChange }: AddEmployeeDialogProps
   const steps: StepConfig[] = [
     { label: 'Basic Details', content: <BasicDetailsStep form={form} /> },
     { label: 'Work Information', content: <WorkInformationStep form={form} /> },
-    { label: 'Financial Information', content: <FinancialInfoStep form={form} /> },
+    {
+      label: 'Financial Information',
+      content: <FinancialInfoStep form={form} />,
+    },
   ];
 
   const handleValidateStep = async (stepIndex: number): Promise<boolean> => {
@@ -36,21 +42,18 @@ export function AddEmployeeDialog({ open, onOpenChange }: AddEmployeeDialogProps
 
     createMutation.mutate(
       {
-        employeeId: data.employeeId,
         firstName: data.firstName,
         lastName: data.lastName,
         email: data.workEmail || data.personalEmail,
         phone: data.phone,
-        branch: data.branch,
-        jobLevel: data.jobLevel,
         department: data.department,
         designation: data.designation,
-        status: 'active',
+        status: 'active' as const,
         salary: Number(data.grossSalary) || 0,
         startDate: data.joiningDate,
         managerId: data.reportingManager || null,
         avatar: null,
-      } as any,
+      },
       {
         onSuccess: () => {
           toast({ title: 'Employee created successfully', variant: 'success' });
@@ -58,9 +61,13 @@ export function AddEmployeeDialog({ open, onOpenChange }: AddEmployeeDialogProps
           onOpenChange(false);
         },
         onError: (err) => {
-          toast({ title: 'Failed to create employee', description: err.message, variant: 'destructive' });
+          toast({
+            title: 'Failed to create employee',
+            description: err.message,
+            variant: 'destructive',
+          });
         },
-      },
+      }
     );
   };
 

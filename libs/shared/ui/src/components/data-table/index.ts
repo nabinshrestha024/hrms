@@ -8,7 +8,10 @@ export { DataTablePagination } from './data-table-pagination';
 export type { DataTablePaginationProps } from './data-table-pagination';
 
 export { DataTableRowActions } from './data-table-row-actions';
-export type { RowAction, DataTableRowActionsProps } from './data-table-row-actions';
+export type {
+  RowAction,
+  DataTableRowActionsProps,
+} from './data-table-row-actions';
 
 export { DataTableToolbar } from './data-table-toolbar';
 export type { DataTableToolbarProps } from './data-table-toolbar';

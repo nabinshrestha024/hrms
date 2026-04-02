@@ -1,5 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Bell, ChevronsUpDown, Menu, Moon, Sun, User, Settings, LogOut } from 'lucide-react';
+import {
+  Bell,
+  ChevronsUpDown,
+  Menu,
+  Moon,
+  Sun,
+  User,
+  Settings,
+  LogOut,
+} from 'lucide-react';
 import { Button } from '../primitives/button';
 import { Avatar, AvatarFallback, AvatarImage } from '../primitives/avatar';
 import {
@@ -43,7 +52,11 @@ export function TopBar({
   onLogout,
 }: TopBarProps) {
   const now = useCurrentTime();
-  const timeStr = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+  const timeStr = now.toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+  });
 
   return (
     <header className="flex h-[70px] items-center justify-between bg-white shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] px-6 md:px-12 dark:bg-card dark:shadow-none dark:border-b dark:border-border">
@@ -88,14 +101,24 @@ export function TopBar({
               className="flex items-center gap-2 rounded bg-[#FAFAFA] px-2 py-1.5 hover:bg-accent transition-colors dark:bg-muted"
             >
               <Avatar className="size-8 rounded-lg">
-                {userAvatar && <AvatarImage src={userAvatar} alt={userName} className="rounded-lg" />}
+                {userAvatar && (
+                  <AvatarImage
+                    src={userAvatar}
+                    alt={userName}
+                    className="rounded-lg"
+                  />
+                )}
                 <AvatarFallback className="bg-primary text-primary-foreground text-xs rounded-lg">
                   {userInitials ?? 'U'}
                 </AvatarFallback>
               </Avatar>
               <div className="hidden md:flex flex-col items-start text-left">
-                <span className="text-sm font-semibold leading-5 text-[#3F3F46] dark:text-foreground">{userName ?? 'User'}</span>
-                <span className="text-xs font-normal leading-4 text-[#71717A] dark:text-muted-foreground">{userRole ?? ''}</span>
+                <span className="text-sm font-semibold leading-5 text-[#3F3F46] dark:text-foreground">
+                  {userName ?? 'User'}
+                </span>
+                <span className="text-xs font-normal leading-4 text-[#71717A] dark:text-muted-foreground">
+                  {userRole ?? ''}
+                </span>
               </div>
               <ChevronsUpDown className="hidden md:block size-4 text-muted-foreground" />
             </button>
@@ -113,7 +136,11 @@ export function TopBar({
                 <span>Settings</span>
               </DropdownMenuItem>
               <DropdownMenuItem onClick={onToggleTheme}>
-                {isDark ? <Sun className="size-4" /> : <Moon className="size-4" />}
+                {isDark ? (
+                  <Sun className="size-4" />
+                ) : (
+                  <Moon className="size-4" />
+                )}
                 <span>{isDark ? 'Light Mode' : 'Dark Mode'}</span>
               </DropdownMenuItem>
             </DropdownMenuGroup>

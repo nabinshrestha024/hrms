@@ -15,14 +15,18 @@ export const statusConfig: Record<
 export const columns: ColumnDef<Employee, unknown>[] = [
   {
     accessorKey: 'employeeId',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Employee ID" />,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Employee ID" />
+    ),
     size: 90,
     enableSorting: true,
   },
   {
     id: 'name',
     accessorFn: (row) => `${row.firstName} ${row.lastName}`,
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Employee Name" />,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Employee Name" />
+    ),
     cell: ({ row }) => (
       <span className="font-medium truncate block">
         {row.original.firstName} {row.original.lastName}
@@ -34,44 +38,62 @@ export const columns: ColumnDef<Employee, unknown>[] = [
   },
   {
     accessorKey: 'department',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Department" />,
-    cell: ({ row }) => <span className="truncate block">{row.original.department}</span>,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Department" />
+    ),
+    cell: ({ row }) => (
+      <span className="truncate block">{row.original.department}</span>
+    ),
     size: 110,
     enableSorting: true,
   },
   {
     accessorKey: 'branch',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Branch" />,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Branch" />
+    ),
     size: 100,
     enableSorting: true,
   },
   {
     accessorKey: 'jobLevel',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Job Level" />,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Job Level" />
+    ),
     size: 80,
     enableSorting: true,
   },
   {
     accessorKey: 'designation',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Designation" />,
-    cell: ({ row }) => <span className="truncate block">{row.original.designation}</span>,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Designation" />
+    ),
+    cell: ({ row }) => (
+      <span className="truncate block">{row.original.designation}</span>
+    ),
     size: 120,
     enableSorting: true,
   },
   {
     accessorKey: 'startDate',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Joining Date" />,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Joining Date" />
+    ),
     cell: ({ row }) => formatDate(row.original.startDate, { format: 'medium' }),
     size: 100,
     enableSorting: true,
   },
   {
     id: 'contact',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Contact" />,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Contact" />
+    ),
     cell: ({ row }) => (
       <div className="min-w-0">
         <div className="text-sm truncate">{row.original.phone ?? '—'}</div>
-        <div className="text-xs text-muted-foreground truncate">{row.original.email}</div>
+        <div className="text-xs text-muted-foreground truncate">
+          {row.original.email}
+        </div>
       </div>
     ),
     size: 130,
@@ -79,7 +101,9 @@ export const columns: ColumnDef<Employee, unknown>[] = [
   },
   {
     accessorKey: 'status',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Status" />,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Status" />
+    ),
     cell: ({ row }) => {
       const config = statusConfig[row.original.status];
       return <Badge variant={config.variant}>{config.label}</Badge>;

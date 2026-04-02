@@ -11,15 +11,26 @@ interface IconBarProps {
 }
 
 function DefaultLink({ to, children, className }: NavLinkProps) {
-  return <a href={to} className={className}>{children}</a>;
+  return (
+    <a href={to} className={className}>
+      {children}
+    </a>
+  );
 }
 
-export function IconBar({ currentPath, modulesEnabled, linkComponent }: IconBarProps) {
+export function IconBar({
+  currentPath,
+  modulesEnabled,
+  linkComponent,
+}: IconBarProps) {
   const LinkComp = linkComponent ?? DefaultLink;
   const activeModule = findActiveModule(currentPath);
 
   const filteredModules = modulesEnabled
-    ? navModules.filter(m => !m.modules || m.modules.some(mod => modulesEnabled.includes(mod)))
+    ? navModules.filter(
+        (m) =>
+          !m.modules || m.modules.some((mod) => modulesEnabled.includes(mod))
+      )
     : navModules;
 
   return (
@@ -29,9 +40,31 @@ export function IconBar({ currentPath, modulesEnabled, linkComponent }: IconBarP
         <div className="flex size-9 items-center justify-center rounded bg-sidebar-primary">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <rect width="6" height="6" rx="1" fill="white" />
-            <rect y="8" width="6" height="6" rx="1" fill="white" opacity="0.6" />
-            <rect x="8" width="6" height="6" rx="1" fill="white" opacity="0.6" />
-            <rect x="8" y="8" width="6" height="6" rx="1" fill="white" opacity="0.4" />
+            <rect
+              y="8"
+              width="6"
+              height="6"
+              rx="1"
+              fill="white"
+              opacity="0.6"
+            />
+            <rect
+              x="8"
+              width="6"
+              height="6"
+              rx="1"
+              fill="white"
+              opacity="0.6"
+            />
+            <rect
+              x="8"
+              y="8"
+              width="6"
+              height="6"
+              rx="1"
+              fill="white"
+              opacity="0.4"
+            />
           </svg>
         </div>
       </div>
@@ -57,14 +90,16 @@ export function IconBar({ currentPath, modulesEnabled, linkComponent }: IconBarP
                   <Icon className="size-5" strokeWidth={1.5} />
                 </LinkComp>
               </TooltipTrigger>
-              <TooltipContent side="right" className="bg-foreground text-background text-xs">
+              <TooltipContent
+                side="right"
+                className="bg-foreground text-background text-xs"
+              >
                 {mod.label}
               </TooltipContent>
             </Tooltip>
           );
         })}
       </nav>
-
     </div>
   );
 }

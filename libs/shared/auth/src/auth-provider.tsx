@@ -16,11 +16,18 @@ export const AuthContext = createContext<AuthContextValue | null>(null);
 interface AuthProviderProps {
   children: ReactNode;
   /** Optional async function to restore session via API. Falls back to local restoreSession(). */
-  onRestoreSession?: () => Promise<{ user: User; permissions: string[] } | null>;
+  onRestoreSession?: () => Promise<{
+    user: User;
+    permissions: string[];
+  } | null>;
 }
 
-export function AuthProvider({ children, onRestoreSession }: AuthProviderProps) {
-  const { user, isAuthenticated, isLoading, login, logout, setLoading } = useAuthStore();
+export function AuthProvider({
+  children,
+  onRestoreSession,
+}: AuthProviderProps) {
+  const { user, isAuthenticated, isLoading, login, logout, setLoading } =
+    useAuthStore();
 
   useEffect(() => {
     async function restore() {

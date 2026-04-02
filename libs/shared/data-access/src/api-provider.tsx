@@ -31,7 +31,7 @@ export function ApiProvider({
         onError,
         onUnauthorized,
       }),
-    [baseUrl, getToken, timeout, onError, onUnauthorized],
+    [baseUrl, getToken, timeout, onError, onUnauthorized]
   );
 
   return (

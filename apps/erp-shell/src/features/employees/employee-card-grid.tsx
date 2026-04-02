@@ -16,7 +16,10 @@ interface EmployeeCardGridProps {
   onNavigate: (id: string) => void;
 }
 
-export function EmployeeCardGrid({ employees, onNavigate }: EmployeeCardGridProps) {
+export function EmployeeCardGrid({
+  employees,
+  onNavigate,
+}: EmployeeCardGridProps) {
   return (
     <div className="grid grid-cols-1 gap-4 px-6 md:grid-cols-2 lg:grid-cols-3">
       {employees.map((emp) => (
@@ -27,7 +30,8 @@ export function EmployeeCardGrid({ employees, onNavigate }: EmployeeCardGridProp
         >
           <Avatar className="size-12 shrink-0">
             <AvatarFallback className="bg-muted text-muted-foreground text-sm">
-              {emp.firstName[0]}{emp.lastName[0]}
+              {emp.firstName[0]}
+              {emp.lastName[0]}
             </AvatarFallback>
           </Avatar>
 
@@ -36,17 +40,29 @@ export function EmployeeCardGrid({ employees, onNavigate }: EmployeeCardGridProp
               {emp.firstName} {emp.lastName}
             </p>
             <div className="mt-1 space-y-0.5">
-              <p className="text-base font-medium text-muted-foreground truncate">{emp.email}</p>
-              <p className="text-base font-medium text-muted-foreground">{emp.designation}</p>
+              <p className="text-base font-medium text-muted-foreground truncate">
+                {emp.email}
+              </p>
+              <p className="text-base font-medium text-muted-foreground">
+                {emp.designation}
+              </p>
               <div className="flex items-center gap-0.5">
-                <span className={cn(
-                  'inline-block size-2 rounded-full',
-                  emp.status === 'active' ? 'bg-[#00A63E]' : 'bg-muted-foreground',
-                )} />
-                <span className={cn(
-                  'text-base font-medium',
-                  emp.status === 'active' ? 'text-[#00A63E]' : 'text-muted-foreground',
-                )}>
+                <span
+                  className={cn(
+                    'inline-block size-2 rounded-full',
+                    emp.status === 'active'
+                      ? 'bg-[#00A63E]'
+                      : 'bg-muted-foreground'
+                  )}
+                />
+                <span
+                  className={cn(
+                    'text-base font-medium',
+                    emp.status === 'active'
+                      ? 'text-[#00A63E]'
+                      : 'text-muted-foreground'
+                  )}
+                >
                   {emp.status === 'active' ? 'Online' : 'Offline'}
                 </span>
               </div>
@@ -64,16 +80,29 @@ export function EmployeeCardGrid({ employees, onNavigate }: EmployeeCardGridProp
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-[100px]">
-              <DropdownMenuItem onClick={(e) => { e.stopPropagation(); alert(`Edit: ${emp.firstName}`); }}>
+              <DropdownMenuItem
+                onClick={(e) => {
+                  e.stopPropagation();
+                  alert(`Edit: ${emp.firstName}`);
+                }}
+              >
                 Edit
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={(e) => { e.stopPropagation(); alert(`Block: ${emp.firstName}`); }}>
+              <DropdownMenuItem
+                onClick={(e) => {
+                  e.stopPropagation();
+                  alert(`Block: ${emp.firstName}`);
+                }}
+              >
                 Block
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 className="text-[#E7000B] focus:text-[#E7000B]"
-                onClick={(e) => { e.stopPropagation(); alert(`Delete: ${emp.firstName}`); }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  alert(`Delete: ${emp.firstName}`);
+                }}
               >
                 Delete
               </DropdownMenuItem>

@@ -2,21 +2,21 @@
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Monorepo | Nx 22.6 |
-| Package Manager | pnpm 10 (workspaces) |
-| Language | TypeScript 5.9 (strict) |
-| UI Framework | React 19 |
-| Bundler | Vite 8 |
-| Styling | Tailwind CSS v4 + shadcn/ui (Radix primitives) |
-| Routing | TanStack Router (file-based) |
-| Server State | TanStack React Query |
-| Client State | Zustand |
-| URL State | nuqs |
-| Forms | React Hook Form + Zod + Config Engine |
-| Testing | Vitest + Testing Library (unit), Playwright (e2e) |
-| CI | GitHub Actions |
+| Layer           | Technology                                        |
+| --------------- | ------------------------------------------------- |
+| Monorepo        | Nx 22.6                                           |
+| Package Manager | pnpm 10 (workspaces)                              |
+| Language        | TypeScript 5.9 (strict)                           |
+| UI Framework    | React 19                                          |
+| Bundler         | Vite 8                                            |
+| Styling         | Tailwind CSS v4 + shadcn/ui (Radix primitives)    |
+| Routing         | TanStack Router (file-based)                      |
+| Server State    | TanStack React Query                              |
+| Client State    | Zustand                                           |
+| URL State       | nuqs                                              |
+| Forms           | React Hook Form + Zod + Config Engine             |
+| Testing         | Vitest + Testing Library (unit), Playwright (e2e) |
+| CI              | GitHub Actions                                    |
 
 ## Project Structure
 
@@ -57,6 +57,7 @@ hrms/
 ## Shared Libraries — What Each Does
 
 ### `@erp/ui` — Design System
+
 The component library. Contains everything visual.
 
 ```
@@ -79,6 +80,7 @@ ui/src/
 ```
 
 ### `@erp/auth` — Authentication + RBAC
+
 - `useAuth()` — login state, user object, logout
 - `useAbility()` — check permissions
 - `<Can action="read" subject="hr:employees">` — declarative permission gates
@@ -86,12 +88,14 @@ ui/src/
 - Mock users with role-based permissions (admin, hr_manager, employee)
 
 ### `@erp/tenant` — Multi-Tenancy
+
 - Resolves tenant from subdomain (`acme.erp.local` → `acme`)
 - Applies theme colors via CSS variables
 - `useTenant()` — access tenant config, dark mode toggle
 - Each tenant has: modules, branding, theme, locale, currency
 
 ### `@erp/data-access` — Data Layer
+
 - `ApiClient` — typed HTTP client with auth token injection
 - `QueryProvider` — React Query setup (5min stale, 1 retry)
 - `createTypedQuery/Mutation` — Zod-validated query factories
@@ -99,12 +103,14 @@ ui/src/
 - Query hooks: `useEmployees()`, `useEmployee(id)`, etc.
 
 ### `@erp/config-engine` — Form Engine
+
 - `FormRenderer` — renders forms from JSON config
 - `WidgetRegistry` — register custom form widgets
 - Builds Zod schemas from field definitions at runtime
 - Built-in widgets: text, number, select, date, boolean
 
 ### `@erp/utils` — Utilities
+
 - `cn()` — Tailwind class merge (clsx + tailwind-merge)
 - `formatDate()` / `formatDateTime()` / `formatTime()` — Intl-based
 - `formatCurrency()` / `formatNumber()` / `formatPercent()` — Intl-based
@@ -148,6 +154,7 @@ routes/
 ```
 
 **Key rules:**
+
 - `_authenticated.tsx` = layout route (has `<Outlet />`, wraps children with sidebar)
 - `_authenticated/` = directory for child routes under that layout
 - `$id` = dynamic parameter (accessed via `useParams()`)
@@ -171,7 +178,7 @@ export const navModules: NavModule[] = [
     label: 'Leave',
     icon: TentTree,
     href: '/leave/requests',
-    modules: ['leave'],          // Only shown if tenant has 'leave' module
+    modules: ['leave'], // Only shown if tenant has 'leave' module
     subItems: [
       { label: 'Leave Requests', href: '/leave/requests', icon: ListChecks },
       { label: 'My Requests', href: '/leave/my-requests', icon: FileText },
@@ -188,11 +195,11 @@ To add a new sidebar module, add an entry to `navModules` and add the module key
 
 Three types of state, each with a dedicated tool:
 
-| State Type | Tool | Example |
-|-----------|------|---------|
+| State Type       | Tool        | Example                                           |
+| ---------------- | ----------- | ------------------------------------------------- |
 | **Server state** | React Query | Employee list, leave requests (cached, refetched) |
-| **Client state** | Zustand | Auth store (user, permissions, token) |
-| **URL state** | nuqs | Table pagination, sorting, search, filters |
+| **Client state** | Zustand     | Auth store (user, permissions, token)             |
+| **URL state**    | nuqs        | Table pagination, sorting, search, filters        |
 
 **Rule:** If state needs to survive page refresh or be shareable via URL, use nuqs. If it's server data, use React Query. If it's app-wide client state, use Zustand. For local UI state (modals, toggles), use React `useState`.
 
@@ -223,13 +230,13 @@ Colors are defined as CSS variables in `apps/erp-shell/src/styles/app.css` using
 
 ```css
 :root {
-  --primary: oklch(0.318 0.157 264.2);      /* Indigo #312C85 */
-  --sidebar: oklch(0.07 0 0);               /* Near-black for icon bar */
+  --primary: oklch(0.318 0.157 264.2); /* Indigo #312C85 */
+  --sidebar: oklch(0.07 0 0); /* Near-black for icon bar */
   /* ... */
 }
 
 .dark {
-  --primary: oklch(0.55 0.18 264);           /* Lighter indigo for dark mode */
+  --primary: oklch(0.55 0.18 264); /* Lighter indigo for dark mode */
   /* ... */
 }
 ```

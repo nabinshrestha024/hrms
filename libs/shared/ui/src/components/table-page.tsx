@@ -39,7 +39,7 @@ export interface TablePageProps<T> {
   /** Called when a row is clicked */
   onRowClick?: (row: T) => void;
   /** Row action menu items */
-  rowActions?: UseDataTableProps<T>['data'] extends (infer _U)[] ? import('./data-table').RowAction<T>[] : never;
+  rowActions?: import('./data-table').RowAction<T>[];
   /** Search input placeholder */
   searchPlaceholder?: string;
   /** Slot for action buttons (e.g. "Add Employee") in the header */
@@ -68,9 +68,18 @@ export function TablePage<T>({
 }: TablePageProps<T>) {
   // URL-synced state
   const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
-  const [pageSize, setPageSize] = useQueryState('pageSize', parseAsInteger.withDefault(defaultPageSize));
-  const [sortBy, setSortBy] = useQueryState('sortBy', parseAsString.withDefault(''));
-  const [sortOrder, setSortOrder] = useQueryState('sortOrder', parseAsString.withDefault(''));
+  const [pageSize, setPageSize] = useQueryState(
+    'pageSize',
+    parseAsInteger.withDefault(defaultPageSize)
+  );
+  const [sortBy, setSortBy] = useQueryState(
+    'sortBy',
+    parseAsString.withDefault('')
+  );
+  const [sortOrder, setSortOrder] = useQueryState(
+    'sortOrder',
+    parseAsString.withDefault('')
+  );
   const [search, setSearch] = useQueryState('q', parseAsString.withDefault(''));
 
   // Data state
@@ -94,7 +103,9 @@ export function TablePage<T>({
       setTotalCount(result.total);
       setLoading(false);
     });
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [page, pageSize, sortBy, sortOrder, search, fetchData]);
 
   // Table instance
@@ -124,11 +135,16 @@ export function TablePage<T>({
     },
   });
 
-  const computedSubtitle = subtitle ?? `${totalCount} record${totalCount !== 1 ? 's' : ''}`;
+  const computedSubtitle =
+    subtitle ?? `${totalCount} record${totalCount !== 1 ? 's' : ''}`;
 
   return (
     <div>
-      <PageHeader title={title} subtitle={computedSubtitle} actions={headerActions} />
+      <PageHeader
+        title={title}
+        subtitle={computedSubtitle}
+        actions={headerActions}
+      />
 
       <div className="px-6">
         <DataTable

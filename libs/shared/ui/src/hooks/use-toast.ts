@@ -51,9 +51,7 @@ function addToast(input: ToastInput): string {
 }
 
 function dismiss(toastId: string) {
-  toasts = toasts.map((t) =>
-    t.id === toastId ? { ...t, open: false } : t
-  );
+  toasts = toasts.map((t) => (t.id === toastId ? { ...t, open: false } : t));
   emitChange();
 
   // Remove from list after close animation

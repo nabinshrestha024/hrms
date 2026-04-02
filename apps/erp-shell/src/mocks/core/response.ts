@@ -18,7 +18,7 @@ export interface ErrorDetail {
 export function success<T>(data: T, message = 'Record_fetched', status = 200) {
   return HttpResponse.json(
     { code: String(status), message, data, errors: [] },
-    { status },
+    { status }
   );
 }
 
@@ -29,7 +29,7 @@ export function created<T>(data: T, message = 'Record_created') {
 export function noContent(message = 'Record_deleted') {
   return HttpResponse.json(
     { code: '204', message, data: null, errors: [] },
-    { status: 200 },
+    { status: 200 }
   );
 }
 
@@ -39,12 +39,9 @@ export function error(
   message: string,
   code = '400',
   status = 400,
-  errors: ErrorDetail[] = [],
+  errors: ErrorDetail[] = []
 ) {
-  return HttpResponse.json(
-    { code, message, data: null, errors },
-    { status },
-  );
+  return HttpResponse.json({ code, message, data: null, errors }, { status });
 }
 
 export function badRequest(message: string, errors: ErrorDetail[] = []) {
@@ -82,7 +79,7 @@ export function serverError(message = 'Internal server error') {
  * Usage: validationError(zodError.issues)
  */
 export function validationError(
-  issues: Array<{ path: (string | number)[]; message: string }>,
+  issues: Array<{ path: (string | number)[]; message: string }>
 ) {
   const errors: ErrorDetail[] = issues.map((issue) => ({
     errorCode: `VALIDATION_${issue.path.join('_').toUpperCase()}`,

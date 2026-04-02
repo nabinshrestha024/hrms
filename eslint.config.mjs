@@ -22,7 +22,7 @@ export default [
       '@nx/enforce-module-boundaries': [
         'error',
         {
-          enforceBuildableLibDependency: true,
+          enforceBuildableLibDependency: false,
           allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$'],
           depConstraints: [
             {
@@ -52,6 +52,10 @@ export default [
             {
               sourceTag: 'type:ui',
               onlyDependOnLibsWithTags: ['type:utils'],
+            },
+            {
+              sourceTag: 'type:config',
+              onlyDependOnLibsWithTags: ['type:ui', 'type:utils'],
             },
             {
               sourceTag: 'type:utils',
@@ -143,6 +147,8 @@ export default [
     rules: {
       'no-console': 'off',
       'no-restricted-syntax': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-empty-function': 'off',
     },
   },
 
@@ -151,6 +157,14 @@ export default [
     files: ['**/mocks/**/*.ts'],
     rules: {
       'no-console': 'off',
+    },
+  },
+
+  // ── Generator & E2E config rules ────────────────────────────────────
+  {
+    files: ['tools/generators/**/*.ts', '**/playwright.config.ts'],
+    rules: {
+      'no-restricted-syntax': 'off',
     },
   },
 ];

@@ -13,9 +13,10 @@ const COLOR_KEY_TO_CSS_VAR: Record<string, string> = {
 
 export function applyTenantTheme(theme: TenantTheme, isDark: boolean): void {
   const root = document.documentElement;
-  const colors = isDark && Object.keys(theme.colors.dark).length > 0
-    ? theme.colors.dark
-    : theme.colors;
+  const colors =
+    isDark && Object.keys(theme.colors.dark).length > 0
+      ? theme.colors.dark
+      : theme.colors;
 
   for (const [key, value] of Object.entries(colors)) {
     if (key === 'dark') continue;

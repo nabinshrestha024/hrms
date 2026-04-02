@@ -9,11 +9,17 @@ export function initAuthModule() {
     http.post(`${API_BASE}/auth/login`, async ({ request }) => {
       await delay(300);
       try {
-        const body = (await request.json()) as { email: string; password: string; tenantId: string };
+        const body = (await request.json()) as {
+          email: string;
+          password: string;
+          tenantId: string;
+        };
         const result = await mockLogin(body);
         return success(result, 'Login_success');
       } catch (err) {
-        return unauthorized(err instanceof Error ? err.message : 'Invalid credentials');
+        return unauthorized(
+          err instanceof Error ? err.message : 'Invalid credentials'
+        );
       }
     }),
 

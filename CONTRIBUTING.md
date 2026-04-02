@@ -55,18 +55,18 @@ Edit `libs/shared/tenant/src/mock-tenants.ts` — add your module key to `module
 
 ### File Naming
 
-| Type | Convention | Example |
-|------|-----------|---------|
-| Route files | `kebab-case.tsx` | `leave-requests.tsx` |
-| Components | `kebab-case.tsx` | `page-header.tsx`, `data-table.tsx` |
-| Hooks | `use-[name].ts` | `use-mobile.ts`, `use-data-table.ts` |
-| Types | `types.ts` or inline | `libs/shared/auth/src/types.ts` |
-| Schemas (Zod) | `[entity].schema.ts` | `employee.schema.ts` |
-| Query hooks | `[entity].queries.ts` | `employee.queries.ts` |
-| Mock data | `[entity].mock.ts` | `employees.mock.ts` |
-| Tests | `[file].spec.tsx` | `shell-layout.spec.tsx` |
-| Utilities | `[function].ts` | `format-date.ts`, `cn.ts` |
-| Providers | `[feature]-provider.tsx` | `auth-provider.tsx` |
+| Type          | Convention               | Example                              |
+| ------------- | ------------------------ | ------------------------------------ |
+| Route files   | `kebab-case.tsx`         | `leave-requests.tsx`                 |
+| Components    | `kebab-case.tsx`         | `page-header.tsx`, `data-table.tsx`  |
+| Hooks         | `use-[name].ts`          | `use-mobile.ts`, `use-data-table.ts` |
+| Types         | `types.ts` or inline     | `libs/shared/auth/src/types.ts`      |
+| Schemas (Zod) | `[entity].schema.ts`     | `employee.schema.ts`                 |
+| Query hooks   | `[entity].queries.ts`    | `employee.queries.ts`                |
+| Mock data     | `[entity].mock.ts`       | `employees.mock.ts`                  |
+| Tests         | `[file].spec.tsx`        | `shell-layout.spec.tsx`              |
+| Utilities     | `[function].ts`          | `format-date.ts`, `cn.ts`            |
+| Providers     | `[feature]-provider.tsx` | `auth-provider.tsx`                  |
 
 ### Exports
 
@@ -97,7 +97,11 @@ import { Button } from '@erp/ui/src/primitives/button';
 // Standard component pattern
 function MyComponent({ className, variant, ...props }: MyComponentProps) {
   return (
-    <div data-slot="my-component" className={cn(baseStyles, className)} {...props} />
+    <div
+      data-slot="my-component"
+      className={cn(baseStyles, className)}
+      {...props}
+    />
   );
 }
 ```
@@ -130,14 +134,15 @@ function MyComponent({ className, variant, ...props }: MyComponentProps) {
 
 ### State Management
 
-| State Type | Tool | When to Use |
-|-----------|------|-------------|
-| Server data | React Query | API data, cached lists, detail fetches |
-| Client-wide state | Zustand | Auth, global settings |
-| URL state | nuqs | Pagination, sorting, search, tabs, filters |
-| Local UI state | `useState` | Modals, toggles, form state |
+| State Type        | Tool        | When to Use                                |
+| ----------------- | ----------- | ------------------------------------------ |
+| Server data       | React Query | API data, cached lists, detail fetches     |
+| Client-wide state | Zustand     | Auth, global settings                      |
+| URL state         | nuqs        | Pagination, sorting, search, tabs, filters |
+| Local UI state    | `useState`  | Modals, toggles, form state                |
 
 **Rules:**
+
 - If it should survive page refresh → nuqs (URL)
 - If it comes from an API → React Query
 - If it's global app state → Zustand
@@ -191,8 +196,12 @@ function MyComponent({ className, variant, ...props }: MyComponentProps) {
   ```tsx
   useEffect(() => {
     let cancelled = false;
-    fetchData().then(data => { if (!cancelled) setState(data); });
-    return () => { cancelled = true; };
+    fetchData().then((data) => {
+      if (!cancelled) setState(data);
+    });
+    return () => {
+      cancelled = true;
+    };
   }, [deps]);
   ```
 - Root `ErrorBoundary` catches unhandled errors globally
@@ -226,9 +235,10 @@ function MyComponent({ className, variant, ...props }: MyComponentProps) {
 - Module-level constants: `UPPER_SNAKE_CASE`
 - Status/variant maps: `Record<EnumValue, DisplayConfig>`
   ```tsx
-  const statusConfig: Record<Status, { label: string; variant: BadgeVariant }> = {
-    active: { label: 'Active', variant: 'success' },
-  };
+  const statusConfig: Record<Status, { label: string; variant: BadgeVariant }> =
+    {
+      active: { label: 'Active', variant: 'success' },
+    };
   ```
 
 ### Sidebar Navigation
@@ -242,6 +252,7 @@ function MyComponent({ className, variant, ...props }: MyComponentProps) {
 ### Provider Nesting Order
 
 Must follow this order in `app.tsx`:
+
 ```
 TenantProvider → QueryProvider → AuthProvider → AbilityProvider → PluginProvider → RouterProvider
 ```
@@ -257,19 +268,19 @@ TenantProvider → QueryProvider → AuthProvider → AbilityProvider → Plugin
 
 ## Key Files Reference
 
-| What | Where |
-|------|-------|
-| Sidebar navigation config | `libs/shared/ui/src/lib/nav-config.ts` |
-| Theme CSS variables | `apps/erp-shell/src/styles/app.css` |
-| Auth mock users | `libs/shared/auth/src/mock-users.ts` |
-| Tenant mock config | `libs/shared/tenant/src/mock-tenants.ts` |
-| Route generator | `tools/generators/route/` |
-| UI component library | `libs/shared/ui/src/` |
-| App entry + providers | `apps/erp-shell/src/app/app.tsx` |
-| Root layout | `apps/erp-shell/src/routes/__root.tsx` |
-| Auth layout + shell | `apps/erp-shell/src/routes/_authenticated.tsx` |
-| Data access layer | `libs/shared/data-access/src/` |
-| Config engine (forms) | `libs/shared/config-engine/src/` |
+| What                      | Where                                          |
+| ------------------------- | ---------------------------------------------- |
+| Sidebar navigation config | `libs/shared/ui/src/lib/nav-config.ts`         |
+| Theme CSS variables       | `apps/erp-shell/src/styles/app.css`            |
+| Auth mock users           | `libs/shared/auth/src/mock-users.ts`           |
+| Tenant mock config        | `libs/shared/tenant/src/mock-tenants.ts`       |
+| Route generator           | `tools/generators/route/`                      |
+| UI component library      | `libs/shared/ui/src/`                          |
+| App entry + providers     | `apps/erp-shell/src/app/app.tsx`               |
+| Root layout               | `apps/erp-shell/src/routes/__root.tsx`         |
+| Auth layout + shell       | `apps/erp-shell/src/routes/_authenticated.tsx` |
+| Data access layer         | `libs/shared/data-access/src/`                 |
+| Config engine (forms)     | `libs/shared/config-engine/src/`               |
 
 ## Documentation
 

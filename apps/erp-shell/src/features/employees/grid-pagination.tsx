@@ -41,27 +41,44 @@ export function GridPagination({
     <div className="flex items-center justify-between px-6 py-4">
       <div className="flex items-center gap-2 text-sm text-muted-foreground">
         <span>Show</span>
-        <Select value={String(pageSize)} onValueChange={(v) => onPageSizeChange(Number(v))}>
+        <Select
+          value={String(pageSize)}
+          onValueChange={(v) => onPageSizeChange(Number(v))}
+        >
           <SelectTrigger className="h-8 w-[60px]">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
             {[3, 5, 10, 20, 50].map((s) => (
-              <SelectItem key={s} value={String(s)}>{s}</SelectItem>
+              <SelectItem key={s} value={String(s)}>
+                {s}
+              </SelectItem>
             ))}
           </SelectContent>
         </Select>
         <span>entries</span>
-        <span className="ml-2">{start}-{end} of {totalCount} entries</span>
+        <span className="ml-2">
+          {start}-{end} of {totalCount} entries
+        </span>
       </div>
 
       <div className="flex items-center gap-1">
-        <Button variant="outline" size="sm" disabled={page <= 1} onClick={() => onPageChange(page - 1)}>
+        <Button
+          variant="outline"
+          size="sm"
+          disabled={page <= 1}
+          onClick={() => onPageChange(page - 1)}
+        >
           Previous
         </Button>
         {pages.map((p, i) =>
           p === '...' ? (
-            <span key={`dots-${i}`} className="px-2 text-sm text-muted-foreground">...</span>
+            <span
+              key={`dots-${i}`}
+              className="px-2 text-sm text-muted-foreground"
+            >
+              ...
+            </span>
           ) : (
             <Button
               key={p}
@@ -72,9 +89,14 @@ export function GridPagination({
             >
               {p}
             </Button>
-          ),
+          )
         )}
-        <Button variant="outline" size="sm" disabled={page >= totalPages} onClick={() => onPageChange(page + 1)}>
+        <Button
+          variant="outline"
+          size="sm"
+          disabled={page >= totalPages}
+          onClick={() => onPageChange(page + 1)}
+        >
           Next
         </Button>
       </div>

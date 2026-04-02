@@ -6,7 +6,8 @@ const PluginRegistryContext = createContext<PluginRegistry | null>(null);
 
 export function usePluginRegistry(): PluginRegistry {
   const ctx = useContext(PluginRegistryContext);
-  if (!ctx) throw new Error('usePluginRegistry must be used within PluginProvider');
+  if (!ctx)
+    throw new Error('usePluginRegistry must be used within PluginProvider');
   return ctx;
 }
 

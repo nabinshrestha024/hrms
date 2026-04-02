@@ -11,10 +11,19 @@ interface SubNavProps {
 }
 
 function DefaultLink({ to, children, className }: NavLinkProps) {
-  return <a href={to} className={className}>{children}</a>;
+  return (
+    <a href={to} className={className}>
+      {children}
+    </a>
+  );
 }
 
-export function SubNav({ currentPath, brandName, collapsed = false, linkComponent }: SubNavProps) {
+export function SubNav({
+  currentPath,
+  brandName,
+  collapsed = false,
+  linkComponent,
+}: SubNavProps) {
   const LinkComp = linkComponent ?? DefaultLink;
   const activeModule = findActiveModule(currentPath);
 
@@ -50,7 +59,9 @@ export function SubNav({ currentPath, brandName, collapsed = false, linkComponen
         {hasSubItems && (
           <nav className="flex-1 flex flex-col">
             {subItems.map((item) => {
-              const isActive = currentPath === item.href || currentPath.startsWith(item.href + '/');
+              const isActive =
+                currentPath === item.href ||
+                currentPath.startsWith(item.href + '/');
               const ItemIcon = item.icon;
               return (
                 <LinkComp

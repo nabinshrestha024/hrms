@@ -48,7 +48,36 @@ export type AddEmployeeInput = z.infer<typeof addEmployeeSchema>;
 
 /** Fields to validate per step before allowing "Next" */
 export const stepFields: (keyof AddEmployeeInput)[][] = [
-  ['firstName', 'lastName', 'personalEmail', 'phone', 'dateOfBirth', 'gender', 'maritalStatus', 'country', 'province', 'city', 'municipality', 'address'],
-  ['branch', 'department', 'employeeId', 'designation', 'jobLevel', 'shift', 'workType', 'employeeType', 'joiningDate'],
-  ['grossSalary', 'basicSalary', 'bankName', 'bankAccountNumber', 'bankAccountName'],
+  [
+    'firstName',
+    'lastName',
+    'personalEmail',
+    'phone',
+    'dateOfBirth',
+    'gender',
+    'maritalStatus',
+    'country',
+    'province',
+    'city',
+    'municipality',
+    'address',
+  ],
+  [
+    'branch',
+    'department',
+    'employeeId',
+    'designation',
+    'jobLevel',
+    'shift',
+    'workType',
+    'employeeType',
+    'joiningDate',
+  ],
+  [
+    'grossSalary',
+    'basicSalary',
+    'bankName',
+    'bankAccountNumber',
+    'bankAccountName',
+  ],
 ];

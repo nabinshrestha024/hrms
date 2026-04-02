@@ -9,7 +9,11 @@ export async function mockLogin(credentials: LoginCredentials): Promise<{
 }> {
   await new Promise((r) => setTimeout(r, 300));
 
-  const mockUser = findMockUser(credentials.tenantId, credentials.email, credentials.password);
+  const mockUser = findMockUser(
+    credentials.tenantId,
+    credentials.email,
+    credentials.password
+  );
   if (!mockUser) {
     throw new Error('Invalid email or password');
   }

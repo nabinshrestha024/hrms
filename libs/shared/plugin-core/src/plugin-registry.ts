@@ -1,10 +1,16 @@
 import type { ComponentType } from 'react';
-import type { SlotName, SlotRegistration, RouteRegistration, PluginDefinition, PluginRegistryAPI } from './types';
+import type {
+  SlotName,
+  SlotRegistration,
+  RouteRegistration,
+  PluginDefinition,
+  PluginRegistryAPI,
+} from './types';
 
 export class PluginRegistry {
   private slots = new Map<SlotName, SlotRegistration[]>();
   private routes: RouteRegistration[] = [];
-  private widgets = new Map<string, ComponentType<any>>();
+  private widgets = new Map<string, ComponentType<Record<string, unknown>>>();
   private plugins = new Map<string, PluginDefinition>();
 
   registerPlugin(plugin: PluginDefinition): void {
@@ -15,8 +21,9 @@ export class PluginRegistry {
 
     const api: PluginRegistryAPI = {
       addToSlot: (slot, reg) => {
-        if (!this.slots.has(slot)) this.slots.set(slot, []);
-        this.slots.get(slot)!.push({ ...reg, pluginId: plugin.id } as SlotRegistration);
+        const existing = this.slots.get(slot) ?? [];
+        existing.push({ ...reg, pluginId: plugin.id } as SlotRegistration);
+        this.slots.set(slot, existing);
       },
       addRoutes: (routes) => {
         this.routes.push(...routes);
@@ -33,11 +40,16 @@ export class PluginRegistry {
     for (const plugin of this.plugins.values()) {
       const api: PluginRegistryAPI = {
         addToSlot: (slot, reg) => {
-          if (!this.slots.has(slot)) this.slots.set(slot, []);
-          this.slots.get(slot)!.push({ ...reg, pluginId: plugin.id } as SlotRegistration);
+          const existing = this.slots.get(slot) ?? [];
+          existing.push({ ...reg, pluginId: plugin.id } as SlotRegistration);
+          this.slots.set(slot, existing);
         },
-        addRoutes: (routes) => { this.routes.push(...routes); },
-        addWidget: (name, component) => { this.widgets.set(name, component); },
+        addRoutes: (routes) => {
+          this.routes.push(...routes);
+        },
+        addWidget: (name, component) => {
+          this.widgets.set(name, component);
+        },
       };
       plugin.bootstrap?.(api);
     }
@@ -52,7 +64,7 @@ export class PluginRegistry {
     return [...this.routes];
   }
 
-  getWidget(name: string): ComponentType<any> | undefined {
+  getWidget(name: string): ComponentType<Record<string, unknown>> | undefined {
     return this.widgets.get(name);
   }
 }

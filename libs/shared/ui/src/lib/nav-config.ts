@@ -64,9 +64,7 @@ export const navModules: NavModule[] = [
     icon: UserCog,
     href: '/employees',
     modules: ['hr'],
-    subItems: [
-      { label: 'Employee', href: '/employees', icon: Users },
-    ],
+    subItems: [{ label: 'Employee', href: '/employees', icon: Users }],
   },
   {
     id: 'calendar',
@@ -82,7 +80,11 @@ export const navModules: NavModule[] = [
     href: '/company-setup/profile',
     modules: ['company-setup'],
     subItems: [
-      { label: 'Company Profile', href: '/company-setup/profile', icon: Building2 },
+      {
+        label: 'Company Profile',
+        href: '/company-setup/profile',
+        icon: Building2,
+      },
       { label: 'Branch', href: '/company-setup/branch', icon: GitBranch },
       { label: 'Department', href: '/company-setup/department', icon: Layers },
     ],
@@ -96,7 +98,11 @@ export const navModules: NavModule[] = [
     subItems: [
       { label: 'My Attendance', href: '/attendance/my', icon: UserCheck },
       { label: 'Work Record', href: '/attendance/work-record', icon: Clock },
-      { label: 'Attendance Today', href: '/attendance/today', icon: CalendarDays },
+      {
+        label: 'Attendance Today',
+        href: '/attendance/today',
+        icon: CalendarDays,
+      },
       { label: 'History', href: '/attendance/history', icon: History },
     ],
   },
@@ -107,11 +113,23 @@ export const navModules: NavModule[] = [
     href: '/documents/missing',
     modules: ['documents'],
     subItems: [
-      { label: 'Missing Documents', href: '/documents/missing', icon: FileSearch },
-      { label: 'Review & Approval', href: '/documents/review', icon: ListChecks },
+      {
+        label: 'Missing Documents',
+        href: '/documents/missing',
+        icon: FileSearch,
+      },
+      {
+        label: 'Review & Approval',
+        href: '/documents/review',
+        icon: ListChecks,
+      },
       { label: 'Document Upload', href: '/documents/upload', icon: Upload },
       { label: 'Visibility', href: '/documents/visibility', icon: Eye },
-      { label: 'Category Management', href: '/documents/categories', icon: FolderOpen },
+      {
+        label: 'Category Management',
+        href: '/documents/categories',
+        icon: FolderOpen,
+      },
       { label: 'Version History', href: '/documents/history', icon: History },
     ],
   },
@@ -160,10 +178,18 @@ export const navModules: NavModule[] = [
     href: '/configuration/leave-type',
     modules: ['configuration'],
     subItems: [
-      { label: 'Leave Type', href: '/configuration/leave-type', icon: TentTree },
+      {
+        label: 'Leave Type',
+        href: '/configuration/leave-type',
+        icon: TentTree,
+      },
       { label: 'Holidays', href: '/configuration/holidays', icon: Users },
       { label: 'Shifts', href: '/configuration/shifts', icon: Clock },
-      { label: 'Work Week', href: '/configuration/work-week', icon: CalendarDays },
+      {
+        label: 'Work Week',
+        href: '/configuration/work-week',
+        icon: CalendarDays,
+      },
     ],
   },
   {
@@ -173,9 +199,17 @@ export const navModules: NavModule[] = [
     href: '/onboarding/job-openings',
     modules: ['onboarding'],
     subItems: [
-      { label: 'Job Openings', href: '/onboarding/job-openings', icon: Briefcase },
+      {
+        label: 'Job Openings',
+        href: '/onboarding/job-openings',
+        icon: Briefcase,
+      },
       { label: 'Applicant List', href: '/onboarding/applicants', icon: Users },
-      { label: 'Interview Pipeline', href: '/onboarding/pipeline', icon: GitBranch },
+      {
+        label: 'Interview Pipeline',
+        href: '/onboarding/pipeline',
+        icon: GitBranch,
+      },
       { label: 'Onboarding', href: '/onboarding/onboard', icon: LogIn },
       { label: 'Offboarding', href: '/onboarding/offboard', icon: LogOut },
     ],
@@ -188,7 +222,11 @@ export const navModules: NavModule[] = [
     modules: ['payroll'],
     subItems: [
       { label: 'Generate Payroll', href: '/payroll/generate', icon: Play },
-      { label: 'Salary Structure', href: '/payroll/salary-structure', icon: Users },
+      {
+        label: 'Salary Structure',
+        href: '/payroll/salary-structure',
+        icon: Users,
+      },
       { label: 'Payroll Setup', href: '/payroll/setup', icon: Cog },
       { label: 'Pay & Taxes', href: '/payroll/pay-taxes', icon: CreditCard },
     ],
@@ -213,9 +251,14 @@ export const navModules: NavModule[] = [
  * Returns the NavModule whose href prefix matches the path.
  */
 export function findActiveModule(path: string): NavModule | undefined {
-  if (path === '/dashboard') return navModules.find(m => m.id === 'dashboard');
+  if (path === '/dashboard')
+    return navModules.find((m) => m.id === 'dashboard');
 
   return navModules
-    .filter(m => m.id !== 'dashboard' && path.startsWith(m.href.split('/').slice(0, 2).join('/')))
+    .filter(
+      (m) =>
+        m.id !== 'dashboard' &&
+        path.startsWith(m.href.split('/').slice(0, 2).join('/'))
+    )
     .sort((a, b) => b.href.length - a.href.length)[0];
 }

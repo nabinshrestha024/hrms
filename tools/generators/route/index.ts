@@ -1,12 +1,4 @@
-import {
-  Tree,
-  formatFiles,
-  generateFiles,
-  joinPathFragments,
-  names,
-  logger,
-} from '@nx/devkit';
-import * as path from 'path';
+import { Tree, formatFiles, joinPathFragments, logger } from '@nx/devkit';
 
 interface RouteGeneratorSchema {
   path: string;
@@ -36,7 +28,10 @@ function toPascal(str: string): string {
   return camel.charAt(0).toUpperCase() + camel.slice(1);
 }
 
-export default async function routeGenerator(tree: Tree, schema: RouteGeneratorSchema) {
+export default async function routeGenerator(
+  tree: Tree,
+  schema: RouteGeneratorSchema
+) {
   const routePath = schema.path.replace(/^\//, '').replace(/\/$/, '');
   const breadcrumb = schema.breadcrumb || schema.title;
   const authenticated = schema.authenticated ?? true;
@@ -63,7 +58,7 @@ export default async function routeGenerator(tree: Tree, schema: RouteGeneratorS
     : `/${routePath}`;
 
   // Build the route file content
-  let content = '';
+  let content: string;
 
   if (schema.table) {
     content = buildTableRoute({
@@ -121,8 +116,12 @@ export default async function routeGenerator(tree: Tree, schema: RouteGeneratorS
           : `/${parentName}`;
 
         // Extract breadcrumb from existing parent if present
-        const breadcrumbMatch = existingParentContent.match(/breadcrumb:\s*'([^']+)'/);
-        const parentBreadcrumb = breadcrumbMatch ? breadcrumbMatch[1] : parentPascal;
+        const breadcrumbMatch = existingParentContent.match(
+          /breadcrumb:\s*'([^']+)'/
+        );
+        const parentBreadcrumb = breadcrumbMatch
+          ? breadcrumbMatch[1]
+          : parentPascal;
 
         const layoutContent = `import { createFileRoute, Outlet } from '@tanstack/react-router';
 
@@ -138,7 +137,12 @@ function ${parentPascal}Layout() {
         // Move existing content to index.tsx, update its route path
         const indexContent = existingParentContent
           .replace(
-            new RegExp(`createFileRoute\\('${parentTanstackRoute.replace('/', '\\/')}'\\)`),
+            new RegExp(
+              `createFileRoute\\('${parentTanstackRoute.replace(
+                '/',
+                '\\/'
+              )}'\\)`
+            ),
             `createFileRoute('${parentTanstackRoute}/')`
           )
           .replace(/beforeLoad:.*?\{[^}]*\},?\s*/s, '');
@@ -187,8 +191,16 @@ function ${parentPascal}Layout() {
   logger.info(`✅ Route generated: ${schema.title}`);
   logger.info(`   Path: ${tanstackRoute}`);
   logger.info(`   File: ${routeFilePath}`);
-  if (schema.mock) logger.info(`   Mock: apps/erp-shell/src/mocks/${toKebab(entityName)}.mock.ts`);
-  if (schema.api) logger.info(`   API:  libs/shared/data-access/src/schemas/${toKebab(entityName)}.schema.ts`);
+  if (schema.mock)
+    logger.info(
+      `   Mock: apps/erp-shell/src/mocks/${toKebab(entityName)}.mock.ts`
+    );
+  if (schema.api)
+    logger.info(
+      `   API:  libs/shared/data-access/src/schemas/${toKebab(
+        entityName
+      )}.schema.ts`
+    );
 }
 
 // ---- Template Builders ----
@@ -233,7 +245,9 @@ function buildTableRoute(opts: {
 }): string {
   const pluralEntity = pluralize(opts.entityName);
   const mockImportPath = opts.hasMock
-    ? `import { mockGet${pluralEntity} } from '${getRelativeMockPath(opts.routePath)}mocks/${toKebabHelper(opts.entityName)}.mock';`
+    ? `import { mockGet${pluralEntity} } from '${getRelativeMockPath(
+        opts.routePath
+      )}mocks/${toKebabHelper(opts.entityName)}.mock';`
     : '';
 
   const formImports = opts.hasForm
@@ -260,7 +274,9 @@ const ${opts.entityNameCamel}FormConfig: FormViewConfig = {
 `
     : '';
 
-  const formState = opts.hasForm ? '\n  const [formOpen, setFormOpen] = useState(false);\n' : '';
+  const formState = opts.hasForm
+    ? '\n  const [formOpen, setFormOpen] = useState(false);\n'
+    : '';
 
   const headerAction = opts.hasForm
     ? `<Button onClick={() => setFormOpen(true)}><Plus className="mr-2 size-4" />Add ${opts.entityName}</Button>`
@@ -420,7 +436,7 @@ function ${opts.componentName}() {
 `;
 }
 
-function buildMockFile(entityName: string, entityNameCamel: string): string {
+function buildMockFile(entityName: string, _entityNameCamel: string): string {
   const plural = pluralize(entityName);
   const constName = `MOCK_${pluralize(entityName.toUpperCase())}`;
 
@@ -502,7 +518,7 @@ export type Update${entityName}Input = z.infer<typeof update${entityName}Schema>
 `;
 }
 
-function buildQueryFile(entityName: string, entityNameCamel: string): string {
+function buildQueryFile(entityName: string, _entityNameCamel: string): string {
   return `// TODO: Implement React Query hooks for ${entityName}
 // See libs/shared/data-access/src/queries/employee.queries.ts for reference pattern
 `;
@@ -520,7 +536,13 @@ function toKebabHelper(str: string): string {
 function pluralize(str: string): string {
   // Already plural-looking words (Analytics, Settings, etc.)
   if (/[sx]$/.test(str) && /[ics|ess|us]$/.test(str)) return str;
-  if (str.endsWith('s') || str.endsWith('x') || str.endsWith('z') || str.endsWith('sh') || str.endsWith('ch')) {
+  if (
+    str.endsWith('s') ||
+    str.endsWith('x') ||
+    str.endsWith('z') ||
+    str.endsWith('sh') ||
+    str.endsWith('ch')
+  ) {
     return str + 'es';
   }
   if (str.endsWith('y') && !/[aeiou]y$/i.test(str)) {
