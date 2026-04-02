@@ -13,8 +13,6 @@ import {
   Settings,
   FileCheck2,
   CreditCard,
-  UserPlus,
-  FileCog,
   // Sub-item icons
   Play,
   Cog,
@@ -33,6 +31,9 @@ import {
   Upload,
   Layers,
   Archive,
+  Computer,
+  Coins,
+  MapPin,
 } from 'lucide-react';
 
 export interface NavSubItem {
@@ -72,6 +73,14 @@ export const navModules: NavModule[] = [
     icon: Calendar,
     href: '/calendar',
     modules: ['calendar'],
+    subItems: [
+      { label: 'Calendar', href: '/calendar/', icon: GitBranch },
+      {
+        label: 'Events & Holidays',
+        href: '/calendar/event-holiday',
+        icon: Layers,
+      },
+    ],
   },
   {
     id: 'company-setup',
@@ -232,17 +241,38 @@ export const navModules: NavModule[] = [
     ],
   },
   {
-    id: 'recruitment',
-    label: 'Recruitment',
-    icon: UserPlus,
-    href: '/recruitment',
-    modules: ['recruitment'],
-  },
-  {
-    id: 'settings',
-    label: 'Settings',
-    icon: FileCog,
-    href: '/settings',
+    id: 'master-setup',
+    label: 'Master Setup',
+    href: '/master-setup',
+    modules: ['master-setup'],
+    icon: Computer,
+    subItems: [
+      {
+        label: 'Holiday Types',
+        icon: CalendarDays,
+        href: '/master-setup',
+      },
+      {
+        label: 'Currencies',
+        icon: Coins,
+        href: '/master-setup/currencies',
+      },
+      {
+        label: 'Job Level',
+        icon: Briefcase,
+        href: '/master-setup/job-level',
+      },
+      {
+        label: 'Work Types',
+        icon: MapPin,
+        href: '/master-setup/work-type',
+      },
+      {
+        label: 'Leave Types',
+        icon: FileText,
+        href: '/master-setup/leave-type',
+      },
+    ],
   },
 ];
 

@@ -7,16 +7,21 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
-        default: 'border-transparent bg-primary text-primary-foreground',
-        secondary:
-          'border-transparent bg-[#F4F4F5] text-[#3F3F46] dark:bg-[#27272A] dark:text-[#FAFAFA]',
-        destructive:
-          'border-transparent bg-[#FEE2E2] text-[#EF4444] dark:bg-[#450A0A] dark:text-[#FCA5A5]',
-        outline: 'text-foreground',
-        success:
-          'border-transparent bg-[#DCFCE7] text-[#00A63E] dark:bg-[#052E16] dark:text-[#86EFAC]',
+        default:
+          'rounded-full py-[2px] px-3 text-gray-600 cursor-pointer bg-[#F4F4F5] text-[12px] font-semibold leading-4 text-center ',
         warning:
-          'border-transparent bg-[#FEF3C7] text-[#D97706] dark:bg-[#451A03] dark:text-[#FCD34D]',
+          'rounded-full py-[2px] px-3 text-yellow-600 bg-[#FEF9C2] cursor-pointer text-[12px] font-semibold leading-4 text-center',
+        primary:
+          'rounded-full py-[2px] px-3 text-blue-600 bg-[#DBEAFE] cursor-pointer text-[12px] font-semibold leading-4 text-center',
+        secondary:
+          'rounded-full py-[2px] px-3 text-green-600 bg-[#DCFCE7] cursor-pointer text-[12px] font-semibold leading-4 text-center',
+        destructive:
+          'rounded-full py-[2px] px-3 text-red-600 bg-[#FFE2E2] cursor-pointer text-[12px] font-semibold leading-4 text-center',
+        outline:
+          'rounded-full py-[2px] px-3  border-border  [a&]:hover:text-accent-foreground',
+        ghost:
+          'rounded-full py-[2px] px-3  [a&]:hover:bg-accent [a&]:hover:text-accent-foreground',
+        link: 'rounded-full py-[2px] px-3  text-primary underline-offset-4 [a&]:hover:underline',
       },
     },
     defaultVariants: { variant: 'default' },

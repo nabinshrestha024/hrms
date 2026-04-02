@@ -1,7 +1,12 @@
-import type { ComponentType } from 'react';
 import { cn } from '@erp/utils';
-import { navModules, findActiveModule } from '../lib/nav-config';
-import { Tooltip, TooltipTrigger, TooltipContent } from '../primitives/tooltip';
+import { LucideGalleryVerticalEnd } from 'lucide-react';
+import type { ComponentType } from 'react';
+import { findActiveModule, navModules } from '../../lib/nav-config';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '../../primitives/tooltip';
 import type { NavLinkProps } from './shell-layout';
 
 interface IconBarProps {
@@ -34,38 +39,13 @@ export function IconBar({
     : navModules;
 
   return (
-    <div className="relative flex flex-col w-16 bg-sidebar shrink-0">
+    <div className="relative flex flex-col w-16 bg-black shrink-0">
       {/* Logo — 36px indigo square */}
-      <div className="flex h-[70px] items-center justify-center px-[14px] py-[17px]">
-        <div className="flex size-9 items-center justify-center rounded bg-sidebar-primary">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <rect width="6" height="6" rx="1" fill="white" />
-            <rect
-              y="8"
-              width="6"
-              height="6"
-              rx="1"
-              fill="white"
-              opacity="0.6"
-            />
-            <rect
-              x="8"
-              width="6"
-              height="6"
-              rx="1"
-              fill="white"
-              opacity="0.6"
-            />
-            <rect
-              x="8"
-              y="8"
-              width="6"
-              height="6"
-              rx="1"
-              fill="white"
-              opacity="0.4"
-            />
-          </svg>
+      <div className="px-3.5 py-4.25">
+        <div className="p-2.5 rounded-lg bg-[#312C85]">
+          <div className="w-4 h-4">
+            <LucideGalleryVerticalEnd className="text-white w-4 h-4" />
+          </div>
         </div>
       </div>
 
@@ -81,10 +61,10 @@ export function IconBar({
                 <LinkComp
                   to={mod.href}
                   className={cn(
-                    'flex w-[52px] items-center justify-center gap-2 p-3 transition-colors',
+                    'flex w-13 items-center justify-center gap-2 p-3 text-white rounded-tl-[2px] rounded-bl-[2px] hover:border-l-3 hover:border-l-[#312C85] hover:bg-[#ECECEC1A]transition-colors',
                     isActive
-                      ? 'bg-sidebar-accent border-l-2 border-sidebar-primary rounded-tl-sm rounded-bl-sm text-sidebar-foreground'
-                      : 'text-white/40 hover:text-white/70'
+                      ? 'border-l-3 border-l-[#312C85] bg-[#ECECEC1A]'
+                      : ''
                   )}
                 >
                   <Icon className="size-5" strokeWidth={1.5} />

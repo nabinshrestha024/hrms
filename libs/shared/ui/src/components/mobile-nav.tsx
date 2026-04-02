@@ -1,7 +1,7 @@
-import { type ComponentType } from 'react';
 import { cn } from '@erp/utils';
-import { ChartPie, UserCog, TentTree, Users, FileCog } from 'lucide-react';
-import type { NavLinkProps } from './shell-layout';
+import { ChartPie, FileCog, TentTree, UserCog, Users } from 'lucide-react';
+import { type ComponentType } from 'react';
+import type { NavLinkProps } from './sidebar/shell-layout';
 
 const mobileNavItems = [
   { label: 'Dashboard', href: '/dashboard', icon: ChartPie },

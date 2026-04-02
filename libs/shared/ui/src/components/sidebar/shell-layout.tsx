@@ -1,22 +1,22 @@
-import {
-  useState,
-  useCallback,
-  type ReactNode,
-  type ComponentType,
-} from 'react';
 import { cn } from '@erp/utils';
 import { ArrowRightCircle } from 'lucide-react';
-import { useIsMobile } from '../hooks/use-mobile';
+import {
+  useCallback,
+  useState,
+  type ComponentType,
+  type ReactNode,
+} from 'react';
+import { useIsMobile } from '../../hooks/use-mobile';
 import {
   Sheet,
   SheetContent,
-  SheetTitle,
   SheetDescription,
-} from '../primitives/sheet';
+  SheetTitle,
+} from '../../primitives/sheet';
+import { MobileNav } from '../mobile-nav';
 import { IconBar } from './icon-bar';
 import { SubNav } from './sub-nav';
 import { TopBar } from './top-bar';
-import { MobileNav } from './mobile-nav';
 
 export interface NavLinkProps {
   to: string;
@@ -93,12 +93,12 @@ export function ShellLayout({
         <button
           type="button"
           onClick={toggleSubNav}
-          className="absolute top-[78px] -right-2.5 z-20 flex size-5 items-center justify-center rounded-full bg-white overflow-hidden shadow-sm transition-transform duration-300"
+          className="absolute top-19.5 -right-2.5 z-30 p-0.75  flex size-5 items-center justify-center rounded-full bg-white overflow-hidden shadow-sm transition-transform duration-300"
           aria-label={subNavExpanded ? 'Collapse sidebar' : 'Expand sidebar'}
         >
           <ArrowRightCircle
             className={cn(
-              'size-5 text-emerald-500 transition-transform duration-300',
+              'size-5 text-[#312C85] transition-transform duration-300',
               subNavExpanded && 'rotate-180'
             )}
             strokeWidth={2}
@@ -132,16 +132,7 @@ export function ShellLayout({
 
       {/* Main content area */}
       <div className="flex flex-1 flex-col overflow-hidden">
-        <TopBar
-          isDark={isDark}
-          onToggleTheme={onToggleTheme ?? (() => undefined)}
-          onMobileMenuToggle={toggleMobileMenu}
-          userName={userName}
-          userRole={userRole}
-          userInitials={userInitials}
-          userAvatar={userAvatar}
-          onLogout={onLogout}
-        />
+        <TopBar />
 
         <main className="flex-1 overflow-y-auto pb-16 md:pb-0">{children}</main>
       </div>
