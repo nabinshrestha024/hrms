@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/schema",
+  "id": "route",
+  "title": "Generate Route",
+  "description": "Generate a new route page with optional table, form, and mock data",
+  "type": "object",
+  "properties": {
+    "path": {
+      "type": "string",
+      "description": "Route path relative to _authenticated (e.g. 'leave/requests')",
+      "x-prompt": "Route path (e.g. leave/requests, attendance/my):"
+    },
+    "title": {
+      "type": "string",
+      "description": "Page title displayed in the header",
+      "x-prompt": "Page title (e.g. Leave Requests):"
+    },
+    "breadcrumb": {
+      "type": "string",
+      "description": "Breadcrumb label. Defaults to title if not set."
+    },
+    "authenticated": {
+      "type": "boolean",
+      "description": "Whether the route requires authentication",
+      "default": true,
+      "x-prompt": "Is this an authenticated route?"
+    },
+    "table": {
+      "type": "boolean",
+      "description": "Include a data table with URL-synced pagination/sorting/search",
+      "default": false,
+      "x-prompt": "Does this page need a data table?"
+    },
+    "entityName": {
+      "type": "string",
+      "description": "Entity name for table/form (PascalCase, e.g. LeaveRequest)"
+    },
+    "form": {
+      "type": "boolean",
+      "description": "Include a form dialog for creating/editing",
+      "default": false,
+      "x-prompt": "Does this page need a form dialog?"
+    },
+    "mock": {
+      "type": "boolean",
+      "description": "Generate a mock data file",
+      "default": false,
+      "x-prompt": "Generate mock data file?"
+    },
+    "api": {
+      "type": "boolean",
+      "description": "Generate API hooks (React Query) in data-access lib",
+      "default": false,
+      "x-prompt": "Generate API hooks (React Query)?"
+    }
+  },
+  "required": ["path", "title"]
+}

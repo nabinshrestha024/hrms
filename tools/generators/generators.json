@@ -1,0 +1,9 @@
+{
+  "generators": {
+    "route": {
+      "factory": "./route/index",
+      "schema": "./route/schema.json",
+      "description": "Generate a new route page with optional table, form, and mock data"
+    }
+  }
+}

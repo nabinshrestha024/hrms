@@ -1,0 +1,14 @@
+{
+  "name": "@org/erp-shell",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "@erp/ui": "workspace:*",
+    "@erp/tenant": "workspace:*",
+    "@erp/data-access": "workspace:*",
+    "@erp/auth": "workspace:*",
+    "@erp/plugin-core": "workspace:*",
+    "@erp/config-engine": "workspace:*",
+    "@erp/utils": "workspace:*"
+  }
+}
