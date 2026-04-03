@@ -1,48 +1,30 @@
 // Shell layout components
-export { ShellLayout } from './components/shell-layout';
-export type { NavLinkProps } from './components/shell-layout';
-export { IconBar } from './components/icon-bar';
-export { SubNav } from './components/sub-nav';
-export { navModules, findActiveModule } from './lib/nav-config';
-export type { NavModule, NavSubItem } from './lib/nav-config';
-export { TopBar } from './components/top-bar';
 export { MobileNav } from './components/mobile-nav';
+export { IconBar } from './components/sidebar/icon-bar';
+export { ShellLayout } from './components/sidebar/shell-layout';
+export type { NavLinkProps } from './components/sidebar/shell-layout';
+export { SubNav } from './components/sidebar/sub-nav';
+export { TopBar } from './components/sidebar/top-bar';
+export { findActiveModule, navModules } from './lib/nav-config';
+export type { NavModule, NavSubItem } from './lib/nav-config';
 
 // Hooks
 export { useIsMobile } from './hooks/use-mobile';
 
 // Primitives exported directly (ERP wrappers come in later phases)
+export { Avatar, AvatarFallback, AvatarImage } from './primitives/avatar';
 export { Button, buttonVariants } from './primitives/button';
-export { Input } from './primitives/input';
-export { Skeleton } from './primitives/skeleton';
-export { Separator } from './primitives/separator';
-export {
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-  TooltipProvider,
-} from './primitives/tooltip';
-export {
-  Sheet,
-  SheetTrigger,
-  SheetClose,
-  SheetContent,
-  SheetHeader,
-  SheetFooter,
-  SheetTitle,
-  SheetDescription,
-} from './primitives/sheet';
-export { Avatar, AvatarImage, AvatarFallback } from './primitives/avatar';
 export {
   DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuGroup,
+  DropdownMenuTrigger,
 } from './primitives/dropdown-menu';
+export { Input } from './primitives/input';
 export {
   Select,
   SelectContent,
@@ -55,16 +37,28 @@ export {
   SelectTrigger,
   SelectValue,
 } from './primitives/select';
+export { Separator } from './primitives/separator';
+export {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from './primitives/sheet';
+export { Skeleton } from './primitives/skeleton';
 export { Switch } from './primitives/switch';
 export {
   Table,
-  TableHeader,
   TableBody,
-  TableFooter,
-  TableRow,
-  TableHead,
-  TableCell,
   TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from './primitives/table';
 export {
   Toast,
@@ -76,9 +70,15 @@ export {
   ToastViewport,
 } from './primitives/toast';
 export type { ToastActionElement } from './primitives/toast';
+export {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from './primitives/tooltip';
 
 // Hooks – toast
-export { useToast, toast, dismiss } from './hooks/use-toast';
+export { dismiss, toast, useToast } from './hooks/use-toast';
 
 // Hooks – data table
 export { useDataTable } from './hooks/use-data-table';
@@ -87,37 +87,37 @@ export type {
   UseDataTableReturn,
 } from './hooks/use-data-table';
 
-export {
-  Dialog,
-  DialogPortal,
-  DialogOverlay,
-  DialogTrigger,
-  DialogClose,
-  DialogContent,
-  DialogHeader,
-  DialogFooter,
-  DialogTitle,
-  DialogDescription,
-} from './primitives/dialog';
-export {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from './primitives/card';
-export { Tabs, TabsList, TabsTrigger, TabsContent } from './primitives/tabs';
 export { Badge, badgeVariants } from './primitives/badge';
 export {
   Breadcrumb,
-  BreadcrumbList,
+  BreadcrumbEllipsis,
   BreadcrumbItem,
   BreadcrumbLink,
+  BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-  BreadcrumbEllipsis,
 } from './primitives/breadcrumb';
+export {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from './primitives/card';
+export {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogOverlay,
+  DialogPortal,
+  DialogTitle,
+  DialogTrigger,
+} from './primitives/dialog';
+export { Tabs, TabsContent, TabsList, TabsTrigger } from './primitives/tabs';
 
 // Composed components
 export { Toaster } from './components/toaster';
@@ -130,19 +130,19 @@ export type { DialogState } from './hooks/use-dialog';
 export { FormField } from './components/form-field';
 
 // Page templates — use these for quick route creation
-export { PageHeader } from './components/page-header';
-export { TablePage } from './components/table-page';
-export type {
-  TablePageProps,
-  FetchParams,
-  FetchResult,
-} from './components/table-page';
 export { FormDialog } from './components/form-dialog';
 export { MultiStepForm } from './components/multi-step-form';
 export type {
-  StepConfig,
   MultiStepFormProps,
+  StepConfig,
 } from './components/multi-step-form';
+export { PageHeader } from './components/page-header';
+export { TablePage } from './components/table-page';
+export type {
+  FetchParams,
+  FetchResult,
+  TablePageProps,
+} from './components/table-page';
 
 // Data table components
 export {
@@ -150,17 +150,17 @@ export {
   DataTableColumnHeader,
   DataTablePagination,
   DataTableRowActions,
+  DataTableSkeleton,
   DataTableToolbar,
   DataTableViewOptions,
-  DataTableSkeleton,
 } from './components/data-table';
 export type {
-  DataTableProps,
   DataTableColumnHeaderProps,
   DataTablePaginationProps,
+  DataTableProps,
   DataTableRowActionsProps,
+  DataTableSkeletonProps,
   DataTableToolbarProps,
   DataTableViewOptionsProps,
-  DataTableSkeletonProps,
   RowAction,
 } from './components/data-table';

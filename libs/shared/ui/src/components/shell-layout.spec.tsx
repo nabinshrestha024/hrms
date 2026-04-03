@@ -1,7 +1,7 @@
-import { describe, it, expect, vi, beforeAll } from 'vitest';
-import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { ShellLayout } from './shell-layout';
+import { render, screen } from '@testing-library/react';
+import { beforeAll, describe, expect, it, vi } from 'vitest';
+import { ShellLayout } from './sidebar/shell-layout';
 
 // Mock window.matchMedia (not available in jsdom)
 beforeAll(() => {

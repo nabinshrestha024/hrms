@@ -1,6 +1,6 @@
-import type { ComponentType } from 'react';
 import { cn } from '@erp/utils';
-import { findActiveModule } from '../lib/nav-config';
+import type { ComponentType } from 'react';
+import { findActiveModule } from '../../lib/nav-config';
 import type { NavLinkProps } from './shell-layout';
 
 interface SubNavProps {
@@ -34,24 +34,20 @@ export function SubNav({
     <div
       className={cn(
         'flex flex-col bg-sidebar-primary border-r border-sidebar-border shrink-0 overflow-hidden transition-all duration-300 ease-in-out',
-        collapsed || !hasSubItems ? 'w-0 border-r-0' : 'w-[200px]'
+        collapsed || !hasSubItems ? 'w-0 border-r-0' : 'w-52'
       )}
     >
       {/* Inner wrapper — fixed width so content doesn't reflow during animation */}
-      <div className="flex flex-col w-[200px] min-h-0">
+      <div className="flex flex-col w-52 min-h-0">
         {/* Brand name */}
-        <div className="flex h-[44px] items-center px-3 pt-3">
-          <span className="text-sm font-semibold text-sidebar-primary-foreground truncate leading-5 whitespace-nowrap">
-            {brandName ?? 'HRMS'}
-          </span>
+        <div className="pt-5 pr-19.5 pl-3 pb-8.5 text-white text-[14px] font-semibold truncate leading-5 whitespace-nowrap">
+          {brandName ?? 'HRMS'}
         </div>
 
         {/* Module section label */}
         {activeModule && hasSubItems && (
-          <div className="px-3.5 pt-3.5 pb-3">
-            <span className="text-sm font-medium text-sidebar-primary-foreground/70 leading-5 whitespace-nowrap">
-              {activeModule.label}
-            </span>
+          <div className="px-4 pb-3 text-white text-[14px] font-medium leading-5 whitespace-nowrap">
+            {activeModule.label}
           </div>
         )}
 
@@ -68,10 +64,8 @@ export function SubNav({
                   key={item.href}
                   to={item.href}
                   className={cn(
-                    'flex items-center gap-2 p-3 text-sm font-medium transition-colors overflow-hidden whitespace-nowrap',
-                    isActive
-                      ? 'bg-sidebar-accent text-sidebar-primary-foreground'
-                      : 'text-sidebar-primary-foreground/70 hover:text-sidebar-primary-foreground hover:bg-sidebar-accent/50'
+                    'h-11 flex items-center gap-3 text-[14px] font-medium rounded-none p-3 hover:bg-sidebar-foreground text-white hover:text-white transition-colors overflow-hidden whitespace-nowrap',
+                    isActive ? 'bg-sidebar-foreground text-white' : ''
                   )}
                 >
                   <ItemIcon className="size-5 shrink-0" strokeWidth={1.5} />

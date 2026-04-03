@@ -68,16 +68,17 @@
 
 /* Layer 1: Default light theme */
 :root {
-  --background: oklch(1 0 0); /* #FFFFFF */
+  --background: #f9fafb; /* #FFFFFF */
+  --background-foreground: #fafafa;
   --foreground: oklch(0.145 0.004 286); /* #09090B */
-  --card: oklch(1 0 0); /* #FFFFFF */
+  --card: #fafafa;
   --card-foreground: oklch(0.145 0.004 286);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0.004 286);
-  --primary: oklch(0.442 0.292 277); /* #4F39F6 indigo/600 */
-  --primary-foreground: oklch(0.985 0 0); /* white */
-  --secondary: oklch(0.97 0.005 286); /* #F4F4F5 zinc/100 */
-  --secondary-foreground: oklch(0.39 0.01 286); /* #3F3F46 zinc/700 */
+  --primary: #4f39f6;
+  --primary-foreground: #e0e7ff;
+  --secondary: #3f3f46;
+  --secondary-foreground: #71717a;
   --muted: oklch(0.97 0.005 286); /* #F4F4F5 */
   --muted-foreground: oklch(0.556 0.01 286); /* #71717A zinc/500 */
   --accent: oklch(0.95 0.02 277); /* subtle indigo tint */
@@ -87,20 +88,22 @@
   --border: oklch(0.922 0.004 286); /* #E4E4E7 zinc/200 */
   --input: oklch(0.922 0.004 286);
   --ring: oklch(0.442 0.292 277); /* matches primary */
-  --chart-1: oklch(0.442 0.292 277); /* indigo */
-  --chart-2: oklch(0.6 0.2 145); /* green */
-  --chart-3: oklch(0.577 0.245 27); /* red */
-  --chart-4: oklch(0.795 0.184 86); /* amber */
-  --chart-5: oklch(0.6 0.15 230); /* blue */
+  --chart-1: #e0e7ff; /* indigo */
+  --chart-2: #dcfce7; /* green */
+  --chart-3: #ffe2e2; /* red */
+  --chart-4: #fef9c2; /* amber */
+  --chart-5: #dbeafe; /* blue */
+  --chart-6: #f4f4f5;
   --radius: 0.5rem;
   --sidebar: oklch(0.07 0 0); /* #0D0E0F near-black */
-  --sidebar-foreground: oklch(0.92 0 0);
-  --sidebar-primary: oklch(0.318 0.157 264); /* #312C85 indigo/900 */
+  --sidebar-foreground: #ececec1a;
+  --sidebar-primary: #312c85; /* #312C85 indigo/900 */
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.15 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.2 0 0);
   --sidebar-ring: oklch(0.442 0.292 277);
+  --bg-primary: #f9fafb;
 }
 
 /* Layer 2: Dark mode (class-based toggle) */
