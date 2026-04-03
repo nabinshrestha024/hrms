@@ -10,8 +10,8 @@
  */
 
 import { execSync } from 'node:child_process';
-import { readdirSync } from 'node:fs';
-import { resolve, basename } from 'node:path';
+import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { basename, resolve } from 'node:path';
 import { createInterface } from 'node:readline';
 
 const ROOT = resolve(import.meta.dirname, '..');
@@ -40,15 +40,53 @@ async function getRegistry() {
   } catch {
     // Fallback list of common components
     return [
-      'accordion', 'alert', 'alert-dialog', 'aspect-ratio', 'avatar',
-      'badge', 'breadcrumb', 'button', 'calendar', 'card', 'carousel',
-      'chart', 'checkbox', 'collapsible', 'command', 'context-menu',
-      'dialog', 'drawer', 'dropdown-menu', 'form', 'hover-card', 'input',
-      'input-otp', 'label', 'menubar', 'navigation-menu', 'pagination',
-      'popover', 'progress', 'radio-group', 'resizable', 'scroll-area',
-      'select', 'separator', 'sheet', 'sidebar', 'skeleton', 'slider',
-      'sonner', 'switch', 'table', 'tabs', 'textarea', 'toast',
-      'toggle', 'toggle-group', 'tooltip',
+      'accordion',
+      'alert',
+      'alert-dialog',
+      'aspect-ratio',
+      'avatar',
+      'badge',
+      'breadcrumb',
+      'button',
+      'calendar',
+      'card',
+      'carousel',
+      'chart',
+      'checkbox',
+      'collapsible',
+      'command',
+      'context-menu',
+      'dialog',
+      'drawer',
+      'dropdown-menu',
+      'form',
+      'hover-card',
+      'input',
+      'input-otp',
+      'label',
+      'menubar',
+      'navigation-menu',
+      'pagination',
+      'popover',
+      'progress',
+      'radio-group',
+      'resizable',
+      'scroll-area',
+      'select',
+      'separator',
+      'sheet',
+      'sidebar',
+      'skeleton',
+      'slider',
+      'sonner',
+      'switch',
+      'table',
+      'tabs',
+      'textarea',
+      'toast',
+      'toggle',
+      'toggle-group',
+      'tooltip',
     ];
   }
 }
@@ -120,7 +158,28 @@ async function main() {
   postInstall(valid);
 }
 
+function fixImports() {
+  const files = readdirSync(PRIMITIVES_DIR).filter((f) => f.endsWith('.tsx'));
+  const literalPathRe = /from ["']libs\/shared\/ui\/src\/primitives\/([^"']+)["']/g;
+  let fixedCount = 0;
+
+  for (const file of files) {
+    const filePath = resolve(PRIMITIVES_DIR, file);
+    const content = readFileSync(filePath, 'utf8');
+    const updated = content.replace(literalPathRe, 'from "./$1"');
+    if (updated !== content) {
+      writeFileSync(filePath, updated, 'utf8');
+      fixedCount++;
+      console.log(`  Fixed imports in ${file}`);
+    }
+  }
+  if (fixedCount > 0) {
+    console.log(`\n🔧 Fixed literal path imports in ${fixedCount} file(s).`);
+  }
+}
+
 function postInstall(components) {
+  fixImports();
   console.log('\n✅ Done! Components added to libs/shared/ui/src/primitives/');
   console.log('\nImport usage:');
   components.forEach((c) => {
@@ -130,8 +189,12 @@ function postInstall(components) {
       .join('');
     console.log(`  import { ${pascal} } from '@erp/ui';`);
   });
-  console.log('\n⚠️  Remember to update libs/shared/ui/src/index.ts exports if needed.');
-  console.log('⚠️  Check generated imports — change @/lib/utils → @erp/utils if needed.\n');
+  console.log(
+    '\n⚠️  Remember to update libs/shared/ui/src/index.ts exports if needed.'
+  );
+  console.log(
+    '⚠️  Check generated imports — change @/lib/utils → @erp/utils if needed.\n'
+  );
 }
 
 main().catch(console.error);

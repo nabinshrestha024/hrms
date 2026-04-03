@@ -11,8 +11,8 @@
   },
   "aliases": {
     "components": "@erp/ui",
-    "ui": "@erp/ui",
+    "ui": "libs/shared/ui/src/primitives",
     "utils": "@erp/utils",
-    "hooks": "@erp/ui"
+    "hooks": "libs/shared/ui/src/hooks"
   }
 }
