@@ -1,4 +1,5 @@
 import { DataTable, useDialog } from '@erp/ui';
+import type { Employee } from '@erp/data-access';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 import {
@@ -65,7 +66,7 @@ function EmployeesPage() {
               table={table}
               columns={columns}
               loading={isLoading}
-              onRowClick={(row) =>
+              onRowClick={(row: Employee) =>
                 navigate({ to: '/employees/$id', params: { id: row.id } })
               }
               rowActions={rowActions}

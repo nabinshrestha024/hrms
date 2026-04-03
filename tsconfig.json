@@ -7,25 +7,13 @@
       "path": "./apps/erp-shell-e2e"
     },
     {
-      "path": "./apps/erp-shell"
-    },
-    {
       "path": "./libs/shared/utils"
-    },
-    {
-      "path": "./libs/shared/ui"
     },
     {
       "path": "./libs/shared/tenant"
     },
     {
       "path": "./libs/shared/auth"
-    },
-    {
-      "path": "./libs/shared/config-engine"
-    },
-    {
-      "path": "./libs/shared/plugin-core"
     },
     {
       "path": "./libs/shared/data-access"

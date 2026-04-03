@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { FormField } from 'src/components/form/FormField';
+import { FormField } from './FormField';
 import {
   Combobox,
   ComboboxContent,
@@ -7,7 +7,7 @@ import {
   ComboboxInput,
   ComboboxItem,
   ComboboxList,
-} from 'src/primitives/combobox';
+} from '../../primitives/combobox';
 
 interface ComboboxDataType {
   id: number;

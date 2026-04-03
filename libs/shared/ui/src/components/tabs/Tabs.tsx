@@ -15,11 +15,11 @@ interface TabDataType {
 
 interface TabProps {
   defaultValue: string;
-  tabClassName: string;
-  tabListClassName: string;
+  tabClassName?: string;
+  tabListClassName?: string;
   tabList: TabDataType[];
-  tabTriggerClassName: string;
-  tabsContentClassName: string;
+  tabTriggerClassName?: string;
+  tabsContentClassName?: string;
 }
 
 export const HRTabs = ({

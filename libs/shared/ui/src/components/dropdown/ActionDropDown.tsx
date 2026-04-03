@@ -29,7 +29,7 @@ export const ActionDropdown = ({
           <Button
             key={index}
             type="button"
-            variant={action.variant || 'destructive'}
+            variant={action.variant || 'ghost'}
             onClick={action.onClick}
             className={`text-[14px] font-normal leading-5 cursor-pointer text-[#18181B] 
               ${index === actions.length - 1 ? 'border-t border-border' : ''}

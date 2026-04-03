@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { useId, type ReactNode } from 'react';
 import { HRLabel } from './Label';
 
 interface FormFieldProps {
@@ -7,6 +7,7 @@ interface FormFieldProps {
   error?: string;
   required?: boolean;
   labelClassName?: string;
+  htmlFor?: string;
   children: ReactNode;
 }
 
@@ -15,7 +16,7 @@ interface FormFieldProps {
  * Works with any input — just pass it as children.
  *
  * Usage:
- *   <FormField label="Email" htmlFor="email" error={errors.email?.message} required>
+ *   <FormField Label="Email" htmlFor="email" error={errors.email?.message} required>
  *     <Input id="email" {...register('email')} />
  *   </FormField>
  */
@@ -24,14 +25,20 @@ export function FormField({
   error,
   required,
   labelClassName,
+  htmlFor,
   subLabel,
   children,
 }: FormFieldProps) {
+  const generatedId = useId();
+  const fieldId = htmlFor || generatedId;
+
   return (
     <div className="flex flex-col gap-1">
       {Label && (
         <div className="flex gap-1">
-          <HRLabel labelClassName={` ${labelClassName}`}>{Label}</HRLabel>
+          <HRLabel labelClassName={labelClassName} htmlFor={fieldId}>
+            {Label}
+          </HRLabel>
           {required && <span className="text-destructive">*</span>}
         </div>
       )}

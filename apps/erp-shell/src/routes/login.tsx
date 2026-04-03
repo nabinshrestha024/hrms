@@ -13,7 +13,21 @@ export const Route = createFileRoute('/login')({
 function LoginPage() {
   const navigate = useNavigate();
   const { tenant } = useTenant();
-  const storeLogin = useAuthStore((s) => s.login);
+  const storeLogin = useAuthStore(
+    (s: {
+      login: (
+        user: {
+          id: string;
+          email: string;
+          name: string;
+          role: string;
+          tenantId: string;
+        },
+        permissions: string[],
+        token: string
+      ) => void;
+    }) => s.login
+  );
   const loginMutation = useLogin();
 
   const {
@@ -31,7 +45,17 @@ function LoginPage() {
 
   const onSubmit = handleSubmit((data) => {
     loginMutation.mutate(data, {
-      onSuccess: (result) => {
+      onSuccess: (result: {
+        user: {
+          id: string;
+          email: string;
+          name: string;
+          role: string;
+          tenantId: string;
+        };
+        permissions: string[];
+        token: string;
+      }) => {
         storeLogin(result.user, result.permissions, result.token);
         toast({
           title: 'Welcome back!',
@@ -40,7 +64,7 @@ function LoginPage() {
         });
         navigate({ to: '/dashboard' });
       },
-      onError: (err) => {
+      onError: (err: Error) => {
         toast({
           title: 'Login failed',
           description: err.message || 'Please check your credentials.',

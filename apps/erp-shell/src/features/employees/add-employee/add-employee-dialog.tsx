@@ -60,7 +60,7 @@ export function AddEmployeeDialog({
           form.reset();
           onOpenChange(false);
         },
-        onError: (err) => {
+        onError: (err: Error) => {
           toast({
             title: 'Failed to create employee',
             description: err.message,

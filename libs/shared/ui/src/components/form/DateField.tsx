@@ -12,8 +12,8 @@ import {
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-} from 'src/primitives/input-group';
-import { FormField } from 'src/components/form/FormField';
+} from '../../primitives/input-group';
+import { FormField } from './FormField';
 
 interface HRDateFieldProps {
   date?: Date;
@@ -53,6 +53,12 @@ export const HRDateField = ({
   );
   const [month, setMonth] = React.useState<Date | undefined>(date);
   const [inputValue, setInputValue] = React.useState(formatDate(date));
+
+  React.useEffect(() => {
+    setSelectedDate(date);
+    setMonth(date);
+    setInputValue(formatDate(date));
+  }, [date]);
 
   const handleSelect = (newDate: Date | undefined) => {
     setSelectedDate(newDate);

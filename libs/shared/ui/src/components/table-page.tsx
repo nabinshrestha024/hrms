@@ -7,7 +7,7 @@ import {
 import { useQueryState, parseAsInteger, parseAsString } from 'nuqs';
 import { DataTable } from './data-table/data-table';
 import { DataTableToolbar } from './data-table/data-table-toolbar';
-import { useDataTable, type UseDataTableProps } from '../hooks/use-data-table';
+import { useDataTable } from '../hooks/use-data-table';
 import { PageHeader } from './page-header';
 
 // ---- Types ----

@@ -59,24 +59,26 @@ export function useEmployeeTable(
     {
       label: 'View',
       icon: Eye,
-      onClick: (row) =>
+      onClick: (row: Employee) =>
         navigate({ to: '/employees/$id', params: { id: row.id } }),
     },
     {
       label: 'Edit',
       icon: Pencil,
-      onClick: (row) => alert(`Edit: ${row.firstName} ${row.lastName}`),
+      onClick: (row: Employee) =>
+        alert(`Edit: ${row.firstName} ${row.lastName}`),
     },
     {
       label: 'Assign Access',
       icon: Shield,
-      onClick: (row) =>
+      onClick: (row: Employee) =>
         options?.onAssignAccess?.(`${row.firstName} ${row.lastName}`),
     },
     {
       label: 'Delete',
       icon: Trash2,
-      onClick: (row) => alert(`Delete: ${row.firstName} ${row.lastName}`),
+      onClick: (row: Employee) =>
+        alert(`Delete: ${row.firstName} ${row.lastName}`),
       variant: 'destructive',
       separator: true,
     },
@@ -87,7 +89,7 @@ export function useEmployeeTable(
     data: employees,
     columns,
     pageCount: Math.ceil(totalCount / pageSize) || 1,
-    getRowId: (row) => row.id,
+    getRowId: (row: Employee) => row.id,
     manualPagination: true,
     manualSorting: true,
     manualFiltering: true,

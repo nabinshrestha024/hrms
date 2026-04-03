@@ -1,6 +1,6 @@
 import { Dot } from 'lucide-react';
 import { InitialsCard } from './InitialAvatar';
-import { HRCard } from 'node_modules/@erp/ui/src/components/card/Card';
+import { HRCard } from '@erp/ui';
 
 interface CardProps {
   employeeName?: string;
@@ -17,7 +17,7 @@ export const UserCard = ({
     <>
       <HRCard
         cardClassName="p-3 bg-muted rounded-xl shadow-none border-none"
-        cardContnetClassName="flex gap-2  p-0"
+        cardContentClassName="flex gap-2  p-0"
       >
         <InitialsCard name={employeeName || ''} />
         <div className="flex flex-col gap-1">

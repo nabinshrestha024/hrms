@@ -26,7 +26,7 @@ export function TopBar() {
     <>
       <HRCard
         cardClassName="sticky top-0 z-20 px-12 py-4 border-none rounded-none shadow-[0_1px_2px_0_rgba(255,0,0,0.05)] bg-white"
-        cardContnetClassName="flex justify-between p-0"
+        cardContentClassName="flex justify-between p-0"
       >
         <div className="px-4 py-2 rounded-3xl border border-border bg-white shadow-none  text-[14px] font-medium leading-5 text-ring flex items-center justify-center gap-2 p-0">
           {isAfter4PM ? (

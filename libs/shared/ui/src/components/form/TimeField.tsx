@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { InputGroup, InputGroupInput } from 'src/primitives/input-group';
-import { FormField } from 'src/components/form/FormField';
+import { InputGroup, InputGroupInput } from '../../primitives/input-group';
+import { FormField } from './FormField';
 
 interface HRTimeFieldProps {
   time?: string;
@@ -14,11 +14,6 @@ interface HRTimeFieldProps {
   labelClassName?: string;
 }
 
-function formatTime(time?: string) {
-  if (!time) return '';
-  return time;
-}
-
 export const HRTimeField = ({
   time,
   labelClassName,
@@ -30,17 +25,15 @@ export const HRTimeField = ({
   placeholder,
   className,
 }: HRTimeFieldProps) => {
-  const [open, setOpen] = React.useState(false);
-  const [selectedTime, setSelectedTime] = React.useState<string | undefined>(
-    time
-  );
-  const [inputValue, setInputValue] = React.useState(formatTime(time));
+  const [inputValue, setInputValue] = React.useState(time || '');
+
+  React.useEffect(() => {
+    setInputValue(time || '');
+  }, [time]);
 
   const handleTimeChange = (value: string) => {
-    setSelectedTime(value);
     setInputValue(value);
     onTimeChange?.(value);
-    setOpen(false);
   };
 
   return (
@@ -58,12 +51,6 @@ export const HRTimeField = ({
           placeholder={placeholder || 'Select time'}
           disabled={disabled}
           onChange={(e) => handleTimeChange(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === 'ArrowDown') {
-              e.preventDefault();
-              setOpen(true);
-            }
-          }}
         />
       </InputGroup>
     </FormField>

@@ -2,9 +2,9 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@erp/utils';
-import { Button } from 'src/primitives/button';
-import { Input } from 'src/primitives/input';
-import { Textarea } from 'src/primitives/textarea';
+import { Button } from './button';
+import { Input } from './input';
+import { Textarea } from './textarea';
 
 function InputGroup({ className, ...props }: React.ComponentProps<'div'>) {
   return (
@@ -66,13 +66,14 @@ function InputGroupAddon({
       data-slot="input-group-addon"
       data-align={align}
       className={cn(inputGroupAddonVariants({ align }), className)}
+      {...props}
       onClick={(e) => {
         if ((e.target as HTMLElement).closest('button')) {
           return;
         }
         e.currentTarget.parentElement?.querySelector('input')?.focus();
+        props.onClick?.(e);
       }}
-      {...props}
     />
   );
 }

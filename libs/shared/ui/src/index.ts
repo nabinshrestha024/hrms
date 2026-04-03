@@ -118,6 +118,59 @@ export {
   DialogTrigger,
 } from './primitives/dialog';
 export { Tabs, TabsContent, TabsList, TabsTrigger } from './primitives/tabs';
+export { Alert, AlertTitle, AlertDescription } from './primitives/alert';
+export { Calendar, CalendarDayButton } from './primitives/calendar';
+export { Checkbox } from './primitives/checkbox';
+export {
+  Combobox,
+  ComboboxInput,
+  ComboboxContent,
+  ComboboxList,
+  ComboboxItem,
+  ComboboxGroup,
+  ComboboxLabel,
+  ComboboxCollection,
+  ComboboxEmpty,
+  ComboboxSeparator,
+  ComboboxChips,
+  ComboboxChip,
+  ComboboxChipsInput,
+  ComboboxTrigger,
+  ComboboxValue,
+  useComboboxAnchor,
+} from './primitives/combobox';
+export {
+  Field,
+  FieldLabel,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+  FieldContent,
+  FieldTitle,
+} from './primitives/field';
+export {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupText,
+  InputGroupInput,
+  InputGroupTextarea,
+} from './primitives/input-group';
+export { Label } from './primitives/label';
+export {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverAnchor,
+  PopoverHeader,
+  PopoverTitle,
+  PopoverDescription,
+} from './primitives/popover';
+export { RadioGroup, RadioGroupItem } from './primitives/radio-group';
+export { Textarea } from './primitives/textarea';
 
 // Composed components
 export { Toaster } from './components/toaster';
@@ -143,7 +196,7 @@ export { OptionRadioGroup } from './components/form/Radio/RadioGroup';
 export { HRCombobox } from './components/form/ComboBox';
 export { HRDateField } from './components/form/DateField';
 export { DatePicker } from './components/form/DatePicker';
-export { Form } from './components/form/FormWraper';
+export { Form } from './components/form/FormWrapper';
 export { HRInput } from './components/form/Input';
 export { HRLabel } from './components/form/Label';
 export { HRSelect } from './components/form/Select';
@@ -153,6 +206,7 @@ export { HRTabs } from './components/tabs/Tabs';
 
 // Page templates — use these for quick route creation
 export { FormDialog } from './components/dialog/form-dialog';
+export { useDialogFormStore } from './components/dialog/form-store';
 export { MultiStepForm } from './components/multi-step-form';
 export type {
   MultiStepFormProps,

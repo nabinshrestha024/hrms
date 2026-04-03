@@ -43,7 +43,7 @@ export function GridPagination({
         <span>Show</span>
         <Select
           value={String(pageSize)}
-          onValueChange={(v) => onPageSizeChange(Number(v))}
+          onValueChange={(v: string) => onPageSizeChange(Number(v))}
         >
           <SelectTrigger className="h-8 w-[60px]">
             <SelectValue />

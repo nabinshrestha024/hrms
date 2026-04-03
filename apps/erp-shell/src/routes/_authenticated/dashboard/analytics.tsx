@@ -6,8 +6,6 @@ import {
   Badge,
   Button,
   type RowAction,
-  type FetchParams,
-  type FetchResult,
 } from '@erp/ui';
 import { Plus, Eye, Pencil, Trash2 } from 'lucide-react';
 import { useState } from 'react';
@@ -76,12 +74,20 @@ const columns: ColumnDef<Analytics, unknown>[] = [
 // ---- Row Actions ----
 
 const rowActions: RowAction<Analytics>[] = [
-  { label: 'View', icon: Eye, onClick: (row) => alert(`View: ${row.id}`) },
-  { label: 'Edit', icon: Pencil, onClick: (row) => alert(`Edit: ${row.id}`) },
+  {
+    label: 'View',
+    icon: Eye,
+    onClick: (row: Analytics) => alert(`View: ${row.id}`),
+  },
+  {
+    label: 'Edit',
+    icon: Pencil,
+    onClick: (row: Analytics) => alert(`Edit: ${row.id}`),
+  },
   {
     label: 'Delete',
     icon: Trash2,
-    onClick: (row) => alert(`Delete: ${row.id}`),
+    onClick: (row: Analytics) => alert(`Delete: ${row.id}`),
     variant: 'destructive',
     separator: true,
   },
@@ -115,7 +121,7 @@ function AnalyticsPage() {
       >
         <FormRenderer
           config={analyticsFormConfig}
-          onSubmit={(data) => {
+          onSubmit={(data: Record<string, unknown>) => {
             console.log('Form submitted:', data);
             setFormOpen(false);
           }}

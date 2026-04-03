@@ -1,6 +1,7 @@
+import { forwardRef } from 'react';
+import type React from 'react';
 import { Textarea as Root } from '../../primitives/textarea';
-import React from 'react';
-import { FormField } from 'src/components/form/FormField';
+import { FormField } from './FormField';
 
 interface TextAreaProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -12,34 +13,40 @@ interface TextAreaProps
   error?: string;
 }
 
-export const HRTextarea = ({
-  placeholder,
-  error,
-  labelClassName,
-  Label,
-  isRequired,
-  subLabel,
-  textAreaClassName,
-  ...props
-}: TextAreaProps) => {
-  return (
-    <FormField
-      Label={Label || ''}
-      required={isRequired}
-      labelClassName={labelClassName}
-      error={error}
-    >
-      <Root
-        placeholder={placeholder}
-        className={`w-full box-border ${textAreaClassName}`}
-        {...props}
-      />
+export const HRTextarea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
+  (
+    {
+      placeholder,
+      error,
+      labelClassName,
+      Label,
+      isRequired,
+      subLabel,
+      textAreaClassName,
+      ...props
+    },
+    ref
+  ) => {
+    return (
+      <FormField
+        Label={Label || ''}
+        required={isRequired}
+        labelClassName={labelClassName}
+        error={error}
+      >
+        <Root
+          ref={ref}
+          placeholder={placeholder}
+          className={`w-full box-border ${textAreaClassName || ''}`}
+          {...props}
+        />
 
-      {subLabel && (
-        <div className="text-[12px] text-secondary-foreground font-normal leading-5">
-          {subLabel}
-        </div>
-      )}
-    </FormField>
-  );
-};
+        {subLabel && (
+          <div className="text-[12px] text-secondary-foreground font-normal leading-5">
+            {subLabel}
+          </div>
+        )}
+      </FormField>
+    );
+  }
+);

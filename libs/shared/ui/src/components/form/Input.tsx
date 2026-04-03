@@ -1,5 +1,5 @@
 import { forwardRef, type InputHTMLAttributes } from 'react';
-import { FormField } from 'src/components/form/FormField';
+import { FormField } from './FormField';
 import { Input as Root } from '../../primitives/input';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {

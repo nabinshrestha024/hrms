@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import type { FieldValues, FormState } from 'react-hook-form';
 import { create } from 'zustand';
 
-type ModalSize = 'sm' | 'md' | 'lg';
+type ModalSize = 'sm' | 'md' | 'lg' | 'img';
 
 type InferFormId<T extends string> =
   Lowercase<T> extends `${infer FirstWord} ${infer Rest}`
@@ -108,12 +108,8 @@ export const useDialogFormStore = create<DialogState & DialogActions>(
       }));
     },
     onClose: () => {
-      set((state) => ({
-        ...state,
+      set(() => ({
         open: false,
-      }));
-      set((state) => ({
-        ...state,
         title: null,
         formId: undefined,
         component: <></>,

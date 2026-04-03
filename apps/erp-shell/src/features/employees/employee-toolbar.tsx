@@ -1,3 +1,4 @@
+import type React from 'react';
 import {
   Button,
   Input,
@@ -45,7 +46,9 @@ export function EmployeeToolbar({
             <Input
               placeholder="Search.."
               value={search}
-              onChange={(e) => onSearchChange(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                onSearchChange(e.target.value)
+              }
               className="pl-9"
             />
           </div>

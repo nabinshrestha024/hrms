@@ -4,14 +4,10 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
 } from 'lucide-react';
-import {
-  DayPicker,
-  getDefaultClassNames,
-  type DayButton,
-} from 'react-day-picker';
+import { DayPicker, DayButton, getDefaultClassNames } from 'react-day-picker';
 
 import { cn } from '@erp/utils';
-import { Button, buttonVariants } from 'src/primitives/button';
+import { Button, buttonVariants } from './button';
 
 function Calendar({
   className,

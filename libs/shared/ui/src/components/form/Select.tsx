@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../../primitives/select';
-import { FormField } from 'src/components/form/FormField';
+import { FormField } from './FormField';
 
 interface SelectDataType {
   id: number;
@@ -25,7 +25,7 @@ interface SelectProps {
   isRequired?: boolean;
   error?: string | undefined;
   Label?: string;
-  disabled: boolean;
+  disabled?: boolean;
   labelClassName?: string;
 }
 

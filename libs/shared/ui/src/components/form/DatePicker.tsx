@@ -1,5 +1,3 @@
-'use client';
-
 import * as React from 'react';
 import { format } from 'date-fns';
 import { type DateRange } from 'react-day-picker';
@@ -11,7 +9,7 @@ import {
 } from '../../primitives/popover';
 import { Calendar } from '../../primitives/calendar';
 import { CalendarDays } from 'lucide-react';
-import { Field } from 'src/primitives/field';
+import { Field } from '../../primitives/field';
 
 interface DatePickerProps {
   className?: string;
@@ -35,6 +33,10 @@ export function DatePicker({
   const [internalDate, setInternalDate] = React.useState<DateRange | undefined>(
     value || undefined
   );
+
+  React.useEffect(() => {
+    setInternalDate(value || undefined);
+  }, [value]);
 
   const selectedDate = value ?? internalDate;
 

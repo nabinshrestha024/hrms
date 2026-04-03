@@ -1,3 +1,4 @@
+import type React from 'react';
 import {
   Avatar,
   AvatarFallback,
@@ -81,7 +82,7 @@ export function EmployeeCardGrid({
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-[100px]">
               <DropdownMenuItem
-                onClick={(e) => {
+                onClick={(e: React.MouseEvent) => {
                   e.stopPropagation();
                   alert(`Edit: ${emp.firstName}`);
                 }}
@@ -89,7 +90,7 @@ export function EmployeeCardGrid({
                 Edit
               </DropdownMenuItem>
               <DropdownMenuItem
-                onClick={(e) => {
+                onClick={(e: React.MouseEvent) => {
                   e.stopPropagation();
                   alert(`Block: ${emp.firstName}`);
                 }}
@@ -99,7 +100,7 @@ export function EmployeeCardGrid({
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 className="text-[#E7000B] focus:text-[#E7000B]"
-                onClick={(e) => {
+                onClick={(e: React.MouseEvent) => {
                   e.stopPropagation();
                   alert(`Delete: ${emp.firstName}`);
                 }}

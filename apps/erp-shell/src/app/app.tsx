@@ -89,7 +89,9 @@ function handleApiError(error: ApiError) {
   // Backend format: [{ errorCode: "AFEV2REF107", errorMessage: "'title' must be..." }]
   const description =
     error.errors?.length > 0
-      ? error.errors.map((e) => e.errorMessage).join('\n')
+      ? error.errors
+          .map((e: { errorMessage: string }) => e.errorMessage)
+          .join('\n')
       : error.message || 'An unexpected error occurred';
 
   if (status === 401) {

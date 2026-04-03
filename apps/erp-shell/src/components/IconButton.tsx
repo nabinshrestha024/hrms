@@ -38,13 +38,14 @@ function IconButton({
   variant = 'default',
   asChild = false,
   ...props
-}: React.ComponentProps<'span'> &
+}: React.ComponentProps<'button'> &
   VariantProps<typeof iconVariants> & { asChild?: boolean }) {
-  const Comp = asChild ? Slot.Root : 'span';
+  const Comp = asChild ? Slot.Root : 'button';
 
   return (
     <Comp
-      data-slot="badge"
+      type="button"
+      data-slot="icon-button"
       data-variant={variant}
       className={cn(iconVariants({ variant }), className)}
       {...props}
