@@ -42,7 +42,13 @@
     "eslint.config.cjs",
     "eslint.config.mjs"
   ],
-  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"],
+  "include": [
+    "src/**/*.js",
+    "src/**/*.jsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/components/form/Radio"
+  ],
   "references": [
     {
       "path": "../utils/tsconfig.lib.json"

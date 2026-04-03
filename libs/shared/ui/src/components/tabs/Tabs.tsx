@@ -22,7 +22,7 @@ interface TabProps {
   tabsContentClassName: string;
 }
 
-export const Tabs = ({
+export const HRTabs = ({
   defaultValue,
   tabClassName,
   tabListClassName,

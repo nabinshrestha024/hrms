@@ -12,7 +12,7 @@ interface TextAreaProps
   error?: string;
 }
 
-export const HRTextArea = ({
+export const HRTextarea = ({
   placeholder,
   error,
   labelClassName,

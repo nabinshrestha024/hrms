@@ -2,7 +2,7 @@ import * as React from 'react';
 import { InputGroup, InputGroupInput } from 'src/primitives/input-group';
 import { FormField } from 'src/components/form/FormField';
 
-interface HRTimePickerProps {
+interface HRTimeFieldProps {
   time?: string;
   onTimeChange?: (time: string) => void;
   Label?: string;
@@ -19,7 +19,7 @@ function formatTime(time?: string) {
   return time;
 }
 
-export const HRTimePicker = ({
+export const HRTimeField = ({
   time,
   labelClassName,
   onTimeChange,
@@ -29,7 +29,7 @@ export const HRTimePicker = ({
   disabled,
   placeholder,
   className,
-}: HRTimePickerProps) => {
+}: HRTimeFieldProps) => {
   const [open, setOpen] = React.useState(false);
   const [selectedTime, setSelectedTime] = React.useState<string | undefined>(
     time

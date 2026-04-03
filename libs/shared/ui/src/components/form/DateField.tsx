@@ -15,7 +15,7 @@ import {
 } from 'src/primitives/input-group';
 import { FormField } from 'src/components/form/FormField';
 
-interface HRDatePickerProps {
+interface HRDateFieldProps {
   date?: Date;
   onDateChange?: (date: Date | undefined) => void;
   Label?: string;
@@ -36,7 +36,7 @@ function formatDate(date: Date | undefined) {
   });
 }
 
-export const HRDatePicker = ({
+export const HRDateField = ({
   date,
   onDateChange,
   Label,
@@ -46,7 +46,7 @@ export const HRDatePicker = ({
   disabled,
   placeholder,
   className,
-}: HRDatePickerProps) => {
+}: HRDateFieldProps) => {
   const [open, setOpen] = React.useState(false);
   const [selectedDate, setSelectedDate] = React.useState<Date | undefined>(
     date
