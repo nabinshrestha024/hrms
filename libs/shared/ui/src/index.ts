@@ -127,7 +127,7 @@ export { useDialog } from './hooks/use-dialog';
 export type { DialogState } from './hooks/use-dialog';
 
 // Form components
-export { FormField } from './components/form-field';
+export { FormField } from './components/form/FormField';
 
 // Page templates — use these for quick route creation
 export { FormDialog } from './components/form-dialog';

@@ -8,171 +8,171 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as UnauthorizedRouteImport } from './routes/unauthorized'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthenticatedTasksRouteImport } from './routes/_authenticated/tasks'
-import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
-import { Route as AuthenticatedRecruitmentRouteImport } from './routes/_authenticated/recruitment'
-import { Route as AuthenticatedPayrollRouteImport } from './routes/_authenticated/payroll'
-import { Route as AuthenticatedLeaveRouteImport } from './routes/_authenticated/leave'
-import { Route as AuthenticatedEmployeesRouteImport } from './routes/_authenticated/employees'
-import { Route as AuthenticatedDemoTableRouteImport } from './routes/_authenticated/demo-table'
-import { Route as AuthenticatedDemoFormRouteImport } from './routes/_authenticated/demo-form'
-import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
-import { Route as AuthenticatedAttendanceRouteImport } from './routes/_authenticated/attendance'
-import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
-import { Route as AuthenticatedEmployeesIdRouteImport } from './routes/_authenticated/employees.$id'
-import { Route as AuthenticatedDashboardAnalyticsRouteImport } from './routes/_authenticated/dashboard/analytics'
+import { Route as rootRouteImport } from './routes/__root';
+import { Route as UnauthorizedRouteImport } from './routes/unauthorized';
+import { Route as LoginRouteImport } from './routes/login';
+import { Route as AuthenticatedRouteImport } from './routes/_authenticated';
+import { Route as IndexRouteImport } from './routes/index';
+import { Route as AuthenticatedTasksRouteImport } from './routes/_authenticated/tasks';
+import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings';
+import { Route as AuthenticatedRecruitmentRouteImport } from './routes/_authenticated/recruitment';
+import { Route as AuthenticatedPayrollRouteImport } from './routes/_authenticated/payroll';
+import { Route as AuthenticatedLeaveRouteImport } from './routes/_authenticated/leave';
+import { Route as AuthenticatedEmployeesRouteImport } from './routes/_authenticated/employees';
+import { Route as AuthenticatedDemoTableRouteImport } from './routes/_authenticated/demo-table';
+import { Route as AuthenticatedDemoFormRouteImport } from './routes/_authenticated/demo-form';
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard';
+import { Route as AuthenticatedAttendanceRouteImport } from './routes/_authenticated/attendance';
+import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index';
+import { Route as AuthenticatedEmployeesIdRouteImport } from './routes/_authenticated/employees.$id';
+import { Route as AuthenticatedDashboardAnalyticsRouteImport } from './routes/_authenticated/dashboard/analytics';
 
 const UnauthorizedRoute = UnauthorizedRouteImport.update({
   id: '/unauthorized',
   path: '/unauthorized',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const AuthenticatedRoute = AuthenticatedRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const AuthenticatedTasksRoute = AuthenticatedTasksRouteImport.update({
   id: '/tasks',
   path: '/tasks',
   getParentRoute: () => AuthenticatedRoute,
-} as any)
+} as any);
 const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
   getParentRoute: () => AuthenticatedRoute,
-} as any)
+} as any);
 const AuthenticatedRecruitmentRoute =
   AuthenticatedRecruitmentRouteImport.update({
     id: '/recruitment',
     path: '/recruitment',
     getParentRoute: () => AuthenticatedRoute,
-  } as any)
+  } as any);
 const AuthenticatedPayrollRoute = AuthenticatedPayrollRouteImport.update({
   id: '/payroll',
   path: '/payroll',
   getParentRoute: () => AuthenticatedRoute,
-} as any)
+} as any);
 const AuthenticatedLeaveRoute = AuthenticatedLeaveRouteImport.update({
   id: '/leave',
   path: '/leave',
   getParentRoute: () => AuthenticatedRoute,
-} as any)
+} as any);
 const AuthenticatedEmployeesRoute = AuthenticatedEmployeesRouteImport.update({
   id: '/employees',
   path: '/employees',
   getParentRoute: () => AuthenticatedRoute,
-} as any)
+} as any);
 const AuthenticatedDemoTableRoute = AuthenticatedDemoTableRouteImport.update({
   id: '/demo-table',
   path: '/demo-table',
   getParentRoute: () => AuthenticatedRoute,
-} as any)
+} as any);
 const AuthenticatedDemoFormRoute = AuthenticatedDemoFormRouteImport.update({
   id: '/demo-form',
   path: '/demo-form',
   getParentRoute: () => AuthenticatedRoute,
-} as any)
+} as any);
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRoute,
-} as any)
+} as any);
 const AuthenticatedAttendanceRoute = AuthenticatedAttendanceRouteImport.update({
   id: '/attendance',
   path: '/attendance',
   getParentRoute: () => AuthenticatedRoute,
-} as any)
+} as any);
 const AuthenticatedDashboardIndexRoute =
   AuthenticatedDashboardIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () => AuthenticatedDashboardRoute,
-  } as any)
+  } as any);
 const AuthenticatedEmployeesIdRoute =
   AuthenticatedEmployeesIdRouteImport.update({
     id: '/$id',
     path: '/$id',
     getParentRoute: () => AuthenticatedEmployeesRoute,
-  } as any)
+  } as any);
 const AuthenticatedDashboardAnalyticsRoute =
   AuthenticatedDashboardAnalyticsRouteImport.update({
     id: '/analytics',
     path: '/analytics',
     getParentRoute: () => AuthenticatedDashboardRoute,
-  } as any)
+  } as any);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/login': typeof LoginRoute
-  '/unauthorized': typeof UnauthorizedRoute
-  '/attendance': typeof AuthenticatedAttendanceRoute
-  '/dashboard': typeof AuthenticatedDashboardRouteWithChildren
-  '/demo-form': typeof AuthenticatedDemoFormRoute
-  '/demo-table': typeof AuthenticatedDemoTableRoute
-  '/employees': typeof AuthenticatedEmployeesRouteWithChildren
-  '/leave': typeof AuthenticatedLeaveRoute
-  '/payroll': typeof AuthenticatedPayrollRoute
-  '/recruitment': typeof AuthenticatedRecruitmentRoute
-  '/settings': typeof AuthenticatedSettingsRoute
-  '/tasks': typeof AuthenticatedTasksRoute
-  '/dashboard/analytics': typeof AuthenticatedDashboardAnalyticsRoute
-  '/employees/$id': typeof AuthenticatedEmployeesIdRoute
-  '/dashboard/': typeof AuthenticatedDashboardIndexRoute
+  '/': typeof IndexRoute;
+  '/login': typeof LoginRoute;
+  '/unauthorized': typeof UnauthorizedRoute;
+  '/attendance': typeof AuthenticatedAttendanceRoute;
+  '/dashboard': typeof AuthenticatedDashboardRouteWithChildren;
+  '/demo-form': typeof AuthenticatedDemoFormRoute;
+  '/demo-table': typeof AuthenticatedDemoTableRoute;
+  '/employees': typeof AuthenticatedEmployeesRouteWithChildren;
+  '/leave': typeof AuthenticatedLeaveRoute;
+  '/payroll': typeof AuthenticatedPayrollRoute;
+  '/recruitment': typeof AuthenticatedRecruitmentRoute;
+  '/settings': typeof AuthenticatedSettingsRoute;
+  '/tasks': typeof AuthenticatedTasksRoute;
+  '/dashboard/analytics': typeof AuthenticatedDashboardAnalyticsRoute;
+  '/employees/$id': typeof AuthenticatedEmployeesIdRoute;
+  '/dashboard/': typeof AuthenticatedDashboardIndexRoute;
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/login': typeof LoginRoute
-  '/unauthorized': typeof UnauthorizedRoute
-  '/attendance': typeof AuthenticatedAttendanceRoute
-  '/demo-form': typeof AuthenticatedDemoFormRoute
-  '/demo-table': typeof AuthenticatedDemoTableRoute
-  '/employees': typeof AuthenticatedEmployeesRouteWithChildren
-  '/leave': typeof AuthenticatedLeaveRoute
-  '/payroll': typeof AuthenticatedPayrollRoute
-  '/recruitment': typeof AuthenticatedRecruitmentRoute
-  '/settings': typeof AuthenticatedSettingsRoute
-  '/tasks': typeof AuthenticatedTasksRoute
-  '/dashboard/analytics': typeof AuthenticatedDashboardAnalyticsRoute
-  '/employees/$id': typeof AuthenticatedEmployeesIdRoute
-  '/dashboard': typeof AuthenticatedDashboardIndexRoute
+  '/': typeof IndexRoute;
+  '/login': typeof LoginRoute;
+  '/unauthorized': typeof UnauthorizedRoute;
+  '/attendance': typeof AuthenticatedAttendanceRoute;
+  '/demo-form': typeof AuthenticatedDemoFormRoute;
+  '/demo-table': typeof AuthenticatedDemoTableRoute;
+  '/employees': typeof AuthenticatedEmployeesRouteWithChildren;
+  '/leave': typeof AuthenticatedLeaveRoute;
+  '/payroll': typeof AuthenticatedPayrollRoute;
+  '/recruitment': typeof AuthenticatedRecruitmentRoute;
+  '/settings': typeof AuthenticatedSettingsRoute;
+  '/tasks': typeof AuthenticatedTasksRoute;
+  '/dashboard/analytics': typeof AuthenticatedDashboardAnalyticsRoute;
+  '/employees/$id': typeof AuthenticatedEmployeesIdRoute;
+  '/dashboard': typeof AuthenticatedDashboardIndexRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/_authenticated': typeof AuthenticatedRouteWithChildren
-  '/login': typeof LoginRoute
-  '/unauthorized': typeof UnauthorizedRoute
-  '/_authenticated/attendance': typeof AuthenticatedAttendanceRoute
-  '/_authenticated/dashboard': typeof AuthenticatedDashboardRouteWithChildren
-  '/_authenticated/demo-form': typeof AuthenticatedDemoFormRoute
-  '/_authenticated/demo-table': typeof AuthenticatedDemoTableRoute
-  '/_authenticated/employees': typeof AuthenticatedEmployeesRouteWithChildren
-  '/_authenticated/leave': typeof AuthenticatedLeaveRoute
-  '/_authenticated/payroll': typeof AuthenticatedPayrollRoute
-  '/_authenticated/recruitment': typeof AuthenticatedRecruitmentRoute
-  '/_authenticated/settings': typeof AuthenticatedSettingsRoute
-  '/_authenticated/tasks': typeof AuthenticatedTasksRoute
-  '/_authenticated/dashboard/analytics': typeof AuthenticatedDashboardAnalyticsRoute
-  '/_authenticated/employees/$id': typeof AuthenticatedEmployeesIdRoute
-  '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
+  __root__: typeof rootRouteImport;
+  '/': typeof IndexRoute;
+  '/_authenticated': typeof AuthenticatedRouteWithChildren;
+  '/login': typeof LoginRoute;
+  '/unauthorized': typeof UnauthorizedRoute;
+  '/_authenticated/attendance': typeof AuthenticatedAttendanceRoute;
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRouteWithChildren;
+  '/_authenticated/demo-form': typeof AuthenticatedDemoFormRoute;
+  '/_authenticated/demo-table': typeof AuthenticatedDemoTableRoute;
+  '/_authenticated/employees': typeof AuthenticatedEmployeesRouteWithChildren;
+  '/_authenticated/leave': typeof AuthenticatedLeaveRoute;
+  '/_authenticated/payroll': typeof AuthenticatedPayrollRoute;
+  '/_authenticated/recruitment': typeof AuthenticatedRecruitmentRoute;
+  '/_authenticated/settings': typeof AuthenticatedSettingsRoute;
+  '/_authenticated/tasks': typeof AuthenticatedTasksRoute;
+  '/_authenticated/dashboard/analytics': typeof AuthenticatedDashboardAnalyticsRoute;
+  '/_authenticated/employees/$id': typeof AuthenticatedEmployeesIdRoute;
+  '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
     | '/'
     | '/login'
@@ -189,8 +189,8 @@ export interface FileRouteTypes {
     | '/tasks'
     | '/dashboard/analytics'
     | '/employees/$id'
-    | '/dashboard/'
-  fileRoutesByTo: FileRoutesByTo
+    | '/dashboard/';
+  fileRoutesByTo: FileRoutesByTo;
   to:
     | '/'
     | '/login'
@@ -206,7 +206,7 @@ export interface FileRouteTypes {
     | '/tasks'
     | '/dashboard/analytics'
     | '/employees/$id'
-    | '/dashboard'
+    | '/dashboard';
   id:
     | '__root__'
     | '/'
@@ -225,181 +225,181 @@ export interface FileRouteTypes {
     | '/_authenticated/tasks'
     | '/_authenticated/dashboard/analytics'
     | '/_authenticated/employees/$id'
-    | '/_authenticated/dashboard/'
-  fileRoutesById: FileRoutesById
+    | '/_authenticated/dashboard/';
+  fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
-  LoginRoute: typeof LoginRoute
-  UnauthorizedRoute: typeof UnauthorizedRoute
+  IndexRoute: typeof IndexRoute;
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren;
+  LoginRoute: typeof LoginRoute;
+  UnauthorizedRoute: typeof UnauthorizedRoute;
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/unauthorized': {
-      id: '/unauthorized'
-      path: '/unauthorized'
-      fullPath: '/unauthorized'
-      preLoaderRoute: typeof UnauthorizedRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/unauthorized';
+      path: '/unauthorized';
+      fullPath: '/unauthorized';
+      preLoaderRoute: typeof UnauthorizedRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/login';
+      path: '/login';
+      fullPath: '/login';
+      preLoaderRoute: typeof LoginRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/_authenticated': {
-      id: '/_authenticated'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/_authenticated';
+      path: '';
+      fullPath: '/';
+      preLoaderRoute: typeof AuthenticatedRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/';
+      path: '/';
+      fullPath: '/';
+      preLoaderRoute: typeof IndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/_authenticated/tasks': {
-      id: '/_authenticated/tasks'
-      path: '/tasks'
-      fullPath: '/tasks'
-      preLoaderRoute: typeof AuthenticatedTasksRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
+      id: '/_authenticated/tasks';
+      path: '/tasks';
+      fullPath: '/tasks';
+      preLoaderRoute: typeof AuthenticatedTasksRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
     '/_authenticated/settings': {
-      id: '/_authenticated/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
+      id: '/_authenticated/settings';
+      path: '/settings';
+      fullPath: '/settings';
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
     '/_authenticated/recruitment': {
-      id: '/_authenticated/recruitment'
-      path: '/recruitment'
-      fullPath: '/recruitment'
-      preLoaderRoute: typeof AuthenticatedRecruitmentRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
+      id: '/_authenticated/recruitment';
+      path: '/recruitment';
+      fullPath: '/recruitment';
+      preLoaderRoute: typeof AuthenticatedRecruitmentRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
     '/_authenticated/payroll': {
-      id: '/_authenticated/payroll'
-      path: '/payroll'
-      fullPath: '/payroll'
-      preLoaderRoute: typeof AuthenticatedPayrollRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
+      id: '/_authenticated/payroll';
+      path: '/payroll';
+      fullPath: '/payroll';
+      preLoaderRoute: typeof AuthenticatedPayrollRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
     '/_authenticated/leave': {
-      id: '/_authenticated/leave'
-      path: '/leave'
-      fullPath: '/leave'
-      preLoaderRoute: typeof AuthenticatedLeaveRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
+      id: '/_authenticated/leave';
+      path: '/leave';
+      fullPath: '/leave';
+      preLoaderRoute: typeof AuthenticatedLeaveRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
     '/_authenticated/employees': {
-      id: '/_authenticated/employees'
-      path: '/employees'
-      fullPath: '/employees'
-      preLoaderRoute: typeof AuthenticatedEmployeesRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
+      id: '/_authenticated/employees';
+      path: '/employees';
+      fullPath: '/employees';
+      preLoaderRoute: typeof AuthenticatedEmployeesRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
     '/_authenticated/demo-table': {
-      id: '/_authenticated/demo-table'
-      path: '/demo-table'
-      fullPath: '/demo-table'
-      preLoaderRoute: typeof AuthenticatedDemoTableRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
+      id: '/_authenticated/demo-table';
+      path: '/demo-table';
+      fullPath: '/demo-table';
+      preLoaderRoute: typeof AuthenticatedDemoTableRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
     '/_authenticated/demo-form': {
-      id: '/_authenticated/demo-form'
-      path: '/demo-form'
-      fullPath: '/demo-form'
-      preLoaderRoute: typeof AuthenticatedDemoFormRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
+      id: '/_authenticated/demo-form';
+      path: '/demo-form';
+      fullPath: '/demo-form';
+      preLoaderRoute: typeof AuthenticatedDemoFormRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
     '/_authenticated/dashboard': {
-      id: '/_authenticated/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
+      id: '/_authenticated/dashboard';
+      path: '/dashboard';
+      fullPath: '/dashboard';
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
     '/_authenticated/attendance': {
-      id: '/_authenticated/attendance'
-      path: '/attendance'
-      fullPath: '/attendance'
-      preLoaderRoute: typeof AuthenticatedAttendanceRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
+      id: '/_authenticated/attendance';
+      path: '/attendance';
+      fullPath: '/attendance';
+      preLoaderRoute: typeof AuthenticatedAttendanceRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
     '/_authenticated/dashboard/': {
-      id: '/_authenticated/dashboard/'
-      path: '/'
-      fullPath: '/dashboard/'
-      preLoaderRoute: typeof AuthenticatedDashboardIndexRouteImport
-      parentRoute: typeof AuthenticatedDashboardRoute
-    }
+      id: '/_authenticated/dashboard/';
+      path: '/';
+      fullPath: '/dashboard/';
+      preLoaderRoute: typeof AuthenticatedDashboardIndexRouteImport;
+      parentRoute: typeof AuthenticatedDashboardRoute;
+    };
     '/_authenticated/employees/$id': {
-      id: '/_authenticated/employees/$id'
-      path: '/$id'
-      fullPath: '/employees/$id'
-      preLoaderRoute: typeof AuthenticatedEmployeesIdRouteImport
-      parentRoute: typeof AuthenticatedEmployeesRoute
-    }
+      id: '/_authenticated/employees/$id';
+      path: '/$id';
+      fullPath: '/employees/$id';
+      preLoaderRoute: typeof AuthenticatedEmployeesIdRouteImport;
+      parentRoute: typeof AuthenticatedEmployeesRoute;
+    };
     '/_authenticated/dashboard/analytics': {
-      id: '/_authenticated/dashboard/analytics'
-      path: '/analytics'
-      fullPath: '/dashboard/analytics'
-      preLoaderRoute: typeof AuthenticatedDashboardAnalyticsRouteImport
-      parentRoute: typeof AuthenticatedDashboardRoute
-    }
+      id: '/_authenticated/dashboard/analytics';
+      path: '/analytics';
+      fullPath: '/dashboard/analytics';
+      preLoaderRoute: typeof AuthenticatedDashboardAnalyticsRouteImport;
+      parentRoute: typeof AuthenticatedDashboardRoute;
+    };
   }
 }
 
 interface AuthenticatedDashboardRouteChildren {
-  AuthenticatedDashboardAnalyticsRoute: typeof AuthenticatedDashboardAnalyticsRoute
-  AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
+  AuthenticatedDashboardAnalyticsRoute: typeof AuthenticatedDashboardAnalyticsRoute;
+  AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute;
 }
 
 const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren =
   {
     AuthenticatedDashboardAnalyticsRoute: AuthenticatedDashboardAnalyticsRoute,
     AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
-  }
+  };
 
 const AuthenticatedDashboardRouteWithChildren =
   AuthenticatedDashboardRoute._addFileChildren(
-    AuthenticatedDashboardRouteChildren,
-  )
+    AuthenticatedDashboardRouteChildren
+  );
 
 interface AuthenticatedEmployeesRouteChildren {
-  AuthenticatedEmployeesIdRoute: typeof AuthenticatedEmployeesIdRoute
+  AuthenticatedEmployeesIdRoute: typeof AuthenticatedEmployeesIdRoute;
 }
 
 const AuthenticatedEmployeesRouteChildren: AuthenticatedEmployeesRouteChildren =
   {
     AuthenticatedEmployeesIdRoute: AuthenticatedEmployeesIdRoute,
-  }
+  };
 
 const AuthenticatedEmployeesRouteWithChildren =
   AuthenticatedEmployeesRoute._addFileChildren(
-    AuthenticatedEmployeesRouteChildren,
-  )
+    AuthenticatedEmployeesRouteChildren
+  );
 
 interface AuthenticatedRouteChildren {
-  AuthenticatedAttendanceRoute: typeof AuthenticatedAttendanceRoute
-  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRouteWithChildren
-  AuthenticatedDemoFormRoute: typeof AuthenticatedDemoFormRoute
-  AuthenticatedDemoTableRoute: typeof AuthenticatedDemoTableRoute
-  AuthenticatedEmployeesRoute: typeof AuthenticatedEmployeesRouteWithChildren
-  AuthenticatedLeaveRoute: typeof AuthenticatedLeaveRoute
-  AuthenticatedPayrollRoute: typeof AuthenticatedPayrollRoute
-  AuthenticatedRecruitmentRoute: typeof AuthenticatedRecruitmentRoute
-  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
-  AuthenticatedTasksRoute: typeof AuthenticatedTasksRoute
+  AuthenticatedAttendanceRoute: typeof AuthenticatedAttendanceRoute;
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRouteWithChildren;
+  AuthenticatedDemoFormRoute: typeof AuthenticatedDemoFormRoute;
+  AuthenticatedDemoTableRoute: typeof AuthenticatedDemoTableRoute;
+  AuthenticatedEmployeesRoute: typeof AuthenticatedEmployeesRouteWithChildren;
+  AuthenticatedLeaveRoute: typeof AuthenticatedLeaveRoute;
+  AuthenticatedPayrollRoute: typeof AuthenticatedPayrollRoute;
+  AuthenticatedRecruitmentRoute: typeof AuthenticatedRecruitmentRoute;
+  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute;
+  AuthenticatedTasksRoute: typeof AuthenticatedTasksRoute;
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
@@ -413,18 +413,18 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedRecruitmentRoute: AuthenticatedRecruitmentRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedTasksRoute: AuthenticatedTasksRoute,
-}
+};
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
-  AuthenticatedRouteChildren,
-)
+  AuthenticatedRouteChildren
+);
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   LoginRoute: LoginRoute,
   UnauthorizedRoute: UnauthorizedRoute,
-}
+};
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();

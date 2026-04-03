@@ -8,15 +8,15 @@ const badgeVariants = cva(
     variants: {
       variant: {
         default:
-          'rounded-full py-[2px] px-3 text-gray-600 cursor-pointer bg-[#F4F4F5] text-[12px] font-semibold leading-4 text-center ',
+          'rounded-full py-[2px] px-3 text-gray-600 cursor-pointer bg-chart-6 text-[12px] font-semibold leading-4 text-center ',
         warning:
-          'rounded-full py-[2px] px-3 text-yellow-600 bg-[#FEF9C2] cursor-pointer text-[12px] font-semibold leading-4 text-center',
+          'rounded-full py-[2px] px-3 text-yellow-600 bg-chart-4 cursor-pointer text-[12px] font-semibold leading-4 text-center',
         primary:
-          'rounded-full py-[2px] px-3 text-blue-600 bg-[#DBEAFE] cursor-pointer text-[12px] font-semibold leading-4 text-center',
+          'rounded-full py-[2px] px-3 text-blue-600 bg-chart-5 cursor-pointer text-[12px] font-semibold leading-4 text-center',
         secondary:
-          'rounded-full py-[2px] px-3 text-green-600 bg-[#DCFCE7] cursor-pointer text-[12px] font-semibold leading-4 text-center',
+          'rounded-full py-[2px] px-3 text-green-600 bg-chart-2 cursor-pointer text-[12px] font-semibold leading-4 text-center',
         destructive:
-          'rounded-full py-[2px] px-3 text-red-600 bg-[#FFE2E2] cursor-pointer text-[12px] font-semibold leading-4 text-center',
+          'rounded-full py-[2px] px-3 text-red-600 bg-chart-3 cursor-pointer text-[12px] font-semibold leading-4 text-center',
         outline:
           'rounded-full py-[2px] px-3  border-border  [a&]:hover:text-accent-foreground',
         ghost:
