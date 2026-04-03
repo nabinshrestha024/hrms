@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "apps/erp-shell/src/styles/app.css",
+    "baseColor": "zinc",
+    "cssVariables": true
+  },
+  "aliases": {
+    "components": "@erp/ui",
+    "ui": "@erp/ui",
+    "utils": "@erp/utils",
+    "hooks": "@erp/ui"
+  }
+}

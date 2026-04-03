@@ -19,7 +19,8 @@
     "clean:all": "node scripts/clean.mjs",
     "reset": "node scripts/clean.mjs && pnpm install",
     "generate": "pnpm nx g @org/generators:route",
-    "msw:init": "npx msw init apps/erp-shell/public --save"
+    "msw:init": "npx msw init apps/erp-shell/public --save",
+    "ui:add": "node scripts/add-ui.mjs"
   },
   "private": true,
   "devDependencies": {

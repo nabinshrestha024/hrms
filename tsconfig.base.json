@@ -16,6 +16,10 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "es2022",
-    "customConditions": ["@org/source"]
+    "customConditions": ["@org/source"],
+    "paths": {
+      "@erp/ui": ["libs/shared/ui/src/index.ts"],
+      "@erp/utils": ["libs/shared/utils/src/index.ts"]
+    }
   }
 }
