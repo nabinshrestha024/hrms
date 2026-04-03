@@ -42,7 +42,7 @@ export function IconBar({
     <div className="relative flex flex-col w-16 bg-black shrink-0">
       {/* Logo — 36px indigo square */}
       <div className="px-3.5 py-4.25">
-        <div className="p-2.5 rounded-lg bg-[#312C85]">
+        <div className="p-2.5 rounded-lg bg-sidebar-primary">
           <div className="w-4 h-4">
             <LucideGalleryVerticalEnd className="text-white w-4 h-4" />
           </div>
@@ -61,9 +61,9 @@ export function IconBar({
                 <LinkComp
                   to={mod.href}
                   className={cn(
-                    'flex w-13 items-center justify-center gap-2 p-3 text-white rounded-tl-[2px] rounded-bl-[2px] hover:border-l-3 hover:border-l-[#312C85] hover:bg-[#ECECEC1A]transition-colors',
+                    'flex w-13 items-center justify-center gap-2 py-3 pl-3 pr-5 text-white rounded-tl-[2px] rounded-bl-[2px] hover:border-l-3 hover:border-l-sidebar-primary hover:bg-sidebar ',
                     isActive
-                      ? 'border-l-3 border-l-[#312C85] bg-[#ECECEC1A]'
+                      ? 'border-l-3 border-l-sidebar-primary bg-sidebar-foreground'
                       : ''
                   )}
                 >

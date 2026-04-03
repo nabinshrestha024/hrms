@@ -98,7 +98,7 @@ export function ShellLayout({
         >
           <ArrowRightCircle
             className={cn(
-              'size-5 text-[#312C85] transition-transform duration-300',
+              'size-5 text-sidebar-primary transition-transform duration-300',
               subNavExpanded && 'rotate-180'
             )}
             strokeWidth={2}
@@ -134,7 +134,9 @@ export function ShellLayout({
       <div className="flex flex-1 flex-col overflow-hidden">
         <TopBar />
 
-        <main className="flex-1 overflow-y-auto pb-16 md:pb-0">{children}</main>
+        <main className="flex-1 overflow-y-auto pb-16 md:pb-0 bg-background">
+          {children}
+        </main>
       </div>
 
       {/* Mobile bottom nav */}

@@ -33,7 +33,7 @@ export function SubNav({
   return (
     <div
       className={cn(
-        'flex flex-col bg-[#312C85] border-r border-sidebar-border shrink-0 overflow-hidden transition-all duration-300 ease-in-out',
+        'flex flex-col bg-sidebar-primary border-r border-sidebar-border shrink-0 overflow-hidden transition-all duration-300 ease-in-out',
         collapsed || !hasSubItems ? 'w-0 border-r-0' : 'w-52'
       )}
     >
@@ -64,8 +64,8 @@ export function SubNav({
                   key={item.href}
                   to={item.href}
                   className={cn(
-                    'h-11 flex items-center gap-3 text-[14px] font-medium rounded-none p-3 hover:bg-[#ECECEC1A] text-white hover:text-white transition-colors overflow-hidden whitespace-nowrap',
-                    isActive ? 'bg-[#ECECEC1A] text-white' : ''
+                    'h-11 flex items-center gap-3 text-[14px] font-medium rounded-none p-3 hover:bg-sidebar-foreground text-white hover:text-white transition-colors overflow-hidden whitespace-nowrap',
+                    isActive ? 'bg-sidebar-foreground text-white' : ''
                   )}
                 >
                   <ItemIcon className="size-5 shrink-0" strokeWidth={1.5} />
