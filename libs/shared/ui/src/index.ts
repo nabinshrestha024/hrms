@@ -240,3 +240,5 @@ export type {
   DataTableViewOptionsProps,
   RowAction,
 } from './components/data-table';
+
+export { HRFileUpload } from './components/form/HRFormUpload';

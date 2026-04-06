@@ -1,3 +1,4 @@
+import { LucideIcon } from 'lucide-react';
 import type { UseFormReturn } from 'react-hook-form';
 
 export type FieldType =
@@ -16,6 +17,10 @@ export interface FieldDefinition {
   name: string;
   type: FieldType;
   label?: string;
+  subLabel?: string;
+  icon?: LucideIcon;
+  placeholder?: string;
+  isRequired?: boolean;
   validation?: {
     required?: boolean | string;
     min?: number;

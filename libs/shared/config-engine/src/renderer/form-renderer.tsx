@@ -6,7 +6,7 @@ import { WidgetRegistry } from '../registry/widget-registry';
 import { registerDefaultWidgets } from '../widgets/register-defaults';
 import { buildZodSchema } from '../schema/build-zod-schema';
 import { LayoutRenderer } from './layout-renderer';
-import { Button } from '@erp/ui';
+import { Form } from '@erp/ui';
 
 interface FormRendererProps {
   config: FormViewConfig;
@@ -42,7 +42,7 @@ export function FormRenderer({
   });
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+    <Form onSubmit={onSubmit} form={form}>
       <LayoutRenderer
         node={config.layout}
         fields={config.fields}
@@ -50,9 +50,9 @@ export function FormRenderer({
         widgetRegistry={registry}
         disabled={disabled}
       />
-      <Button type="submit" disabled={disabled || form.formState.isSubmitting}>
+      {/* <Button type="submit" disabled={disabled || form.formState.isSubmitting}>
         {form.formState.isSubmitting ? 'Submitting...' : submitLabel}
-      </Button>
-    </form>
+      </Button> */}
+    </Form>
   );
 }

@@ -37,7 +37,9 @@ export const HRTextarea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
         <Root
           ref={ref}
           placeholder={placeholder}
-          className={`w-full box-border ${textAreaClassName || ''}`}
+          className={`w-full box-border px-3 py-2.5 rounded-[6px] border  border-[#E4E4E7] ${
+            textAreaClassName || ''
+          }`}
           {...props}
         />
 

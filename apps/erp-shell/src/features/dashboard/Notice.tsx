@@ -13,6 +13,7 @@ interface GetColumnsProps {
     cancelText?: string | React.ReactNode;
     size?: ModalSize;
     formId?: string;
+    dialogClassName?: string;
     onCancel?: () => void;
   }) => void;
 }
@@ -79,6 +80,7 @@ export const Notice = ({ onOpen }: GetColumnsProps) => {
                 size: 'lg',
                 cancelText: 'Cancel',
                 formId: 'announcement',
+                dialogClassName: 'max-h-[150vh]',
                 component: <CreateAnnouncementForm />,
               });
             }}

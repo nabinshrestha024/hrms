@@ -1,8 +1,8 @@
 import { Controller } from 'react-hook-form';
 import type { WidgetProps } from '../types';
-import { HRInput } from '@erp/ui';
+import { HRTextarea } from '@erp/ui';
 
-export function TextWidget({ field, form, disabled }: WidgetProps) {
+export function TextareaWidget({ field, form, disabled }: WidgetProps) {
   const error = form.formState.errors[field.name];
   const errorMessage = error?.message ? String(error.message) : undefined;
 
@@ -11,13 +11,15 @@ export function TextWidget({ field, form, disabled }: WidgetProps) {
       name={field.name}
       control={form.control}
       render={({ field: formField }) => (
-        <HRInput
-          type={field.type}
+        <HRTextarea
+          {...formField}
+          value={typeof formField.value === 'string' ? formField.value : ''}
           disabled={disabled}
-          isRequired={field.isRequired}
-          placeholder={field.placeholder}
+          placeholder="Type here"
           Label={field.label}
+          isRequired={field.isRequired}
           error={errorMessage}
+          subLabel={field.subLabel}
         />
       )}
     />

@@ -1,32 +1,28 @@
-import { Input } from '@erp/ui';
+import { Controller } from 'react-hook-form';
 import type { WidgetProps } from '../types';
+import { HRDateField } from '@erp/ui';
 
 export function DateWidget({ field, form, disabled }: WidgetProps) {
-  const { register } = form;
   const error = form.formState.errors[field.name];
   const errorMessage = error?.message ? String(error.message) : undefined;
 
   return (
-    <div>
-      {field.label && (
-        <label htmlFor={field.name} className="mb-1 block text-sm font-medium">
-          {field.label}
-          {field.validation?.required && (
-            <span className="ml-1 text-destructive">*</span>
-          )}
-        </label>
+    <Controller
+      name={field.name}
+      control={form.control}
+      render={({ field: formField }) => (
+        <HRDateField
+          date={formField.value}
+          onDateChange={formField.onChange}
+          disabled={disabled}
+          Label={field.label}
+          isRequired={field.isRequired}
+          error={errorMessage}
+          placeholder={
+            field.label ? `Select ${field.label.toLowerCase()}` : undefined
+          }
+        />
       )}
-      <Input
-        id={field.name}
-        type="date"
-        {...register(field.name)}
-        disabled={disabled}
-        aria-invalid={!!error}
-        className={error ? 'border-destructive' : ''}
-      />
-      {errorMessage && (
-        <p className="mt-1 text-xs text-destructive">{errorMessage}</p>
-      )}
-    </div>
+    />
   );
 }
