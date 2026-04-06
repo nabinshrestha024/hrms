@@ -34,6 +34,8 @@ import {
   Computer,
   Coins,
   MapPin,
+  File,
+  UserPlus,
 } from 'lucide-react';
 
 export interface NavSubItem {
@@ -60,12 +62,11 @@ export const navModules: NavModule[] = [
     href: '/dashboard',
   },
   {
-    id: 'employees',
-    label: 'Employee',
+    id: '',
+    label: '',
     icon: UserCog,
-    href: '/employees',
+    href: '',
     modules: ['hr'],
-    subItems: [{ label: 'Employee', href: '/employees', icon: Users }],
   },
   {
     id: 'calendar',
@@ -99,26 +100,18 @@ export const navModules: NavModule[] = [
     ],
   },
   {
-    id: 'attendance',
-    label: 'Attendance',
+    id: 'employees',
+    label: 'Employee',
     icon: Users,
-    href: '/attendance',
-    modules: ['attendance'],
-    subItems: [
-      { label: 'My Attendance', href: '/attendance/my', icon: UserCheck },
-      { label: 'Work Record', href: '/attendance/work-record', icon: Clock },
-      {
-        label: 'Attendance Today',
-        href: '/attendance/today',
-        icon: CalendarDays,
-      },
-      { label: 'History', href: '/attendance/history', icon: History },
-    ],
+    href: '/employees',
+    modules: ['hr'],
+    subItems: [{ label: 'Employee', href: '/employees', icon: Users }],
   },
+
   {
     id: 'documents',
     label: 'Documents',
-    icon: FileText,
+    icon: File,
     href: '/documents/missing',
     modules: ['documents'],
     subItems: [
@@ -143,11 +136,21 @@ export const navModules: NavModule[] = [
     ],
   },
   {
-    id: 'assign-approver',
-    label: 'Assign Approver',
+    id: 'attendance',
+    label: 'Attendance',
     icon: UserSearch,
-    href: '/assign-approver',
-    modules: ['assign-approver'],
+    href: '/attendance',
+    modules: ['attendance'],
+    subItems: [
+      { label: 'My Attendance', href: '/attendance/my', icon: UserCheck },
+      { label: 'Work Record', href: '/attendance/work-record', icon: Clock },
+      {
+        label: 'Attendance Today',
+        href: '/attendance/today',
+        icon: CalendarDays,
+      },
+      { label: 'History', href: '/attendance/history', icon: History },
+    ],
   },
   {
     id: 'leave',
@@ -161,6 +164,7 @@ export const navModules: NavModule[] = [
       { label: 'Leave Balance', href: '/leave/balance', icon: CalendarDays },
     ],
   },
+
   {
     id: 'assets',
     label: 'Assets',
@@ -180,6 +184,7 @@ export const navModules: NavModule[] = [
     href: '/directory',
     modules: ['hr'],
   },
+
   {
     id: 'configuration',
     label: 'Configuration',
@@ -201,6 +206,25 @@ export const navModules: NavModule[] = [
       },
     ],
   },
+
+  {
+    id: 'payroll',
+    label: 'Payroll',
+    icon: CreditCard,
+    href: '/payroll/generate',
+    modules: ['payroll'],
+    subItems: [
+      { label: 'Generate Payroll', href: '/payroll/generate', icon: Play },
+      {
+        label: 'Salary Structure',
+        href: '/payroll/salary-structure',
+        icon: Users,
+      },
+      { label: 'Payroll Setup', href: '/payroll/setup', icon: Cog },
+      { label: 'Pay & Taxes', href: '/payroll/pay-taxes', icon: CreditCard },
+    ],
+  },
+
   {
     id: 'onboarding',
     label: 'On & Offboarding',
@@ -224,21 +248,11 @@ export const navModules: NavModule[] = [
     ],
   },
   {
-    id: 'payroll',
-    label: 'Payroll',
-    icon: CreditCard,
-    href: '/payroll/generate',
-    modules: ['payroll'],
-    subItems: [
-      { label: 'Generate Payroll', href: '/payroll/generate', icon: Play },
-      {
-        label: 'Salary Structure',
-        href: '/payroll/salary-structure',
-        icon: Users,
-      },
-      { label: 'Payroll Setup', href: '/payroll/setup', icon: Cog },
-      { label: 'Pay & Taxes', href: '/payroll/pay-taxes', icon: CreditCard },
-    ],
+    id: 'profile',
+    label: 'Profile',
+    icon: UserPlus,
+    href: '/profile',
+    modules: ['hr'],
   },
   {
     id: 'master-setup',

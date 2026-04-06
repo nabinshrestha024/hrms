@@ -77,7 +77,7 @@ function DataTable<TData>({
                   </TableHead>
                 ))}
                 {rowActions && rowActions.length > 0 && (
-                  <TableHead className="w-[50px]" />
+                  <TableHead className="w-12.5" />
                 )}
               </TableRow>
             ))}

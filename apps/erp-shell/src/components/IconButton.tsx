@@ -9,7 +9,7 @@ const iconVariants = cva(
     variants: {
       variant: {
         default:
-          'p-1 rounded-sm  w-6 h-6 text-gray-600 cursor-pointer bg-chart-6  text-center ',
+          'p-1 rounded-sm  w-6 h-6 text-gray-600 cursor-pointer bg-muted  text-center ',
         request:
           'p-1 rounded-sm  w-6 h-6 bg-chart-1 text-indigo-600 text-center cursor-pointer',
         warning:
