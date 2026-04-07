@@ -273,17 +273,17 @@ const rowActions: RowAction<Employee>[] = [
   {
     label: 'View',
     icon: Eye,
-    onClick: (row) => alert(`View employee: ${row.name}`),
+    onClick: (row: Employee) => alert(`View employee: ${row.name}`),
   },
   {
     label: 'Edit',
     icon: Pencil,
-    onClick: (row) => alert(`Edit employee: ${row.name}`),
+    onClick: (row: Employee) => alert(`Edit employee: ${row.name}`),
   },
   {
     label: 'Delete',
     icon: Trash2,
-    onClick: (row) => alert(`Delete employee: ${row.name}`),
+    onClick: (row: Employee) => alert(`Delete employee: ${row.name}`),
     variant: 'destructive',
     separator: true,
   },
@@ -311,7 +311,7 @@ function DemoTablePage() {
   const { table } = useDataTable({
     data: MOCK_EMPLOYEES,
     columns,
-    getRowId: (row) => row.id,
+    getRowId: (row: Employee) => row.id,
     enableRowSelection: true,
     initialPagination: { pageIndex: page - 1, pageSize },
     initialSorting: sortBy ? [{ id: sortBy, desc: sortOrder === 'desc' }] : [],
@@ -349,7 +349,9 @@ function DemoTablePage() {
       <DataTable
         table={table}
         columns={columns}
-        onRowClick={(row) => alert(`Clicked: ${row.name} (${row.role})`)}
+        onRowClick={(row: Employee) =>
+          alert(`Clicked: ${row.name} (${row.role})`)
+        }
         rowActions={rowActions}
         searchPlaceholder="Search employees..."
         enableRowSelection
@@ -358,7 +360,7 @@ function DemoTablePage() {
             table={table}
             searchPlaceholder="Search employees..."
             searchValue={search}
-            onSearchChange={(value) => {
+            onSearchChange={(value: string) => {
               void setSearch(value || null);
               void setPage(1);
             }}

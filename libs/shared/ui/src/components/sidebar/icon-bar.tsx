@@ -72,6 +72,7 @@ export function IconBar({
               </TooltipTrigger>
               <TooltipContent
                 side="right"
+                sideOffset={5}
                 className="bg-foreground text-background text-xs"
               >
                 {mod.label}

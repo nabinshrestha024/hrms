@@ -1,96 +1,181 @@
 import { z } from 'zod';
 import type { FieldDefinition } from '../types';
 
+// Normalize all incoming values safely
+const normalizeString = (val: unknown) => {
+  if (val === null || val === undefined) return undefined;
+  const str = String(val).trim();
+  return str === '' ? undefined : str;
+};
+
+const normalizeNumber = (val: unknown) => {
+  if (val === '' || val === null || val === undefined) return undefined;
+  const num = Number(val);
+  return Number.isNaN(num) ? val : num;
+};
+
+const normalizeDate = (val: unknown) => {
+  if (val === '' || val === null || val === undefined) return undefined;
+  const date = new Date(val as any);
+  return isNaN(date.getTime()) ? val : date;
+};
+
 export function buildZodSchema(
   fields: FieldDefinition[]
 ): z.ZodObject<Record<string, z.ZodTypeAny>> {
   const shape: Record<string, z.ZodTypeAny> = {};
 
   for (const field of fields) {
+    const validation = field.validation ?? {};
+
     const requiredMsg =
-      typeof field.validation?.required === 'string'
-        ? field.validation.required
+      typeof validation.required === 'string'
+        ? validation.required
         : 'This field is required';
 
     const isRequired =
-      field.validation?.required === true ||
-      typeof field.validation?.required === 'string';
+      validation.required === true || typeof validation.required === 'string';
 
     let schema: z.ZodTypeAny;
 
     switch (field.type) {
       case 'text':
       case 'textarea': {
-        let s = z.string({ required_error: requiredMsg });
-        if (isRequired) {
-          s = s.min(1, requiredMsg);
-        }
-        if (field.validation?.max != null) {
-          s = s.max(
-            field.validation.max,
-            `Maximum ${field.validation.max} characters`
-          );
-        }
-        if (field.validation?.pattern) {
-          s = s.regex(new RegExp(field.validation.pattern), 'Invalid format');
-        }
-        schema = s;
+        schema = z.preprocess(
+          normalizeString,
+          z.any().superRefine((val, ctx) => {
+            if (val === undefined) {
+              if (isRequired) {
+                ctx.addIssue({
+                  code: z.ZodIssueCode.custom,
+                  message: requiredMsg,
+                });
+              }
+              return;
+            }
+
+            // Now val is guaranteed trimmed string
+            const str = String(val);
+
+            if (validation.max != null && str.length > validation.max) {
+              ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: `Maximum ${validation.max} characters`,
+              });
+            }
+
+            if (
+              validation.pattern &&
+              !new RegExp(validation.pattern).test(str)
+            ) {
+              ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: 'Invalid format',
+              });
+            }
+          })
+        );
         break;
       }
+
       case 'number':
       case 'currency': {
-        // z.coerce.number() handles string→number conversion and NaN
-        let n = z.coerce.number({
-          required_error: requiredMsg,
-          invalid_type_error: 'Must be a number',
-        });
-        if (field.validation?.min != null) {
-          n = n.min(
-            field.validation.min,
-            `Minimum value is ${field.validation.min}`
-          );
-        }
-        if (field.validation?.max != null) {
-          n = n.max(
-            field.validation.max,
-            `Maximum value is ${field.validation.max}`
-          );
-        }
-        schema = n;
+        schema = z.preprocess(
+          normalizeNumber,
+          z.any().superRefine((val, ctx) => {
+            if (val === undefined) {
+              if (isRequired) {
+                ctx.addIssue({
+                  code: z.ZodIssueCode.custom,
+                  message: requiredMsg,
+                });
+              }
+              return;
+            }
+
+            if (typeof val !== 'number' || Number.isNaN(val)) {
+              ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: 'Must be a number',
+              });
+              return;
+            }
+
+            if (validation.min != null && val < validation.min) {
+              ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: `Minimum value is ${validation.min}`,
+              });
+            }
+
+            if (validation.max != null && val > validation.max) {
+              ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: `Maximum value is ${validation.max}`,
+              });
+            }
+          })
+        );
         break;
       }
+
       case 'date': {
-        schema = z.coerce.date({
-          required_error: requiredMsg,
-          invalid_type_error: 'Invalid date',
-        });
+        schema = z.preprocess(
+          normalizeDate,
+          z.any().superRefine((val, ctx) => {
+            if (val === undefined) {
+              if (isRequired) {
+                ctx.addIssue({
+                  code: z.ZodIssueCode.custom,
+                  message: requiredMsg,
+                });
+              }
+              return;
+            }
+
+            if (!(val instanceof Date) || isNaN(val.getTime())) {
+              ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: 'Invalid date',
+              });
+            }
+          })
+        );
         break;
       }
-      case 'boolean':
+
+      case 'boolean': {
         schema = z.boolean().default(false);
         break;
+      }
+
       case 'select': {
-        let s = z.string({ required_error: requiredMsg });
-        if (isRequired) {
-          s = s.min(1, requiredMsg);
-        }
-        schema = s;
+        schema = z.preprocess(
+          normalizeString,
+          z.any().superRefine((val, ctx) => {
+            if (val === undefined) {
+              if (isRequired) {
+                ctx.addIssue({
+                  code: z.ZodIssueCode.custom,
+                  message: requiredMsg,
+                });
+              }
+              return;
+            }
+
+            if (typeof val !== 'string') {
+              ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: requiredMsg,
+              });
+            }
+          })
+        );
         break;
       }
+
       default:
         schema = z.any();
-    }
-
-    // Wrap optional fields
-    if (!isRequired && field.type !== 'boolean') {
-      // For optional number fields, allow empty string from input → transform to undefined
-      if (field.type === 'number' || field.type === 'currency') {
-        schema = z
-          .union([z.literal('').transform(() => undefined), schema])
-          .optional();
-      } else {
-        schema = schema.optional();
-      }
     }
 
     shape[field.name] = schema;

@@ -97,7 +97,12 @@ export function createCrudHandlers<T extends { id: string }>(
         if (opts.createSchema) {
           const result = opts.createSchema.safeParse(body);
           if (!result.success) {
-            return validationError(result.error.issues);
+            return validationError(
+              result.error.issues as Array<{
+                path: (string | number)[];
+                message: string;
+              }>
+            );
           }
         }
 
@@ -125,7 +130,12 @@ export function createCrudHandlers<T extends { id: string }>(
         if (opts.updateSchema) {
           const result = opts.updateSchema.safeParse(body);
           if (!result.success) {
-            return validationError(result.error.issues);
+            return validationError(
+              result.error.issues as Array<{
+                path: (string | number)[];
+                message: string;
+              }>
+            );
           }
         }
 
@@ -135,7 +145,7 @@ export function createCrudHandlers<T extends { id: string }>(
           {
             ...body,
             updatedAt: new Date().toISOString(),
-          } as Partial<T>
+          } as unknown as Partial<T>
         );
 
         if (!updated) return notFound(resource);

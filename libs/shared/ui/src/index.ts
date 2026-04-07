@@ -118,6 +118,59 @@ export {
   DialogTrigger,
 } from './primitives/dialog';
 export { Tabs, TabsContent, TabsList, TabsTrigger } from './primitives/tabs';
+export { Alert, AlertTitle, AlertDescription } from './primitives/alert';
+export { Calendar, CalendarDayButton } from './primitives/calendar';
+export { Checkbox } from './primitives/checkbox';
+export {
+  Combobox,
+  ComboboxInput,
+  ComboboxContent,
+  ComboboxList,
+  ComboboxItem,
+  ComboboxGroup,
+  ComboboxLabel,
+  ComboboxCollection,
+  ComboboxEmpty,
+  ComboboxSeparator,
+  ComboboxChips,
+  ComboboxChip,
+  ComboboxChipsInput,
+  ComboboxTrigger,
+  ComboboxValue,
+  useComboboxAnchor,
+} from './primitives/combobox';
+export {
+  Field,
+  FieldLabel,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+  FieldContent,
+  FieldTitle,
+} from './primitives/field';
+export {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupText,
+  InputGroupInput,
+  InputGroupTextarea,
+} from './primitives/input-group';
+export { Label } from './primitives/label';
+export {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverAnchor,
+  PopoverHeader,
+  PopoverTitle,
+  PopoverDescription,
+} from './primitives/popover';
+export { RadioGroup, RadioGroupItem } from './primitives/radio-group';
+export { Textarea } from './primitives/textarea';
 
 // Composed components
 export { Toaster } from './components/toaster';
@@ -126,11 +179,34 @@ export { Toaster } from './components/toaster';
 export { useDialog } from './hooks/use-dialog';
 export type { DialogState } from './hooks/use-dialog';
 
+//Alert components
+export { CustomAlert } from './components/alert/Alert';
+
+//Card components
+export { HRCard } from './components/card/Card';
+
+//DropDown components
+export { DropDown } from './components/dropdown/DropDown';
+export { ActionDropdown } from './components/dropdown/ActionDropDown';
+
 // Form components
-export { FormField } from './components/form-field';
+export { FormField } from './components/form/FormField';
+export { ColorOptionRadioGroup } from './components/form/Radio/ColorSelector';
+export { OptionRadioGroup } from './components/form/Radio/RadioGroup';
+export { HRCombobox } from './components/form/ComboBox';
+export { HRDateField } from './components/form/DateField';
+export { DatePicker } from './components/form/DatePicker';
+export { Form } from './components/form/FormWrapper';
+export { HRInput } from './components/form/Input';
+export { HRLabel } from './components/form/Label';
+export { HRSelect } from './components/form/Select';
+export { HRTextarea } from './components/form/Textarea';
+export { HRTimeField } from './components/form/TimeField';
+export { HRTabs } from './components/tabs/Tabs';
 
 // Page templates — use these for quick route creation
-export { FormDialog } from './components/form-dialog';
+export { FormDialog } from './components/dialog/form-dialog';
+export { useDialogFormStore } from './components/dialog/form-store';
 export { MultiStepForm } from './components/multi-step-form';
 export type {
   MultiStepFormProps,
@@ -164,3 +240,5 @@ export type {
   DataTableViewOptionsProps,
   RowAction,
 } from './components/data-table';
+
+export { HRFileUpload } from './components/form/HRFormUpload';

@@ -60,3 +60,7 @@ export type {
 
 // Re-export React Query essentials
 export { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+
+//Dashboard Employee
+export { useGetEmployee } from './hooks/employee/usegetEmployee';
+export { fetchEmployee } from './services/employee/fetchEmployee';

@@ -170,7 +170,7 @@ export function BasicDetailsStep({ form }: StepProps) {
         >
           <Select
             value={watch('country')}
-            onValueChange={(v) =>
+            onValueChange={(v: string) =>
               setValue('country', v, { shouldValidate: true })
             }
           >
@@ -191,7 +191,7 @@ export function BasicDetailsStep({ form }: StepProps) {
         >
           <Select
             value={watch('province')}
-            onValueChange={(v) =>
+            onValueChange={(v: string) =>
               setValue('province', v, { shouldValidate: true })
             }
           >
@@ -216,7 +216,9 @@ export function BasicDetailsStep({ form }: StepProps) {
         >
           <Select
             value={watch('city')}
-            onValueChange={(v) => setValue('city', v, { shouldValidate: true })}
+            onValueChange={(v: string) =>
+              setValue('city', v, { shouldValidate: true })
+            }
           >
             <SelectTrigger>
               <SelectValue placeholder="City" />
@@ -236,7 +238,7 @@ export function BasicDetailsStep({ form }: StepProps) {
         >
           <Select
             value={watch('municipality')}
-            onValueChange={(v) =>
+            onValueChange={(v: string) =>
               setValue('municipality', v, { shouldValidate: true })
             }
           >

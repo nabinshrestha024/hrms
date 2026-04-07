@@ -6,7 +6,7 @@ import {
   Link,
 } from '@tanstack/react-router';
 import { useEffect } from 'react';
-import { ShellLayout, Skeleton, type NavLinkProps } from '@erp/ui';
+import { FormDialog, ShellLayout, Skeleton, type NavLinkProps } from '@erp/ui';
 import { useAuth } from '@erp/auth';
 import { useTenant } from '@erp/tenant';
 import { AppBreadcrumb } from '../components/app-breadcrumb';
@@ -67,7 +67,7 @@ function AuthenticatedLayout() {
 
   const userInitials = user?.name
     ?.split(' ')
-    .map((n) => n[0])
+    .map((n: string) => n[0])
     .join('')
     .toUpperCase();
 
@@ -90,10 +90,11 @@ function AuthenticatedLayout() {
       onLogout={logout}
       linkComponent={RouterLink}
     >
-      <div className="px-6 pt-4">
+      <div className="px-6 pt-4 bg-background">
         <AppBreadcrumb />
       </div>
       <Outlet />
+      <FormDialog />
     </ShellLayout>
   );
 }

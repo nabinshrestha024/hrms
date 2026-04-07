@@ -1,3 +1,4 @@
+import type React from 'react';
 import {
   Button,
   Input,
@@ -40,19 +41,21 @@ export function EmployeeToolbar({
 
         <div className="flex items-center gap-3">
           {/* Search */}
-          <div className="relative w-[260px]">
+          <div className="relative w-65">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
             <Input
               placeholder="Search.."
               value={search}
-              onChange={(e) => onSearchChange(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                onSearchChange(e.target.value)
+              }
               className="pl-9"
             />
           </div>
 
           {/* Branch filter */}
           <Select value={branch || 'all'} onValueChange={onBranchChange}>
-            <SelectTrigger className="w-[140px]">
+            <SelectTrigger className="w-35">
               <SelectValue placeholder="Branch" />
             </SelectTrigger>
             <SelectContent>

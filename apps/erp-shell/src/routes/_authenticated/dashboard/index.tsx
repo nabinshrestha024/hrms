@@ -1,35 +1,46 @@
+import { useDialogFormStore } from '@erp/ui';
 import { createFileRoute } from '@tanstack/react-router';
-import { Skeleton } from '@erp/ui';
+import { Event } from '../../../features/dashboard/Event';
+import { MyAttendance } from '../../../features/dashboard/MyAttendance';
+import { MyRequest } from '../../../features/dashboard/MyRequest';
+import { Notice } from '../../../features/dashboard/Notice';
+import { PersonalInformation } from '../../../features/dashboard/PersonalInformation';
+import { QuickAction } from '../../../features/dashboard/QuickAction';
+import { TeamRequest } from '../../../features/dashboard/TeamRequest';
 
 export const Route = createFileRoute('/_authenticated/dashboard/')({
-  component: DashboardPage,
+  component: RouteComponent,
 });
 
-function DashboardPage() {
+function RouteComponent() {
+  const { onOpen } = useDialogFormStore();
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold">Dashboard</h1>
-      <p className="mt-1 text-sm text-muted-foreground">
-        Welcome to the ERP Platform.
-      </p>
-      <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} className="rounded-lg border border-border bg-card p-4">
-            <Skeleton className="mb-2 h-4 w-24" />
-            <Skeleton className="h-8 w-16" />
+    <>
+      <div className="w-full pb-21.5 h-[calc(100vh-84px)] overflow-auto flex flex-col bg-[#F9FAFB] ">
+        <div className="flex flex-col px-12 py-6 ">
+          <div className="text-[24px] font-semibold leading-8 text-[#09090B]">
+            Dashboard
           </div>
-        ))}
-      </div>
-      <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <div className="rounded-lg border border-border bg-card p-4">
-          <Skeleton className="mb-4 h-4 w-32" />
-          <Skeleton className="h-48 w-full" />
+          <div className="text-[14px] font-normal leading-5 text-[#71717A]">
+            Thursday, March 12, 2026
+          </div>
         </div>
-        <div className="rounded-lg border border-border bg-card p-4">
-          <Skeleton className="mb-4 h-4 w-32" />
-          <Skeleton className="h-48 w-full" />
+        <div className="w-full px-12 flex flex-col gap-4 ">
+          <div className="flex  gap-4">
+            <PersonalInformation />
+            <QuickAction />
+          </div>
+          <div className="flex  gap-4">
+            <MyAttendance />
+            <Notice onOpen={onOpen} />
+            <Event />
+          </div>
+          <div className="flex  gap-4">
+            <MyRequest />
+            <TeamRequest />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

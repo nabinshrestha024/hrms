@@ -24,6 +24,8 @@ export { NumberWidget } from './widgets/number-widget';
 export { SelectWidget } from './widgets/select-widget';
 export { DateWidget } from './widgets/date-widget';
 export { BooleanWidget } from './widgets/boolean-widget';
+export { TextareaWidget } from './widgets/textarea-widget';
+export { FileWidget } from './widgets/file-widget';
 
 // Renderer
 export { FormRenderer } from './renderer/form-renderer';

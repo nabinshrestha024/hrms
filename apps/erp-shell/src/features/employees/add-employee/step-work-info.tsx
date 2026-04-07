@@ -37,7 +37,7 @@ export function WorkInformationStep({ form }: StepProps) {
         >
           <Select
             value={watch('branch')}
-            onValueChange={(v) =>
+            onValueChange={(v: string) =>
               setValue('branch', v, { shouldValidate: true })
             }
           >
@@ -63,7 +63,7 @@ export function WorkInformationStep({ form }: StepProps) {
         >
           <Select
             value={watch('department')}
-            onValueChange={(v) =>
+            onValueChange={(v: string) =>
               setValue('department', v, { shouldValidate: true })
             }
           >
@@ -128,7 +128,7 @@ export function WorkInformationStep({ form }: StepProps) {
         >
           <Select
             value={watch('jobLevel')}
-            onValueChange={(v) =>
+            onValueChange={(v: string) =>
               setValue('jobLevel', v, { shouldValidate: true })
             }
           >
@@ -147,7 +147,7 @@ export function WorkInformationStep({ form }: StepProps) {
         <FormField label="Reporting Manager" htmlFor="reportingManager">
           <Select
             value={watch('reportingManager') || ''}
-            onValueChange={(v) => setValue('reportingManager', v)}
+            onValueChange={(v: string) => setValue('reportingManager', v)}
           >
             <SelectTrigger>
               <SelectValue placeholder="Reporting Manager" />
@@ -173,7 +173,7 @@ export function WorkInformationStep({ form }: StepProps) {
         >
           <Select
             value={watch('shift')}
-            onValueChange={(v) =>
+            onValueChange={(v: string) =>
               setValue('shift', v, { shouldValidate: true })
             }
           >
@@ -195,7 +195,7 @@ export function WorkInformationStep({ form }: StepProps) {
         >
           <Select
             value={watch('workType')}
-            onValueChange={(v) =>
+            onValueChange={(v: string) =>
               setValue('workType', v, { shouldValidate: true })
             }
           >
@@ -219,7 +219,7 @@ export function WorkInformationStep({ form }: StepProps) {
       >
         <Select
           value={watch('employeeType')}
-          onValueChange={(v) =>
+          onValueChange={(v: string) =>
             setValue('employeeType', v, { shouldValidate: true })
           }
         >

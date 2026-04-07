@@ -22,7 +22,7 @@ export function LayoutRenderer({
   switch (node.type) {
     case 'section':
       return (
-        <fieldset className="space-y-4">
+        <fieldset className="max-h-161 overflow-auto pr-2 space-y-4">
           {node.title && (
             <legend className="text-lg font-semibold">{node.title}</legend>
           )}

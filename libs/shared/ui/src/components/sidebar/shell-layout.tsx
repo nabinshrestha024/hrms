@@ -61,11 +61,6 @@ export function ShellLayout({
     () => setSubNavExpanded((prev) => !prev),
     []
   );
-  const toggleMobileMenu = useCallback(
-    () => setMobileMenuOpen((prev) => !prev),
-    []
-  );
-
   return (
     <div
       className={cn(

@@ -36,12 +36,12 @@ export const MOCK_TENANTS: Record<string, TenantConfig> = {
     },
     theme: {
       colors: {
-        primary: 'oklch(0.55 0.15 250)',
-        primaryForeground: 'oklch(0.985 0 0)',
-        background: 'oklch(1 0 0)',
-        foreground: 'oklch(0.145 0 0)',
-        muted: 'oklch(0.97 0 0)',
-        border: 'oklch(0.922 0 0)',
+        primary: '#4f39f6',
+        primaryForeground: '#e0e7ff',
+        background: '#f9fafb',
+        foreground: 'oklch(0.145 0.004 286)',
+        muted: '#f4f4f5',
+        border: 'oklch(0.922 0.004 286)',
         dark: {},
       },
     },
@@ -67,12 +67,12 @@ export const MOCK_TENANTS: Record<string, TenantConfig> = {
     },
     theme: {
       colors: {
-        primary: 'oklch(0.50 0.20 145)',
-        primaryForeground: 'oklch(0.985 0 0)',
-        background: 'oklch(1 0 0)',
-        foreground: 'oklch(0.145 0 0)',
-        muted: 'oklch(0.97 0 0)',
-        border: 'oklch(0.922 0 0)',
+        primary: '#4f39f6',
+        primaryForeground: '#e0e7ff',
+        background: '#f9fafb',
+        foreground: 'oklch(0.145 0.004 286)',
+        muted: '#f4f4f5',
+        border: 'oklch(0.922 0.004 286)',
         dark: {
           primary: 'oklch(0.60 0.22 145)',
           background: 'oklch(0.145 0 0)',
