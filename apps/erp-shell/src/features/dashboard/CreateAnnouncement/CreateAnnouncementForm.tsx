@@ -30,6 +30,14 @@ export const createAnnouncementFormConfig: FormViewConfig = {
       validation: { required: true },
     },
     {
+      name: 'priority',
+      type: 'select',
+      label: 'Priority',
+      isRequired: true,
+      options: ['Important', 'Notice', 'Info'],
+      validation: { required: true },
+    },
+    {
       name: 'shortDescription',
       type: 'textarea',
       label: 'Short Description',
@@ -55,6 +63,7 @@ export const createAnnouncementFormConfig: FormViewConfig = {
       { type: 'field', name: 'announcementTitle' },
       { type: 'field', name: 'branch' },
       { type: 'field', name: 'department' },
+      { type: 'field', name: 'priority' },
       { type: 'field', name: 'shortDescription' },
       { type: 'field', name: 'image' },
     ],
@@ -67,12 +76,10 @@ export function CreateAnnouncementForm() {
   };
 
   return (
-    <div className="">
-      <FormRenderer
-        config={createAnnouncementFormConfig}
-        onSubmit={onsubmit}
-        submitLabel="Create Notice"
-      />
-    </div>
+    <FormRenderer
+      config={createAnnouncementFormConfig}
+      onSubmit={onsubmit}
+      submitLabel="Create Notice"
+    />
   );
 }
