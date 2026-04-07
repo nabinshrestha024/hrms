@@ -65,7 +65,7 @@ export const HRFileUpload = ({
 
   return (
     <div
-      className={`border border-dashed rounded-[2px] py-6 text-center cursor-pointer flex flex-col justify-center items-center gap-2 ${className}`}
+      className={`bg-muted border border-dashed rounded-[2px] py-6 text-center cursor-pointer flex flex-col justify-center items-center gap-2 ${className}`}
       onDragOver={(e) => drag && e.preventDefault()}
       onDrop={drag ? handleDrop : undefined}
     >
@@ -79,8 +79,10 @@ export const HRFileUpload = ({
         <>
           <div className={`flex flex-col gap-2 items-center ${cardClassName}`}>
             {Icon && (
-              <div className={`${iconClassName}`}>
-                <Icon className={iconClass} />
+              <div
+                className={`w-10 h-10 flex justify-center items-center rounded-full bg-chart-1 ${iconClassName}`}
+              >
+                <Icon className={`w-6 h-6 text-primary ${iconClass}`} />
               </div>
             )}
             <div className={`flex flex-col items-center ${titleClassName}`}>

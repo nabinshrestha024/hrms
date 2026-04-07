@@ -1,6 +1,6 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
 import { toast } from '@erp/ui';
-import { UploadIcon } from 'lucide-react';
+import { CloudUpload } from 'lucide-react';
 
 export const createAnnouncementFormConfig: FormViewConfig = {
   entity: 'announcement',
@@ -42,7 +42,7 @@ export const createAnnouncementFormConfig: FormViewConfig = {
     },
     {
       name: 'image',
-      icon: UploadIcon,
+      icon: CloudUpload,
       type: 'file',
       label: 'Drag and drop to upload a file',
       subLabel: 'Supported formats: PDF, DOC, DOCX, JPG, PNG (Max 10MB)',

@@ -1,5 +1,3 @@
-import { Building2, Hash, Mail, Phone } from 'lucide-react';
-
 export const personalData = [
   {
     id: 0,
@@ -7,28 +5,21 @@ export const personalData = [
     position: 'Senior Software Engineer',
     image: '/Image.png',
     status: 'Active',
-
-    employee: [
-      {
-        icon: Hash,
-        label: 'Employee Id',
-        subLabel: 'EMP-2024-0451',
-      },
-      {
-        icon: Building2,
-        label: 'Department',
-        subLabel: 'Engineering',
-      },
-      {
-        icon: Mail,
-        label: 'Email',
-        subLabel: 'john.doe@company.com',
-      },
-      {
-        icon: Phone,
-        label: 'Phone Number',
-        subLabel: '+977-9810000000',
-      },
-    ],
+    employeeId: 'EMP-2024-0451',
+    department: 'Engineering',
+    email: 'john.doe@company.com',
+    phoneNumber: '+977-9810000000',
   },
+];
+
+export type PersonalDetails = [
+  id: idSchema,
+  name: string,
+  position: string,
+  image: string,
+  status: string,
+  employeeId: string,
+  department: string,
+  email: string,
+  phoneNumber: string
 ];
