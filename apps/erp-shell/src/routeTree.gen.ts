@@ -23,7 +23,10 @@ import { Route as AuthenticatedDemoTableRouteImport } from './routes/_authentica
 import { Route as AuthenticatedDemoFormRouteImport } from './routes/_authenticated/demo-form'
 import { Route as AuthenticatedAttendanceRouteImport } from './routes/_authenticated/attendance'
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
+import { Route as AuthenticatedCompanySetupIndexRouteImport } from './routes/_authenticated/company-setup/index'
 import { Route as AuthenticatedEmployeesIdRouteImport } from './routes/_authenticated/employees.$id'
+import { Route as AuthenticatedCompanySetupDepartmentRouteImport } from './routes/_authenticated/company-setup/department'
+import { Route as AuthenticatedCompanySetupBranchRouteImport } from './routes/_authenticated/company-setup/branch'
 
 const UnauthorizedRoute = UnauthorizedRouteImport.update({
   id: '/unauthorized',
@@ -96,11 +99,29 @@ const AuthenticatedDashboardIndexRoute =
     path: '/dashboard/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedCompanySetupIndexRoute =
+  AuthenticatedCompanySetupIndexRouteImport.update({
+    id: '/company-setup/',
+    path: '/company-setup/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedEmployeesIdRoute =
   AuthenticatedEmployeesIdRouteImport.update({
     id: '/$id',
     path: '/$id',
     getParentRoute: () => AuthenticatedEmployeesRoute,
+  } as any)
+const AuthenticatedCompanySetupDepartmentRoute =
+  AuthenticatedCompanySetupDepartmentRouteImport.update({
+    id: '/company-setup/department',
+    path: '/company-setup/department',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedCompanySetupBranchRoute =
+  AuthenticatedCompanySetupBranchRouteImport.update({
+    id: '/company-setup/branch',
+    path: '/company-setup/branch',
+    getParentRoute: () => AuthenticatedRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -116,7 +137,10 @@ export interface FileRoutesByFullPath {
   '/recruitment': typeof AuthenticatedRecruitmentRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/tasks': typeof AuthenticatedTasksRoute
+  '/company-setup/branch': typeof AuthenticatedCompanySetupBranchRoute
+  '/company-setup/department': typeof AuthenticatedCompanySetupDepartmentRoute
   '/employees/$id': typeof AuthenticatedEmployeesIdRoute
+  '/company-setup/': typeof AuthenticatedCompanySetupIndexRoute
   '/dashboard/': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRoutesByTo {
@@ -132,7 +156,10 @@ export interface FileRoutesByTo {
   '/recruitment': typeof AuthenticatedRecruitmentRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/tasks': typeof AuthenticatedTasksRoute
+  '/company-setup/branch': typeof AuthenticatedCompanySetupBranchRoute
+  '/company-setup/department': typeof AuthenticatedCompanySetupDepartmentRoute
   '/employees/$id': typeof AuthenticatedEmployeesIdRoute
+  '/company-setup': typeof AuthenticatedCompanySetupIndexRoute
   '/dashboard': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRoutesById {
@@ -150,7 +177,10 @@ export interface FileRoutesById {
   '/_authenticated/recruitment': typeof AuthenticatedRecruitmentRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/tasks': typeof AuthenticatedTasksRoute
+  '/_authenticated/company-setup/branch': typeof AuthenticatedCompanySetupBranchRoute
+  '/_authenticated/company-setup/department': typeof AuthenticatedCompanySetupDepartmentRoute
   '/_authenticated/employees/$id': typeof AuthenticatedEmployeesIdRoute
+  '/_authenticated/company-setup/': typeof AuthenticatedCompanySetupIndexRoute
   '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRouteTypes {
@@ -168,7 +198,10 @@ export interface FileRouteTypes {
     | '/recruitment'
     | '/settings'
     | '/tasks'
+    | '/company-setup/branch'
+    | '/company-setup/department'
     | '/employees/$id'
+    | '/company-setup/'
     | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -184,7 +217,10 @@ export interface FileRouteTypes {
     | '/recruitment'
     | '/settings'
     | '/tasks'
+    | '/company-setup/branch'
+    | '/company-setup/department'
     | '/employees/$id'
+    | '/company-setup'
     | '/dashboard'
   id:
     | '__root__'
@@ -201,7 +237,10 @@ export interface FileRouteTypes {
     | '/_authenticated/recruitment'
     | '/_authenticated/settings'
     | '/_authenticated/tasks'
+    | '/_authenticated/company-setup/branch'
+    | '/_authenticated/company-setup/department'
     | '/_authenticated/employees/$id'
+    | '/_authenticated/company-setup/'
     | '/_authenticated/dashboard/'
   fileRoutesById: FileRoutesById
 }
@@ -312,12 +351,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/company-setup/': {
+      id: '/_authenticated/company-setup/'
+      path: '/company-setup'
+      fullPath: '/company-setup/'
+      preLoaderRoute: typeof AuthenticatedCompanySetupIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/employees/$id': {
       id: '/_authenticated/employees/$id'
       path: '/$id'
       fullPath: '/employees/$id'
       preLoaderRoute: typeof AuthenticatedEmployeesIdRouteImport
       parentRoute: typeof AuthenticatedEmployeesRoute
+    }
+    '/_authenticated/company-setup/department': {
+      id: '/_authenticated/company-setup/department'
+      path: '/company-setup/department'
+      fullPath: '/company-setup/department'
+      preLoaderRoute: typeof AuthenticatedCompanySetupDepartmentRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/company-setup/branch': {
+      id: '/_authenticated/company-setup/branch'
+      path: '/company-setup/branch'
+      fullPath: '/company-setup/branch'
+      preLoaderRoute: typeof AuthenticatedCompanySetupBranchRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
   }
 }
@@ -346,6 +406,9 @@ interface AuthenticatedRouteChildren {
   AuthenticatedRecruitmentRoute: typeof AuthenticatedRecruitmentRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedTasksRoute: typeof AuthenticatedTasksRoute
+  AuthenticatedCompanySetupBranchRoute: typeof AuthenticatedCompanySetupBranchRoute
+  AuthenticatedCompanySetupDepartmentRoute: typeof AuthenticatedCompanySetupDepartmentRoute
+  AuthenticatedCompanySetupIndexRoute: typeof AuthenticatedCompanySetupIndexRoute
   AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
 }
 
@@ -359,6 +422,10 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedRecruitmentRoute: AuthenticatedRecruitmentRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedTasksRoute: AuthenticatedTasksRoute,
+  AuthenticatedCompanySetupBranchRoute: AuthenticatedCompanySetupBranchRoute,
+  AuthenticatedCompanySetupDepartmentRoute:
+    AuthenticatedCompanySetupDepartmentRoute,
+  AuthenticatedCompanySetupIndexRoute: AuthenticatedCompanySetupIndexRoute,
   AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
 }
 

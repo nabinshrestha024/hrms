@@ -52,6 +52,7 @@ export interface SectionNode {
 
 export interface ColumnsNode {
   type: 'columns';
+  title?: string;
   columns: number;
   responsive?: { sm?: number; md?: number; lg?: number };
   children: LayoutNode[];

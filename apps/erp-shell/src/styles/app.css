@@ -42,6 +42,7 @@
   --color-badge-text-4: var(--badge-text-4);
   --color-badge-text-5: var(--badge-text-5);
   --color-badge-text-5: var(--badge-text-5);
+  --color-card-text: var(--card-text);
   --color-outline: var(--outline);
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
@@ -75,11 +76,13 @@
  */
 
 /* Layer 1: Default light theme */
+
 :root {
   --background: #f9fafb; /* #FFFFFF */
   --background-foreground: #fafafa;
   --foreground: oklch(0.145 0.004 286); /* #09090B */
   --card: #fafafa;
+  --card-text: #2b7fff;
   --card-foreground: oklch(0.145 0.004 286);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0.004 286);

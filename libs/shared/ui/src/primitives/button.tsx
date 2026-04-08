@@ -11,11 +11,11 @@ const buttonVariants = cva(
         default: 'px-4 py-2 bg-muted rounded-xl',
         destructive: 'px-2 py-1.5 text-black  ',
         outline:
-          'px-3.5 py-3 rounded-lg border border-muted-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50',
+          'px-3.5 py-3 rounded-lg  border border-border dark:border-input dark:bg-input/30 dark:hover:bg-input/50',
         primary: '',
         secondary: 'px-4 py-2.5 bg-primary rounded-xl text-white',
         ghost:
-          'hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
+          'bg:white hover:bg-muted hover:text-accent-foreground dark:hover:bg-accent/50',
         link: 'text-primary underline-offset-4 hover:underline',
       },
       size: {

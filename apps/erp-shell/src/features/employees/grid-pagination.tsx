@@ -45,7 +45,7 @@ export function GridPagination({
           value={String(pageSize)}
           onValueChange={(v: string) => onPageSizeChange(Number(v))}
         >
-          <SelectTrigger className="h-8 w-[60px]">
+          <SelectTrigger className="h-8 w-15">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -84,7 +84,7 @@ export function GridPagination({
               key={p}
               variant={p === page ? 'default' : 'outline'}
               size="sm"
-              className="min-w-[36px]"
+              className="min-w-9"
               onClick={() => onPageChange(p)}
             >
               {p}

@@ -36,6 +36,8 @@ import {
   MapPin,
   File,
   UserPlus,
+  MapPinPlusInside,
+  Network,
 } from 'lucide-react';
 
 export interface NavSubItem {
@@ -87,16 +89,20 @@ export const navModules: NavModule[] = [
     id: 'company-setup',
     label: 'Company Setup',
     icon: Building2,
-    href: '/company-setup/profile',
+    href: '/company-setup/',
     modules: ['company-setup'],
     subItems: [
       {
         label: 'Company Profile',
-        href: '/company-setup/profile',
+        href: '/company-setup/',
         icon: Building2,
       },
-      { label: 'Branch', href: '/company-setup/branch', icon: GitBranch },
-      { label: 'Department', href: '/company-setup/department', icon: Layers },
+      {
+        label: 'Branch',
+        href: '/company-setup/branch',
+        icon: MapPinPlusInside,
+      },
+      { label: 'Department', href: '/company-setup/department', icon: Network },
     ],
   },
   {

@@ -43,7 +43,7 @@ function EmployeesPage() {
 
   return (
     <>
-      <div>
+      <div className="max-h-[calc(100vh-120px)] overflow-auto">
         <EmployeeToolbar
           search={search}
           onSearchChange={(v) => {
