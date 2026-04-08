@@ -10,15 +10,6 @@
       "path": "./libs/shared/utils"
     },
     {
-      "path": "./libs/shared/tenant"
-    },
-    {
-      "path": "./libs/shared/auth"
-    },
-    {
-      "path": "./libs/shared/data-access"
-    },
-    {
       "path": "./libs/shared/env"
     }
   ],

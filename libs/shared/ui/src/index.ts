@@ -203,7 +203,10 @@ export { HRSelect } from './components/form/Select';
 export { HRTextarea } from './components/form/Textarea';
 export { HRTimeField } from './components/form/TimeField';
 export { HRTabs } from './components/tabs/Tabs';
+export { TabsFlex } from './components/tabs/TabsFlex';
 
+//Search Bar
+export { SearchBar } from './components/search/Search';
 // Page templates — use these for quick route creation
 export { FormDialog } from './components/dialog/form-dialog';
 export { useDialogFormStore } from './components/dialog/form-store';

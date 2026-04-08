@@ -16,6 +16,7 @@ export function TextWidget({ field, form, disabled }: WidgetProps) {
           disabled={disabled}
           isRequired={field.isRequired}
           placeholder={field.placeholder}
+          subLabel={field.subLabel}
           Label={field.label}
           error={errorMessage}
         />

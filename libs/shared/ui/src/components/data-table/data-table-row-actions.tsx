@@ -12,7 +12,7 @@ import { cn } from '@erp/utils';
 export interface RowAction<TData> {
   label: string;
   icon?: LucideIcon;
-  onClick: (row: TData) => void;
+  onClick?: (row: TData) => void;
   variant?: 'default' | 'destructive';
   hidden?: (row: TData) => boolean;
   separator?: boolean;
@@ -56,7 +56,7 @@ function DataTableRowActions<TData>({
               )}
               onClick={(e) => {
                 e.stopPropagation();
-                action.onClick(row);
+                // action.onClick(row);
               }}
             >
               {action.icon && <action.icon className="mr-2 size-4" />}

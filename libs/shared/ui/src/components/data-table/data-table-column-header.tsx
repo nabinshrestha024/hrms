@@ -30,16 +30,13 @@ function DataTableColumnHeader<TData, TValue>({
   }
 
   return (
-    <div
-      data-slot="data-table-column-header"
-      className={cn('flex items-center space-x-2', className)}
-    >
+    <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
             variant="ghost"
             size="sm"
-            className="-ml-3 h-8 data-[state=open]:bg-accent"
+            className="h-8 data-[state=open]:bg-accent has-[>svg]:px-0 hover:bg-none"
           >
             <span>{title}</span>
             {column.getCanSort() && (
@@ -85,7 +82,7 @@ function DataTableColumnHeader<TData, TValue>({
           )}
         </DropdownMenuContent>
       </DropdownMenu>
-    </div>
+    </>
   );
 }
 

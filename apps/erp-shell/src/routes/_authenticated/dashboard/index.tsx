@@ -10,6 +10,7 @@ import { TeamRequest } from '../../../features/dashboard/TeamRequest';
 
 export const Route = createFileRoute('/_authenticated/dashboard/')({
   component: RouteComponent,
+  beforeLoad: () => ({ breadcrumb: 'Dashboard' }),
 });
 
 function RouteComponent() {

@@ -90,7 +90,7 @@ function AuthenticatedLayout() {
       onLogout={logout}
       linkComponent={RouterLink}
     >
-      <div className="px-6 pt-4 bg-background">
+      <div className="px-12 pt-4 bg-background">
         <AppBreadcrumb />
       </div>
       <Outlet />

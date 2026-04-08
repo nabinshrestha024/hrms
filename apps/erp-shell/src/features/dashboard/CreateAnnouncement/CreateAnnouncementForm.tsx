@@ -80,6 +80,8 @@ export function CreateAnnouncementForm() {
       config={createAnnouncementFormConfig}
       onSubmit={onsubmit}
       submitLabel="Create Notice"
+      fieldsetClassName="max-h-161 overflow-auto pr-2"
+      isDialogForm={true}
     />
   );
 }

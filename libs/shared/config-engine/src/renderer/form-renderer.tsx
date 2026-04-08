@@ -15,6 +15,8 @@ interface FormRendererProps {
   disabled?: boolean;
   widgetRegistry?: WidgetRegistry;
   submitLabel?: string;
+  fieldsetClassName?: string;
+  isDialogForm?: boolean;
 }
 
 export function FormRenderer({
@@ -22,7 +24,9 @@ export function FormRenderer({
   onSubmit,
   defaultValues,
   disabled,
+  fieldsetClassName,
   widgetRegistry: externalRegistry,
+  isDialogForm,
   submitLabel = 'Submit',
 }: FormRendererProps) {
   const registry = useMemo(() => {
@@ -38,21 +42,27 @@ export function FormRenderer({
   const form = useForm({
     resolver: zodResolver(schema),
     defaultValues: defaultValues as Record<string, unknown>,
-    mode: 'onTouched',
+    mode: 'all',
   });
 
-  return (
+  const content = (
+    <LayoutRenderer
+      node={config.layout}
+      fields={config.fields}
+      form={form}
+      widgetRegistry={registry}
+      disabled={disabled}
+      fieldsetClassName={fieldsetClassName}
+    />
+  );
+
+  return isDialogForm ? (
     <Form onSubmit={onSubmit} form={form}>
-      <LayoutRenderer
-        node={config.layout}
-        fields={config.fields}
-        form={form}
-        widgetRegistry={registry}
-        disabled={disabled}
-      />
-      {/* <Button type="submit" disabled={disabled || form.formState.isSubmitting}>
-        {form.formState.isSubmitting ? 'Submitting...' : submitLabel}
-      </Button> */}
+      {content}
     </Form>
+  ) : (
+    <form onSubmit={form.handleSubmit(onSubmit)} id="basicInformation">
+      {content}
+    </form>
   );
 }

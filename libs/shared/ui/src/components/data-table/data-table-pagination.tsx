@@ -1,11 +1,5 @@
 import type { Table } from '@tanstack/react-table';
-import {
-  ChevronLeft,
-  ChevronRight,
-  ChevronsLeft,
-  ChevronsRight,
-} from 'lucide-react';
-import { Button } from '../../primitives/button';
+
 import {
   Select,
   SelectContent,
@@ -13,6 +7,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../../primitives/select';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '../../primitives/pagination';
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>;
@@ -21,28 +23,42 @@ interface DataTablePaginationProps<TData> {
 
 function DataTablePagination<TData>({
   table,
-  pageSizeOptions = [10, 20, 30, 40, 50],
+  pageSizeOptions = [5, 10, 15, 20, 30, 40, 50],
 }: DataTablePaginationProps<TData>) {
+  const totalPages = table.getPageCount() || 1;
+  const currentPage = table.getState().pagination.pageIndex;
+  const maxVisiblePages = 5;
+
+  let startPage = Math.max(0, currentPage - Math.floor(maxVisiblePages / 2));
+  let endPage = startPage + maxVisiblePages;
+
+  if (endPage > totalPages) {
+    endPage = totalPages;
+    startPage = Math.max(0, endPage - maxVisiblePages);
+  }
+
+  const visiblePages = Array.from(
+    { length: endPage - startPage },
+    (_, i) => startPage + i
+  );
+  console.warn('pageCount', table.getPageCount());
+  console.warn('pageIndex', table.getState().pagination.pageIndex);
+  console.warn('rows', table.getPaginationRowModel().rows.length);
   return (
     <div
       data-slot="data-table-pagination"
-      className="flex flex-col-reverse items-center justify-between gap-4 px-2 py-4 sm:flex-row"
+      className="flex flex-col-reverse items-center justify-between px-2 py-4 sm:flex-row"
     >
-      <div className="flex-1 text-sm text-muted-foreground">
-        {table.getFilteredSelectedRowModel().rows.length} of{' '}
-        {table.getFilteredRowModel().rows.length} row(s) selected
-      </div>
-
-      <div className="flex items-center space-x-6 lg:space-x-8">
-        <div className="flex items-center space-x-2">
-          <p className="text-sm font-medium">Rows per page</p>
+      <div className="flex gap-6 items-center">
+        <div className="flex items-center gap-2">
+          <span className="text-[12px] leading-4 font-medium text-foreground">
+            Show
+          </span>
           <Select
             value={`${table.getState().pagination.pageSize}`}
-            onValueChange={(value) => {
-              table.setPageSize(Number(value));
-            }}
+            onValueChange={(value) => table.setPageSize(Number(value))}
           >
-            <SelectTrigger className="h-8 w-[70px]">
+            <SelectTrigger className="h-8 w-17.5">
               <SelectValue placeholder={table.getState().pagination.pageSize} />
             </SelectTrigger>
             <SelectContent>
@@ -53,55 +69,85 @@ function DataTablePagination<TData>({
               ))}
             </SelectContent>
           </Select>
+          <span className="text-[12px] leading-4 font-medium text-foreground">
+            entries
+          </span>
         </div>
 
-        <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-          Page {table.getState().pagination.pageIndex + 1} of{' '}
-          {table.getPageCount()}
+        <div className="flex-1 text-[12px] leading-4 font-medium text-foreground">
+          {table.getFilteredSelectedRowModel().rows.length} of{' '}
+          {table.getFilteredRowModel().rows.length} entries
         </div>
+      </div>
 
-        <div className="flex items-center space-x-2">
-          <Button
-            variant="outline"
-            size="icon"
-            className="hidden size-8 lg:flex"
-            onClick={() => table.setPageIndex(0)}
-            disabled={!table.getCanPreviousPage()}
-            aria-label="Go to first page"
-          >
-            <ChevronsLeft className="size-4" />
-          </Button>
-          <Button
-            variant="outline"
-            size="icon"
-            className="size-8"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-            aria-label="Go to previous page"
-          >
-            <ChevronLeft className="size-4" />
-          </Button>
-          <Button
-            variant="outline"
-            size="icon"
-            className="size-8"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-            aria-label="Go to next page"
-          >
-            <ChevronRight className="size-4" />
-          </Button>
-          <Button
-            variant="outline"
-            size="icon"
-            className="hidden size-8 lg:flex"
-            onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-            disabled={!table.getCanNextPage()}
-            aria-label="Go to last page"
-          >
-            <ChevronsRight className="size-4" />
-          </Button>
-        </div>
+      <div className="flex items-center space-x-6 lg:space-x-8">
+        <Pagination>
+          <PaginationContent className="flex gap-2">
+            <PaginationPrevious
+              onClick={() => table.previousPage()}
+              aria-disabled={!table.getCanPreviousPage()}
+              className={
+                !table.getCanPreviousPage()
+                  ? 'pointer-events-none opacity-50 border'
+                  : 'cursor-pointer'
+              }
+            />
+
+            {startPage > 0 && (
+              <>
+                <PaginationItem>
+                  <PaginationLink
+                    onClick={() => table.setPageIndex(0)}
+                    isActive={currentPage === 0}
+                    className="cursor-pointer hover:bg-muted bg-white"
+                  >
+                    1
+                  </PaginationLink>
+                </PaginationItem>
+                <span className="px-2 text-muted-foreground">...</span>
+              </>
+            )}
+
+            {visiblePages.map((page) => (
+              <PaginationItem key={page}>
+                <PaginationLink
+                  onClick={() => table.setPageIndex(page)}
+                  isActive={currentPage === page}
+                  className={`cursor-pointer hover:bg-muted ${
+                    currentPage === page ? 'cursor-default bg-muted' : ''
+                  }`}
+                >
+                  {page + 1}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
+
+            {endPage < totalPages && (
+              <>
+                <span className="px-2 text-muted-foreground">...</span>
+                <PaginationItem>
+                  <PaginationLink
+                    onClick={() => table.setPageIndex(totalPages - 1)}
+                    isActive={currentPage === totalPages - 1}
+                    className="cursor-pointer hover:bg-muted"
+                  >
+                    {totalPages}
+                  </PaginationLink>
+                </PaginationItem>
+              </>
+            )}
+
+            <PaginationNext
+              onClick={() => table.nextPage()}
+              aria-disabled={!table.getCanNextPage()}
+              className={
+                !table.getCanNextPage()
+                  ? 'pointer-events-none opacity-50 border'
+                  : 'cursor-pointer'
+              }
+            />
+          </PaginationContent>
+        </Pagination>
       </div>
     </div>
   );

@@ -58,7 +58,7 @@ function DataTableToolbar<TData>({
             placeholder={searchPlaceholder}
             value={currentSearchValue}
             onChange={(e) => handleSearchChange(e.target.value)}
-            className="h-9 w-[150px] pl-8 lg:w-[250px]"
+            className="h-9 w-37.5 pl-8 lg:w-62.5"
           />
         </div>
         {filterSlot}

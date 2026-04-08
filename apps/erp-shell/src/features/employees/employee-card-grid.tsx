@@ -80,7 +80,7 @@ export function EmployeeCardGrid({
                 <MoreVertical className="size-4" />
               </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-[100px]">
+            <DropdownMenuContent align="end" className="w-25">
               <DropdownMenuItem
                 onClick={(e: React.MouseEvent) => {
                   e.stopPropagation();

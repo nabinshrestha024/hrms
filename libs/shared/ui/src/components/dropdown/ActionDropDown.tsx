@@ -9,18 +9,28 @@ type ActionItem = {
 };
 
 type ActionDropdownProps = {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
   trigger: React.ReactNode;
   actions: ActionItem[];
   align?: 'start' | 'end';
 };
 
 export const ActionDropdown = ({
+  open,
+  onOpenChange,
   trigger,
   actions,
   align = 'end',
 }: ActionDropdownProps) => {
   return (
-    <DropDown trigger={trigger} align={align} className="pt-1 pb-0 px-0">
+    <DropDown
+      open={open}
+      onOpenChange={onOpenChange}
+      trigger={trigger}
+      align={align}
+      className="pt-1 pb-0 px-0"
+    >
       <div
         className="w-full flex flex-col"
         onClick={(e) => e.stopPropagation()}
@@ -29,12 +39,12 @@ export const ActionDropdown = ({
           <Button
             key={index}
             type="button"
-            variant={action.variant || 'ghost'}
-            onClick={action.onClick}
-            className={`text-[14px] font-normal leading-5 cursor-pointer text-[#18181B] 
-              ${index === actions.length - 1 ? 'border-t border-border' : ''}
-              ${action.className || ''}
-            `}
+            variant="ghost"
+            onClick={() => {
+              action.onClick?.();
+              onOpenChange(false);
+            }}
+            className={`text-[14px] font-normal leading-5 cursor-pointer text-secondary`}
           >
             {action.label}
           </Button>
