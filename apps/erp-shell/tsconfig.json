@@ -9,7 +9,5 @@
       "path": "./tsconfig.spec.json"
     }
   ],
-  "compilerOptions": {
-    "baseUrl": "."
-  }
+  "compilerOptions": {}
 }

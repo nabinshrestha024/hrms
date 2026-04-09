@@ -13,7 +13,5 @@
       "path": "./libs/shared/env"
     }
   ],
-  "compilerOptions": {
-    "baseUrl": "."
-  }
+  "compilerOptions": {}
 }
