@@ -1,11 +1,8 @@
-import { BranchTable } from '../../../features/company-setup/Branch/BranchTable/BranchTAble';
 import { PageHeader } from '../../../components/PageHeader';
-import { BranchCard } from '../../../features/company-setup/Branch/BranchCard';
-import { BranchForm } from '../../../features/company-setup/Branch/BranchForm';
-import {
-  Branch,
-  BranchData,
-} from '../../../features/company-setup/Branch/BranchTable/BranchData';
+import { BranchCard } from '../../../features/company-setup/branch/BranchCard';
+import { Branch, BranchData } from '../schema/BranchData';
+import { BranchForm } from './branch-form';
+import { BranchTable } from './table/branch-table';
 
 type ModalSize = 'sm' | 'md' | 'lg';
 

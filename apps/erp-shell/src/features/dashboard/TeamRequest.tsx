@@ -1,7 +1,7 @@
 import { HRCard, HRTabs } from '@erp/ui';
-import { Leave } from './TeamRequest/Leave';
-import { OT } from './TeamRequest/OT';
-import { Time } from './TeamRequest/Time';
+import { Leave } from './team-request/Leave';
+import { OT } from './team-request/OT';
+import { Time } from './team-request/Time';
 
 export const TeamRequest = () => {
   const tabsData = [

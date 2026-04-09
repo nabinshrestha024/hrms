@@ -1,14 +1,12 @@
-import { teamRequestData } from '../Schema/TeamRequestData';
 import { Badge, HRCard } from '@erp/ui';
+import { teamRequestData } from '../schema/TeamRequestData';
 
-export const OT = () => {
-  const overTimeRequests = teamRequestData.filter(
-    (val) => val.type === 'Overtime'
-  );
+export const Leave = () => {
+  const leaveRequests = teamRequestData.filter((val) => val.type === 'Leave');
 
   return (
     <div className="h-60 flex flex-col gap-3 overflow-auto pr-3 notice-scroll">
-      {overTimeRequests.map((val, index) => (
+      {leaveRequests.map((val, index) => (
         <HRCard
           key={index}
           cardClassName="p-2 bg-background rounded-xl border-none shadow-none"
@@ -22,16 +20,18 @@ export const OT = () => {
                 className="rounded-[400px] w-full h-full object-cover"
               />
             </div>
+
             <div className="flex flex-col gap-1">
               <span className="text-[14px] leading-5 font-medium text-foreground">
                 {val.name}
               </span>
 
               <span className="text-[12px] leading-4 font-normal text-secondary-foreground">
-                {val.hours} {val.subType} . {val.date}
+                {val.subType} . {val.day} . {val.date}
               </span>
             </div>
           </div>
+
           <div className="flex gap-1">
             <Badge
               variant="warning"

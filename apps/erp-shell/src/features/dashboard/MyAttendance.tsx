@@ -1,9 +1,11 @@
 import { HRCard } from '@erp/ui';
-import { myAttendance } from './Schema/MyAttendanceData';
-import { IconButton } from '../../components/IconButton';
 import { CalendarClock, CircleX, Clock4, ClockAlert } from 'lucide-react';
+import { IconButton } from '../../components/IconButton';
+import { myAttendance } from './schema/MyAttendanceData';
 
 export const MyAttendance = () => {
+  const visibleAttendance = myAttendance.slice(0, 7);
+
   return (
     <>
       <HRCard
@@ -14,7 +16,7 @@ export const MyAttendance = () => {
           My Attendance
         </div>
         <div className="flex flex-col gap-3">
-          {myAttendance.map((val, index) => (
+          {visibleAttendance.map((val, index) => (
             <HRCard
               cardClassName="p-2 bg-background rounded-xl overflow-auto shadow-none border-none"
               cardContentClassName="p-0"
@@ -58,7 +60,7 @@ export const MyAttendance = () => {
                     >
                       {val.event}
                     </span>
-                    <span className="text-[12px] leading-5 font-normal text-secondary-foreground">
+                    <span className="text-[12px] leading-5 font-normal text-secondary-foreground line-clamp-1">
                       {val.clockIn} - {val.clockOut} . {val.workingHours}
                     </span>
                   </div>
@@ -79,7 +81,7 @@ export const MyAttendance = () => {
           <IconButton variant="request">
             <CalendarClock className="w-4 h-4" />
           </IconButton>
-          <div className="text-[12px] leading-4 font-medium text-primary">
+          <div className="text-[12px] leading-4 font-medium text-primary hover:underline hover:underline-primary hover:text-primary cursor-pointer">
             My Attendance Records
           </div>
         </div>

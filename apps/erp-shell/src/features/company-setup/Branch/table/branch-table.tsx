@@ -1,7 +1,9 @@
 import { DataTable } from '@erp/ui';
-import { useBranchTable } from '../../../../features/company-setup/Branch/BranchTable/use-branch-table';
-import { BranchData } from '../../../../features/company-setup/Branch/BranchTable/BranchData';
-import { Branch } from '../../../../features/company-setup/Branch/BranchTable/BranchData';
+import { useBranchTable } from '../../../../features/company-setup/branch/table/use-branch-table';
+import {
+  Branch,
+  BranchData,
+} from '../../../../features/company-setup/schema/BranchData';
 
 interface BranchTableProps {
   data?: Branch[];

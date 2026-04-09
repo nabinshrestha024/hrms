@@ -1,5 +1,5 @@
 import { Badge, HRCard } from '@erp/ui';
-import { teamRequestData } from '../Schema/TeamRequestData';
+import { teamRequestData } from '../schema/TeamRequestData';
 
 export const Time = () => {
   const timeRequests = teamRequestData.filter(

@@ -51,7 +51,6 @@ export function DepartmentForm() {
       config={addDepartmentFormConfig}
       onSubmit={onsubmit}
       submitLabel="Add Department"
-      fieldsetClassName="max-h-161 overflow-auto pr-2"
       isDialogForm={true}
     />
   );

@@ -1,10 +1,7 @@
-import {
-  departmentData,
-  DepartmentType,
-} from '../../../features/company-setup/Branch/DepartmentData';
 import { PageHeader } from '../../../components/PageHeader';
-import { DepartmentCard } from '../../../features/company-setup/Department/DepartmentCard';
-import { DepartmentForm } from '../../../features/company-setup/Department/DepartmentForm';
+import { departmentData, DepartmentType } from '../schema/DepartmentData';
+import { DepartmentCard } from './DepartmentCard';
+import { DepartmentForm } from './department-form';
 
 type ModalSize = 'sm' | 'md' | 'lg';
 

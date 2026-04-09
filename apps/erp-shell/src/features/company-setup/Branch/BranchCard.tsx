@@ -1,6 +1,6 @@
 import { HRCard } from '@erp/ui';
 import { Edit, Network, Trash2 } from 'lucide-react';
-import { Branch } from '../../../features/company-setup/Branch/BranchTable/BranchData';
+import { Branch } from '../schema/BranchData';
 interface BranchCardProps {
   data: Branch[];
 }

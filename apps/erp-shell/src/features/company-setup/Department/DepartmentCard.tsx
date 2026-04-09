@@ -1,6 +1,6 @@
 import { HRCard } from '@erp/ui';
 import { EllipsisVertical, Network } from 'lucide-react';
-import { DepartmentType } from '../../../features/company-setup/Branch/DepartmentData';
+import { DepartmentType } from '../schema/DepartmentData';
 interface DepartmentCardProps {
   data: DepartmentType[];
 }

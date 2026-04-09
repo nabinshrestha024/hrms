@@ -1,5 +1,5 @@
 import { Badge, HRCard } from '@erp/ui';
-import { myRequestData } from './Schema/MyRequestData';
+import { myRequestData } from './schema/MyRequestData';
 
 export const MyRequest = () => {
   return (

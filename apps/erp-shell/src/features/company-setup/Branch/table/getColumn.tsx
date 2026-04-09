@@ -1,7 +1,7 @@
 import { Badge, DataTableColumnHeader } from '@erp/ui';
 import type { ColumnDef } from '@tanstack/react-table';
 import { Edit, Trash2 } from 'lucide-react';
-import { Branch } from '../../../../features/company-setup/Branch/BranchTable/BranchData';
+import { Branch } from '../../../../features/company-setup/schema/BranchData';
 
 export function getBranchColumns(): ColumnDef<Branch, unknown>[] {
   return [

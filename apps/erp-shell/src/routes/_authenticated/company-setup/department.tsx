@@ -1,6 +1,6 @@
 import { useDialogFormStore } from '@erp/ui';
 import { createFileRoute } from '@tanstack/react-router';
-import { DepartmentManagement } from '../../../features/company-setup/Department/DepartmentManagement';
+import { DepartmentManagement } from '../../../features/company-setup/department/DepartmentManagement';
 
 export const Route = createFileRoute(
   '/_authenticated/company-setup/department'

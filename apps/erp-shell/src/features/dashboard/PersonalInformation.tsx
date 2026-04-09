@@ -1,7 +1,7 @@
-import { Badge, HRCard } from '@erp/ui';
-import { personalData } from './Schema/PersonalData';
 import { useGetEmployee } from '@erp/data-access';
+import { Badge, HRCard } from '@erp/ui';
 import { Building2, Hash, Mail, Phone } from 'lucide-react';
+import { personalData } from './schema/PersonalData';
 
 export const PersonalInformation = () => {
   const { data: personalDatas } = useGetEmployee();
@@ -10,11 +10,11 @@ export const PersonalInformation = () => {
     <>
       {personalData?.map((items, index) => (
         <HRCard
-          cardClassName="w-full h-87.5 p-6 bg-white border-none rounded-xl shadow-sm "
+          cardClassName="w-full h-110 md:h-87.5 p-6 bg-white border-none rounded-xl shadow-sm "
           cardContentClassName="p-0 flex flex-col gap-4 "
         >
           <div className="flex gap-3" key={index}>
-            <div className="w-29.5 h-29.5 ">
+            <div className="w-29.5 h-29.5">
               <img
                 src={items.image}
                 alt="profile"
@@ -35,12 +35,12 @@ export const PersonalInformation = () => {
                   <Badge variant="secondary">Active</Badge>
                 )}
                 {items.status === 'Inactive' && (
-                  <Badge variant="destructive">Inactive</Badge>
+                  <Badge variant="default">Inactive</Badge>
                 )}
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
             <HRCard
               cardClassName="p-2 border-none bg-[#F9FAFB] rounded-xl shadow-none"
               cardContentClassName="flex items-center gap-2 p-0"
@@ -78,9 +78,11 @@ export const PersonalInformation = () => {
                 <span className="text-[12px] text-secondary-foreground font-normal leading-4">
                   Email
                 </span>
-                <span className="text-[14px] text-foreground font-medium leading-5">
-                  {items.email}
-                </span>
+                <a href={`mailto:${items.email}`}>
+                  <span className="text-[14px] text-foreground font-medium leading-5 cursor-pointer">
+                    {items.email}
+                  </span>
+                </a>
               </div>
             </HRCard>
             <HRCard

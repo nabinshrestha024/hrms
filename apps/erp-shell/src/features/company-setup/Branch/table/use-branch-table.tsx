@@ -1,11 +1,11 @@
-import { type PaginationState, type SortingState } from '@tanstack/react-table';
 import { useDataTable } from '@erp/ui';
-import { useQueryState, parseAsInteger, parseAsString } from 'nuqs';
+import { type PaginationState, type SortingState } from '@tanstack/react-table';
+import { parseAsInteger, parseAsString, useQueryState } from 'nuqs';
+import { getBranchColumns } from '../table/getColumn';
 import {
   Branch,
   BranchData,
-} from '../../../../features/company-setup/Branch/BranchTable/BranchData';
-import { getBranchColumns } from '../../../../features/company-setup/Branch/BranchTable/getColumn';
+} from '../../../../features/company-setup/schema/BranchData';
 
 interface BranchTableProps {
   data: Branch[];
