@@ -1,8 +1,8 @@
-import { BranchTable } from './branch-table/branch-table';
 import { PageHeader } from '../../../components/page-header';
 import { BranchCard } from './branch-card';
 import { BranchForm } from './branch-form';
 import { Branch, BranchData } from './branch-table/branch-data';
+import { BranchTable } from './branch-table/branch-table';
 
 type ModalSize = 'sm' | 'md' | 'lg';
 

@@ -13,6 +13,7 @@ interface HRFileUploadProps {
   iconClassName?: string;
   cardClassName?: string;
   titleClassName?: string;
+  previewClassName?: string;
   iconClass?: string;
   isRequired?: boolean;
   onChange?: (file: File) => void;
@@ -26,6 +27,7 @@ export const FileUpload = ({
   cardClassName,
   titleClassName,
   buttonClassName,
+  previewClassName,
   isRequired,
   label,
   browseText,
@@ -73,7 +75,7 @@ export const FileUpload = ({
         <img
           src={preview}
           alt="preview"
-          className="w-104.75 h-38.25 object-cover"
+          className={`w-104.75 h-38.25 object-cover ${previewClassName}`}
         />
       ) : (
         <>

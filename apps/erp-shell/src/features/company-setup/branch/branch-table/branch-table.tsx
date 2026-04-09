@@ -14,11 +14,13 @@ export const BranchTable = ({ data = BranchData }: BranchTableProps) => {
 
   return (
     <>
-      <DataTable
-        table={table}
-        columns={columns}
-        // rowActions={rowActions}
-      />
+      <div className="px-6 pb-19.5 bg-background">
+        <DataTable
+          table={table}
+          columns={columns}
+          // rowActions={rowActions}
+        />
+      </div>
     </>
   );
 };

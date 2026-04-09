@@ -193,6 +193,8 @@ export { ActionDropdown } from './components/dropdown/action-drop-down';
 export { FormField } from './components/form/form-field';
 export { ColorOptionRadioGroup } from './components/form/radio/color-selector';
 export { OptionRadioGroup } from './components/form/radio/radio-group';
+export { RadioTab } from './components/form/radio/radio-tab';
+
 export { HRCombobox } from './components/form/combo-box';
 export { HRDateField } from './components/form/date-field';
 export { DatePicker } from './components/form/date-picker';
@@ -208,6 +210,7 @@ export { TabsFlex } from './components/tabs/tabs-flex';
 //Search Bar
 export { SearchBar } from './components/search/search';
 // Page templates — use these for quick route creation
+export { HRDialog } from './components/dialog/Dialog';
 export { FormDialog } from './components/dialog/form-dialog';
 export { useDialogFormStore } from './components/dialog/form-store';
 export { MultiStepForm } from './components/multi-step-form';

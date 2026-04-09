@@ -109,9 +109,9 @@ export const navModules: NavModule[] = [
     id: 'employees',
     label: 'Employee',
     icon: Users,
-    href: '/employees',
+    href: '/employee',
     modules: ['hr'],
-    subItems: [{ label: 'Employee', href: '/employees', icon: Users }],
+    subItems: [{ label: 'Employee', href: '/employee', icon: Users }],
   },
 
   {
