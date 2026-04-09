@@ -8,7 +8,7 @@ import {
   DialogTitle,
 } from '../../primitives/dialog';
 import { cn } from '@erp/utils';
-import { HRCard } from '../card/Card';
+import { HRCard } from '../card/card';
 import { useDialogFormStore } from './form-store';
 
 const dialogContentStyles = cva(

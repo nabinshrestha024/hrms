@@ -1,6 +1,6 @@
 import { Bell, ChevronsUpDown } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { HRCard } from '../card/Card';
+import { HRCard } from '../card/card';
 
 function useCurrentTime() {
   const [time, setTime] = useState(() => new Date());

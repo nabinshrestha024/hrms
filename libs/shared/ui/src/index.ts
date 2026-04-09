@@ -180,33 +180,33 @@ export { useDialog } from './hooks/use-dialog';
 export type { DialogState } from './hooks/use-dialog';
 
 //Alert components
-export { CustomAlert } from './components/alert/Alert';
+export { CustomAlert } from './components/alert/alert';
 
 //Card components
-export { HRCard } from './components/card/Card';
+export { HRCard } from './components/card/card';
 
 //DropDown components
-export { DropDown } from './components/dropdown/DropDown';
-export { ActionDropdown } from './components/dropdown/ActionDropDown';
+export { DropDown } from './components/dropdown/drop-down';
+export { ActionDropdown } from './components/dropdown/action-drop-down';
 
 // Form components
-export { FormField } from './components/form/FormField';
-export { ColorOptionRadioGroup } from './components/form/Radio/ColorSelector';
-export { OptionRadioGroup } from './components/form/Radio/RadioGroup';
-export { HRCombobox } from './components/form/ComboBox';
-export { HRDateField } from './components/form/DateField';
-export { DatePicker } from './components/form/DatePicker';
-export { Form } from './components/form/FormWrapper';
-export { HRInput } from './components/form/Input';
-export { HRLabel } from './components/form/Label';
-export { HRSelect } from './components/form/Select';
-export { HRTextarea } from './components/form/Textarea';
-export { HRTimeField } from './components/form/TimeField';
-export { HRTabs } from './components/tabs/Tabs';
-export { TabsFlex } from './components/tabs/TabsFlex';
+export { FormField } from './components/form/form-field';
+export { ColorOptionRadioGroup } from './components/form/radio/color-selector';
+export { OptionRadioGroup } from './components/form/radio/radio-group';
+export { HRCombobox } from './components/form/combo-box';
+export { HRDateField } from './components/form/date-field';
+export { DatePicker } from './components/form/date-picker';
+export { Form } from './components/form/form-wrapper';
+export { HRInput } from './components/form/input';
+export { HRLabel } from './components/form/label';
+export { HRSelect } from './components/form/select';
+export { HRTextarea } from './components/form/textarea';
+export { HRTimeField } from './components/form/time-field';
+export { HRTabs } from './components/tabs/tabs';
+export { TabsFlex } from './components/tabs/tabs-flex';
 
 //Search Bar
-export { SearchBar } from './components/search/Search';
+export { SearchBar } from './components/search/search';
 // Page templates — use these for quick route creation
 export { FormDialog } from './components/dialog/form-dialog';
 export { useDialogFormStore } from './components/dialog/form-store';
@@ -244,4 +244,4 @@ export type {
   RowAction,
 } from './components/data-table';
 
-export { HRFileUpload } from './components/form/HRFormUpload';
+export { HRFileUpload } from './components/form/hr-form-upload';

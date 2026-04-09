@@ -1,12 +1,12 @@
 import { useDialogFormStore } from '@erp/ui';
 import { createFileRoute } from '@tanstack/react-router';
-import { Event } from '../../../features/dashboard/Event';
-import { MyAttendance } from '../../../features/dashboard/MyAttendance';
-import { MyRequest } from '../../../features/dashboard/MyRequest';
-import { Notice } from '../../../features/dashboard/Notice';
-import { PersonalInformation } from '../../../features/dashboard/PersonalInformation';
-import { QuickAction } from '../../../features/dashboard/QuickAction';
-import { TeamRequest } from '../../../features/dashboard/TeamRequest';
+import { Event } from '../../../features/dashboard/event';
+import { MyAttendance } from '../../../features/dashboard/my-attendance';
+import { MyRequest } from '../../../features/dashboard/my-request';
+import { Notice } from '../../../features/dashboard/notice';
+import { PersonalInformation } from '../../../features/dashboard/personal-information';
+import { QuickAction } from '../../../features/dashboard/quick-action';
+import { TeamRequest } from '../../../features/dashboard/team-request';
 
 export const Route = createFileRoute('/_authenticated/dashboard/')({
   component: RouteComponent,
