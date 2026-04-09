@@ -1,6 +1,6 @@
 import { LucideIcon } from 'lucide-react';
 import React, { useRef, useState, type ReactNode } from 'react';
-import { HRInput } from '../../components/form/Input';
+import { HRInput } from '../../components/form/input';
 
 interface HRFileUploadProps {
   className?: string;

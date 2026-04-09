@@ -16,7 +16,7 @@ import {
 import { Skeleton } from '../../primitives/skeleton';
 import { DataTablePagination } from './data-table-pagination';
 import { DataTableRowActions, type RowAction } from './data-table-row-actions';
-import { HRCard } from '../../components/card/Card';
+import { HRCard } from '../../components/card/card';
 
 interface DataTableProps<TData> {
   table: TanstackTable<TData>;
