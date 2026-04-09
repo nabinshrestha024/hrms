@@ -12,6 +12,7 @@
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-foreground: var(--background-foreground: );
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
@@ -79,7 +80,7 @@
 
 :root {
   --background: #f9fafb; /* #FFFFFF */
-  --background-foreground: #fafafa;
+  --background-foreground: #f7f7f7;
   --foreground: oklch(0.145 0.004 286); /* #09090B */
   --card: #fafafa;
   --card-text: #2b7fff;
@@ -106,6 +107,7 @@
   --chart-4: #fef9c2; /* amber */
   --chart-5: #dbeafe; /* blue */
   --chart-6: #fefce8;
+
   --badge-text-1: #4f46e5; /*indigo 600*/
   --badge-text-2: #16a34a;
   --badge-text-3: #dc2626;

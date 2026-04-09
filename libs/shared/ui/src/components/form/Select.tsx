@@ -51,7 +51,7 @@ export const HRSelect = ({
     >
       <Root value={value} onValueChange={onValueChange} disabled={disabled}>
         <SelectTrigger
-          className={`w-full px-3 py-2.5 rounded-[6px] border border-border ${triggerClassName}`}
+          className={`w-full px-3 py-2.5 rounded-[6px] border border-border  bg-white ${triggerClassName}`}
         >
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>

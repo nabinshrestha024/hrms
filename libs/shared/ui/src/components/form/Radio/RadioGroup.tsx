@@ -4,6 +4,7 @@ import {
   RadioGroup as BaseRadioGroup,
   RadioGroupItem as BaseRadioGroupItem,
 } from '../../../primitives/radio-group';
+import { FormField } from '../../../components/form/FormField';
 
 type RadioOption = {
   value: string;
@@ -20,6 +21,9 @@ type OptionRadioGroupProps = Omit<
   itemClassName?: string;
   labelClassName?: string;
   error?: string;
+  Label?: string;
+  subLabel?: string;
+  isRequired?: boolean;
 };
 
 function RadioGroup(props: React.ComponentProps<typeof BaseRadioGroup>) {
@@ -41,47 +45,60 @@ function OptionRadioGroup({
   value,
   error,
   onValueChange,
+  Label,
+  subLabel,
+  isRequired,
   ...props
 }: OptionRadioGroupProps) {
   const generatedId = React.useId();
 
   return (
-    <RadioGroup
-      value={value}
-      onValueChange={onValueChange}
-      className={className}
-      {...props}
+    <FormField
+      Label={Label || ''}
+      subLabel={subLabel}
+      required={isRequired}
+      labelClassName={labelClassName}
+      error={error}
     >
-      {options.map((opt) => {
-        const isOptionDisabled = Boolean(opt.disabled);
+      <RadioGroup
+        value={value}
+        onValueChange={onValueChange}
+        className={className}
+        {...props}
+      >
+        {options.map((opt) => {
+          const isOptionDisabled = Boolean(opt.disabled);
 
-        return (
-          <label
-            key={opt.value}
-            htmlFor={`${generatedId}-${opt.value}`}
-            className={cn(
-              'flex items-center gap-1.25 select-none',
-              isOptionDisabled ? 'cursor-not-allowed' : 'cursor-pointer',
-              optionClassName
-            )}
-          >
-            <RadioGroupItem
-              id={`${generatedId}-${opt.value}`}
-              value={opt.value}
+          return (
+            <label
+              key={opt.value}
+              htmlFor={`${generatedId}-${opt.value}`}
               className={cn(
-                'bg-white border-border-foreground data-[state=checked]:bg-white data-[state=checked]:text-primary',
+                'flex items-center gap-1.25 select-none',
                 isOptionDisabled ? 'cursor-not-allowed' : 'cursor-pointer',
-                itemClassName
+                optionClassName
               )}
-            />
-            <span className={cn('text-[12px] text-foreground', labelClassName)}>
-              {opt.label}
-            </span>
-          </label>
-        );
-      })}
-      {error && <div className="text-[12px] text-destructive">{error}</div>}
-    </RadioGroup>
+            >
+              <RadioGroupItem
+                id={`${generatedId}-${opt.value}`}
+                value={opt.value}
+                className={cn(
+                  'bg-white border-border-foreground data-[state=checked]:bg-white data-[state=checked]:text-primary',
+                  isOptionDisabled ? 'cursor-not-allowed' : 'cursor-pointer',
+                  itemClassName
+                )}
+              />
+              <span
+                className={cn('text-[12px] text-foreground', labelClassName)}
+              >
+                {opt.label}
+              </span>
+            </label>
+          );
+        })}
+        {error && <div className="text-[12px] text-destructive">{error}</div>}
+      </RadioGroup>
+    </FormField>
   );
 }
 

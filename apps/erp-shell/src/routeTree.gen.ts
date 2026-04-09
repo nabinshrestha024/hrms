@@ -22,11 +22,14 @@ import { Route as AuthenticatedEmployeesRouteImport } from './routes/_authentica
 import { Route as AuthenticatedDemoTableRouteImport } from './routes/_authenticated/demo-table'
 import { Route as AuthenticatedDemoFormRouteImport } from './routes/_authenticated/demo-form'
 import { Route as AuthenticatedAttendanceRouteImport } from './routes/_authenticated/attendance'
+import { Route as AuthenticatedEmployeeIndexRouteImport } from './routes/_authenticated/employee/index'
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
 import { Route as AuthenticatedCompanySetupIndexRouteImport } from './routes/_authenticated/company-setup/index'
 import { Route as AuthenticatedEmployeesIdRouteImport } from './routes/_authenticated/employees.$id'
 import { Route as AuthenticatedCompanySetupDepartmentRouteImport } from './routes/_authenticated/company-setup/department'
 import { Route as AuthenticatedCompanySetupBranchRouteImport } from './routes/_authenticated/company-setup/branch'
+import { Route as AuthenticatedEmployeeEmployeeDetailsIdRouteImport } from './routes/_authenticated/employee/employee-details.$id'
+import { Route as AuthenticatedEmployeeAssignApprovalIdRouteImport } from './routes/_authenticated/employee/assign-approval.$id'
 
 const UnauthorizedRoute = UnauthorizedRouteImport.update({
   id: '/unauthorized',
@@ -93,6 +96,12 @@ const AuthenticatedAttendanceRoute = AuthenticatedAttendanceRouteImport.update({
   path: '/attendance',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedEmployeeIndexRoute =
+  AuthenticatedEmployeeIndexRouteImport.update({
+    id: '/employee/',
+    path: '/employee/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedDashboardIndexRoute =
   AuthenticatedDashboardIndexRouteImport.update({
     id: '/dashboard/',
@@ -123,6 +132,18 @@ const AuthenticatedCompanySetupBranchRoute =
     path: '/company-setup/branch',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedEmployeeEmployeeDetailsIdRoute =
+  AuthenticatedEmployeeEmployeeDetailsIdRouteImport.update({
+    id: '/employee/employee-details/$id',
+    path: '/employee/employee-details/$id',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedEmployeeAssignApprovalIdRoute =
+  AuthenticatedEmployeeAssignApprovalIdRouteImport.update({
+    id: '/employee/assign-approval/$id',
+    path: '/employee/assign-approval/$id',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -142,6 +163,9 @@ export interface FileRoutesByFullPath {
   '/employees/$id': typeof AuthenticatedEmployeesIdRoute
   '/company-setup/': typeof AuthenticatedCompanySetupIndexRoute
   '/dashboard/': typeof AuthenticatedDashboardIndexRoute
+  '/employee/': typeof AuthenticatedEmployeeIndexRoute
+  '/employee/assign-approval/$id': typeof AuthenticatedEmployeeAssignApprovalIdRoute
+  '/employee/employee-details/$id': typeof AuthenticatedEmployeeEmployeeDetailsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -161,6 +185,9 @@ export interface FileRoutesByTo {
   '/employees/$id': typeof AuthenticatedEmployeesIdRoute
   '/company-setup': typeof AuthenticatedCompanySetupIndexRoute
   '/dashboard': typeof AuthenticatedDashboardIndexRoute
+  '/employee': typeof AuthenticatedEmployeeIndexRoute
+  '/employee/assign-approval/$id': typeof AuthenticatedEmployeeAssignApprovalIdRoute
+  '/employee/employee-details/$id': typeof AuthenticatedEmployeeEmployeeDetailsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -182,6 +209,9 @@ export interface FileRoutesById {
   '/_authenticated/employees/$id': typeof AuthenticatedEmployeesIdRoute
   '/_authenticated/company-setup/': typeof AuthenticatedCompanySetupIndexRoute
   '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
+  '/_authenticated/employee/': typeof AuthenticatedEmployeeIndexRoute
+  '/_authenticated/employee/assign-approval/$id': typeof AuthenticatedEmployeeAssignApprovalIdRoute
+  '/_authenticated/employee/employee-details/$id': typeof AuthenticatedEmployeeEmployeeDetailsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -203,6 +233,9 @@ export interface FileRouteTypes {
     | '/employees/$id'
     | '/company-setup/'
     | '/dashboard/'
+    | '/employee/'
+    | '/employee/assign-approval/$id'
+    | '/employee/employee-details/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -222,6 +255,9 @@ export interface FileRouteTypes {
     | '/employees/$id'
     | '/company-setup'
     | '/dashboard'
+    | '/employee'
+    | '/employee/assign-approval/$id'
+    | '/employee/employee-details/$id'
   id:
     | '__root__'
     | '/'
@@ -242,6 +278,9 @@ export interface FileRouteTypes {
     | '/_authenticated/employees/$id'
     | '/_authenticated/company-setup/'
     | '/_authenticated/dashboard/'
+    | '/_authenticated/employee/'
+    | '/_authenticated/employee/assign-approval/$id'
+    | '/_authenticated/employee/employee-details/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -344,6 +383,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAttendanceRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/employee/': {
+      id: '/_authenticated/employee/'
+      path: '/employee'
+      fullPath: '/employee/'
+      preLoaderRoute: typeof AuthenticatedEmployeeIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/dashboard/': {
       id: '/_authenticated/dashboard/'
       path: '/dashboard'
@@ -379,6 +425,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCompanySetupBranchRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/employee/employee-details/$id': {
+      id: '/_authenticated/employee/employee-details/$id'
+      path: '/employee/employee-details/$id'
+      fullPath: '/employee/employee-details/$id'
+      preLoaderRoute: typeof AuthenticatedEmployeeEmployeeDetailsIdRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/employee/assign-approval/$id': {
+      id: '/_authenticated/employee/assign-approval/$id'
+      path: '/employee/assign-approval/$id'
+      fullPath: '/employee/assign-approval/$id'
+      preLoaderRoute: typeof AuthenticatedEmployeeAssignApprovalIdRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
   }
 }
 
@@ -410,6 +470,9 @@ interface AuthenticatedRouteChildren {
   AuthenticatedCompanySetupDepartmentRoute: typeof AuthenticatedCompanySetupDepartmentRoute
   AuthenticatedCompanySetupIndexRoute: typeof AuthenticatedCompanySetupIndexRoute
   AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
+  AuthenticatedEmployeeIndexRoute: typeof AuthenticatedEmployeeIndexRoute
+  AuthenticatedEmployeeAssignApprovalIdRoute: typeof AuthenticatedEmployeeAssignApprovalIdRoute
+  AuthenticatedEmployeeEmployeeDetailsIdRoute: typeof AuthenticatedEmployeeEmployeeDetailsIdRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
@@ -427,6 +490,11 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
     AuthenticatedCompanySetupDepartmentRoute,
   AuthenticatedCompanySetupIndexRoute: AuthenticatedCompanySetupIndexRoute,
   AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
+  AuthenticatedEmployeeIndexRoute: AuthenticatedEmployeeIndexRoute,
+  AuthenticatedEmployeeAssignApprovalIdRoute:
+    AuthenticatedEmployeeAssignApprovalIdRoute,
+  AuthenticatedEmployeeEmployeeDetailsIdRoute:
+    AuthenticatedEmployeeEmployeeDetailsIdRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
