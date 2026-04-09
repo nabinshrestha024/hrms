@@ -13,15 +13,16 @@ type ViewType = 'card' | 'table';
 
 interface PageHeaderProps<T> {
   title: string;
-  buttonName: string;
+  buttonName?: string;
   isTabs: boolean;
   data: T[];
-  onAdd: () => void;
+  onAdd?: () => void;
   renderCard: (data: T[]) => React.ReactNode;
   renderTable: (data: T[]) => React.ReactNode;
   filterFn?: (data: T[], search: string, dropdown?: string) => T[];
   dropdownKey?: keyof T;
   dropdownLabel?: string;
+  actionComponent?: React.ReactNode;
 }
 
 export function PageHeader<T>({
@@ -29,6 +30,7 @@ export function PageHeader<T>({
   data,
   isTabs,
   buttonName,
+  actionComponent,
   onAdd,
   renderCard,
   renderTable,
@@ -91,15 +93,18 @@ export function PageHeader<T>({
           )}
 
           {isTabs && <TabsFlex />}
-
-          <Button
-            type="button"
-            variant="secondary"
-            className="h-10 cursor-pointer text-[14px] font-medium leading-5 text-white"
-            onClick={onAdd}
-          >
-            {buttonName}
-          </Button>
+          {actionComponent ? (
+            actionComponent
+          ) : (
+            <Button
+              type="button"
+              variant="secondary"
+              className="h-10 cursor-pointer text-[14px] font-medium leading-5 text-white"
+              onClick={onAdd}
+            >
+              {buttonName}
+            </Button>
+          )}
         </div>
       </div>
 

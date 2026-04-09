@@ -4,7 +4,7 @@ import {
   RadioGroup as BaseRadioGroup,
   RadioGroupItem as BaseRadioGroupItem,
 } from '../../../primitives/radio-group';
-import { FormField } from '../../../components/form/FormField';
+import { FormField } from '../form-field';
 
 type RadioOption = {
   value: string;
@@ -96,7 +96,6 @@ function OptionRadioGroup({
             </label>
           );
         })}
-        {error && <div className="text-[12px] text-destructive">{error}</div>}
       </RadioGroup>
     </FormField>
   );

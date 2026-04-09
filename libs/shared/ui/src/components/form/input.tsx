@@ -36,7 +36,7 @@ export const HRInput = forwardRef<HTMLInputElement, InputProps>(
         <Root
           type={type}
           placeholder={placeholder}
-          className={`px-3 py-2.5 rounded-[6px] w-full border border-border ${inputClassName}`}
+          className={`px-3 py-2.5 rounded-[6px] w-full border border-border bg-white ${inputClassName}`}
           ref={ref}
           {...props}
         />

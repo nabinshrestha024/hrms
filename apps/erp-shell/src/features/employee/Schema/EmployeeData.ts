@@ -84,7 +84,7 @@ export const employees = [
     emergencyContactRelation: 'Sister',
 
     // Job Info
-    branch: 'Kathmandu',
+    branch: 'Pokhara',
     department: 'Engineering',
     designation: 'Software Engineer',
     jobLevel: 'Mid',

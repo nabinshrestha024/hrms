@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { CalendarIcon } from 'lucide-react';
+import { CalendarDays } from 'lucide-react';
 import {
   Popover,
   PopoverContent,
@@ -77,7 +77,7 @@ export const HRDateField = ({
       <InputGroup className={className}>
         <InputGroupInput
           value={inputValue}
-          placeholder={placeholder || 'Select date'}
+          placeholder={placeholder || 'Enter date'}
           disabled={disabled}
           onChange={(e) => {
             setInputValue(e.target.value);
@@ -101,10 +101,10 @@ export const HRDateField = ({
               <InputGroupButton
                 variant="ghost"
                 size="icon-xs"
-                aria-label="Select date"
+                aria-label="Enter date"
                 disabled={disabled}
               >
-                <CalendarIcon />
+                <CalendarDays className="text-secondary-foreground" />
               </InputGroupButton>
             </PopoverTrigger>
             <PopoverContent

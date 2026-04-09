@@ -110,7 +110,7 @@ export const FormDialog = () => {
                 <DialogClose asChild>
                   <Button
                     variant="outline"
-                    className="text-[14px] font-medium leading-5  text-muted-foreground "
+                    className="text-[14px] font-medium leading-5  text-muted-foreground cursor-pointer"
                   >
                     {cancelText}
                   </Button>
@@ -121,7 +121,7 @@ export const FormDialog = () => {
                   type="submit"
                   variant="secondary"
                   form={formId}
-                  className=" text-[14px] font-medium leading-5 text-white"
+                  className=" text-[14px] font-medium leading-5 text-white cursor-pointer"
                 >
                   {okText}
                 </Button>
