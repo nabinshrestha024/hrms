@@ -1,9 +1,10 @@
 import { Badge, HRCard } from '@erp/ui';
-import { eventData } from './schema/event-data';
 import { Flag, Gift, PartyPopper, Sparkles } from 'lucide-react';
 import { IconButton } from '../../components/icon-button';
+import { eventData } from './schema/event-data';
 
 export const Event = () => {
+  const visibleEvents = eventData.slice(0, 7);
   return (
     <>
       <HRCard
@@ -14,7 +15,7 @@ export const Event = () => {
           Events & Celebrations
         </div>
         <div className="flex flex-col gap-3">
-          {eventData.map((val, index) => (
+          {visibleEvents.map((val, index) => (
             <HRCard
               cardClassName="p-2 bg-background rounded-xl overflow-auto border-none shadow-none"
               cardContentClassName="p-0"
@@ -48,10 +49,10 @@ export const Event = () => {
                     )}
                   </div>
                   <div className="flex flex-col gap-1">
-                    <span className="text-[14px] leading-5 font-medium text-foreground">
+                    <span className="text-[14px] leading-5 font-medium text-foreground line-clamp-1">
                       {val.title}
                     </span>
-                    <span className="text-[12px] leading-4 font-normal text-secondary-foreground">
+                    <span className="text-[12px] leading-4 font-normal text-secondary-foreground line-clamp-2">
                       {val.date} . {val.description}
                     </span>
                   </div>
@@ -75,9 +76,11 @@ export const Event = () => {
               </div>
             </HRCard>
           ))}
-          <div className="text-[12px] leading-4 font-normal text-secondary-foreground flex justify-end cursor-pointer hover:underline hover:underline-primary hover:text-primary">
-            See More
-          </div>
+          {visibleEvents.length >= 4 && (
+            <div className="text-[12px] leading-4 font-normal text-secondary-foreground flex justify-end cursor-pointer hover:underline hover:underline-primary hover:text-primary">
+              See More
+            </div>
+          )}
         </div>
       </HRCard>
     </>

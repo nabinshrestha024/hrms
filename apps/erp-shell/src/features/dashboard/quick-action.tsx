@@ -1,4 +1,5 @@
 import { HRCard } from '@erp/ui';
+import { Link } from '@tanstack/react-router';
 import { quickAccessData } from './schema/quick-action-data';
 
 export const QuickAction = () => {
@@ -15,23 +16,24 @@ export const QuickAction = () => {
           {quickAccessData.map((val, index) => {
             const Icon = val.icon;
             return (
-              <HRCard
-                cardClassName="px-6 pt-6 pb-3.5 border border-primary rounded-xl bg-white shadow-sm"
-                cardContentClassName="flex flex-col p-0 gap-3 items-center"
-                key={index}
-              >
-                <div className="rounded-sm bg-chart-1 p-1">
-                  <Icon className="w-4 h-4 text-primary" />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <span className="text-[14px] text-foreground font-medium leading-5">
-                    Leave Request
-                  </span>
-                  <span className="text-[12px] text-secondary-foreground font-medium leading-4">
-                    Request for leave
-                  </span>
-                </div>
-              </HRCard>
+              <Link to={val.path} key={index}>
+                <HRCard
+                  cardClassName="px-6 pt-6 pb-3.5 border border-primary rounded-xl bg-white shadow-sm"
+                  cardContentClassName="flex flex-col p-0 gap-3 items-center cursor-pointer"
+                >
+                  <div className="rounded-sm bg-chart-1 p-1">
+                    <Icon className="w-4 h-4 text-primary" />
+                  </div>
+                  <div className="flex flex-col items-center  gap-2">
+                    <span className="text-[14px] text-foreground font-medium leading-5 line-clamp-1">
+                      {val.action}
+                    </span>
+                    <span className="text-[12px] text-secondary-foreground font-medium leading-4 line-clamp-1">
+                      {val.description}
+                    </span>
+                  </div>
+                </HRCard>
+              </Link>
             );
           })}
         </div>
