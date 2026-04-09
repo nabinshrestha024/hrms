@@ -1,9 +1,10 @@
 import { HRCard } from '@erp/ui';
-import { myAttendance } from './schema/my-attendance-data';
-import { IconButton } from '../../components/icon-button';
 import { CalendarClock, CircleX, Clock4, ClockAlert } from 'lucide-react';
+import { IconButton } from '../../components/icon-button';
+import { myAttendance } from './schema/my-attendance-data';
 
 export const MyAttendance = () => {
+  const visibleAttendance = myAttendance.slice(0, 7);
   return (
     <>
       <HRCard
@@ -14,7 +15,7 @@ export const MyAttendance = () => {
           My Attendance
         </div>
         <div className="flex flex-col gap-3">
-          {myAttendance.map((val, index) => (
+          {visibleAttendance.map((val, index) => (
             <HRCard
               cardClassName="p-2 bg-background rounded-xl overflow-auto shadow-none border-none"
               cardContentClassName="p-0"
@@ -52,13 +53,13 @@ export const MyAttendance = () => {
                       className={` text-[12px] leading-5 font-normal
                             ${val.event === 'Present' ? 'text-green-600' : ''}
                             ${val.event === 'Leave' ? 'text-blue-600' : ''}
-                            ${val.event === 'Late' ? 'text-yelloe-600' : ''}
+                            ${val.event === 'Late' ? 'text-yellow-600' : ''}
                             ${val.event === 'Weekend' ? 'text-gray-600' : ''}
                         `}
                     >
                       {val.event}
                     </span>
-                    <span className="text-[12px] leading-5 font-normal text-secondary-foreground">
+                    <span className="text-[12px] leading-5 font-normal text-secondary-foreground line-clamp-1">
                       {val.clockIn} - {val.clockOut} . {val.workingHours}
                     </span>
                   </div>
@@ -79,7 +80,7 @@ export const MyAttendance = () => {
           <IconButton variant="request">
             <CalendarClock className="w-4 h-4" />
           </IconButton>
-          <div className="text-[12px] leading-4 font-medium text-primary">
+          <div className="text-[12px] leading-4 font-medium text-primary hover:underline hover:underline-primary hover:text-primary cursor-pointer">
             My Attendance Records
           </div>
         </div>

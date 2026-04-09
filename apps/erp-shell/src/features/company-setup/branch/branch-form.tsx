@@ -68,7 +68,6 @@ export function BranchForm() {
       config={addBranchFormConfig}
       onSubmit={onsubmit}
       submitLabel="Add Branch"
-      fieldsetClassName="max-h-161 overflow-auto pr-2"
       isDialogForm={true}
     />
   );

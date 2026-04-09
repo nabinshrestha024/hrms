@@ -1,6 +1,6 @@
 import { forwardRef, type InputHTMLAttributes } from 'react';
-import { FormField } from './form-field';
 import { Input as Root } from '../../primitives/input';
+import { FormField } from './form-field';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   Label?: string;
@@ -36,7 +36,7 @@ export const HRInput = forwardRef<HTMLInputElement, InputProps>(
         <Root
           type={type}
           placeholder={placeholder}
-          className={`px-3 py-2.5 rounded-[6px] border border-border ${inputClassName}`}
+          className={`px-3 py-2.5 rounded-[6px] w-full border border-border ${inputClassName}`}
           ref={ref}
           {...props}
         />

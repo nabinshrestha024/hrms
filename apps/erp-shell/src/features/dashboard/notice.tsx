@@ -1,6 +1,6 @@
 import { Badge, Button } from '@erp/ui';
-import { noticeData } from './schema/notice-data';
 import { CreateAnnouncementForm } from './create-announcement/create-announcement-form';
+import { noticeData } from './schema/notice-data';
 
 type ModalSize = 'sm' | 'md' | 'lg';
 
@@ -40,7 +40,7 @@ export const Notice = ({ onOpen }: GetColumnsProps) => {
               </div>
               <div className="flex-1 flex-col gap-1">
                 <div className="flex justify-between">
-                  <span className="text-[14px] text-foreground font-medium leading-5 truncate">
+                  <span className="text-[14px] text-foreground font-medium leading-5 line-clamp-1">
                     {val.title}
                   </span>
                   <div

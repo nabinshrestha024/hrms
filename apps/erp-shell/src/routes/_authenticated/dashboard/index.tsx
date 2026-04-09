@@ -31,12 +31,12 @@ function RouteComponent() {
             <PersonalInformation />
             <QuickAction />
           </div>
-          <div className="flex  gap-4">
+          <div className="flex flex-col lg:flex-row  gap-4">
             <MyAttendance />
             <Notice onOpen={onOpen} />
             <Event />
           </div>
-          <div className="flex  gap-4">
+          <div className="flex flex-col lg:flex-row gap-4">
             <MyRequest />
             <TeamRequest />
           </div>
