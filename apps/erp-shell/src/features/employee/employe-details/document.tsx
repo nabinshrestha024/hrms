@@ -1,4 +1,4 @@
-import { personalDocumentData } from '../schema/DocumentData';
+import { personalDocumentData } from '../Schema/DocumentData';
 import { DocumentUpload } from './document/document-upload';
 
 type ModalSize = 'sm' | 'md' | 'lg';
@@ -31,6 +31,8 @@ export const Document = ({ onOpen }: GetColumnsProps) => {
           activeButton={false}
           documents={personalDocumentData}
           onOpen={onOpen}
+          uploadComponent={true}
+          viewComponent={false}
         />
 
         <DocumentUpload
@@ -41,6 +43,8 @@ export const Document = ({ onOpen }: GetColumnsProps) => {
           secondaryButton="Upload Document"
           documents={personalDocumentData}
           onOpen={onOpen}
+          viewComponent={true}
+          uploadComponent={false}
         />
       </div>
     </>

@@ -23,6 +23,7 @@ export const EmployeeForm = ({ setOpen }: Props) => {
 
   const onsubmit = (data: EmployeeFormValue) => {
     console.warn('Employee Details: ', data);
+    setOpen(false);
     toast({ variant: 'success', title: 'New employee added' });
   };
 
@@ -123,7 +124,6 @@ export const EmployeeForm = ({ setOpen }: Props) => {
                     type="submit"
                     variant="secondary"
                     className="text-[14px] font-medium text-white"
-                    onClick={() => setOpen(false)}
                   >
                     Add
                   </Button>

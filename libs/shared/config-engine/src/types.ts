@@ -17,6 +17,7 @@ export interface FieldDefinition {
   name: string;
   type: FieldType;
   label?: string;
+  Label?: string;
   subLabel?: string;
   icon?: LucideIcon;
   placeholder?: string;

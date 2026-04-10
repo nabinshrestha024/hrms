@@ -1,126 +1,99 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Controller, useForm } from 'react-hook-form';
-import { Form, HRCard, HRCombobox, HRInput, useDialogFormStore } from '@erp/ui';
-import { EducationFormValue, educationSchema } from './AddEducationZod';
+import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
+import { toast } from '@erp/ui';
 
-export const AddEducationForm = () => {
-  const form = useForm<EducationFormValue>({
-    resolver: zodResolver(educationSchema),
-    mode: 'onChange',
-    defaultValues: {
-      status: '',
+export const createEducationFormConfig: FormViewConfig = {
+  entity: 'education',
+  fields: [
+    {
+      name: 'qualification',
+      type: 'text',
+      label: 'Degree/Qualification',
+      placeholder: 'e.g. Bachelor of Science',
+      isRequired: true,
+      validation: { required: true },
     },
-  });
-  const {
-    register,
-    control,
-    formState: { errors },
-  } = form;
+    {
+      name: 'studyField',
+      type: 'text',
+      label: 'Field of Study',
+      placeholder: 'e.g. Computer Science',
+      isRequired: true,
+      validation: { required: true },
+    },
+    {
+      name: 'university',
+      type: 'text',
+      label: 'Institution/University',
+      placeholder: 'e.g. Global College',
+      isRequired: true,
+      validation: { required: true },
+    },
+    {
+      name: 'startYear',
+      type: 'text',
+      label: 'Start Year',
+      placeholder: 'e.g. 2016',
+      validation: { required: false },
+    },
+    {
+      name: 'endYear',
+      type: 'text',
+      label: 'End Year',
+      placeholder: 'e.g. 2020',
+      validation: { required: false },
+    },
+    {
+      name: 'grade',
+      type: 'text',
+      label: 'Grade/GPA',
+      placeholder: 'e.g. 3.8',
+      validation: { required: false },
+    },
+    {
+      name: 'status',
+      type: 'select',
+      label: 'Status',
+      placeholder: 'State',
+      options: ['Completed', 'InCompleted', 'In Progress'],
+      validation: { required: false },
+    },
+  ],
 
-  const closeDialog = useDialogFormStore((state) => state.onClose);
-  const onsubmit = (data: EducationFormValue) => {
-    console.warn('Save Changes: ', data);
-    closeDialog();
+  layout: {
+    type: 'section',
+    children: [
+      { type: 'field', name: 'qualification' },
+      { type: 'field', name: 'studyField' },
+      { type: 'field', name: 'university' },
+      {
+        type: 'columns',
+        columns: 2,
+        children: [
+          { type: 'field', name: 'startYear' },
+          { type: 'field', name: 'endYear' },
+        ],
+      },
+      { type: 'field', name: 'grade' },
+      { type: 'field', name: 'status' },
+    ],
+  },
+};
+
+export function AddEducationForm() {
+  const onsubmit = (data: Record<string, unknown>) => {
+    console.warn('Save Changes:', data);
+    toast({
+      variant: 'success',
+      title: 'Education added successfully',
+    });
   };
 
-  const statusData = [
-    {
-      id: 0,
-      content: 'Completed',
-      value: 'Completed',
-    },
-    {
-      id: 1,
-      content: 'InCompleted',
-
-      value: 'InCompleted',
-    },
-    {
-      id: 2,
-      content: 'In Progress',
-      value: 'In Progress',
-    },
-  ];
-
   return (
-    <div className="relative w-full flex flex-col gap-4">
-      <Form form={form} onSubmit={onsubmit}>
-        <HRCard
-          cardClassName="shadow-none rounded-none border-none p-0 "
-          cardContentClassName="flex flex-col gap-4 p-0"
-        >
-          <HRInput
-            Label="Degree/Qualification"
-            isRequired
-            type="text"
-            placeholder="e.g. Bachelor of Science"
-            inputClassName="px-3 py-[10px] rounded-[6px] border border-[#E4E4E7]"
-            error={errors.qualification?.message}
-            {...register('qualification')}
-          />
-
-          <HRInput
-            Label="Field of Study"
-            isRequired
-            type="text"
-            placeholder="e.g. Computer Science"
-            inputClassName="px-3 py-[10px] rounded-[6px] border border-[#E4E4E7]"
-            error={errors.studyField?.message}
-            {...register('studyField')}
-          />
-
-          <HRInput
-            Label="Institution/University"
-            isRequired
-            type="text"
-            placeholder="e.g. Global College"
-            inputClassName="px-3 py-[10px] rounded-[6px] border border-[#E4E4E7]"
-            error={errors.university?.message}
-            {...register('university')}
-          />
-          <div className="grid grid-cols-2 gap-4">
-            <HRInput
-              Label="Start Year"
-              type="text"
-              placeholder="e.g 2016"
-              inputClassName="px-3 py-[10px] rounded-[6px] border border-[#E4E4E7]"
-              {...register('startYear')}
-            />
-
-            <HRInput
-              Label="End Year"
-              type="text"
-              placeholder="e.g 2020"
-              inputClassName="px-3 py-[10px] rounded-[6px] border border-[#E4E4E7]"
-              {...register('endYear')}
-            />
-          </div>
-
-          <HRInput
-            Label="Grade/GPA"
-            type="text"
-            placeholder="e.g. 3.8"
-            inputClassName="px-3 py-[10px] rounded-[6px] border border-[#E4E4E7]"
-            {...register('grade')}
-          />
-
-          <Controller
-            name="status"
-            control={control}
-            render={({ field }) => (
-              <HRCombobox
-                Label="Status"
-                selectData={statusData}
-                inputClassName="py-[10px] rounded-[6px] border border-[#E4E4E7]"
-                placeholder="State"
-                value={field.value || ''}
-                onValueChange={(val) => field.onChange(val)}
-                disabled={false}
-              />
-            )}
-          />
-        </HRCard>
-      </Form>
-    </div>
+    <FormRenderer
+      config={createEducationFormConfig}
+      onSubmit={onsubmit}
+      submitLabel="Add Education"
+      isDialogForm={true}
+    />
   );
-};
+}

@@ -2,10 +2,16 @@ import { useEvents, type Event as EventType } from '@erp/data-access';
 import { Badge, HRCard } from '@erp/ui';
 import { Flag, Gift, PartyPopper, Sparkles } from 'lucide-react';
 import { IconButton } from '../../components/icon-button';
+import { getSortData } from '@erp/utils';
 
 export const Event = () => {
   const { data, isLoading } = useEvents();
   const eventData: EventType[] = data ?? [];
+  const sortedEvents = getSortData({
+    events: eventData,
+    limit: 7,
+    dateKey: 'date',
+  });
 
   if (isLoading) {
     return (
@@ -35,7 +41,7 @@ export const Event = () => {
           Events & Celebrations
         </div>
         <div className="flex flex-col gap-3">
-          {eventData.map((val) => (
+          {sortedEvents.map((val) => (
             <HRCard
               cardClassName="p-2 bg-background rounded-xl overflow-auto border-none shadow-none"
               cardContentClassName="p-0"

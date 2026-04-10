@@ -40,11 +40,14 @@ export const AssignLeaveForm = () => {
   const leaveOptions = leave.map((val) => ({
     value: val.type,
     label: (
-      <div className="flex justify-between items-center">
+      <div className="relative flex justify-between items-center">
         <span className="text-[14px] font-medium leading-5 text-[#18181B]">
           {val.type}
         </span>
-        <Badge variant="default" className="text-[#18181B] px-2 py-1">
+        <Badge
+          variant="default"
+          className="absolute -top-1 left-138 w-16 text-[#18181B] px-2 py-1 flex items-center justify-center"
+        >
           {val.days} Days
         </Badge>
       </div>

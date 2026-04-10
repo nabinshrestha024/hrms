@@ -1,7 +1,8 @@
 import { AddEducationForm } from './education/add-education-form';
-import { educationData } from '../schema/EducationData';
 import { Button, HRCard } from '@erp/ui';
-import { Edit, Plus, Trash } from 'lucide-react';
+import { Edit, Plus, Trash2 } from 'lucide-react';
+import { educationData } from '../Schema/EducationData';
+import { IconButton } from '../../../components/icon-button';
 
 type ModalSize = 'sm' | 'md' | 'lg';
 
@@ -49,7 +50,7 @@ export const Education = ({ onOpen }: GetColumnsProps) => {
         </div>
         {educationData.map((val, index) => (
           <HRCard
-            cardClassName="p-6 border border-[#E4E4E7] rounded-xl shadow-sm"
+            cardClassName="p-6 border border-[#E4E4E7] rounded-xl shadow-sm bg-white"
             cardContentClassName="p-0 "
             key={index}
           >
@@ -59,22 +60,22 @@ export const Education = ({ onOpen }: GetColumnsProps) => {
                   {val.qualification}
                 </span>
                 <div className="flex flex-col gap-1">
-                  <span className="text-[12px] leading-4 font-normal text-[#09090B]">
+                  <span className="text-[12px] leading-4 font-normal text-foreground">
                     {val.university}
                   </span>
-                  <span className="text-[12px] leading-4 font-normal text-[#71717A]">
+                  <span className="text-[12px] leading-4 font-normal text-secondary-foreground">
                     {val.endYear} - Completed
                   </span>
                 </div>
               </div>
               <div className="flex gap-3">
-                <div className="bg-[#F4F4F5] rounded-sm p-1 w-6 h-6">
-                  <Edit className="text-[16px] font-black" />
-                </div>
+                <IconButton variant="default">
+                  <Edit className="w-5 h-5 font-bold" />
+                </IconButton>
 
-                <div className="bg-[#FFE2E2] rounded-sm p-1 w-6 h-6">
-                  <Trash fill="#E7000B" />
-                </div>
+                <IconButton variant="destructive">
+                  <Trash2 className="w-5 h-5 font-bold" />
+                </IconButton>
               </div>
             </div>
           </HRCard>
