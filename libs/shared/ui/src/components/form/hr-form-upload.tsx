@@ -1,5 +1,5 @@
 import { LucideIcon } from 'lucide-react';
-import React, { useRef, useState, type ReactNode } from 'react';
+import React, { useEffect, useRef, useState, type ReactNode } from 'react';
 import { HRInput } from '../../components/form/input';
 
 interface HRFileUploadProps {
@@ -37,30 +37,34 @@ export const HRFileUpload = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(null);
 
+  useEffect(() => {
+    return () => {
+      if (preview) URL.revokeObjectURL(preview);
+    };
+  }, [preview]);
+
   const handleBrowse = () => {
     inputRef.current?.click();
+  };
+
+  const updatePreview = (file: File) => {
+    if (preview) URL.revokeObjectURL(preview);
+    const previewUrl = URL.createObjectURL(file);
+    setPreview(previewUrl);
+    onChange?.(file);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-
-    const previewUrl = URL.createObjectURL(file);
-    setPreview(previewUrl);
-
-    onChange?.(file);
+    updatePreview(file);
   };
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
-
     const file = e.dataTransfer.files?.[0];
     if (!file) return;
-
-    const previewUrl = URL.createObjectURL(file);
-    setPreview(previewUrl);
-
-    onChange?.(file);
+    updatePreview(file);
   };
 
   return (

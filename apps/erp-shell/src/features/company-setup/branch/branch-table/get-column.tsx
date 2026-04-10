@@ -1,9 +1,16 @@
 import { Badge, DataTableColumnHeader } from '@erp/ui';
 import type { ColumnDef } from '@tanstack/react-table';
 import { Edit, Trash2 } from 'lucide-react';
-import { Branch } from './branch-data';
+import type { Branch } from '@erp/data-access';
 
-export function getBranchColumns(): ColumnDef<Branch, unknown>[] {
+interface ColumnActions {
+  onEdit?: (branch: Branch) => void;
+  onDelete?: (id: string) => void;
+}
+
+export function getBranchColumns(
+  actions?: ColumnActions
+): ColumnDef<Branch, unknown>[] {
   return [
     {
       accessorKey: 'branchId',
@@ -12,7 +19,6 @@ export function getBranchColumns(): ColumnDef<Branch, unknown>[] {
       ),
       cell: ({ row }) => <>{row.getValue('branchId')}</>,
     },
-
     {
       accessorKey: 'branch',
       header: ({ column }) => (
@@ -20,7 +26,6 @@ export function getBranchColumns(): ColumnDef<Branch, unknown>[] {
       ),
       cell: ({ row }) => <>{row.getValue('branch')}</>,
     },
-
     {
       accessorKey: 'location',
       header: ({ column }) => (
@@ -35,15 +40,12 @@ export function getBranchColumns(): ColumnDef<Branch, unknown>[] {
       ),
       cell: ({ row }) => <>{row.getValue('contact')}</>,
     },
-
     {
       accessorKey: 'createdDate',
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Created Date" />
       ),
-      cell: ({ row }) => {
-        return <>{row.getValue('createdDate')}</>;
-      },
+      cell: ({ row }) => <>{row.getValue('createdDate')}</>,
     },
     {
       accessorKey: 'status',
@@ -52,33 +54,36 @@ export function getBranchColumns(): ColumnDef<Branch, unknown>[] {
       ),
       cell: ({ row }) => {
         const value = row.getValue('status');
-
-        return (
-          <>
-            {value === 'Active' ? (
-              <Badge variant="secondary">Active</Badge>
-            ) : (
-              <Badge variant="destructive">InActive</Badge>
-            )}
-          </>
+        return value === 'Active' ? (
+          <Badge variant="secondary">Active</Badge>
+        ) : (
+          <Badge variant="destructive">Inactive</Badge>
         );
       },
     },
-
     {
       id: 'actions',
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Action" />
       ),
-      cell: () => (
+      cell: ({ row }) => (
         <div className="flex gap-2 items-center justify-center">
-          <div className="w-6 h-6 flex items-center justify-center rounded-sm bg-muted p-1">
+          <button
+            type="button"
+            aria-label="Edit branch"
+            className="w-6 h-6 flex items-center justify-center rounded-sm bg-muted p-1 cursor-pointer hover:bg-muted/80"
+            onClick={() => actions?.onEdit?.(row.original)}
+          >
             <Edit className="w-4 h-4 text-black font-bold" />
-          </div>
-
-          <div className="w-6 h-6 flex items-center justify-center rounded-sm bg-chart-3 p-1">
+          </button>
+          <button
+            type="button"
+            aria-label="Delete branch"
+            className="w-6 h-6 flex items-center justify-center rounded-sm bg-chart-3 p-1 cursor-pointer hover:bg-chart-3/80"
+            onClick={() => actions?.onDelete?.(row.original.id)}
+          >
             <Trash2 className="w-4 h-4 text-badge-text-3 font-bold" />
-          </div>
+          </button>
         </div>
       ),
     },

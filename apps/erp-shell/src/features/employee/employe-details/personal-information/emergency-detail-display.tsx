@@ -1,13 +1,11 @@
+import type { Employee } from '@erp/data-access';
 import { HRCard } from '@erp/ui';
-import { employees } from '../../schema/EmployeeData';
 
 export const EmergencyDetailDisplay = ({
-  employeeId,
+  employee,
 }: {
-  employeeId: string;
+  employee: Employee;
 }) => {
-  const employee = employees.find((emp) => emp.employeeId === employeeId);
-
   return (
     <>
       <HRCard

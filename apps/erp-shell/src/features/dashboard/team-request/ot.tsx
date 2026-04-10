@@ -1,24 +1,26 @@
-import { teamRequestData } from '../schema/team-request-data';
 import { Badge, HRCard } from '@erp/ui';
+import type { TeamRequest } from '@erp/data-access';
 
-export const OT = () => {
-  const overTimeRequests = teamRequestData.filter(
-    (val) => val.type === 'Overtime'
-  );
+interface OTProps {
+  data: TeamRequest[];
+}
+
+export const OT = ({ data }: OTProps) => {
+  const overTimeRequests = data.filter((val) => val.type === 'Overtime');
 
   return (
     <div className="h-60 flex flex-col gap-3 overflow-auto pr-3 notice-scroll">
-      {overTimeRequests.map((val, index) => (
+      {overTimeRequests.map((val) => (
         <HRCard
-          key={index}
+          key={val.id}
           cardClassName="p-2 bg-background rounded-xl border-none shadow-none"
           cardContentClassName="p-0 flex justify-between items-center"
         >
           <div className="flex gap-1 items-center">
             <div className="w-12 h-12 ">
               <img
-                src="/Image.png"
-                alt="profile"
+                src={val.image ?? '/Image.png'}
+                alt={val.name}
                 className="rounded-[400px] w-full h-full object-cover"
               />
             </div>
@@ -33,18 +35,20 @@ export const OT = () => {
             </div>
           </div>
           <div className="flex gap-1">
-            <Badge
-              variant="warning"
-              className="border border-chart-4 bg-[#FEFCE8]"
-            >
-              Pending
-            </Badge>
-
-            <Badge variant="secondary">Approved</Badge>
-
-            <Badge variant="outline" className="border-border">
-              Reject
-            </Badge>
+            {val.status === 'Pending' && (
+              <Badge
+                variant="warning"
+                className="border border-chart-4 bg-[#FEFCE8]"
+              >
+                Pending
+              </Badge>
+            )}
+            {val.status === 'Approved' && (
+              <Badge variant="secondary">Approved</Badge>
+            )}
+            {val.status === 'Rejected' && (
+              <Badge variant="destructive">Rejected</Badge>
+            )}
           </div>
         </HRCard>
       ))}

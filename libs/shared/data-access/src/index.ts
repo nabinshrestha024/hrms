@@ -61,6 +61,71 @@ export type {
 // Re-export React Query essentials
 export { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-//Dashboard Employee
-export { useGetEmployee } from './hooks/employee/usegetEmployee';
-export { fetchEmployee } from './services/employee/fetchEmployee';
+// Dashboard schemas, types & queries
+export {
+  companyProfileKeys,
+  dashboardKeys,
+  useCompanyProfile,
+  useCreateNotice,
+  useEvents,
+  useMyAttendance,
+  useMyRequests,
+  useNotices,
+  usePersonalInfo,
+  useTeamRequests,
+  useUpdateCompanyProfile,
+} from './queries/dashboard.queries';
+export {
+  attendanceSchema,
+  companyProfileSchema,
+  eventSchema,
+  myRequestSchema,
+  noticeSchema,
+  personalInfoSchema,
+  teamRequestSchema,
+} from './schemas/dashboard.schema';
+export type {
+  Attendance,
+  CompanyProfile,
+  Event,
+  MyRequest,
+  Notice,
+  PersonalInfo,
+  TeamRequest,
+} from './schemas/dashboard.schema';
+
+// Company setup schemas, types & queries
+export {
+  branchKeys,
+  departmentKeys,
+  useBranch,
+  useBranches,
+  useCreateBranch,
+  useCreateDepartment,
+  useDeleteBranch,
+  useDeleteDepartment,
+  useDepartment,
+  useDepartments,
+  useUpdateBranch,
+  useUpdateDepartment,
+} from './queries/company-setup.queries';
+export {
+  branchFiltersSchema,
+  branchSchema,
+  branchStatusEnum,
+  createBranchSchema,
+  createDepartmentSchema,
+  departmentSchema,
+  updateBranchSchema,
+  updateDepartmentSchema,
+} from './schemas/company-setup.schema';
+export type {
+  Branch,
+  BranchFilters,
+  BranchStatus,
+  CreateBranchInput,
+  CreateDepartmentInput,
+  Department,
+  UpdateBranchInput,
+  UpdateDepartmentInput,
+} from './schemas/company-setup.schema';

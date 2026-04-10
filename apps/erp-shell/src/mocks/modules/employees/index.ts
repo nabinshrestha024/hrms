@@ -12,12 +12,13 @@ export function initEmployeesModule() {
 
   return createCrudHandlers<Employee>('employees', {
     idPrefix: 'emp',
-    searchFields: ['firstName', 'lastName', 'email'],
+    searchFields: ['firstName', 'lastName', 'email', 'employeeId'],
     createSchema: createEmployeeSchema,
     updateSchema: updateEmployeeSchema,
     filterFn: (item, params) => {
       if (params.department && item.department !== params.department)
         return false;
+      if (params.branch && item.branch !== params.branch) return false;
       if (params.status && item.status !== params.status) return false;
       return true;
     },

@@ -1,14 +1,16 @@
 import { type PaginationState, type SortingState } from '@tanstack/react-table';
 import { useDataTable } from '@erp/ui';
 import { useQueryState, parseAsInteger, parseAsString } from 'nuqs';
-import { Branch, BranchData } from './branch-data';
+import type { Branch } from '@erp/data-access';
 import { getBranchColumns } from './get-column';
 
 interface BranchTableProps {
   data: Branch[];
+  onEdit?: (branch: Branch) => void;
+  onDelete?: (id: string) => void;
 }
 
-export function useBranchTable({ data }: BranchTableProps) {
+export function useBranchTable({ data, onEdit, onDelete }: BranchTableProps) {
   // URL-synced state
   const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
   const [pageSize, setPageSize] = useQueryState(
@@ -46,16 +48,16 @@ export function useBranchTable({ data }: BranchTableProps) {
   //   ];
 
   const totalCount = data.length ?? 0;
-  const columns = getBranchColumns();
+  const columns = getBranchColumns({ onEdit, onDelete });
   // Table instance
   const { table } = useDataTable({
     data: data,
     columns,
     pageCount: Math.ceil(totalCount / pageSize) || 1,
     getRowId: (row: Branch) => row.branchId,
-    manualPagination: true,
-    manualSorting: true,
-    manualFiltering: true,
+    manualPagination: false,
+    manualSorting: false,
+    manualFiltering: false,
     initialPagination: { pageIndex: page - 1, pageSize },
     initialSorting: sortBy ? [{ id: sortBy, desc: sortOrder === 'desc' }] : [],
     onPaginationChange: (pagination: PaginationState) => {
@@ -74,7 +76,6 @@ export function useBranchTable({ data }: BranchTableProps) {
   });
 
   return {
-    BranchData,
     totalCount,
     table,
     columns,

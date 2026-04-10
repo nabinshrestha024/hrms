@@ -56,12 +56,14 @@ export function FormRenderer({
     />
   );
 
+  const formId = `${config.entity}-form`;
+
   return isDialogForm ? (
-    <Form onSubmit={onSubmit} form={form}>
+    <Form onSubmit={onSubmit} form={form} dialogManaged>
       {content}
     </Form>
   ) : (
-    <form onSubmit={form.handleSubmit(onSubmit)} id="basicInformation">
+    <form onSubmit={form.handleSubmit(onSubmit)} id={formId}>
       {content}
     </form>
   );

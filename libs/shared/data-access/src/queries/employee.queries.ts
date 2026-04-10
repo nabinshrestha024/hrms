@@ -51,6 +51,7 @@ export function useEmployees(params?: ListParams & EmployeeFilters) {
       if (params?.sortOrder) searchParams.set('sortOrder', params.sortOrder);
       if (params?.search) searchParams.set('search', params.search);
       if (params?.department) searchParams.set('department', params.department);
+      if (params?.branch) searchParams.set('branch', params.branch);
       if (params?.status) searchParams.set('status', params.status);
 
       const query = searchParams.toString();

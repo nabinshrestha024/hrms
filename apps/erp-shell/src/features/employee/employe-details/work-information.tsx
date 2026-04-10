@@ -1,3 +1,4 @@
+import type { Employee } from '@erp/data-access';
 import { useState } from 'react';
 import { EditableSection } from './editable-section';
 import { EmployeeDetailDisplay } from './work-information/employee-detail-display';
@@ -5,11 +6,10 @@ import { EmployeeDetailEditForm } from './work-information/employee-detail-edit-
 import { FinancialDetailDisplay } from './work-information/financial-detail-display';
 import { FinancialDetailEditForm } from './work-information/financial-detail-edit-form';
 
-export const WorkInformation = ({ employeeId }: { employeeId: string }) => {
+export const WorkInformation = ({ employee }: { employee: Employee }) => {
   const [editEmployee, setEditEmployee] = useState(false);
   const [editFinance, setEditFinance] = useState(false);
 
-  // const { data: employee } = useGetEmployeeById(employeeId)
   return (
     <>
       <div className="flex flex-col gap-6 max-h-115 overflow-auto pr-3">
@@ -17,13 +17,13 @@ export const WorkInformation = ({ employeeId }: { employeeId: string }) => {
           Work Information
         </div>
         <EditableSection
-          title="Personal Details"
+          title="Employee Details"
           edit={editEmployee}
           setEdit={setEditEmployee}
           formId="employee"
           DisplayComponent={EmployeeDetailDisplay}
           EditComponent={EmployeeDetailEditForm}
-          employeeId={employeeId}
+          employee={employee}
         />
 
         <EditableSection
@@ -33,7 +33,7 @@ export const WorkInformation = ({ employeeId }: { employeeId: string }) => {
           formId="finance"
           DisplayComponent={FinancialDetailDisplay}
           EditComponent={FinancialDetailEditForm}
-          employeeId={employeeId}
+          employee={employee}
         />
       </div>
     </>

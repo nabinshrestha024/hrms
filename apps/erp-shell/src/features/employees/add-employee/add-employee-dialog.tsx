@@ -42,17 +42,53 @@ export function AddEmployeeDialog({
 
     createMutation.mutate(
       {
+        // Identity
+        employeeId: data.employeeId,
         firstName: data.firstName,
+        middleName: data.middleName,
         lastName: data.lastName,
         email: data.workEmail || data.personalEmail,
         phone: data.phone,
+        dateOfBirth: data.dateOfBirth,
+        gender: data.gender,
+        maritalStatus: data.maritalStatus,
+        avatar: null,
+
+        // Address
+        country: data.country,
+        province: data.province,
+        city: data.city,
+        municipality: data.municipality,
+        ward: data.ward,
+        address: data.address,
+
+        // Emergency contact
+        emergencyContact: data.emergencyContact,
+        emergencyContactName: data.emergencyContactName,
+        emergencyContactRelation: data.emergencyContactRelation,
+
+        // Work information
+        branch: data.branch,
         department: data.department,
         designation: data.designation,
+        jobLevel: data.jobLevel,
+        shift: data.shift,
+        workType: data.workType,
+        employeeType: data.employeeType,
+        workPhone: data.workPhone,
+        workEmail: data.workEmail,
+        managerId: data.reportingManager || null,
+        startDate: data.joiningDate,
+        contractStartDate: data.contractStartDate,
+        contractEndDate: data.contractEndDate,
+
+        // Compensation
         status: 'active' as const,
         salary: Number(data.grossSalary) || 0,
-        startDate: data.joiningDate,
-        managerId: data.reportingManager || null,
-        avatar: null,
+        basicSalary: Number(data.basicSalary) || 0,
+        bankName: data.bankName,
+        bankAccountNumber: data.bankAccountNumber,
+        bankAccountName: data.bankAccountName,
       },
       {
         onSuccess: () => {

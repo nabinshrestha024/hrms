@@ -1,4 +1,5 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
+import { useCreateBranch } from '@erp/data-access';
 import { toast } from '@erp/ui';
 
 export const addBranchFormConfig: FormViewConfig = {
@@ -58,9 +59,27 @@ export const addBranchFormConfig: FormViewConfig = {
 };
 
 export function BranchForm() {
+  const createBranch = useCreateBranch();
+
   const onsubmit = (data: Record<string, unknown>) => {
-    console.warn('Save Changes:', data);
-    toast({ variant: 'success', title: 'Branch added successfully' });
+    createBranch.mutate(
+      {
+        branchId: String(data.branchId ?? ''),
+        branch: String(data.branchName ?? ''),
+        location: String(data.address ?? ''),
+        contact: String(data.contact ?? ''),
+        status: data.status === 'Inactive' ? 'Inactive' : 'Active',
+        createdDate: new Date().toISOString().split('T')[0],
+      },
+      {
+        onSuccess: () => {
+          toast({ variant: 'success', title: 'Branch added successfully' });
+        },
+        onError: () => {
+          toast({ variant: 'destructive', title: 'Failed to add branch' });
+        },
+      }
+    );
   };
 
   return (

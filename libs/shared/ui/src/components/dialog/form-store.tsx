@@ -111,9 +111,16 @@ export const useDialogFormStore = create<DialogState & DialogActions>(
       set(() => ({
         open: false,
         title: null,
+        modalTitle: null,
+        modalSubTitle: null,
         formId: undefined,
+        okText: null,
         component: <></>,
         cancelText: null,
+        size: undefined,
+        formState: undefined,
+        dialogClassName: '',
+        componentClassName: '',
         onCancel: undefined,
       }));
     },

@@ -1,13 +1,11 @@
+import type { Employee } from '@erp/data-access';
 import { HRCard } from '@erp/ui';
-import { employees } from '../../schema/EmployeeData';
 
 export const FinancialDetailDisplay = ({
-  employeeId,
+  employee,
 }: {
-  employeeId: string;
+  employee: Employee;
 }) => {
-  const employee = employees.find((emp) => emp.employeeId === employeeId);
-
   return (
     <>
       <HRCard
@@ -20,7 +18,7 @@ export const FinancialDetailDisplay = ({
               Gross Salary
             </span>
             <span className="text-[14px] font-medium leading-5 text-foreground">
-              {employee?.grossSalary}
+              {employee?.salary}
             </span>
           </div>
           <div className="flex flex-col gap-3">

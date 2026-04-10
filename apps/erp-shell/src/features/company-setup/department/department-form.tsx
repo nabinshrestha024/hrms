@@ -1,4 +1,5 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
+import { useCreateDepartment } from '@erp/data-access';
 import { toast } from '@erp/ui';
 
 export const addDepartmentFormConfig: FormViewConfig = {
@@ -41,9 +42,24 @@ export const addDepartmentFormConfig: FormViewConfig = {
 };
 
 export function DepartmentForm() {
+  const createDepartment = useCreateDepartment();
+
   const onsubmit = (data: Record<string, unknown>) => {
-    console.warn('Save Changes:', data);
-    toast({ variant: 'success', title: 'Department added successfully' });
+    createDepartment.mutate(
+      {
+        department: String(data.departmentName ?? ''),
+        location: '',
+        code: String(data.departmentId ?? ''),
+      },
+      {
+        onSuccess: () => {
+          toast({ variant: 'success', title: 'Department added successfully' });
+        },
+        onError: () => {
+          toast({ variant: 'destructive', title: 'Failed to add department' });
+        },
+      }
+    );
   };
 
   return (

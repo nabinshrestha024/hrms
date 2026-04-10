@@ -1,17 +1,16 @@
+import { useEmployees, type Employee } from '@erp/data-access';
+import { Button, HRDialog } from '@erp/ui';
+import { useState } from 'react';
 import { PageHeader } from '../../components/page-header';
 import { EmployeeForm } from '../../features/employee/employee-form-collection/employee-form';
 import { EmployeeCard } from './employee-card';
-import {
-  Employee,
-  employees,
-} from '../../features/employee/schema/EmployeeData';
-import { Button, HRDialog } from '@erp/ui';
-import { useState } from 'react';
 import { EmployeeTable } from './table/employee-table';
 
 export const EmployeeManagement = () => {
-  const data: Employee[] = employees;
+  const { data: response } = useEmployees({ pageSize: 100 });
+  const data: Employee[] = response?.data ?? [];
   const [open, setOpen] = useState(false);
+
   return (
     <>
       <PageHeader
@@ -42,13 +41,14 @@ export const EmployeeManagement = () => {
         renderTable={(filtered) => <EmployeeTable data={filtered} />}
         filterFn={(data, search, dropdown) => {
           return data.filter((item: Employee) => {
-            const matchesSearch = item.branch
-              ?.toLowerCase()
-              .includes(search.toLowerCase());
+            const matchesSearch =
+              item.branch?.toLowerCase().includes(search.toLowerCase()) ||
+              item.firstName?.toLowerCase().includes(search.toLowerCase()) ||
+              item.lastName?.toLowerCase().includes(search.toLowerCase());
 
             const matchesDropdown = dropdown ? item.branch === dropdown : true;
 
-            return matchesSearch && matchesDropdown;
+            return Boolean(matchesSearch) && matchesDropdown;
           });
         }}
       />

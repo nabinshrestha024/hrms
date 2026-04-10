@@ -1,3 +1,4 @@
+import type { Employee } from '@erp/data-access';
 import { Button } from '@erp/ui';
 import { Edit, Save } from 'lucide-react';
 
@@ -6,9 +7,9 @@ export interface EditableSectionProps {
   edit: boolean;
   setEdit: (edit: boolean) => void;
   formId: string;
-  DisplayComponent: React.ComponentType<{ employeeId: string }>;
+  DisplayComponent: React.ComponentType<{ employee: Employee }>;
   EditComponent: React.ComponentType;
-  employeeId: string;
+  employee: Employee;
 }
 
 export const EditableSection = ({
@@ -18,7 +19,7 @@ export const EditableSection = ({
   formId,
   DisplayComponent,
   EditComponent,
-  employeeId,
+  employee,
 }: EditableSectionProps) => {
   return (
     <div className="flex flex-col gap-4">
@@ -45,7 +46,7 @@ export const EditableSection = ({
         )}
       </div>
 
-      {edit ? <EditComponent /> : <DisplayComponent employeeId={employeeId} />}
+      {edit ? <EditComponent /> : <DisplayComponent employee={employee} />}
     </div>
   );
 };

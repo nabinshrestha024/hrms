@@ -1,4 +1,5 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
+import { useCreateNotice } from '@erp/data-access';
 import { toast } from '@erp/ui';
 import { CloudUpload } from 'lucide-react';
 
@@ -11,7 +12,7 @@ export const createAnnouncementFormConfig: FormViewConfig = {
       label: 'Announcement Title',
       placeholder: 'Holiday',
       isRequired: true,
-      validation: { required: false },
+      validation: { required: true },
     },
     {
       name: 'branch',
@@ -70,9 +71,26 @@ export const createAnnouncementFormConfig: FormViewConfig = {
   },
 };
 export function CreateAnnouncementForm() {
+  const createNotice = useCreateNotice();
+
   const onsubmit = (data: Record<string, unknown>) => {
-    console.warn('Save Changes:', data);
-    toast({ variant: 'success', title: 'Notice created' });
+    createNotice.mutate(
+      {
+        title: String(data.announcementTitle ?? ''),
+        description: String(data.shortDescription ?? ''),
+        image: '/noticeImage/annualImage.png',
+        noticeType:
+          (data.priority as 'Important' | 'Info' | 'Notice') ?? 'Info',
+      },
+      {
+        onSuccess: () => {
+          toast({ variant: 'success', title: 'Notice created' });
+        },
+        onError: () => {
+          toast({ variant: 'destructive', title: 'Failed to create notice' });
+        },
+      }
+    );
   };
 
   return (

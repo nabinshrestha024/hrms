@@ -1,7 +1,31 @@
 import { Badge, HRCard } from '@erp/ui';
-import { myRequestData } from './schema/my-request-data';
+import {
+  useMyRequests,
+  type MyRequest as MyRequestType,
+} from '@erp/data-access';
 
 export const MyRequest = () => {
+  const { data, isLoading } = useMyRequests();
+  const myRequestData: MyRequestType[] = data ?? [];
+
+  if (isLoading) {
+    return (
+      <HRCard
+        cardClassName="w-full h-99 py-6 pr-3 pl-6 bg-white rounded-xl shadow-sm border-none"
+        cardContentClassName="flex flex-col gap-4 p-0"
+      >
+        <div className="text-[18px] text-foreground font-medium leading-7">
+          My Request
+        </div>
+        <div className="flex-1 flex items-center justify-center">
+          <span className="text-sm text-secondary-foreground animate-pulse">
+            Loading...
+          </span>
+        </div>
+      </HRCard>
+    );
+  }
+
   return (
     <>
       <HRCard
@@ -12,11 +36,11 @@ export const MyRequest = () => {
           My Request
         </div>
         <div className="max-h-75  flex flex-col gap-3 overflow-auto pr-3 notice-scroll">
-          {myRequestData.map((val, index) => (
+          {myRequestData.map((val) => (
             <HRCard
               cardClassName="p-2 bg-background rounded-xl border-none shadow-none"
               cardContentClassName="p-0 flex justify-between items-center"
-              key={index}
+              key={val.id}
             >
               <div className="flex flex-col gap-1">
                 <div className="flex gap-1 items-center">
@@ -34,6 +58,14 @@ export const MyRequest = () => {
               <div
                 className={`h-6 py-1 px-3 rounded-[400px] font-semibold text-[12px] leading-4`}
               >
+                {val.status === 'Pending' && (
+                  <Badge
+                    variant="warning"
+                    className="border border-chart-4 bg-[#FEFCE8]"
+                  >
+                    Pending
+                  </Badge>
+                )}
                 {val.status === 'Approved' && (
                   <Badge variant="secondary">Approved</Badge>
                 )}

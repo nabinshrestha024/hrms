@@ -1,30 +1,24 @@
-export interface Branch {
-  branchId: string;
-  branch: string;
-  location: string;
-  contact: string;
-  status: string;
-  createdDate: string;
-}
-
-export const BranchData = [
+export const branchSeed = [
   {
-    branchId: '002',
-    branch: 'Bhaktapur ',
+    id: 'br-001',
+    branchId: 'BR000',
+    branch: 'Bhaktapur',
     location: 'Thimi',
     contact: '9800006700',
     status: 'Active',
     createdDate: '2020-12-03',
   },
   {
+    id: 'br-002',
     branchId: 'BR001',
     branch: 'Kathmandu',
     location: 'Baneshwor',
     contact: '9800000000',
-    status: 'InActive',
+    status: 'Inactive',
     createdDate: '2026-03-15',
   },
   {
+    id: 'br-003',
     branchId: 'BR002',
     branch: 'Pokhara',
     location: 'Pokhara',
@@ -33,6 +27,7 @@ export const BranchData = [
     createdDate: '2026-02-10',
   },
   {
+    id: 'br-004',
     branchId: 'BR003',
     branch: 'Lalitpur',
     location: 'Lubu',
@@ -41,23 +36,25 @@ export const BranchData = [
     createdDate: '2026-01-25',
   },
   {
+    id: 'br-005',
     branchId: 'BR005',
     branch: 'Kathmandu',
     location: 'Darbarmarg',
     contact: '9800006700',
-    status: 'InActive',
+    status: 'Inactive',
     createdDate: '2026-03-15',
   },
   {
+    id: 'br-006',
     branchId: 'BR004',
-    branch: 'Bhaktapur ',
+    branch: 'Bhaktapur',
     location: 'Gothatar',
     contact: '9800006700',
     status: 'Active',
     createdDate: '2020-12-03',
   },
-
   {
+    id: 'br-007',
     branchId: 'BR006',
     branch: 'Pokhara',
     location: 'Pokhara',
@@ -66,14 +63,16 @@ export const BranchData = [
     createdDate: '2026-02-10',
   },
   {
+    id: 'br-008',
     branchId: 'BR007',
     branch: 'Lalitpur',
     location: 'Lalitpur',
     contact: '9800006700',
-    status: 'InActive',
+    status: 'Inactive',
     createdDate: '2026-01-25',
   },
   {
+    id: 'br-009',
     branchId: 'BR008',
     branch: 'Bhaktapur',
     location: 'Banepa',
@@ -82,6 +81,7 @@ export const BranchData = [
     createdDate: '2020-12-03',
   },
   {
+    id: 'br-010',
     branchId: 'BR009',
     branch: 'Kathmandu',
     location: 'Naxal',
@@ -90,6 +90,7 @@ export const BranchData = [
     createdDate: '2026-03-15',
   },
   {
+    id: 'br-011',
     branchId: 'BR010',
     branch: 'Pokhara',
     location: 'Pokhara',
