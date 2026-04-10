@@ -41,9 +41,6 @@ function DataTablePagination<TData>({
     { length: endPage - startPage },
     (_, i) => startPage + i
   );
-  console.warn('pageCount', table.getPageCount());
-  console.warn('pageIndex', table.getState().pagination.pageIndex);
-  console.warn('rows', table.getPaginationRowModel().rows.length);
   return (
     <div
       data-slot="data-table-pagination"

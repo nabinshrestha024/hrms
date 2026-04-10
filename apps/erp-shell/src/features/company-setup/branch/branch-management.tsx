@@ -1,7 +1,8 @@
+import { useBranches, useDeleteBranch, type Branch } from '@erp/data-access';
+import { toast } from '@erp/ui';
 import { PageHeader } from '../../../components/page-header';
 import { BranchCard } from './branch-card';
 import { BranchForm } from './branch-form';
-import { Branch, BranchData } from './branch-table/branch-data';
 import { BranchTable } from './branch-table/branch-table';
 
 type ModalSize = 'sm' | 'md' | 'lg';
@@ -20,7 +21,33 @@ interface GetColumnsProps {
 }
 
 export const BranchManagement = ({ onOpen }: GetColumnsProps) => {
-  const data: Branch[] = BranchData;
+  const { data: branchResponse } = useBranches({ pageSize: 100 });
+  const data: Branch[] = branchResponse?.data ?? [];
+  const deleteBranch = useDeleteBranch();
+
+  const handleEdit = (branch: Branch) => {
+    onOpen({
+      modalTitle: 'Edit Branch',
+      title: 'Edit Branch',
+      okText: 'Save',
+      size: 'lg',
+      cancelText: 'Cancel',
+      formId: 'branch',
+      component: <BranchForm />,
+    });
+  };
+
+  const handleDelete = (id: string) => {
+    deleteBranch.mutate(id, {
+      onSuccess: () => {
+        toast({ variant: 'success', title: 'Branch deleted successfully' });
+      },
+      onError: () => {
+        toast({ variant: 'destructive', title: 'Failed to delete branch' });
+      },
+    });
+  };
+
   return (
     <>
       <PageHeader
@@ -41,16 +68,26 @@ export const BranchManagement = ({ onOpen }: GetColumnsProps) => {
             component: <BranchForm />,
           })
         }
-        renderCard={(filtered) => <BranchCard data={filtered} />}
-        renderTable={(filtered) => <BranchTable data={filtered} />}
+        renderCard={(filtered) => (
+          <BranchCard
+            data={filtered}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
+        )}
+        renderTable={(filtered) => (
+          <BranchTable
+            data={filtered}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
+        )}
         filterFn={(data, search, dropdown) => {
           return data.filter((item: Branch) => {
             const matchesSearch = item.branch
               ?.toLowerCase()
               .includes(search.toLowerCase());
-
             const matchesDropdown = dropdown ? item.branch === dropdown : true;
-
             return matchesSearch && matchesDropdown;
           });
         }}

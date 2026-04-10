@@ -1,6 +1,6 @@
+import { useNotices, type Notice as NoticeType } from '@erp/data-access';
 import { Badge, Button } from '@erp/ui';
 import { CreateAnnouncementForm } from './create-announcement/create-announcement-form';
-import { noticeData } from './schema/notice-data';
 
 type ModalSize = 'sm' | 'md' | 'lg';
 
@@ -19,6 +19,24 @@ interface GetColumnsProps {
   }) => void;
 }
 export const Notice = ({ onOpen }: GetColumnsProps) => {
+  const { data, isLoading } = useNotices();
+  const noticeData: NoticeType[] = data ?? [];
+
+  if (isLoading) {
+    return (
+      <div className="w-full h-153 py-6 pl-6 pr-3 bg-white rounded-xl shadow-sm flex flex-col gap-4">
+        <div className="text-[18px] text-foreground font-medium leading-7">
+          Notice
+        </div>
+        <div className="flex-1 flex items-center justify-center">
+          <span className="text-sm text-secondary-foreground animate-pulse">
+            Loading...
+          </span>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="w-full h-153 py-6 pl-6 pr-3 bg-white rounded-xl shadow-sm flex flex-col gap-4">
@@ -26,10 +44,10 @@ export const Notice = ({ onOpen }: GetColumnsProps) => {
           Notice
         </div>
         <div className="flex flex-col gap-3 overflow-auto pr-3 notice-scroll">
-          {noticeData.map((val, index) => (
+          {noticeData.map((val) => (
             <div
               className="p-2 bg-background rounded-xl  flex gap-3"
-              key={index}
+              key={val.id}
             >
               <div className="w-17.5 h-17.5 rounded-xl p-px border border-border bg-border">
                 <img

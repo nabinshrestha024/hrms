@@ -8,213 +8,203 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as UnauthorizedRouteImport } from './routes/unauthorized'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthenticatedTasksRouteImport } from './routes/_authenticated/tasks'
-import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
-import { Route as AuthenticatedRecruitmentRouteImport } from './routes/_authenticated/recruitment'
-import { Route as AuthenticatedPayrollRouteImport } from './routes/_authenticated/payroll'
-import { Route as AuthenticatedLeaveRouteImport } from './routes/_authenticated/leave'
-import { Route as AuthenticatedEmployeesRouteImport } from './routes/_authenticated/employees'
-import { Route as AuthenticatedDemoTableRouteImport } from './routes/_authenticated/demo-table'
-import { Route as AuthenticatedDemoFormRouteImport } from './routes/_authenticated/demo-form'
-import { Route as AuthenticatedAttendanceRouteImport } from './routes/_authenticated/attendance'
-import { Route as AuthenticatedEmployeeIndexRouteImport } from './routes/_authenticated/employee/index'
-import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
-import { Route as AuthenticatedCompanySetupIndexRouteImport } from './routes/_authenticated/company-setup/index'
-import { Route as AuthenticatedEmployeesIdRouteImport } from './routes/_authenticated/employees.$id'
-import { Route as AuthenticatedCompanySetupDepartmentRouteImport } from './routes/_authenticated/company-setup/department'
-import { Route as AuthenticatedCompanySetupBranchRouteImport } from './routes/_authenticated/company-setup/branch'
-import { Route as AuthenticatedEmployeeEmployeeDetailsIdRouteImport } from './routes/_authenticated/employee/employee-details.$id'
-import { Route as AuthenticatedEmployeeAssignApprovalIdRouteImport } from './routes/_authenticated/employee/assign-approval.$id'
+import { Route as rootRouteImport } from './routes/__root';
+import { Route as UnauthorizedRouteImport } from './routes/unauthorized';
+import { Route as LoginRouteImport } from './routes/login';
+import { Route as AuthenticatedRouteImport } from './routes/_authenticated';
+import { Route as IndexRouteImport } from './routes/index';
+import { Route as AuthenticatedTasksRouteImport } from './routes/_authenticated/tasks';
+import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings';
+import { Route as AuthenticatedRecruitmentRouteImport } from './routes/_authenticated/recruitment';
+import { Route as AuthenticatedPayrollRouteImport } from './routes/_authenticated/payroll';
+import { Route as AuthenticatedLeaveRouteImport } from './routes/_authenticated/leave';
+import { Route as AuthenticatedEmployeesRouteImport } from './routes/_authenticated/employees';
+import { Route as AuthenticatedDemoTableRouteImport } from './routes/_authenticated/demo-table';
+import { Route as AuthenticatedDemoFormRouteImport } from './routes/_authenticated/demo-form';
+import { Route as AuthenticatedAttendanceRouteImport } from './routes/_authenticated/attendance';
+import { Route as AuthenticatedEmployeeIndexRouteImport } from './routes/_authenticated/employee/index';
+import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index';
+import { Route as AuthenticatedCompanySetupIndexRouteImport } from './routes/_authenticated/company-setup/index';
+import { Route as AuthenticatedCompanySetupDepartmentRouteImport } from './routes/_authenticated/company-setup/department';
+import { Route as AuthenticatedCompanySetupBranchRouteImport } from './routes/_authenticated/company-setup/branch';
+import { Route as AuthenticatedEmployeeEmployeeDetailsIdRouteImport } from './routes/_authenticated/employee/employee-details.$id';
+import { Route as AuthenticatedEmployeeAssignApprovalIdRouteImport } from './routes/_authenticated/employee/assign-approval.$id';
 
 const UnauthorizedRoute = UnauthorizedRouteImport.update({
   id: '/unauthorized',
   path: '/unauthorized',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const AuthenticatedRoute = AuthenticatedRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const AuthenticatedTasksRoute = AuthenticatedTasksRouteImport.update({
   id: '/tasks',
   path: '/tasks',
   getParentRoute: () => AuthenticatedRoute,
-} as any)
+} as any);
 const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
   getParentRoute: () => AuthenticatedRoute,
-} as any)
+} as any);
 const AuthenticatedRecruitmentRoute =
   AuthenticatedRecruitmentRouteImport.update({
     id: '/recruitment',
     path: '/recruitment',
     getParentRoute: () => AuthenticatedRoute,
-  } as any)
+  } as any);
 const AuthenticatedPayrollRoute = AuthenticatedPayrollRouteImport.update({
   id: '/payroll',
   path: '/payroll',
   getParentRoute: () => AuthenticatedRoute,
-} as any)
+} as any);
 const AuthenticatedLeaveRoute = AuthenticatedLeaveRouteImport.update({
   id: '/leave',
   path: '/leave',
   getParentRoute: () => AuthenticatedRoute,
-} as any)
+} as any);
 const AuthenticatedEmployeesRoute = AuthenticatedEmployeesRouteImport.update({
   id: '/employees',
   path: '/employees',
   getParentRoute: () => AuthenticatedRoute,
-} as any)
+} as any);
 const AuthenticatedDemoTableRoute = AuthenticatedDemoTableRouteImport.update({
   id: '/demo-table',
   path: '/demo-table',
   getParentRoute: () => AuthenticatedRoute,
-} as any)
+} as any);
 const AuthenticatedDemoFormRoute = AuthenticatedDemoFormRouteImport.update({
   id: '/demo-form',
   path: '/demo-form',
   getParentRoute: () => AuthenticatedRoute,
-} as any)
+} as any);
 const AuthenticatedAttendanceRoute = AuthenticatedAttendanceRouteImport.update({
   id: '/attendance',
   path: '/attendance',
   getParentRoute: () => AuthenticatedRoute,
-} as any)
+} as any);
 const AuthenticatedEmployeeIndexRoute =
   AuthenticatedEmployeeIndexRouteImport.update({
     id: '/employee/',
     path: '/employee/',
     getParentRoute: () => AuthenticatedRoute,
-  } as any)
+  } as any);
 const AuthenticatedDashboardIndexRoute =
   AuthenticatedDashboardIndexRouteImport.update({
     id: '/dashboard/',
     path: '/dashboard/',
     getParentRoute: () => AuthenticatedRoute,
-  } as any)
+  } as any);
 const AuthenticatedCompanySetupIndexRoute =
   AuthenticatedCompanySetupIndexRouteImport.update({
     id: '/company-setup/',
     path: '/company-setup/',
     getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedEmployeesIdRoute =
-  AuthenticatedEmployeesIdRouteImport.update({
-    id: '/$id',
-    path: '/$id',
-    getParentRoute: () => AuthenticatedEmployeesRoute,
-  } as any)
+  } as any);
 const AuthenticatedCompanySetupDepartmentRoute =
   AuthenticatedCompanySetupDepartmentRouteImport.update({
     id: '/company-setup/department',
     path: '/company-setup/department',
     getParentRoute: () => AuthenticatedRoute,
-  } as any)
+  } as any);
 const AuthenticatedCompanySetupBranchRoute =
   AuthenticatedCompanySetupBranchRouteImport.update({
     id: '/company-setup/branch',
     path: '/company-setup/branch',
     getParentRoute: () => AuthenticatedRoute,
-  } as any)
+  } as any);
 const AuthenticatedEmployeeEmployeeDetailsIdRoute =
   AuthenticatedEmployeeEmployeeDetailsIdRouteImport.update({
     id: '/employee/employee-details/$id',
     path: '/employee/employee-details/$id',
     getParentRoute: () => AuthenticatedRoute,
-  } as any)
+  } as any);
 const AuthenticatedEmployeeAssignApprovalIdRoute =
   AuthenticatedEmployeeAssignApprovalIdRouteImport.update({
     id: '/employee/assign-approval/$id',
     path: '/employee/assign-approval/$id',
     getParentRoute: () => AuthenticatedRoute,
-  } as any)
+  } as any);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/login': typeof LoginRoute
-  '/unauthorized': typeof UnauthorizedRoute
-  '/attendance': typeof AuthenticatedAttendanceRoute
-  '/demo-form': typeof AuthenticatedDemoFormRoute
-  '/demo-table': typeof AuthenticatedDemoTableRoute
-  '/employees': typeof AuthenticatedEmployeesRouteWithChildren
-  '/leave': typeof AuthenticatedLeaveRoute
-  '/payroll': typeof AuthenticatedPayrollRoute
-  '/recruitment': typeof AuthenticatedRecruitmentRoute
-  '/settings': typeof AuthenticatedSettingsRoute
-  '/tasks': typeof AuthenticatedTasksRoute
-  '/company-setup/branch': typeof AuthenticatedCompanySetupBranchRoute
-  '/company-setup/department': typeof AuthenticatedCompanySetupDepartmentRoute
-  '/employees/$id': typeof AuthenticatedEmployeesIdRoute
-  '/company-setup/': typeof AuthenticatedCompanySetupIndexRoute
-  '/dashboard/': typeof AuthenticatedDashboardIndexRoute
-  '/employee/': typeof AuthenticatedEmployeeIndexRoute
-  '/employee/assign-approval/$id': typeof AuthenticatedEmployeeAssignApprovalIdRoute
-  '/employee/employee-details/$id': typeof AuthenticatedEmployeeEmployeeDetailsIdRoute
+  '/': typeof IndexRoute;
+  '/login': typeof LoginRoute;
+  '/unauthorized': typeof UnauthorizedRoute;
+  '/attendance': typeof AuthenticatedAttendanceRoute;
+  '/demo-form': typeof AuthenticatedDemoFormRoute;
+  '/demo-table': typeof AuthenticatedDemoTableRoute;
+  '/employees': typeof AuthenticatedEmployeesRoute;
+  '/leave': typeof AuthenticatedLeaveRoute;
+  '/payroll': typeof AuthenticatedPayrollRoute;
+  '/recruitment': typeof AuthenticatedRecruitmentRoute;
+  '/settings': typeof AuthenticatedSettingsRoute;
+  '/tasks': typeof AuthenticatedTasksRoute;
+  '/company-setup/branch': typeof AuthenticatedCompanySetupBranchRoute;
+  '/company-setup/department': typeof AuthenticatedCompanySetupDepartmentRoute;
+  '/company-setup/': typeof AuthenticatedCompanySetupIndexRoute;
+  '/dashboard/': typeof AuthenticatedDashboardIndexRoute;
+  '/employee/': typeof AuthenticatedEmployeeIndexRoute;
+  '/employee/assign-approval/$id': typeof AuthenticatedEmployeeAssignApprovalIdRoute;
+  '/employee/employee-details/$id': typeof AuthenticatedEmployeeEmployeeDetailsIdRoute;
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/login': typeof LoginRoute
-  '/unauthorized': typeof UnauthorizedRoute
-  '/attendance': typeof AuthenticatedAttendanceRoute
-  '/demo-form': typeof AuthenticatedDemoFormRoute
-  '/demo-table': typeof AuthenticatedDemoTableRoute
-  '/employees': typeof AuthenticatedEmployeesRouteWithChildren
-  '/leave': typeof AuthenticatedLeaveRoute
-  '/payroll': typeof AuthenticatedPayrollRoute
-  '/recruitment': typeof AuthenticatedRecruitmentRoute
-  '/settings': typeof AuthenticatedSettingsRoute
-  '/tasks': typeof AuthenticatedTasksRoute
-  '/company-setup/branch': typeof AuthenticatedCompanySetupBranchRoute
-  '/company-setup/department': typeof AuthenticatedCompanySetupDepartmentRoute
-  '/employees/$id': typeof AuthenticatedEmployeesIdRoute
-  '/company-setup': typeof AuthenticatedCompanySetupIndexRoute
-  '/dashboard': typeof AuthenticatedDashboardIndexRoute
-  '/employee': typeof AuthenticatedEmployeeIndexRoute
-  '/employee/assign-approval/$id': typeof AuthenticatedEmployeeAssignApprovalIdRoute
-  '/employee/employee-details/$id': typeof AuthenticatedEmployeeEmployeeDetailsIdRoute
+  '/': typeof IndexRoute;
+  '/login': typeof LoginRoute;
+  '/unauthorized': typeof UnauthorizedRoute;
+  '/attendance': typeof AuthenticatedAttendanceRoute;
+  '/demo-form': typeof AuthenticatedDemoFormRoute;
+  '/demo-table': typeof AuthenticatedDemoTableRoute;
+  '/employees': typeof AuthenticatedEmployeesRoute;
+  '/leave': typeof AuthenticatedLeaveRoute;
+  '/payroll': typeof AuthenticatedPayrollRoute;
+  '/recruitment': typeof AuthenticatedRecruitmentRoute;
+  '/settings': typeof AuthenticatedSettingsRoute;
+  '/tasks': typeof AuthenticatedTasksRoute;
+  '/company-setup/branch': typeof AuthenticatedCompanySetupBranchRoute;
+  '/company-setup/department': typeof AuthenticatedCompanySetupDepartmentRoute;
+  '/company-setup': typeof AuthenticatedCompanySetupIndexRoute;
+  '/dashboard': typeof AuthenticatedDashboardIndexRoute;
+  '/employee': typeof AuthenticatedEmployeeIndexRoute;
+  '/employee/assign-approval/$id': typeof AuthenticatedEmployeeAssignApprovalIdRoute;
+  '/employee/employee-details/$id': typeof AuthenticatedEmployeeEmployeeDetailsIdRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/_authenticated': typeof AuthenticatedRouteWithChildren
-  '/login': typeof LoginRoute
-  '/unauthorized': typeof UnauthorizedRoute
-  '/_authenticated/attendance': typeof AuthenticatedAttendanceRoute
-  '/_authenticated/demo-form': typeof AuthenticatedDemoFormRoute
-  '/_authenticated/demo-table': typeof AuthenticatedDemoTableRoute
-  '/_authenticated/employees': typeof AuthenticatedEmployeesRouteWithChildren
-  '/_authenticated/leave': typeof AuthenticatedLeaveRoute
-  '/_authenticated/payroll': typeof AuthenticatedPayrollRoute
-  '/_authenticated/recruitment': typeof AuthenticatedRecruitmentRoute
-  '/_authenticated/settings': typeof AuthenticatedSettingsRoute
-  '/_authenticated/tasks': typeof AuthenticatedTasksRoute
-  '/_authenticated/company-setup/branch': typeof AuthenticatedCompanySetupBranchRoute
-  '/_authenticated/company-setup/department': typeof AuthenticatedCompanySetupDepartmentRoute
-  '/_authenticated/employees/$id': typeof AuthenticatedEmployeesIdRoute
-  '/_authenticated/company-setup/': typeof AuthenticatedCompanySetupIndexRoute
-  '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
-  '/_authenticated/employee/': typeof AuthenticatedEmployeeIndexRoute
-  '/_authenticated/employee/assign-approval/$id': typeof AuthenticatedEmployeeAssignApprovalIdRoute
-  '/_authenticated/employee/employee-details/$id': typeof AuthenticatedEmployeeEmployeeDetailsIdRoute
+  __root__: typeof rootRouteImport;
+  '/': typeof IndexRoute;
+  '/_authenticated': typeof AuthenticatedRouteWithChildren;
+  '/login': typeof LoginRoute;
+  '/unauthorized': typeof UnauthorizedRoute;
+  '/_authenticated/attendance': typeof AuthenticatedAttendanceRoute;
+  '/_authenticated/demo-form': typeof AuthenticatedDemoFormRoute;
+  '/_authenticated/demo-table': typeof AuthenticatedDemoTableRoute;
+  '/_authenticated/employees': typeof AuthenticatedEmployeesRoute;
+  '/_authenticated/leave': typeof AuthenticatedLeaveRoute;
+  '/_authenticated/payroll': typeof AuthenticatedPayrollRoute;
+  '/_authenticated/recruitment': typeof AuthenticatedRecruitmentRoute;
+  '/_authenticated/settings': typeof AuthenticatedSettingsRoute;
+  '/_authenticated/tasks': typeof AuthenticatedTasksRoute;
+  '/_authenticated/company-setup/branch': typeof AuthenticatedCompanySetupBranchRoute;
+  '/_authenticated/company-setup/department': typeof AuthenticatedCompanySetupDepartmentRoute;
+  '/_authenticated/company-setup/': typeof AuthenticatedCompanySetupIndexRoute;
+  '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute;
+  '/_authenticated/employee/': typeof AuthenticatedEmployeeIndexRoute;
+  '/_authenticated/employee/assign-approval/$id': typeof AuthenticatedEmployeeAssignApprovalIdRoute;
+  '/_authenticated/employee/employee-details/$id': typeof AuthenticatedEmployeeEmployeeDetailsIdRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
     | '/'
     | '/login'
@@ -230,13 +220,12 @@ export interface FileRouteTypes {
     | '/tasks'
     | '/company-setup/branch'
     | '/company-setup/department'
-    | '/employees/$id'
     | '/company-setup/'
     | '/dashboard/'
     | '/employee/'
     | '/employee/assign-approval/$id'
-    | '/employee/employee-details/$id'
-  fileRoutesByTo: FileRoutesByTo
+    | '/employee/employee-details/$id';
+  fileRoutesByTo: FileRoutesByTo;
   to:
     | '/'
     | '/login'
@@ -252,12 +241,11 @@ export interface FileRouteTypes {
     | '/tasks'
     | '/company-setup/branch'
     | '/company-setup/department'
-    | '/employees/$id'
     | '/company-setup'
     | '/dashboard'
     | '/employee'
     | '/employee/assign-approval/$id'
-    | '/employee/employee-details/$id'
+    | '/employee/employee-details/$id';
   id:
     | '__root__'
     | '/'
@@ -275,211 +263,189 @@ export interface FileRouteTypes {
     | '/_authenticated/tasks'
     | '/_authenticated/company-setup/branch'
     | '/_authenticated/company-setup/department'
-    | '/_authenticated/employees/$id'
     | '/_authenticated/company-setup/'
     | '/_authenticated/dashboard/'
     | '/_authenticated/employee/'
     | '/_authenticated/employee/assign-approval/$id'
-    | '/_authenticated/employee/employee-details/$id'
-  fileRoutesById: FileRoutesById
+    | '/_authenticated/employee/employee-details/$id';
+  fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
-  LoginRoute: typeof LoginRoute
-  UnauthorizedRoute: typeof UnauthorizedRoute
+  IndexRoute: typeof IndexRoute;
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren;
+  LoginRoute: typeof LoginRoute;
+  UnauthorizedRoute: typeof UnauthorizedRoute;
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/unauthorized': {
-      id: '/unauthorized'
-      path: '/unauthorized'
-      fullPath: '/unauthorized'
-      preLoaderRoute: typeof UnauthorizedRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/unauthorized';
+      path: '/unauthorized';
+      fullPath: '/unauthorized';
+      preLoaderRoute: typeof UnauthorizedRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/login';
+      path: '/login';
+      fullPath: '/login';
+      preLoaderRoute: typeof LoginRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/_authenticated': {
-      id: '/_authenticated'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/_authenticated';
+      path: '';
+      fullPath: '/';
+      preLoaderRoute: typeof AuthenticatedRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/';
+      path: '/';
+      fullPath: '/';
+      preLoaderRoute: typeof IndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/_authenticated/tasks': {
-      id: '/_authenticated/tasks'
-      path: '/tasks'
-      fullPath: '/tasks'
-      preLoaderRoute: typeof AuthenticatedTasksRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
+      id: '/_authenticated/tasks';
+      path: '/tasks';
+      fullPath: '/tasks';
+      preLoaderRoute: typeof AuthenticatedTasksRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
     '/_authenticated/settings': {
-      id: '/_authenticated/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
+      id: '/_authenticated/settings';
+      path: '/settings';
+      fullPath: '/settings';
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
     '/_authenticated/recruitment': {
-      id: '/_authenticated/recruitment'
-      path: '/recruitment'
-      fullPath: '/recruitment'
-      preLoaderRoute: typeof AuthenticatedRecruitmentRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
+      id: '/_authenticated/recruitment';
+      path: '/recruitment';
+      fullPath: '/recruitment';
+      preLoaderRoute: typeof AuthenticatedRecruitmentRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
     '/_authenticated/payroll': {
-      id: '/_authenticated/payroll'
-      path: '/payroll'
-      fullPath: '/payroll'
-      preLoaderRoute: typeof AuthenticatedPayrollRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
+      id: '/_authenticated/payroll';
+      path: '/payroll';
+      fullPath: '/payroll';
+      preLoaderRoute: typeof AuthenticatedPayrollRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
     '/_authenticated/leave': {
-      id: '/_authenticated/leave'
-      path: '/leave'
-      fullPath: '/leave'
-      preLoaderRoute: typeof AuthenticatedLeaveRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
+      id: '/_authenticated/leave';
+      path: '/leave';
+      fullPath: '/leave';
+      preLoaderRoute: typeof AuthenticatedLeaveRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
     '/_authenticated/employees': {
-      id: '/_authenticated/employees'
-      path: '/employees'
-      fullPath: '/employees'
-      preLoaderRoute: typeof AuthenticatedEmployeesRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
+      id: '/_authenticated/employees';
+      path: '/employees';
+      fullPath: '/employees';
+      preLoaderRoute: typeof AuthenticatedEmployeesRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
     '/_authenticated/demo-table': {
-      id: '/_authenticated/demo-table'
-      path: '/demo-table'
-      fullPath: '/demo-table'
-      preLoaderRoute: typeof AuthenticatedDemoTableRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
+      id: '/_authenticated/demo-table';
+      path: '/demo-table';
+      fullPath: '/demo-table';
+      preLoaderRoute: typeof AuthenticatedDemoTableRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
     '/_authenticated/demo-form': {
-      id: '/_authenticated/demo-form'
-      path: '/demo-form'
-      fullPath: '/demo-form'
-      preLoaderRoute: typeof AuthenticatedDemoFormRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
+      id: '/_authenticated/demo-form';
+      path: '/demo-form';
+      fullPath: '/demo-form';
+      preLoaderRoute: typeof AuthenticatedDemoFormRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
     '/_authenticated/attendance': {
-      id: '/_authenticated/attendance'
-      path: '/attendance'
-      fullPath: '/attendance'
-      preLoaderRoute: typeof AuthenticatedAttendanceRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
+      id: '/_authenticated/attendance';
+      path: '/attendance';
+      fullPath: '/attendance';
+      preLoaderRoute: typeof AuthenticatedAttendanceRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
     '/_authenticated/employee/': {
-      id: '/_authenticated/employee/'
-      path: '/employee'
-      fullPath: '/employee/'
-      preLoaderRoute: typeof AuthenticatedEmployeeIndexRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
+      id: '/_authenticated/employee/';
+      path: '/employee';
+      fullPath: '/employee/';
+      preLoaderRoute: typeof AuthenticatedEmployeeIndexRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
     '/_authenticated/dashboard/': {
-      id: '/_authenticated/dashboard/'
-      path: '/dashboard'
-      fullPath: '/dashboard/'
-      preLoaderRoute: typeof AuthenticatedDashboardIndexRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
+      id: '/_authenticated/dashboard/';
+      path: '/dashboard';
+      fullPath: '/dashboard/';
+      preLoaderRoute: typeof AuthenticatedDashboardIndexRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
     '/_authenticated/company-setup/': {
-      id: '/_authenticated/company-setup/'
-      path: '/company-setup'
-      fullPath: '/company-setup/'
-      preLoaderRoute: typeof AuthenticatedCompanySetupIndexRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/employees/$id': {
-      id: '/_authenticated/employees/$id'
-      path: '/$id'
-      fullPath: '/employees/$id'
-      preLoaderRoute: typeof AuthenticatedEmployeesIdRouteImport
-      parentRoute: typeof AuthenticatedEmployeesRoute
-    }
+      id: '/_authenticated/company-setup/';
+      path: '/company-setup';
+      fullPath: '/company-setup/';
+      preLoaderRoute: typeof AuthenticatedCompanySetupIndexRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
     '/_authenticated/company-setup/department': {
-      id: '/_authenticated/company-setup/department'
-      path: '/company-setup/department'
-      fullPath: '/company-setup/department'
-      preLoaderRoute: typeof AuthenticatedCompanySetupDepartmentRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
+      id: '/_authenticated/company-setup/department';
+      path: '/company-setup/department';
+      fullPath: '/company-setup/department';
+      preLoaderRoute: typeof AuthenticatedCompanySetupDepartmentRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
     '/_authenticated/company-setup/branch': {
-      id: '/_authenticated/company-setup/branch'
-      path: '/company-setup/branch'
-      fullPath: '/company-setup/branch'
-      preLoaderRoute: typeof AuthenticatedCompanySetupBranchRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
+      id: '/_authenticated/company-setup/branch';
+      path: '/company-setup/branch';
+      fullPath: '/company-setup/branch';
+      preLoaderRoute: typeof AuthenticatedCompanySetupBranchRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
     '/_authenticated/employee/employee-details/$id': {
-      id: '/_authenticated/employee/employee-details/$id'
-      path: '/employee/employee-details/$id'
-      fullPath: '/employee/employee-details/$id'
-      preLoaderRoute: typeof AuthenticatedEmployeeEmployeeDetailsIdRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
+      id: '/_authenticated/employee/employee-details/$id';
+      path: '/employee/employee-details/$id';
+      fullPath: '/employee/employee-details/$id';
+      preLoaderRoute: typeof AuthenticatedEmployeeEmployeeDetailsIdRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
     '/_authenticated/employee/assign-approval/$id': {
-      id: '/_authenticated/employee/assign-approval/$id'
-      path: '/employee/assign-approval/$id'
-      fullPath: '/employee/assign-approval/$id'
-      preLoaderRoute: typeof AuthenticatedEmployeeAssignApprovalIdRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
+      id: '/_authenticated/employee/assign-approval/$id';
+      path: '/employee/assign-approval/$id';
+      fullPath: '/employee/assign-approval/$id';
+      preLoaderRoute: typeof AuthenticatedEmployeeAssignApprovalIdRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
   }
 }
-
-interface AuthenticatedEmployeesRouteChildren {
-  AuthenticatedEmployeesIdRoute: typeof AuthenticatedEmployeesIdRoute
-}
-
-const AuthenticatedEmployeesRouteChildren: AuthenticatedEmployeesRouteChildren =
-  {
-    AuthenticatedEmployeesIdRoute: AuthenticatedEmployeesIdRoute,
-  }
-
-const AuthenticatedEmployeesRouteWithChildren =
-  AuthenticatedEmployeesRoute._addFileChildren(
-    AuthenticatedEmployeesRouteChildren,
-  )
 
 interface AuthenticatedRouteChildren {
-  AuthenticatedAttendanceRoute: typeof AuthenticatedAttendanceRoute
-  AuthenticatedDemoFormRoute: typeof AuthenticatedDemoFormRoute
-  AuthenticatedDemoTableRoute: typeof AuthenticatedDemoTableRoute
-  AuthenticatedEmployeesRoute: typeof AuthenticatedEmployeesRouteWithChildren
-  AuthenticatedLeaveRoute: typeof AuthenticatedLeaveRoute
-  AuthenticatedPayrollRoute: typeof AuthenticatedPayrollRoute
-  AuthenticatedRecruitmentRoute: typeof AuthenticatedRecruitmentRoute
-  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
-  AuthenticatedTasksRoute: typeof AuthenticatedTasksRoute
-  AuthenticatedCompanySetupBranchRoute: typeof AuthenticatedCompanySetupBranchRoute
-  AuthenticatedCompanySetupDepartmentRoute: typeof AuthenticatedCompanySetupDepartmentRoute
-  AuthenticatedCompanySetupIndexRoute: typeof AuthenticatedCompanySetupIndexRoute
-  AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
-  AuthenticatedEmployeeIndexRoute: typeof AuthenticatedEmployeeIndexRoute
-  AuthenticatedEmployeeAssignApprovalIdRoute: typeof AuthenticatedEmployeeAssignApprovalIdRoute
-  AuthenticatedEmployeeEmployeeDetailsIdRoute: typeof AuthenticatedEmployeeEmployeeDetailsIdRoute
+  AuthenticatedAttendanceRoute: typeof AuthenticatedAttendanceRoute;
+  AuthenticatedDemoFormRoute: typeof AuthenticatedDemoFormRoute;
+  AuthenticatedDemoTableRoute: typeof AuthenticatedDemoTableRoute;
+  AuthenticatedEmployeesRoute: typeof AuthenticatedEmployeesRoute;
+  AuthenticatedLeaveRoute: typeof AuthenticatedLeaveRoute;
+  AuthenticatedPayrollRoute: typeof AuthenticatedPayrollRoute;
+  AuthenticatedRecruitmentRoute: typeof AuthenticatedRecruitmentRoute;
+  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute;
+  AuthenticatedTasksRoute: typeof AuthenticatedTasksRoute;
+  AuthenticatedCompanySetupBranchRoute: typeof AuthenticatedCompanySetupBranchRoute;
+  AuthenticatedCompanySetupDepartmentRoute: typeof AuthenticatedCompanySetupDepartmentRoute;
+  AuthenticatedCompanySetupIndexRoute: typeof AuthenticatedCompanySetupIndexRoute;
+  AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute;
+  AuthenticatedEmployeeIndexRoute: typeof AuthenticatedEmployeeIndexRoute;
+  AuthenticatedEmployeeAssignApprovalIdRoute: typeof AuthenticatedEmployeeAssignApprovalIdRoute;
+  AuthenticatedEmployeeEmployeeDetailsIdRoute: typeof AuthenticatedEmployeeEmployeeDetailsIdRoute;
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedAttendanceRoute: AuthenticatedAttendanceRoute,
   AuthenticatedDemoFormRoute: AuthenticatedDemoFormRoute,
   AuthenticatedDemoTableRoute: AuthenticatedDemoTableRoute,
-  AuthenticatedEmployeesRoute: AuthenticatedEmployeesRouteWithChildren,
+  AuthenticatedEmployeesRoute: AuthenticatedEmployeesRoute,
   AuthenticatedLeaveRoute: AuthenticatedLeaveRoute,
   AuthenticatedPayrollRoute: AuthenticatedPayrollRoute,
   AuthenticatedRecruitmentRoute: AuthenticatedRecruitmentRoute,
@@ -495,18 +461,18 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
     AuthenticatedEmployeeAssignApprovalIdRoute,
   AuthenticatedEmployeeEmployeeDetailsIdRoute:
     AuthenticatedEmployeeEmployeeDetailsIdRoute,
-}
+};
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
-  AuthenticatedRouteChildren,
-)
+  AuthenticatedRouteChildren
+);
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   LoginRoute: LoginRoute,
   UnauthorizedRoute: UnauthorizedRoute,
-}
+};
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();

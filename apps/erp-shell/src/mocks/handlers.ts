@@ -1,4 +1,7 @@
 import { initAuthModule } from './modules/auth';
+import { initBranchesModule } from './modules/branches';
+import { initDashboardModule } from './modules/dashboard';
+import { initDepartmentsModule } from './modules/departments';
 import { initEmployeesModule } from './modules/employees';
 
 /**
@@ -11,10 +14,12 @@ import { initEmployeesModule } from './modules/employees';
  */
 export const handlers = [
   ...initAuthModule(),
+  ...initBranchesModule(),
+  ...initDashboardModule(),
+  ...initDepartmentsModule(),
   ...initEmployeesModule(),
   // Add new modules here:
   // ...initLeaveModule(),
-  // ...initAttendanceModule(),
   // ...initPayrollModule(),
   // ...initAssetsModule(),
   // ...initDocumentsModule(),

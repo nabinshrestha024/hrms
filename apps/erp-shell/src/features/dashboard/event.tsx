@@ -1,10 +1,30 @@
+import { useEvents, type Event as EventType } from '@erp/data-access';
 import { Badge, HRCard } from '@erp/ui';
 import { Flag, Gift, PartyPopper, Sparkles } from 'lucide-react';
 import { IconButton } from '../../components/icon-button';
-import { eventData } from './schema/event-data';
 
 export const Event = () => {
-  const visibleEvents = eventData.slice(0, 7);
+  const { data, isLoading } = useEvents();
+  const eventData: EventType[] = data ?? [];
+
+  if (isLoading) {
+    return (
+      <HRCard
+        cardClassName="w-full h-153 p-6 bg-white rounded-xl shadow-sm border-none"
+        cardContentClassName="p-0 flex flex-col gap-4"
+      >
+        <div className="text-[18px] text-foreground font-medium leading-7">
+          Events & Celebrations
+        </div>
+        <div className="flex-1 flex items-center justify-center">
+          <span className="text-sm text-secondary-foreground animate-pulse">
+            Loading...
+          </span>
+        </div>
+      </HRCard>
+    );
+  }
+
   return (
     <>
       <HRCard
@@ -15,11 +35,11 @@ export const Event = () => {
           Events & Celebrations
         </div>
         <div className="flex flex-col gap-3">
-          {visibleEvents.map((val, index) => (
+          {eventData.map((val) => (
             <HRCard
               cardClassName="p-2 bg-background rounded-xl overflow-auto border-none shadow-none"
               cardContentClassName="p-0"
-              key={index}
+              key={val.id}
             >
               <div className="flex justify-between">
                 <div className="flex gap-3">
@@ -76,7 +96,7 @@ export const Event = () => {
               </div>
             </HRCard>
           ))}
-          {visibleEvents.length >= 4 && (
+          {eventData.length >= 4 && (
             <div className="text-[12px] leading-4 font-normal text-secondary-foreground flex justify-end cursor-pointer hover:underline hover:underline-primary hover:text-primary">
               See More
             </div>

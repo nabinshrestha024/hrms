@@ -1,4 +1,5 @@
 import { FormRenderer, FormViewConfig } from '@erp/config-engine';
+import { useUpdateCompanyProfile } from '@erp/data-access';
 import { Button, HRCard, toast } from '@erp/ui';
 import { createFileRoute } from '@tanstack/react-router';
 
@@ -198,9 +199,28 @@ export const BasicInformationFormSchema: FormViewConfig = {
 };
 
 export function BasicInformationForm() {
+  const updateProfile = useUpdateCompanyProfile();
+
   const onSubmit = (data: Record<string, unknown>) => {
-    console.warn('Submitted Form Data:', data);
-    toast({ variant: 'success', title: 'Company profile saved' });
+    updateProfile.mutate(
+      {
+        organizationLegalName: String(data.organizationLegalName ?? ''),
+        organizationShortName: String(data.organizationShortName ?? ''),
+        natureOfOrganization: String(data.natureOfOrganization ?? ''),
+        currency: String(data.currency ?? ''),
+        panNumber: String(data.panNumber ?? ''),
+        registrationNumber: String(data.registrationNumber ?? ''),
+        taxOffice: String(data.taxOffice ?? ''),
+      },
+      {
+        onSuccess: () => {
+          toast({ variant: 'success', title: 'Company profile saved' });
+        },
+        onError: () => {
+          toast({ variant: 'destructive', title: 'Failed to save profile' });
+        },
+      }
+    );
   };
 
   return (
@@ -211,7 +231,7 @@ export function BasicInformationForm() {
       <div className="flex flex-col gap-1">
         <div className="flex-1 overflow-auto px-6 ">
           <HRCard
-            cardClassName="p-6 border-none rounded-t-xl bg-white shadow-[0_1px_2px_0_rgba(255,0,0,0.05)]"
+            cardClassName="p-6 border-none rounded-t-xl bg-white shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]"
             cardContentClassName="p-0"
           >
             <FormRenderer
@@ -234,7 +254,7 @@ export function BasicInformationForm() {
             type="submit"
             variant="secondary"
             className="flex gap-2  text-[14px] font-medium leading-5 text-white items-center"
-            form="basicInformation"
+            form="company-profile-form"
           >
             Save Changes
           </Button>

@@ -1,13 +1,7 @@
+import type { Employee } from '@erp/data-access';
 import { HRCard } from '@erp/ui';
-import { employees } from '../../schema/EmployeeData';
 
-export const EmployeeDetailDisplay = ({
-  employeeId,
-}: {
-  employeeId: string;
-}) => {
-  const employee = employees.find((emp) => emp.employeeId === employeeId);
-
+export const EmployeeDetailDisplay = ({ employee }: { employee: Employee }) => {
   return (
     <>
       <HRCard
@@ -60,7 +54,7 @@ export const EmployeeDetailDisplay = ({
               Manager
             </span>
             <span className="text-[14px] font-medium leading-5 text-foreground">
-              {employee?.reportingManager}
+              {employee?.managerId}
             </span>
           </div>
           <div className="flex flex-col gap-3">
@@ -100,7 +94,7 @@ export const EmployeeDetailDisplay = ({
               Work Phone{' '}
             </span>
             <span className="text-[14px] font-medium leading-5 text-foreground">
-              {employee?.workPhoneNumber}
+              {employee?.workPhone}
             </span>
           </div>
           <div className="flex flex-col gap-3">
@@ -108,7 +102,7 @@ export const EmployeeDetailDisplay = ({
               Joining Date
             </span>
             <span className="text-[14px] font-medium leading-5 text-foreground">
-              {employee?.joiningDate}
+              {employee?.startDate}
             </span>
           </div>
           <div className="flex flex-col gap-3">

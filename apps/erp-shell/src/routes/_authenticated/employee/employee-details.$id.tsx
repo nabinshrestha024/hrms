@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
-import { employees } from '../../../features/employee/schema/EmployeeData';
+import { useEmployee } from '@erp/data-access';
 import { ArrowLeft } from 'lucide-react';
-import { HRCard } from '@erp/ui';
+import { HRCard, Skeleton } from '@erp/ui';
 import { EmployeeDetail } from '../../../features/employee/employee-detail';
 
 export const Route = createFileRoute(
@@ -14,18 +14,27 @@ export const Route = createFileRoute(
 function RouteComponent() {
   const { id } = Route.useParams();
   const navigate = useNavigate();
+  const { data: employee, isLoading } = useEmployee(id);
 
-  const employee = employees.find((emp) => emp.employeeId === id);
+  if (isLoading) {
+    return (
+      <div className="space-y-6 p-6">
+        <Skeleton className="h-9 w-44" />
+        <Skeleton className="h-29.5 w-full rounded-xl" />
+        <Skeleton className="h-48 w-full rounded-xl" />
+      </div>
+    );
+  }
 
   if (!employee) {
-    return <div>Employee not found</div>;
+    return <div className="p-6">Employee not found</div>;
   }
 
   return (
-    <div className="w-full  max-h-[calc(100vh-84px)] overflow-auto flex flex-col  bg-background px-6 pb-13">
+    <div className="w-full max-h-[calc(100vh-84px)] overflow-auto flex flex-col bg-background px-6 pb-13">
       <div
         className="flex gap-1 cursor-pointer px-12 pt-6 items-center"
-        onClick={() => navigate({ to: '/employee' })}
+        onClick={() => navigate({ to: '/employees' })}
       >
         <ArrowLeft />
         <span>Back</span>
@@ -39,20 +48,21 @@ function RouteComponent() {
         cardContentClassName="p-0 flex flex-col gap-8"
       >
         <HRCard
-          cardClassName="w-full  p-6 bg-white border border-[#E4E4E7] rounded-xl shadow-sm"
+          cardClassName="w-full p-6 bg-white border border-[#E4E4E7] rounded-xl shadow-sm"
           cardContentClassName="p-0 flex flex-col gap-4"
         >
           <div className="flex gap-3">
             <div className="w-29.5 h-29.5">
               <img
-                src="/Image.png"
-                alt="profile"
+                src={employee.avatar ?? '/Image.png'}
+                alt={`${employee.firstName} ${employee.lastName}`}
                 className="w-full h-full rounded-full object-cover"
               />
             </div>
             <div className="flex flex-col gap-3">
-              <span className="text-lg font-semibold">{employee.name}</span>
-
+              <span className="text-lg font-semibold">
+                {employee.firstName} {employee.lastName}
+              </span>
               <div className="flex flex-col gap-2">
                 <div className="flex gap-3">
                   <span className="w-15 text-[12px] font-normal leading-4 text-secondary-foreground">
@@ -66,7 +76,7 @@ function RouteComponent() {
                   <span className="w-15 text-[12px] font-normal leading-4 text-secondary-foreground">
                     Email
                   </span>
-                  <span className=" text-[12px] font-medium leading-4 text-foreground">
+                  <span className="text-[12px] font-medium leading-4 text-foreground">
                     {employee.email}
                   </span>
                 </div>
@@ -75,7 +85,7 @@ function RouteComponent() {
                     Contact
                   </span>
                   <span className="text-[12px] font-medium leading-4 text-foreground">
-                    {employee.phone}
+                    {employee.phone ?? 'Not provided'}
                   </span>
                 </div>
               </div>
@@ -83,7 +93,7 @@ function RouteComponent() {
           </div>
         </HRCard>
 
-        <EmployeeDetail employeeId={id} />
+        <EmployeeDetail employee={employee} />
       </HRCard>
     </div>
   );

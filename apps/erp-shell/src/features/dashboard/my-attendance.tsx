@@ -1,10 +1,30 @@
+import { useMyAttendance, type Attendance } from '@erp/data-access';
 import { HRCard } from '@erp/ui';
 import { CalendarClock, CircleX, Clock4, ClockAlert } from 'lucide-react';
 import { IconButton } from '../../components/icon-button';
-import { myAttendance } from './schema/my-attendance-data';
 
 export const MyAttendance = () => {
-  const visibleAttendance = myAttendance.slice(0, 7);
+  const { data: myAttendance, isLoading } = useMyAttendance();
+  const attendanceList: Attendance[] = myAttendance ?? [];
+
+  if (isLoading) {
+    return (
+      <HRCard
+        cardClassName="w-full h-153 p-6 bg-white rounded-xl shadow-sm border-none"
+        cardContentClassName="p-0 flex flex-col gap-4"
+      >
+        <div className="text-[18px] text-foreground font-medium leading-7">
+          My Attendance
+        </div>
+        <div className="flex-1 flex items-center justify-center">
+          <span className="text-sm text-secondary-foreground animate-pulse">
+            Loading...
+          </span>
+        </div>
+      </HRCard>
+    );
+  }
+
   return (
     <>
       <HRCard
@@ -15,11 +35,11 @@ export const MyAttendance = () => {
           My Attendance
         </div>
         <div className="flex flex-col gap-3">
-          {visibleAttendance.map((val, index) => (
+          {attendanceList.map((val) => (
             <HRCard
               cardClassName="p-2 bg-background rounded-xl overflow-auto shadow-none border-none"
               cardContentClassName="p-0"
-              key={index}
+              key={val.id}
             >
               <div className="flex justify-between">
                 <div className="flex gap-3">

@@ -23,7 +23,12 @@ function RouteComponent() {
             Dashboard
           </div>
           <div className="text-[14px] font-normal leading-5 text-[#71717A]">
-            Thursday, March 12, 2026
+            {new Date().toLocaleDateString('en-US', {
+              weekday: 'long',
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}
           </div>
         </div>
         <div className="w-full px-12 flex flex-col gap-4 ">

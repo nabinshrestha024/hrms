@@ -1,19 +1,31 @@
-import { useGetEmployee } from '@erp/data-access';
+import { usePersonalInfo, type PersonalInfo } from '@erp/data-access';
 import { Badge, HRCard } from '@erp/ui';
 import { Building2, Hash, Mail, Phone } from 'lucide-react';
-import { personalData } from './schema/personal-data';
 
 export const PersonalInformation = () => {
-  const { data: personalDatas } = useGetEmployee();
-  console.warn(personalDatas, 'Data');
+  const { data, isLoading } = usePersonalInfo();
+  const personalData: PersonalInfo[] | undefined = data;
+
+  if (isLoading) {
+    return (
+      <HRCard
+        cardClassName="w-full h-87.5 p-6 bg-white border-none rounded-xl shadow-sm"
+        cardContentClassName="p-0 flex items-center justify-center"
+      >
+        <span className="text-secondary-foreground text-sm">Loading...</span>
+      </HRCard>
+    );
+  }
+
   return (
     <>
-      {personalData?.map((items, index) => (
+      {personalData?.map((items) => (
         <HRCard
-          cardClassName="w-full h-110 md:h-87.5 p-6 bg-white border-none rounded-xl shadow-sm "
+          key={items.id}
+          cardClassName="w-full h-87.5 p-6 bg-white border-none rounded-xl shadow-sm "
           cardContentClassName="p-0 flex flex-col gap-4 "
         >
-          <div className="flex gap-3" key={index}>
+          <div className="flex gap-3">
             <div className="w-29.5 h-29.5 ">
               <img
                 src={items.image}

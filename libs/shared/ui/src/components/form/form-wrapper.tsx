@@ -15,6 +15,7 @@ interface Props<T extends FieldValues>
   onSubmit: SubmitHandler<T>;
   className?: string;
   fieldsetClassName?: string;
+  dialogManaged?: boolean;
 }
 
 const Form = <T extends FieldValues>({
@@ -23,28 +24,30 @@ const Form = <T extends FieldValues>({
   children,
   className,
   fieldsetClassName,
+  dialogManaged = false,
   ...props
 }: Props<T>) => {
   const { formState } = form;
   const isSubmitting = formState.isSubmitting;
 
   const formId = useDialogFormStore((state) => state.formId);
-
   const setFormState = useDialogFormStore((state) => state.setFormState);
 
   useEffect(() => {
-    if (formState && formId) {
+    if (dialogManaged && formState && formId) {
       setFormState(formState);
     }
-  }, [formState, setFormState, formId]);
+  }, [dialogManaged, formState, setFormState, formId]);
+
+  const resolvedId = dialogManaged ? formId : props.id;
 
   return (
     <FormProvider {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        id={formId}
+        id={resolvedId}
         {...props}
-        data-test={formId}
+        data-test={resolvedId}
         className={cn(className, 'w-full')}
       >
         <fieldset disabled={isSubmitting} className={fieldsetClassName}>

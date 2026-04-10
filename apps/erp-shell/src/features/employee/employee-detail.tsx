@@ -1,3 +1,4 @@
+import type { Employee } from '@erp/data-access';
 import { HRTabs, useDialogFormStore } from '@erp/ui';
 import { PersonalInformation } from './employe-details/personal-information';
 import { WorkInformation } from './employe-details/work-information';
@@ -5,20 +6,20 @@ import { AttendanceInformation } from './employe-details/Attendance';
 import { Education } from './employe-details/Education';
 import { Document } from './employe-details/Document';
 
-export const EmployeeDetail = ({ employeeId }: { employeeId: string }) => {
+export const EmployeeDetail = ({ employee }: { employee: Employee }) => {
   const { onOpen } = useDialogFormStore();
   const tabsData = [
     {
       id: 1,
       value: 'Personal Information',
       triggerText: 'Personal Information',
-      content: <PersonalInformation employeeId={employeeId} />,
+      content: <PersonalInformation employee={employee} />,
     },
     {
       id: 2,
       value: 'Work Information',
       triggerText: 'Work Information',
-      content: <WorkInformation employeeId={employeeId} />,
+      content: <WorkInformation employee={employee} />,
     },
     {
       id: 3,

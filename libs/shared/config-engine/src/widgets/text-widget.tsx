@@ -12,6 +12,8 @@ export function TextWidget({ field, form, disabled }: WidgetProps) {
       control={form.control}
       render={({ field: formField }) => (
         <HRInput
+          {...formField}
+          value={formField.value ?? ''}
           type={field.type}
           disabled={disabled}
           isRequired={field.isRequired}

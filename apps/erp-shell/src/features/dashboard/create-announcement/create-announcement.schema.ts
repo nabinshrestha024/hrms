@@ -4,6 +4,7 @@ export const createAnnouncementSchema = z.object({
   announcementTitle: z.string().min(1, 'Announcement Title is required'),
   branch: z.string().min(1, 'Select the branch'),
   department: z.string().min(1, 'Select the department'),
+  priority: z.string().min(1, 'Select the priority'),
   shortDescription: z.string().min(1, 'Short Description is required'),
   image: z
     .instanceof(File)
