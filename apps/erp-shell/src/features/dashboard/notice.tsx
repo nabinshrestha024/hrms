@@ -1,11 +1,16 @@
 import { useNotices, type Notice as NoticeType } from '@erp/data-access';
 import { Badge, Button, FormDialog } from '@erp/ui';
 import { CreateAnnouncementForm } from './create-announcement/create-announcement-form';
+import { getSortData } from '@erp/utils';
 
 export const Notice = () => {
   const { data, isLoading } = useNotices();
   const noticeData: NoticeType[] = data ?? [];
-
+  const sortedNotice: NoticeType[] = getSortData({
+    events: noticeData,
+    limit: 7,
+    dateKey: 'createdAt',
+  });
   if (isLoading) {
     return (
       <div className="w-full h-153 py-6 pl-6 pr-3 bg-white rounded-xl shadow-sm flex flex-col gap-4">
@@ -28,7 +33,7 @@ export const Notice = () => {
           Notice
         </div>
         <div className="flex flex-col gap-3 overflow-auto pr-3 notice-scroll">
-          {noticeData.map((val) => (
+          {sortedNotice.map((val) => (
             <div
               className="p-2 bg-background rounded-xl  flex gap-3"
               key={val.id}

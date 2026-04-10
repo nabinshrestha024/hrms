@@ -1,33 +1,15 @@
 import type { Employee } from '@erp/data-access';
-import { Badge, Button, DataTableColumnHeader } from '@erp/ui';
+import { Badge, Button, DataTableColumnHeader, FormDialog } from '@erp/ui';
 import { useNavigate } from '@tanstack/react-router';
 import type { ColumnDef } from '@tanstack/react-table';
 import { Ban, Eye, GitBranch, Settings2, Trash2 } from 'lucide-react';
 import { AssignAccessTemplateForm } from '../assign-template/assign-access-template-form';
 
-type ModalSize = 'sm' | 'md' | 'lg';
-
-interface GetColumnsProps {
-  onOpen: <T extends string>(config: {
-    title: T;
-    modalTitle: string | null;
-    okText: React.ReactNode;
-    component: React.ReactNode;
-    cancelText?: string | React.ReactNode;
-    size?: ModalSize;
-    formId?: string;
-    dialogClassName?: string;
-    onCancel?: () => void;
-  }) => void;
-}
-
 interface ColumnsProps {
-  onOpen: GetColumnsProps['onOpen'];
   navigate: ReturnType<typeof useNavigate>;
 }
 
 export function getEmployeeColumns({
-  onOpen,
   navigate,
 }: ColumnsProps): ColumnDef<Employee>[] {
   return [
@@ -142,24 +124,23 @@ export function getEmployeeColumns({
             >
               <Eye className="text-[16px]" />
             </Button>
-            <Button
-              type="button"
-              className="rounded-sm p-1 w-6 h-6"
-              onClick={() =>
-                onOpen({
-                  modalTitle: 'Assign Access Template',
-                  title: 'Assign Access Template',
-                  okText: 'Save Changes',
-                  size: 'lg',
-                  cancelText: 'Cancel',
-                  formId: 'assignTemplate',
-                  dialogClassName: 'sm:max-w-[465px]',
-                  component: <AssignAccessTemplateForm />,
-                })
+            <FormDialog
+              trigger={
+                <Button type="button" className="rounded-sm p-1 w-6 h-6">
+                  <Settings2 className="text-[16px]" />
+                </Button>
               }
+              title="Assign Access Template"
+              size="lg"
+              formId="assignaccesstemplate-form"
+              okText="Save Changes"
+              cancelText="Cancel"
+              dialogClassName="sm:max-w-[465px]"
             >
-              <Settings2 className="text-[16px]" />
-            </Button>
+              {({ close }: { close: () => void }) => (
+                <AssignAccessTemplateForm onSuccess={close} />
+              )}
+            </FormDialog>
             <Button
               type="button"
               className="rounded-sm p-1 w-6 h-6"

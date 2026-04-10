@@ -1,17 +1,14 @@
-import { useDataTable } from '@erp/ui';
 import { type PaginationState, type SortingState } from '@tanstack/react-table';
-import { parseAsInteger, parseAsString, useQueryState } from 'nuqs';
-import {
-  Attendance,
-  attendanceRecord,
-} from '../../schema/attendance-table-data';
-import { getAttendanceColumns } from './getAttendanceColumn';
+import { useDataTable } from '@erp/ui';
+import { useQueryState, parseAsInteger, parseAsString } from 'nuqs';
+import { getLeaveLogColumn } from './getLeaveLog';
+import { LeaveLog } from '../../../schema/leave-log-data';
 
-interface AttendanceTableProps {
-  data: Attendance[];
+interface BranchTableProps {
+  data: LeaveLog[];
 }
 
-export function useAttendanceTable({ data }: AttendanceTableProps) {
+export function useLeaveLogTable({ data }: BranchTableProps) {
   // URL-synced state
   const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
   const [pageSize, setPageSize] = useQueryState(
@@ -49,16 +46,16 @@ export function useAttendanceTable({ data }: AttendanceTableProps) {
   //   ];
 
   const totalCount = data.length ?? 0;
-  const columns = getAttendanceColumns();
+  const columns = getLeaveLogColumn();
   // Table instance
   const { table } = useDataTable({
     data: data,
     columns,
     pageCount: Math.ceil(totalCount / pageSize) || 1,
-    getRowId: (row: Attendance) => row.date,
-    manualPagination: true,
-    manualSorting: true,
-    manualFiltering: true,
+    getRowId: (row: LeaveLog) => row.eventDate,
+    manualPagination: false,
+    manualSorting: false,
+    manualFiltering: false,
     initialPagination: { pageIndex: page - 1, pageSize },
     initialSorting: sortBy ? [{ id: sortBy, desc: sortOrder === 'desc' }] : [],
     onPaginationChange: (pagination: PaginationState) => {
@@ -77,7 +74,6 @@ export function useAttendanceTable({ data }: AttendanceTableProps) {
   });
 
   return {
-    attendanceRecord,
     totalCount,
     table,
     columns,

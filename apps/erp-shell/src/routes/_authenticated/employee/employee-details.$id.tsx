@@ -36,8 +36,10 @@ function RouteComponent() {
         className="flex gap-1 cursor-pointer px-12 pt-6 items-center"
         onClick={() => navigate({ to: '/employee' })}
       >
-        <ArrowLeft />
-        <span>Back</span>
+        <ArrowLeft className="w-4 h-4 text-secondary-foreground" />
+        <span className="text-[14px] text-secondary-foreground font-normal leading-5">
+          Back
+        </span>
       </div>
 
       <div className="text-[20px] leading-7 font-semibold text-foreground px-12 py-6">

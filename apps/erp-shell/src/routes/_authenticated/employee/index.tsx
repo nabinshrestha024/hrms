@@ -9,7 +9,7 @@ export const Route = createFileRoute('/_authenticated/employee/')({
 function RouteComponent() {
   return (
     <>
-      <div className="w-full flex flex-col bg-[#F9FAFB]">
+      <div className="w-full h-[calc(100vh-84px)] overflow-auto flex flex-col bg-[#F9FAFB]">
         <EmployeeManagement />
       </div>
     </>

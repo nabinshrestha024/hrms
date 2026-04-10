@@ -1,9 +1,9 @@
 import { useEmployees, type Employee } from '@erp/data-access';
-import { Button } from '@erp/ui';
+import { Button, Dialog, DialogContent } from '@erp/ui';
 import { useState } from 'react';
 import { PageHeader } from '../../components/page-header';
-import { AddEmployeeDialog } from './add-employee';
 import { EmployeeCard } from './employee-card';
+import { EmployeeForm } from './employee-form-collection/employee-form';
 import { EmployeeTable } from './table/employee-table';
 
 export const EmployeeManagement = () => {
@@ -45,7 +45,11 @@ export const EmployeeManagement = () => {
         }}
       />
 
-      <AddEmployeeDialog open={addOpen} onOpenChange={setAddOpen} />
+      <Dialog open={addOpen} onOpenChange={setAddOpen}>
+        <DialogContent className="max-w-screen p-4 bg-[#F9FAFB] sm:max-w-186.75">
+          <EmployeeForm setOpen={setAddOpen} />
+        </DialogContent>
+      </Dialog>
     </>
   );
 };

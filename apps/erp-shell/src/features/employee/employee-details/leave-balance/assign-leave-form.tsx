@@ -1,18 +1,15 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import { assignLeaveSchema, type AssignLeaveFormValue } from './AssignLeaveZod';
-import {
-  Badge,
-  CustomAlert,
-  Form,
-  HRLabel,
-  OptionRadioGroup,
-  useDialogFormStore,
-} from '@erp/ui';
+import { Badge, CustomAlert, Form, HRLabel, OptionRadioGroup } from '@erp/ui';
 import { UserCard } from '../../../../components/user-card';
 import { Info } from 'lucide-react';
 
-export const AssignLeaveForm = () => {
+interface AssignLeaveFormProps {
+  onSuccess?: () => void;
+}
+
+export const AssignLeaveForm = ({ onSuccess }: AssignLeaveFormProps = {}) => {
   const form = useForm<AssignLeaveFormValue>({
     resolver: zodResolver(assignLeaveSchema),
     mode: 'onChange',
@@ -22,10 +19,8 @@ export const AssignLeaveForm = () => {
     formState: { errors },
   } = form;
 
-  const closeDialog = useDialogFormStore((state) => state.onClose);
-  const onsubmit = (data: AssignLeaveFormValue) => {
-    console.warn('Save Changes: ', data);
-    closeDialog();
+  const onsubmit = (_data: AssignLeaveFormValue) => {
+    onSuccess?.();
   };
 
   const leave = [
@@ -40,11 +35,14 @@ export const AssignLeaveForm = () => {
   const leaveOptions = leave.map((val) => ({
     value: val.type,
     label: (
-      <div className="flex justify-between items-center">
+      <div className="relative flex justify-between items-center">
         <span className="text-[14px] font-medium leading-5 text-[#18181B]">
           {val.type}
         </span>
-        <Badge variant="default" className="text-[#18181B] px-2 py-1">
+        <Badge
+          variant="default"
+          className="absolute -top-1 left-138 w-16 text-[#18181B] px-2 py-1 flex items-center justify-center"
+        >
           {val.days} Days
         </Badge>
       </div>

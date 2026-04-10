@@ -216,14 +216,12 @@ export { TabsFlex } from './components/tabs/tabs-flex';
 export { SearchBar } from './components/search/search';
 // Page templates — use these for quick route creation
 export { HRDialog } from './components/dialog/Dialog';
-export { LegacyFormDialog } from './components/dialog/form-dialog';
 export { ControlledFormDialog } from './components/dialog/controlled-form-dialog';
 export type { ControlledFormDialogProps } from './components/dialog/controlled-form-dialog';
 export { FormDialog } from './components/dialog/form-dialog-trigger';
 export type { FormDialogProps } from './components/dialog/form-dialog-trigger';
 export { ConfirmDialog } from './components/dialog/confirm-dialog';
 export type { ConfirmDialogProps } from './components/dialog/confirm-dialog';
-export { useDialogFormStore } from './components/dialog/form-store';
 export { MultiStepForm } from './components/multi-step-form';
 export type {
   MultiStepFormProps,

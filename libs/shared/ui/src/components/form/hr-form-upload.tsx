@@ -1,6 +1,7 @@
 import { LucideIcon } from 'lucide-react';
 import React, { useEffect, useRef, useState, type ReactNode } from 'react';
 import { HRInput } from '../../components/form/input';
+import { FormField } from '../../components/form/form-field';
 
 interface HRFileUploadProps {
   className?: string;
@@ -16,6 +17,10 @@ interface HRFileUploadProps {
   iconClass?: string;
   isRequired?: boolean;
   onChange?: (file: File) => void;
+  Label?: string;
+  inputClassName?: string;
+  labelClassName?: string;
+  error?: string;
 }
 
 export const HRFileUpload = ({
@@ -30,6 +35,10 @@ export const HRFileUpload = ({
   label,
   browseText,
   subLabel,
+  Label,
+  inputClassName,
+  labelClassName,
+  error,
   drag = false,
   onChange,
   ...props
@@ -68,59 +77,68 @@ export const HRFileUpload = ({
   };
 
   return (
-    <div
-      className={`bg-muted border border-dashed rounded-[2px] py-6 text-center cursor-pointer flex flex-col justify-center items-center gap-2 ${className}`}
-      onDragOver={(e) => drag && e.preventDefault()}
-      onDrop={drag ? handleDrop : undefined}
+    <FormField
+      label={Label || ''}
+      required={isRequired}
+      labelClassName={labelClassName}
+      error={error}
     >
-      {preview ? (
-        <img
-          src={preview}
-          alt="preview"
-          className="w-104.75 h-38.25 object-cover"
-        />
-      ) : (
-        <>
-          <div className={`flex flex-col gap-2 items-center ${cardClassName}`}>
-            {Icon && (
-              <div
-                className={`w-10 h-10 flex justify-center items-center rounded-full bg-chart-1 ${iconClassName}`}
-              >
-                <Icon className={`w-6 h-6 text-primary ${iconClass}`} />
-              </div>
-            )}
-            <div className={`flex flex-col items-center ${titleClassName}`}>
-              {label && (
-                <div className="text-[12px] leading-5 font-normal flex gap-1">
-                  {label}
-                  {isRequired && <span className="text-destructive">*</span>}
+      <div
+        className={`bg-muted border border-dashed rounded-[2px] py-6 text-center cursor-pointer flex flex-col justify-center items-center gap-2 ${className}`}
+        onDragOver={(e) => drag && e.preventDefault()}
+        onDrop={drag ? handleDrop : undefined}
+      >
+        {preview ? (
+          <img
+            src={preview}
+            alt="preview"
+            className="w-104.75 h-38.25 object-cover"
+          />
+        ) : (
+          <>
+            <div
+              className={`flex flex-col gap-2 items-center ${cardClassName}`}
+            >
+              {Icon && (
+                <div
+                  className={`w-10 h-10 flex justify-center items-center rounded-full bg-chart-1 ${iconClassName}`}
+                >
+                  <Icon className={`w-6 h-6 text-primary ${iconClass}`} />
                 </div>
               )}
+              <div className={`flex flex-col items-center ${titleClassName}`}>
+                {label && (
+                  <div className="text-[12px] leading-5 font-normal flex gap-1">
+                    {label}
+                    {isRequired && <span className="text-destructive">*</span>}
+                  </div>
+                )}
 
-              <div className="text-secondary-foreground text-[14px] font-normal">
-                {subLabel}
+                <div className="text-secondary-foreground text-[14px] font-normal">
+                  {subLabel}
+                </div>
               </div>
             </div>
-          </div>
 
-          <button
-            type="button"
-            className={`w-30 px-4 py-2 bg-[#4F39F6] rounded-xl text-[14px] font-medium text-white ${buttonClassName}`}
-            onClick={handleBrowse}
-          >
-            Browse File
-          </button>
-        </>
-      )}
+            <button
+              type="button"
+              className={`w-30 px-4 py-2 bg-[#4F39F6] rounded-xl text-[14px] font-medium text-white ${buttonClassName}`}
+              onClick={handleBrowse}
+            >
+              Browse File
+            </button>
+          </>
+        )}
 
-      <HRInput
-        ref={inputRef}
-        type="file"
-        inputClassName="hidden"
-        accept="image/*"
-        onChange={handleInputChange}
-        {...props}
-      />
-    </div>
+        <HRInput
+          ref={inputRef}
+          type="file"
+          inputClassName="hidden"
+          accept="image/*"
+          onChange={handleInputChange}
+          {...props}
+        />
+      </div>
+    </FormField>
   );
 };

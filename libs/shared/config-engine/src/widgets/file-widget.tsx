@@ -8,6 +8,7 @@ export function FileWidget({ field, form, disabled }: WidgetProps) {
       control={form.control}
       render={({ field: formField }) => (
         <HRFileUpload
+          Label={field.Label}
           label={field.label}
           icon={field.icon}
           subLabel={field.subLabel ?? ''}

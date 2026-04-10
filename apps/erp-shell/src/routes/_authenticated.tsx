@@ -5,12 +5,7 @@ import {
   useRouterState,
   Link,
 } from '@tanstack/react-router';
-import {
-  LegacyFormDialog,
-  ShellLayout,
-  Skeleton,
-  type NavLinkProps,
-} from '@erp/ui';
+import { ShellLayout, Skeleton, type NavLinkProps } from '@erp/ui';
 import { authReady, useAuth, useAuthStore } from '@erp/auth';
 import { useTenant } from '@erp/tenant';
 import { AppBreadcrumb } from '../components/app-breadcrumb';
@@ -89,7 +84,6 @@ function AuthenticatedLayout() {
         <AppBreadcrumb />
       </div>
       <Outlet />
-      <LegacyFormDialog />
     </ShellLayout>
   );
 }
