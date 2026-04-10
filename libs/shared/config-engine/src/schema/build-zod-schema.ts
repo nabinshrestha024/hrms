@@ -16,7 +16,9 @@ const normalizeNumber = (val: unknown) => {
 
 const normalizeDate = (val: unknown) => {
   if (val === '' || val === null || val === undefined) return undefined;
-  const date = new Date(val as any);
+  if (val instanceof Date) return val;
+  if (typeof val !== 'string' && typeof val !== 'number') return val;
+  const date = new Date(val);
   return isNaN(date.getTime()) ? val : date;
 };
 

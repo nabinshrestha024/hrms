@@ -7,7 +7,7 @@ import { getSortData } from '@erp/utils';
 export const MyAttendance = () => {
   const { data: myAttendance, isLoading } = useMyAttendance();
   const attendanceList: Attendance[] = myAttendance ?? [];
-  const sortedAttendance = getSortData({
+  const sortedAttendance: Attendance[] = getSortData({
     events: attendanceList,
     limit: 7,
     dateKey: 'date',

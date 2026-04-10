@@ -1,9 +1,9 @@
-import { createFileRoute, useNavigate } from '@tanstack/react-router';
-import { personalDocumentData } from '../../../features/employee/Schema/DocumentData';
-import { ArrowLeft, Dot } from 'lucide-react';
 import { HRCard } from '@erp/ui';
-import { TemplateView } from '../../../features/employee/employe-details/document/templete-view';
-import { FileView } from '../../../features/employee/employe-details/document/file-view';
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import { ArrowLeft, Dot } from 'lucide-react';
+import { FileView } from '../../../features/employee/employee-details/document/file-view';
+import { TemplateView } from '../../../features/employee/employee-details/document/templete-view';
+import { personalDocumentData } from '../../../features/employee/schema/document-data';
 
 export const Route = createFileRoute(
   '/_authenticated/employee/document-view/$name'

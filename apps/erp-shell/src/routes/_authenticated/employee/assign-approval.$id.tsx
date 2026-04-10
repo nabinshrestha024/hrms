@@ -1,8 +1,8 @@
+import { useEmployee } from '@erp/data-access';
+import { HRCard } from '@erp/ui';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { ArrowLeft, Dot } from 'lucide-react';
-import { HRCard } from '@erp/ui';
 import { AssignApproval } from '../../../features/employee/assign-approval/assign-approval-tab';
-import { useEmployee } from '@erp/data-access';
 
 export const Route = createFileRoute(
   '/_authenticated/employee/assign-approval/$id'

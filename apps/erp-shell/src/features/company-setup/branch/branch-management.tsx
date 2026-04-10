@@ -1,44 +1,35 @@
 import { useBranches, useDeleteBranch, type Branch } from '@erp/data-access';
-import { toast } from '@erp/ui';
+import {
+  Button,
+  ConfirmDialog,
+  ControlledFormDialog,
+  FormDialog,
+  toast,
+} from '@erp/ui';
+import { useState } from 'react';
 import { PageHeader } from '../../../components/page-header';
 import { BranchCard } from './branch-card';
 import { BranchForm } from './branch-form';
 import { BranchTable } from './branch-table/branch-table';
 
-type ModalSize = 'sm' | 'md' | 'lg';
-
-interface GetColumnsProps {
-  onOpen: <T extends string>(config: {
-    title: T;
-    modalTitle: string | null;
-    okText: React.ReactNode;
-    component: React.ReactNode;
-    cancelText?: string | React.ReactNode;
-    size?: ModalSize;
-    formId?: string;
-    onCancel?: () => void;
-  }) => void;
-}
-
-export const BranchManagement = ({ onOpen }: GetColumnsProps) => {
+export const BranchManagement = () => {
   const { data: branchResponse } = useBranches({ pageSize: 100 });
   const data: Branch[] = branchResponse?.data ?? [];
   const deleteBranch = useDeleteBranch();
 
-  const handleEdit = (branch: Branch) => {
-    onOpen({
-      modalTitle: 'Edit Branch',
-      title: 'Edit Branch',
-      okText: 'Save',
-      size: 'lg',
-      cancelText: 'Cancel',
-      formId: 'branch',
-      component: <BranchForm />,
-    });
+  // Edit & delete need parent-owned state because they target a specific row.
+  const [editTarget, setEditTarget] = useState<Branch | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<Branch | null>(null);
+
+  const handleEdit = (branch: Branch) => setEditTarget(branch);
+  const handleDelete = (id: string) => {
+    const branch = data.find((b) => b.id === id);
+    if (branch) setDeleteTarget(branch);
   };
 
-  const handleDelete = (id: string) => {
-    deleteBranch.mutate(id, {
+  const confirmDelete = async () => {
+    if (!deleteTarget) return;
+    await deleteBranch.mutateAsync(deleteTarget.id, {
       onSuccess: () => {
         toast({ variant: 'success', title: 'Branch deleted successfully' });
       },
@@ -52,21 +43,29 @@ export const BranchManagement = ({ onOpen }: GetColumnsProps) => {
     <>
       <PageHeader
         title="Branch Management"
-        buttonName="Add Branch"
         isTabs={true}
         data={data}
         dropdownKey="branch"
         dropdownLabel="Branch"
-        onAdd={() =>
-          onOpen({
-            modalTitle: 'Branch Details',
-            title: 'Branch Details',
-            okText: 'Add',
-            size: 'lg',
-            cancelText: 'Cancel',
-            formId: 'branch',
-            component: <BranchForm />,
-          })
+        actionComponent={
+          <FormDialog
+            trigger={
+              <Button
+                type="button"
+                variant="secondary"
+                className="text-[14px] font-medium leading-5 text-white"
+              >
+                Add Branch
+              </Button>
+            }
+            title="Branch Details"
+            size="lg"
+            formId="branch-form"
+            okText="Add"
+            cancelText="Cancel"
+          >
+            <BranchForm />
+          </FormDialog>
         }
         renderCard={(filtered) => (
           <BranchCard
@@ -91,6 +90,32 @@ export const BranchManagement = ({ onOpen }: GetColumnsProps) => {
             return matchesSearch && matchesDropdown;
           });
         }}
+      />
+
+      <ControlledFormDialog
+        open={editTarget !== null}
+        onOpenChange={(open: boolean) => !open && setEditTarget(null)}
+        title="Edit Branch"
+        size="lg"
+        formId="branch-form"
+        okText="Save"
+        cancelText="Cancel"
+      >
+        <BranchForm />
+      </ControlledFormDialog>
+
+      <ConfirmDialog
+        open={deleteTarget !== null}
+        onOpenChange={(open: boolean) => !open && setDeleteTarget(null)}
+        title="Delete branch?"
+        description={
+          deleteTarget
+            ? `"${deleteTarget.branch}" will be permanently deleted. This action cannot be undone.`
+            : undefined
+        }
+        confirmText="Delete"
+        destructive
+        onConfirm={confirmDelete}
       />
     </>
   );

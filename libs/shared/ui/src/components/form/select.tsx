@@ -44,7 +44,7 @@ export const HRSelect = ({
 }: SelectProps) => {
   return (
     <FormField
-      Label={Label || ''}
+      label={Label || ''}
       required={isRequired}
       labelClassName={labelClassName}
       error={error}

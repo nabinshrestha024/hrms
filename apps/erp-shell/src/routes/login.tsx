@@ -94,7 +94,7 @@ function LoginPage() {
             <Input
               id="email"
               type="email"
-              placeholder="admin@gmail.com"
+              placeholder="you@example.com"
               aria-invalid={!!errors.email}
               className={errors.email ? 'border-destructive' : ''}
               {...register('email')}
@@ -110,7 +110,7 @@ function LoginPage() {
             <Input
               id="password"
               type="password"
-              placeholder="Test@123"
+              placeholder="••••••••"
               aria-invalid={!!errors.password}
               className={errors.password ? 'border-destructive' : ''}
               {...register('password')}
@@ -126,14 +126,18 @@ function LoginPage() {
           </Button>
         </form>
 
-        <div className="border-t border-border pt-4">
-          <p className="text-xs text-muted-foreground">Demo credentials:</p>
-          <ul className="mt-1 space-y-1 text-xs text-muted-foreground">
-            <li>admin@gmail.com / Test@123</li>
-            <li>hr@gmail.com / Test@123</li>
-            <li>emp@gmail.com / Test@123</li>
-          </ul>
-        </div>
+        {import.meta.env.DEV && (
+          <div className="border-t border-border pt-4">
+            <p className="text-xs text-muted-foreground">
+              Dev-only demo credentials:
+            </p>
+            <ul className="mt-1 space-y-1 text-xs text-muted-foreground">
+              <li>admin@gmail.com / Test@123</li>
+              <li>hr@gmail.com / Test@123</li>
+              <li>emp@gmail.com / Test@123</li>
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );

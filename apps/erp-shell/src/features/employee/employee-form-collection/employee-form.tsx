@@ -1,11 +1,11 @@
-import { useForm, FormProvider } from 'react-hook-form';
+import { Button, HRCard, toast } from '@erp/ui';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import { BasicDetailForm } from './basic-detail-form';
 import { employeeSchema, type EmployeeFormValue } from './EmployeeForm.Zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { WorkInformationForm } from './work-information-form';
-import { Button, HRCard, toast } from '@erp/ui';
 import { FinancialDetailForm } from './financial-detail-form';
+import { WorkInformationForm } from './work-information-form';
 
 type Props = {
   setOpen: (open: boolean) => void;

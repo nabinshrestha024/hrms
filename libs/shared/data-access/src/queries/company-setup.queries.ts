@@ -47,7 +47,7 @@ export function useBranches(params?: ListParams & BranchFilters) {
   const client = useApiClient();
   return useQuery<PaginatedResponse<Branch>>({
     queryKey: branchKeys.list(params),
-    queryFn: async () => {
+    queryFn: async ({ signal }) => {
       const searchParams = new URLSearchParams();
       if (params) {
         Object.entries(params).forEach(([key, value]) => {
@@ -58,7 +58,7 @@ export function useBranches(params?: ListParams & BranchFilters) {
       }
       const query = searchParams.toString();
       const path = query ? `/branches?${query}` : '/branches';
-      const response = await client.get(path);
+      const response = await client.get(path, { signal });
       return paginatedSchema(branchSchema).parse(response.data);
     },
   });
@@ -68,8 +68,8 @@ export function useBranch(id: string) {
   const client = useApiClient();
   return useQuery<Branch>({
     queryKey: branchKeys.detail(id),
-    queryFn: async () => {
-      const response = await client.get(`/branches/${id}`);
+    queryFn: async ({ signal }) => {
+      const response = await client.get(`/branches/${id}`, { signal });
       return branchSchema.parse(response.data);
     },
     enabled: !!id,
@@ -128,7 +128,7 @@ export function useDepartments(params?: ListParams) {
   const client = useApiClient();
   return useQuery<PaginatedResponse<Department>>({
     queryKey: departmentKeys.list(params),
-    queryFn: async () => {
+    queryFn: async ({ signal }) => {
       const searchParams = new URLSearchParams();
       if (params) {
         Object.entries(params).forEach(([key, value]) => {
@@ -139,7 +139,7 @@ export function useDepartments(params?: ListParams) {
       }
       const query = searchParams.toString();
       const path = query ? `/departments?${query}` : '/departments';
-      const response = await client.get(path);
+      const response = await client.get(path, { signal });
       return paginatedSchema(departmentSchema).parse(response.data);
     },
   });
@@ -149,8 +149,8 @@ export function useDepartment(id: string) {
   const client = useApiClient();
   return useQuery<Department>({
     queryKey: departmentKeys.detail(id),
-    queryFn: async () => {
-      const response = await client.get(`/departments/${id}`);
+    queryFn: async ({ signal }) => {
+      const response = await client.get(`/departments/${id}`, { signal });
       return departmentSchema.parse(response.data);
     },
     enabled: !!id,

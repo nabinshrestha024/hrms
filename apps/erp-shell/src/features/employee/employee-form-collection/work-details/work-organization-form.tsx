@@ -5,7 +5,7 @@ import {
   departmentData,
   jobLevelData,
   reportingManagerData,
-} from '../../schema/EmployeeSchema';
+} from '../../schema/employee-schema';
 
 export const WorkOrganizationForm = () => {
   const {

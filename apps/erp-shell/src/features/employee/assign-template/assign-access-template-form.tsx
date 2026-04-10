@@ -2,13 +2,19 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { CheckIcon } from 'lucide-react';
-import { Form, HRInput, RadioTab, toast, useDialogFormStore } from '@erp/ui';
+import { Form, HRInput, RadioTab, toast } from '@erp/ui';
 import {
   AssignAccessTemplateFormValue,
   assignAccessTemplateSchema,
 } from './AssignAccessTemplateForm.Zod';
 
-export const AssignAccessTemplateForm = () => {
+interface AssignAccessTemplateFormProps {
+  onSuccess?: () => void;
+}
+
+export const AssignAccessTemplateForm = ({
+  onSuccess,
+}: AssignAccessTemplateFormProps = {}) => {
   const form = useForm<AssignAccessTemplateFormValue>({
     resolver: zodResolver(assignAccessTemplateSchema),
     mode: 'onChange',
@@ -21,15 +27,12 @@ export const AssignAccessTemplateForm = () => {
   const {
     register,
     setValue,
-    formState: { errors },
+    formState: { errors: _errors },
   } = form;
-  const closeDialog = useDialogFormStore((state) => state.onClose);
 
-  console.warn('AssignAccessError: ', errors);
-  const onsubmit = (data: AssignAccessTemplateFormValue) => {
-    console.warn('Save Changes: ', data);
+  const onsubmit = (_data: AssignAccessTemplateFormValue) => {
     toast({ variant: 'success', title: 'Assign access template' });
-    closeDialog();
+    onSuccess?.();
   };
 
   const role = [

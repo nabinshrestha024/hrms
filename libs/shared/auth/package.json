@@ -9,6 +9,11 @@
       "import": "./src/index.ts",
       "default": "./src/index.ts"
     },
+    "./dev": {
+      "types": "./src/dev.ts",
+      "import": "./src/dev.ts",
+      "default": "./src/dev.ts"
+    },
     "./package.json": "./package.json"
   },
   "dependencies": {

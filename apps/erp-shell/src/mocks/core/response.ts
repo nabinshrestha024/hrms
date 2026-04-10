@@ -33,6 +33,11 @@ export function noContent(message = 'Record_deleted') {
   );
 }
 
+/** Use when callers expect a true HTTP 204 (no body). */
+export function noContent204() {
+  return new HttpResponse(null, { status: 204 });
+}
+
 // ── Error Responses ─────────────────────────────────────────────────
 
 export function error(

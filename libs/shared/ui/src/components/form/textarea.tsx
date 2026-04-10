@@ -29,7 +29,7 @@ export const HRTextarea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
   ) => {
     return (
       <FormField
-        Label={Label || ''}
+        label={Label || ''}
         required={isRequired}
         labelClassName={labelClassName}
         error={error}

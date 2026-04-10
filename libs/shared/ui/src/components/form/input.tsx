@@ -27,7 +27,7 @@ export const HRInput = forwardRef<HTMLInputElement, InputProps>(
   ) => {
     return (
       <FormField
-        Label={Label || ''}
+        label={Label || ''}
         subLabel={subLabel}
         required={isRequired}
         labelClassName={labelClassName}

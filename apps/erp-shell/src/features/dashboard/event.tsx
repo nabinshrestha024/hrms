@@ -7,7 +7,7 @@ import { getSortData } from '@erp/utils';
 export const Event = () => {
   const { data, isLoading } = useEvents();
   const eventData: EventType[] = data ?? [];
-  const sortedEvents = getSortData({
+  const sortedEvents: EventType[] = getSortData({
     events: eventData,
     limit: 7,
     dateKey: 'date',

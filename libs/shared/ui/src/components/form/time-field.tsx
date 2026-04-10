@@ -38,7 +38,7 @@ export const HRTimeField = ({
 
   return (
     <FormField
-      Label={Label || ''}
+      label={Label || ''}
       required={isRequired}
       labelClassName={labelClassName}
       error={error}

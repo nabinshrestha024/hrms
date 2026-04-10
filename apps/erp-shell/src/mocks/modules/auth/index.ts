@@ -1,5 +1,6 @@
 import { http, delay } from 'msw';
-import { mockLogin, restoreSession } from '@erp/auth';
+// Dev-only entry — never imported from production app code.
+import { mockLogin, restoreSession } from '@erp/auth/dev';
 import { success, unauthorized } from '../../core/response';
 
 const API_BASE = '/api';

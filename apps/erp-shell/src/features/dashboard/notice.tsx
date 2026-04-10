@@ -1,28 +1,12 @@
 import { useNotices, type Notice as NoticeType } from '@erp/data-access';
-import { Badge, Button } from '@erp/ui';
+import { Badge, Button, FormDialog } from '@erp/ui';
 import { CreateAnnouncementForm } from './create-announcement/create-announcement-form';
 import { getSortData } from '@erp/utils';
 
-type ModalSize = 'sm' | 'md' | 'lg';
-
-interface GetColumnsProps {
-  onOpen: <T extends string>(config: {
-    title: T;
-    modalTitle: string | null;
-    okText: React.ReactNode;
-    component: React.ReactNode;
-    cancelText?: string | React.ReactNode;
-    size?: ModalSize;
-    formId?: string;
-    dialogClassName?: string;
-    componentClassName?: string;
-    onCancel?: () => void;
-  }) => void;
-}
-export const Notice = ({ onOpen }: GetColumnsProps) => {
+export const Notice = () => {
   const { data, isLoading } = useNotices();
   const noticeData: NoticeType[] = data ?? [];
-  const sortedNotice = getSortData({
+  const sortedNotice: NoticeType[] = getSortData({
     events: noticeData,
     limit: 7,
     dateKey: 'createdAt',
@@ -57,7 +41,7 @@ export const Notice = ({ onOpen }: GetColumnsProps) => {
               <div className="w-17.5 h-17.5 rounded-xl p-px border border-border bg-border">
                 <img
                   src={val.image}
-                  alt="noticeImage"
+                  alt={val.title}
                   className="w-full h-full rounded-xl object-cover"
                 />
               </div>
@@ -92,26 +76,28 @@ export const Notice = ({ onOpen }: GetColumnsProps) => {
         </div>
 
         <div className="flex justify-end">
-          <Button
-            type="button"
-            variant="secondary"
-            className="cursor-pointer text-[14px] font-medium leading-5 text-white"
-            onClick={() => {
-              onOpen({
-                modalTitle: 'Create Announcement',
-                title: 'Create Announcement',
-                okText: 'Add',
-                size: 'lg',
-                cancelText: 'Cancel',
-                formId: 'announcement',
-                dialogClassName: 'max-h-[150vh]',
-                componentClassName: 'py-4 pl-4 pr-2',
-                component: <CreateAnnouncementForm />,
-              });
-            }}
+          <FormDialog
+            trigger={
+              <Button
+                type="button"
+                variant="secondary"
+                className="cursor-pointer text-[14px] font-medium leading-5 text-white"
+              >
+                Create Now
+              </Button>
+            }
+            title="Create Announcement"
+            size="lg"
+            formId="announcement-form"
+            okText="Add"
+            cancelText="Cancel"
+            dialogClassName="max-h-[150vh]"
+            componentClassName="py-4 pl-4 pr-2"
           >
-            Create Now
-          </Button>
+            {({ close }: { close: () => void }) => (
+              <CreateAnnouncementForm onSuccess={close} />
+            )}
+          </FormDialog>
         </div>
       </div>
     </>

@@ -1,6 +1,6 @@
 import { HRDateField, HRInput, OptionRadioGroup } from '@erp/ui';
 import { Controller, useFormContext } from 'react-hook-form';
-import { genderList, marriageList } from '../../schema/EmployeeSchema';
+import { genderList, marriageList } from '../../schema/employee-schema';
 import { FileUpload } from '../../../../components/file-upload';
 
 export const PersonalInformationForm = () => {

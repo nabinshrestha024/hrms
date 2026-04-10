@@ -18,7 +18,6 @@ import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedRecruitmentRouteImport } from './routes/_authenticated/recruitment'
 import { Route as AuthenticatedPayrollRouteImport } from './routes/_authenticated/payroll'
 import { Route as AuthenticatedLeaveRouteImport } from './routes/_authenticated/leave'
-import { Route as AuthenticatedEmployeesRouteImport } from './routes/_authenticated/employees'
 import { Route as AuthenticatedDemoTableRouteImport } from './routes/_authenticated/demo-table'
 import { Route as AuthenticatedDemoFormRouteImport } from './routes/_authenticated/demo-form'
 import { Route as AuthenticatedAttendanceRouteImport } from './routes/_authenticated/attendance'
@@ -74,11 +73,6 @@ const AuthenticatedPayrollRoute = AuthenticatedPayrollRouteImport.update({
 const AuthenticatedLeaveRoute = AuthenticatedLeaveRouteImport.update({
   id: '/leave',
   path: '/leave',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
-const AuthenticatedEmployeesRoute = AuthenticatedEmployeesRouteImport.update({
-  id: '/employees',
-  path: '/employees',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
 const AuthenticatedDemoTableRoute = AuthenticatedDemoTableRouteImport.update({
@@ -152,7 +146,6 @@ export interface FileRoutesByFullPath {
   '/attendance': typeof AuthenticatedAttendanceRoute
   '/demo-form': typeof AuthenticatedDemoFormRoute
   '/demo-table': typeof AuthenticatedDemoTableRoute
-  '/employees': typeof AuthenticatedEmployeesRoute
   '/leave': typeof AuthenticatedLeaveRoute
   '/payroll': typeof AuthenticatedPayrollRoute
   '/recruitment': typeof AuthenticatedRecruitmentRoute
@@ -174,7 +167,6 @@ export interface FileRoutesByTo {
   '/attendance': typeof AuthenticatedAttendanceRoute
   '/demo-form': typeof AuthenticatedDemoFormRoute
   '/demo-table': typeof AuthenticatedDemoTableRoute
-  '/employees': typeof AuthenticatedEmployeesRoute
   '/leave': typeof AuthenticatedLeaveRoute
   '/payroll': typeof AuthenticatedPayrollRoute
   '/recruitment': typeof AuthenticatedRecruitmentRoute
@@ -198,7 +190,6 @@ export interface FileRoutesById {
   '/_authenticated/attendance': typeof AuthenticatedAttendanceRoute
   '/_authenticated/demo-form': typeof AuthenticatedDemoFormRoute
   '/_authenticated/demo-table': typeof AuthenticatedDemoTableRoute
-  '/_authenticated/employees': typeof AuthenticatedEmployeesRoute
   '/_authenticated/leave': typeof AuthenticatedLeaveRoute
   '/_authenticated/payroll': typeof AuthenticatedPayrollRoute
   '/_authenticated/recruitment': typeof AuthenticatedRecruitmentRoute
@@ -222,7 +213,6 @@ export interface FileRouteTypes {
     | '/attendance'
     | '/demo-form'
     | '/demo-table'
-    | '/employees'
     | '/leave'
     | '/payroll'
     | '/recruitment'
@@ -244,7 +234,6 @@ export interface FileRouteTypes {
     | '/attendance'
     | '/demo-form'
     | '/demo-table'
-    | '/employees'
     | '/leave'
     | '/payroll'
     | '/recruitment'
@@ -267,7 +256,6 @@ export interface FileRouteTypes {
     | '/_authenticated/attendance'
     | '/_authenticated/demo-form'
     | '/_authenticated/demo-table'
-    | '/_authenticated/employees'
     | '/_authenticated/leave'
     | '/_authenticated/payroll'
     | '/_authenticated/recruitment'
@@ -355,13 +343,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedLeaveRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/employees': {
-      id: '/_authenticated/employees'
-      path: '/employees'
-      fullPath: '/employees'
-      preLoaderRoute: typeof AuthenticatedEmployeesRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
     '/_authenticated/demo-table': {
       id: '/_authenticated/demo-table'
       path: '/demo-table'
@@ -446,7 +427,6 @@ interface AuthenticatedRouteChildren {
   AuthenticatedAttendanceRoute: typeof AuthenticatedAttendanceRoute
   AuthenticatedDemoFormRoute: typeof AuthenticatedDemoFormRoute
   AuthenticatedDemoTableRoute: typeof AuthenticatedDemoTableRoute
-  AuthenticatedEmployeesRoute: typeof AuthenticatedEmployeesRoute
   AuthenticatedLeaveRoute: typeof AuthenticatedLeaveRoute
   AuthenticatedPayrollRoute: typeof AuthenticatedPayrollRoute
   AuthenticatedRecruitmentRoute: typeof AuthenticatedRecruitmentRoute
@@ -466,7 +446,6 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedAttendanceRoute: AuthenticatedAttendanceRoute,
   AuthenticatedDemoFormRoute: AuthenticatedDemoFormRoute,
   AuthenticatedDemoTableRoute: AuthenticatedDemoTableRoute,
-  AuthenticatedEmployeesRoute: AuthenticatedEmployeesRoute,
   AuthenticatedLeaveRoute: AuthenticatedLeaveRoute,
   AuthenticatedPayrollRoute: AuthenticatedPayrollRoute,
   AuthenticatedRecruitmentRoute: AuthenticatedRecruitmentRoute,

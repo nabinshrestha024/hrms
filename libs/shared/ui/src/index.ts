@@ -86,6 +86,11 @@ export type {
   UseDataTableProps,
   UseDataTableReturn,
 } from './hooks/use-data-table';
+export { useServerTableState } from './hooks/use-server-table-state';
+export type {
+  UseServerTableStateOptions,
+  UseServerTableStateReturn,
+} from './hooks/use-server-table-state';
 
 export { Badge, badgeVariants } from './primitives/badge';
 export {
@@ -211,8 +216,12 @@ export { TabsFlex } from './components/tabs/tabs-flex';
 export { SearchBar } from './components/search/search';
 // Page templates — use these for quick route creation
 export { HRDialog } from './components/dialog/Dialog';
-export { FormDialog } from './components/dialog/form-dialog';
-export { useDialogFormStore } from './components/dialog/form-store';
+export { ControlledFormDialog } from './components/dialog/controlled-form-dialog';
+export type { ControlledFormDialogProps } from './components/dialog/controlled-form-dialog';
+export { FormDialog } from './components/dialog/form-dialog-trigger';
+export type { FormDialogProps } from './components/dialog/form-dialog-trigger';
+export { ConfirmDialog } from './components/dialog/confirm-dialog';
+export type { ConfirmDialogProps } from './components/dialog/confirm-dialog';
 export { MultiStepForm } from './components/multi-step-form';
 export type {
   MultiStepFormProps,

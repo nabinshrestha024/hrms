@@ -70,7 +70,13 @@ export const createAnnouncementFormConfig: FormViewConfig = {
     ],
   },
 };
-export function CreateAnnouncementForm() {
+interface CreateAnnouncementFormProps {
+  onSuccess?: () => void;
+}
+
+export function CreateAnnouncementForm({
+  onSuccess,
+}: CreateAnnouncementFormProps = {}) {
   const createNotice = useCreateNotice();
 
   const onsubmit = (data: Record<string, unknown>) => {
@@ -85,6 +91,7 @@ export function CreateAnnouncementForm() {
       {
         onSuccess: () => {
           toast({ variant: 'success', title: 'Notice created' });
+          onSuccess?.();
         },
         onError: () => {
           toast({ variant: 'destructive', title: 'Failed to create notice' });

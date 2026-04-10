@@ -40,9 +40,9 @@ export function useSession(options?: { enabled?: boolean }) {
   const client = useApiClient();
   return useQuery<SessionResponse | null>({
     queryKey: authKeys.session(),
-    queryFn: async () => {
+    queryFn: async ({ signal }) => {
       try {
-        const { data } = await client.get('/auth/session');
+        const { data } = await client.get('/auth/session', { signal });
         return sessionResponseSchema.parse(data);
       } catch {
         return null;
