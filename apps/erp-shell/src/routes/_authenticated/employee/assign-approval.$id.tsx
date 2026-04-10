@@ -1,20 +1,20 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
-import { employees } from '../../../features/employee/schema/EmployeeData';
 import { ArrowLeft, Dot } from 'lucide-react';
 import { HRCard } from '@erp/ui';
 import { AssignApproval } from '../../../features/employee/assign-approval/assign-approval-tab';
+import { useEmployee } from '@erp/data-access';
 
 export const Route = createFileRoute(
   '/_authenticated/employee/assign-approval/$id'
 )({
   component: RouteComponent,
+  beforeLoad: () => ({ breadcrumb: 'Assign Approval' }),
 });
 
 function RouteComponent() {
   const { id } = Route.useParams();
   const navigate = useNavigate();
-
-  const employee = employees.find((emp) => emp.employeeId === id);
+  const { data: employee } = useEmployee(id);
 
   if (!employee) {
     return <div>Employee not found</div>;
@@ -27,8 +27,10 @@ function RouteComponent() {
           className="flex gap-1 cursor-pointer px-12 pt-6 items-center"
           onClick={() => navigate({ to: '/employee' })}
         >
-          <ArrowLeft />
-          <span>Back</span>
+          <ArrowLeft className="w-4 h-4 text-secondary-foreground" />
+          <span className="text-[14px] text-secondary-foreground font-normal leading-5">
+            Back
+          </span>
         </div>
 
         <HRCard
@@ -44,7 +46,11 @@ function RouteComponent() {
               />
             </div>
             <div className="flex flex-col">
-              <span className="text-lg font-semibold">{employee.name}</span>
+              <span className="text-lg font-semibold">
+                {employee.firstName}
+                {''}
+                {employee.lastName}
+              </span>
 
               <div className="flex items-center">
                 <span>{employee.employeeId}</span>

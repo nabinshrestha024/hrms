@@ -2,9 +2,10 @@ import type { Employee } from '@erp/data-access';
 import { HRTabs, useDialogFormStore } from '@erp/ui';
 import { PersonalInformation } from './employe-details/personal-information';
 import { WorkInformation } from './employe-details/work-information';
-import { AttendanceInformation } from './employe-details/Attendance';
-import { Education } from './employe-details/Education';
-import { Document } from './employe-details/Document';
+import { LeaveBalance } from './employe-details/leave-balance';
+import { AttendanceInformation } from './employe-details/attendance';
+import { Education } from './employe-details/education';
+import { Document } from './employe-details/document';
 
 export const EmployeeDetail = ({ employee }: { employee: Employee }) => {
   const { onOpen } = useDialogFormStore();
@@ -29,18 +30,24 @@ export const EmployeeDetail = ({ employee }: { employee: Employee }) => {
     },
     {
       id: 4,
+      value: 'Leave Balance',
+      triggerText: 'Leave Balance',
+      content: <LeaveBalance onOpen={onOpen} />,
+    },
+    {
+      id: 5,
       value: 'Payroll',
       triggerText: 'Payroll',
       content: '',
     },
     {
-      id: 5,
+      id: 6,
       value: 'Education',
       triggerText: 'Education',
       content: <Education onOpen={onOpen} />,
     },
     {
-      id: 5,
+      id: 7,
       value: 'Document',
       triggerText: 'Document',
       content: <Document onOpen={onOpen} />,

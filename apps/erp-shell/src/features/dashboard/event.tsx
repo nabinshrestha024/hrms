@@ -6,6 +6,9 @@ import { IconButton } from '../../components/icon-button';
 export const Event = () => {
   const { data, isLoading } = useEvents();
   const eventData: EventType[] = data ?? [];
+  const sortedEvents = [...eventData]
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    .slice(0, 7);
 
   if (isLoading) {
     return (
@@ -35,7 +38,7 @@ export const Event = () => {
           Events & Celebrations
         </div>
         <div className="flex flex-col gap-3">
-          {eventData.map((val) => (
+          {sortedEvents.map((val) => (
             <HRCard
               cardClassName="p-2 bg-background rounded-xl overflow-auto border-none shadow-none"
               cardContentClassName="p-0"

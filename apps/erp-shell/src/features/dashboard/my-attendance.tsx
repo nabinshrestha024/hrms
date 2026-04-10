@@ -6,7 +6,9 @@ import { IconButton } from '../../components/icon-button';
 export const MyAttendance = () => {
   const { data: myAttendance, isLoading } = useMyAttendance();
   const attendanceList: Attendance[] = myAttendance ?? [];
-
+  const sortedAttendance = [...attendanceList]
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    .slice(0, 7);
   if (isLoading) {
     return (
       <HRCard
@@ -35,7 +37,7 @@ export const MyAttendance = () => {
           My Attendance
         </div>
         <div className="flex flex-col gap-3">
-          {attendanceList.map((val) => (
+          {sortedAttendance.map((val) => (
             <HRCard
               cardClassName="p-2 bg-background rounded-xl overflow-auto shadow-none border-none"
               cardContentClassName="p-0"

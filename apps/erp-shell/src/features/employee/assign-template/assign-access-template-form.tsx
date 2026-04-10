@@ -28,8 +28,8 @@ export const AssignAccessTemplateForm = () => {
   console.warn('AssignAccessError: ', errors);
   const onsubmit = (data: AssignAccessTemplateFormValue) => {
     console.warn('Save Changes: ', data);
-    closeDialog();
     toast({ variant: 'success', title: 'Assign access template' });
+    closeDialog();
   };
 
   const role = [
@@ -83,7 +83,7 @@ export const AssignAccessTemplateForm = () => {
   ];
 
   const [selectedAssignAccess, setSelectedAssignAccess] = useState('');
-  const [selectedDataScope, setSelectedDataScope] = useState('global');
+  const [selectedDataScope, setSelectedDataScope] = useState('');
   return (
     <>
       <div className="w-full flex flex-col gap-4 ">

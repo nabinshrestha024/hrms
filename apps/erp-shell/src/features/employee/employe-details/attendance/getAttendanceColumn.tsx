@@ -1,6 +1,6 @@
 import type { ColumnDef } from '@tanstack/react-table';
-import type { Attendance } from '../../schema/AttendanceTableData';
 import { Badge, DataTableColumnHeader } from '@erp/ui';
+import { Attendance } from '../../schema/AttendanceTableData';
 
 export function getAttendanceColumns(): ColumnDef<Attendance>[] {
   return [

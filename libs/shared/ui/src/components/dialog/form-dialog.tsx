@@ -12,7 +12,7 @@ import { HRCard } from '../card/card';
 import { useDialogFormStore } from './form-store';
 
 const dialogContentStyles = cva(
-  'p-0 gap-0 rounded bg-background flex flex-col max-h-[90vh] border-none',
+  'p-0 gap-0 rounded bg-white flex flex-col max-h-[90vh] border-none',
   {
     variants: {
       size: {
@@ -100,7 +100,7 @@ export const FormDialog = () => {
           <HRCard
             cardClassName={cn(
               formContainerStyles({ size }),
-              `mt-4 ${componentClassName}`
+              `mt-4 bg-white ${componentClassName}`
             )}
             cardContentClassName="flex flex-col gap-4 p-0"
           >

@@ -5,7 +5,7 @@ export const PersonalDetailDisplay = ({ employee }: { employee: Employee }) => {
   return (
     <>
       <HRCard
-        cardClassName=" border-none p-0 rounded-none shadow-none bg-white"
+        cardClassName="border-none p-0 rounded-none shadow-none bg-white"
         cardContentClassName="p-0"
       >
         <div className="grid grid-cols-5 gap-4">
@@ -37,7 +37,7 @@ export const PersonalDetailDisplay = ({ employee }: { employee: Employee }) => {
             <span className="text-[12px] font-medium leading-4 text-secondary-foreground">
               Personal Email
             </span>
-            <span className="text-[14px] font-medium leading-5 text-foreground">
+            <span className="text-[14px] font-medium leading-5 text-foreground line-clamp-1">
               {employee?.email}
             </span>
           </div>
