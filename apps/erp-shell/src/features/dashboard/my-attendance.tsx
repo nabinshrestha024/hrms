@@ -2,13 +2,16 @@ import { useMyAttendance, type Attendance } from '@erp/data-access';
 import { HRCard } from '@erp/ui';
 import { CalendarClock, CircleX, Clock4, ClockAlert } from 'lucide-react';
 import { IconButton } from '../../components/icon-button';
+import { getSortData } from '@erp/utils';
 
 export const MyAttendance = () => {
   const { data: myAttendance, isLoading } = useMyAttendance();
   const attendanceList: Attendance[] = myAttendance ?? [];
-  const sortedAttendance = [...attendanceList]
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-    .slice(0, 7);
+  const sortedAttendance = getSortData({
+    events: attendanceList,
+    limit: 7,
+    dateKey: 'date',
+  });
   if (isLoading) {
     return (
       <HRCard

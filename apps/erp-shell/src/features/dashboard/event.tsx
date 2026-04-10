@@ -2,13 +2,16 @@ import { useEvents, type Event as EventType } from '@erp/data-access';
 import { Badge, HRCard } from '@erp/ui';
 import { Flag, Gift, PartyPopper, Sparkles } from 'lucide-react';
 import { IconButton } from '../../components/icon-button';
+import { getSortData } from '@erp/utils';
 
 export const Event = () => {
   const { data, isLoading } = useEvents();
   const eventData: EventType[] = data ?? [];
-  const sortedEvents = [...eventData]
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-    .slice(0, 7);
+  const sortedEvents = getSortData({
+    events: eventData,
+    limit: 7,
+    dateKey: 'date',
+  });
 
   if (isLoading) {
     return (

@@ -1,6 +1,7 @@
 import { useNotices, type Notice as NoticeType } from '@erp/data-access';
 import { Badge, Button } from '@erp/ui';
 import { CreateAnnouncementForm } from './create-announcement/create-announcement-form';
+import { getSortData } from '@erp/utils';
 
 type ModalSize = 'sm' | 'md' | 'lg';
 
@@ -21,9 +22,11 @@ interface GetColumnsProps {
 export const Notice = ({ onOpen }: GetColumnsProps) => {
   const { data, isLoading } = useNotices();
   const noticeData: NoticeType[] = data ?? [];
-  const sortedNotice = [...noticeData].sort(
-    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-  );
+  const sortedNotice = getSortData({
+    events: noticeData,
+    limit: 7,
+    dateKey: 'createdAt',
+  });
   if (isLoading) {
     return (
       <div className="w-full h-153 py-6 pl-6 pr-3 bg-white rounded-xl shadow-sm flex flex-col gap-4">
