@@ -1,7 +1,6 @@
 import { createContext, useEffect, type ReactNode } from 'react';
 import type { User } from './types';
 import { useAuthStore } from './auth-store';
-import { restoreSession } from './mock-auth';
 import { AUTH_TOKEN_KEY } from './constants';
 
 export interface AuthContextValue {
@@ -15,8 +14,12 @@ export const AuthContext = createContext<AuthContextValue | null>(null);
 
 interface AuthProviderProps {
   children: ReactNode;
-  /** Optional async function to restore session via API. Falls back to local restoreSession(). */
-  onRestoreSession?: () => Promise<{
+  /**
+   * Async function that restores the user's session via the backend
+   * (e.g. GET /auth/session with the httpOnly cookie). REQUIRED — there
+   * is no client-side fallback so unsigned tokens cannot be trusted.
+   */
+  onRestoreSession: () => Promise<{
     user: User;
     permissions: string[];
   } | null>;
@@ -30,30 +33,26 @@ export function AuthProvider({
     useAuthStore();
 
   useEffect(() => {
+    let cancelled = false;
     async function restore() {
       try {
-        if (onRestoreSession) {
-          const session = await onRestoreSession();
-          if (session) {
-            const token = sessionStorage.getItem(AUTH_TOKEN_KEY) ?? '';
-            login(session.user, session.permissions, token);
-            return;
-          }
-        } else {
-          const session = restoreSession();
-          if (session) {
-            const token = sessionStorage.getItem(AUTH_TOKEN_KEY) ?? '';
-            login(session.user, session.permissions, token);
-            return;
-          }
+        const session = await onRestoreSession();
+        if (cancelled) return;
+        if (session) {
+          const token = sessionStorage.getItem(AUTH_TOKEN_KEY) ?? '';
+          login(session.user, session.permissions, token);
+          return;
         }
       } catch {
         // Session restore failed — treat as logged out
       }
-      setLoading(false);
+      if (!cancelled) setLoading(false);
     }
     restore();
-  }, []);
+    return () => {
+      cancelled = true;
+    };
+  }, [onRestoreSession, login, setLoading]);
 
   return (
     <AuthContext.Provider value={{ user, isAuthenticated, isLoading, logout }}>

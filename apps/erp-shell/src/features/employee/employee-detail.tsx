@@ -1,10 +1,10 @@
 import type { Employee } from '@erp/data-access';
 import { HRTabs, useDialogFormStore } from '@erp/ui';
-import { PersonalInformation } from './employe-details/personal-information';
-import { WorkInformation } from './employe-details/work-information';
-import { AttendanceInformation } from './employe-details/Attendance';
-import { Education } from './employe-details/Education';
-import { Document } from './employe-details/Document';
+import { PersonalInformation } from './employee-details/personal-information';
+import { WorkInformation } from './employee-details/work-information';
+import { AttendanceInformation } from './employee-details/attendance';
+import { Education } from './employee-details/education';
+import { Document } from './employee-details/document';
 
 export const EmployeeDetail = ({ employee }: { employee: Employee }) => {
   const { onOpen } = useDialogFormStore();

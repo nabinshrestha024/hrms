@@ -1,7 +1,10 @@
 import { type PaginationState, type SortingState } from '@tanstack/react-table';
 import { useDataTable } from '@erp/ui';
 import { useQueryState, parseAsInteger, parseAsString } from 'nuqs';
-import { Attendance, attendanceRecord } from '../../schema/AttendanceTableData';
+import {
+  Attendance,
+  attendanceRecord,
+} from '../../schema/attendance-table-data';
 import { getAttendanceColumns } from './getAttendanceColumn';
 
 interface AttendanceTableProps {

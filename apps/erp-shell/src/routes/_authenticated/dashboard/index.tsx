@@ -1,4 +1,3 @@
-import { useDialogFormStore } from '@erp/ui';
 import { createFileRoute } from '@tanstack/react-router';
 import { Event } from '../../../features/dashboard/event';
 import { MyAttendance } from '../../../features/dashboard/my-attendance';
@@ -14,7 +13,6 @@ export const Route = createFileRoute('/_authenticated/dashboard/')({
 });
 
 function RouteComponent() {
-  const { onOpen } = useDialogFormStore();
   return (
     <>
       <div className="w-full pb-21.5 h-[calc(100vh-84px)] overflow-auto flex flex-col bg-[#F9FAFB] ">
@@ -38,7 +36,7 @@ function RouteComponent() {
           </div>
           <div className="flex flex-col lg:flex-row  gap-4">
             <MyAttendance />
-            <Notice onOpen={onOpen} />
+            <Notice />
             <Event />
           </div>
           <div className="flex flex-col lg:flex-row gap-4">

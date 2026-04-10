@@ -86,17 +86,67 @@ const onSubmit = handleSubmit((data) => {
 </FormField>;
 ```
 
-## Dialog Pattern
+## Dialog Patterns
+
+Three components, three use cases. **Pick the right one.**
+
+### 1. `<FormDialog>` — button → form (95% of cases)
+
+Self-managed state, **no `useState` needed**.
 
 ```tsx
-const dialog = useDialog();           // simple
-const dialog = useDialog<Employee>(); // with data
+import { Button, FormDialog } from '@erp/ui';
 
-<Button onClick={dialog.open}>Open</Button>
-<MyDialog {...dialog.props} />
-
-// Access data: dialog.data
+<FormDialog
+  trigger={<Button>Add Branch</Button>}
+  title="Add Branch"
+  size="lg"
+  formId="branch-form"
+  okText="Add"
+  cancelText="Cancel"
+>
+  {({ close }) => <BranchForm onSuccess={close} />}
+</FormDialog>;
 ```
+
+### 2. `<ControlledFormDialog>` — when parent owns state (e.g. row edit)
+
+```tsx
+const [editTarget, setEditTarget] = useState<Branch | null>(null);
+
+<ControlledFormDialog
+  open={editTarget !== null}
+  onOpenChange={(open) => !open && setEditTarget(null)}
+  title="Edit Branch"
+  formId="branch-form"
+  okText="Save"
+>
+  <BranchForm initialValues={editTarget ?? undefined} />
+</ControlledFormDialog>;
+```
+
+### 3. `<ConfirmDialog>` — destructive confirmations
+
+```tsx
+const [target, setTarget] = useState<Branch | null>(null);
+
+<ConfirmDialog
+  open={target !== null}
+  onOpenChange={(open) => !open && setTarget(null)}
+  title="Delete branch?"
+  description={`"${target?.branch}" will be permanently deleted.`}
+  destructive
+  confirmText="Delete"
+  onConfirm={async () => {
+    await deleteMutation.mutateAsync(target!.id);
+  }}
+/>;
+```
+
+⚠️ **Use `mutateAsync()`, not `mutate()`** — `ConfirmDialog` relies on the
+returned promise for loading state and auto-close.
+
+❌ **Don't use** `<LegacyFormDialog />` or `useDialogFormStore` — deprecated.
 
 ## Table Column
 

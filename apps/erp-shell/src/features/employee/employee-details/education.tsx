@@ -1,5 +1,5 @@
 import { AddEducationForm } from './education/add-education-form';
-import { educationData } from '../schema/EducationData';
+import { educationData } from '../schema/education-data';
 import { Button, HRCard } from '@erp/ui';
 import { Edit, Plus, Trash } from 'lucide-react';
 

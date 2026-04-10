@@ -2,7 +2,7 @@ import { useId, type ReactNode } from 'react';
 import { HRLabel } from './label';
 
 interface FormFieldProps {
-  Label: string;
+  label: string;
   subLabel?: string;
   error?: string;
   required?: boolean;
@@ -16,12 +16,12 @@ interface FormFieldProps {
  * Works with any input — just pass it as children.
  *
  * Usage:
- *   <FormField Label="Email" htmlFor="email" error={errors.email?.message} required>
+ *   <FormField label="Email" htmlFor="email" error={errors.email?.message} required>
  *     <Input id="email" {...register('email')} />
  *   </FormField>
  */
 export function FormField({
-  Label,
+  label,
   error,
   required,
   labelClassName,
@@ -34,10 +34,10 @@ export function FormField({
 
   return (
     <div className="flex flex-col gap-1">
-      {Label && (
+      {label && (
         <div className="flex gap-1">
           <HRLabel labelClassName={labelClassName} htmlFor={fieldId}>
-            {Label}
+            {label}
           </HRLabel>
           {required && <span className="text-destructive">*</span>}
         </div>

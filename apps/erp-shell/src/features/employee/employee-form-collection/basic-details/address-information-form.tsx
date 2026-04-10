@@ -1,7 +1,7 @@
 import { HRInput, HRSelect } from '@erp/ui';
 import { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
-import { addressData, municipalityData } from '../../schema/EmployeeSchema';
+import { addressData, municipalityData } from '../../schema/employee-schema';
 
 export const AddressInformationForm = () => {
   const [country, setCountry] = useState<string>();

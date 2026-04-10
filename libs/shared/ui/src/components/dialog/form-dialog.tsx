@@ -56,7 +56,14 @@ const dialogHeaderStyles = cva(' relative ', {
   },
 });
 
-export const FormDialog = () => {
+/**
+ * @deprecated Use the new `FormDialog` (with `trigger` prop) or
+ * `ControlledFormDialog` instead. This legacy component reads from a global
+ * Zustand store, only supports one dialog at a time, and is hard to test.
+ * Kept here only because legacy `/features/employee/` code still calls
+ * `useDialogFormStore().onOpen(...)`.
+ */
+export const LegacyFormDialog = () => {
   const {
     modalTitle,
     open,

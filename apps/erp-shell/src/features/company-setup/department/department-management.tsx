@@ -1,52 +1,48 @@
-import { PageHeader } from '../../../components/page-header';
-import { DepartmentCard } from './department-card';
-import { DepartmentForm } from './department-form';
 import {
   useDepartments,
   useDeleteDepartment,
   type Department,
 } from '@erp/data-access';
-import { toast } from '@erp/ui';
+import {
+  Button,
+  ConfirmDialog,
+  ControlledFormDialog,
+  FormDialog,
+  toast,
+} from '@erp/ui';
+import { useState } from 'react';
+import { PageHeader } from '../../../components/page-header';
+import { DepartmentCard } from './department-card';
+import { DepartmentForm } from './department-form';
 
-type ModalSize = 'sm' | 'md' | 'lg';
-
-interface GetColumnsProps {
-  onOpen: <T extends string>(config: {
-    title: T;
-    modalTitle: string | null;
-    okText: React.ReactNode;
-    component: React.ReactNode;
-    cancelText?: string | React.ReactNode;
-    size?: ModalSize;
-    formId?: string;
-    onCancel?: () => void;
-  }) => void;
-}
-
-export const DepartmentManagement = ({ onOpen }: GetColumnsProps) => {
+export const DepartmentManagement = () => {
   const { data: deptResponse } = useDepartments({ pageSize: 100 });
   const data: Department[] = deptResponse?.data ?? [];
   const deleteDepartment = useDeleteDepartment();
 
-  const handleEdit = (dept: Department) => {
-    onOpen({
-      modalTitle: 'Edit Department',
-      title: 'Edit Department',
-      okText: 'Save',
-      size: 'lg',
-      cancelText: 'Cancel',
-      formId: 'Department',
-      component: <DepartmentForm />,
-    });
+  const [editTarget, setEditTarget] = useState<Department | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<Department | null>(null);
+
+  const handleEdit = (dept: Department) => setEditTarget(dept);
+  const handleDelete = (id: string) => {
+    const dept = data.find((d) => d.id === id);
+    if (dept) setDeleteTarget(dept);
   };
 
-  const handleDelete = (id: string) => {
-    deleteDepartment.mutate(id, {
+  const confirmDelete = async () => {
+    if (!deleteTarget) return;
+    await deleteDepartment.mutateAsync(deleteTarget.id, {
       onSuccess: () => {
-        toast({ variant: 'success', title: 'Department deleted successfully' });
+        toast({
+          variant: 'success',
+          title: 'Department deleted successfully',
+        });
       },
       onError: () => {
-        toast({ variant: 'destructive', title: 'Failed to delete department' });
+        toast({
+          variant: 'destructive',
+          title: 'Failed to delete department',
+        });
       },
     });
   };
@@ -55,19 +51,27 @@ export const DepartmentManagement = ({ onOpen }: GetColumnsProps) => {
     <>
       <PageHeader
         title="Department Management"
-        buttonName="Add Department"
         isTabs={false}
         data={data}
-        onAdd={() =>
-          onOpen({
-            modalTitle: 'Department Details',
-            title: 'Department Details',
-            okText: 'Add',
-            size: 'lg',
-            cancelText: 'Cancel',
-            formId: 'Department',
-            component: <DepartmentForm />,
-          })
+        actionComponent={
+          <FormDialog
+            trigger={
+              <Button
+                type="button"
+                variant="secondary"
+                className="text-[14px] font-medium leading-5 text-white"
+              >
+                Add Department
+              </Button>
+            }
+            title="Department Details"
+            size="lg"
+            formId="department-form"
+            okText="Add"
+            cancelText="Cancel"
+          >
+            <DepartmentForm />
+          </FormDialog>
         }
         renderCard={(filtered) => (
           <DepartmentCard
@@ -76,7 +80,7 @@ export const DepartmentManagement = ({ onOpen }: GetColumnsProps) => {
             onDelete={handleDelete}
           />
         )}
-        renderTable={(filtered) => <></>}
+        renderTable={() => <></>}
         filterFn={(data, search, dropdown) => {
           return data.filter((item: Department) => {
             const matchesSearch = item.department
@@ -88,6 +92,32 @@ export const DepartmentManagement = ({ onOpen }: GetColumnsProps) => {
             return matchesSearch && matchesDropdown;
           });
         }}
+      />
+
+      <ControlledFormDialog
+        open={editTarget !== null}
+        onOpenChange={(open: boolean) => !open && setEditTarget(null)}
+        title="Edit Department"
+        size="lg"
+        formId="department-form"
+        okText="Save"
+        cancelText="Cancel"
+      >
+        <DepartmentForm />
+      </ControlledFormDialog>
+
+      <ConfirmDialog
+        open={deleteTarget !== null}
+        onOpenChange={(open: boolean) => !open && setDeleteTarget(null)}
+        title="Delete department?"
+        description={
+          deleteTarget
+            ? `"${deleteTarget.department}" will be permanently deleted. This action cannot be undone.`
+            : undefined
+        }
+        confirmText="Delete"
+        destructive
+        onConfirm={confirmDelete}
       />
     </>
   );

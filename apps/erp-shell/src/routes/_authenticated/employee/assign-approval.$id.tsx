@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
-import { employees } from '../../../features/employee/schema/EmployeeData';
+import { employees } from '../../../features/employee/schema/employee-data';
 import { ArrowLeft, Dot } from 'lucide-react';
 import { HRCard } from '@erp/ui';
 import { AssignApproval } from '../../../features/employee/assign-approval/assign-approval-tab';

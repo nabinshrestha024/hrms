@@ -4,7 +4,7 @@ import {
   employeeTypeData,
   shiftData,
   workTypeData,
-} from '../../schema/EmployeeSchema';
+} from '../../schema/employee-schema';
 
 export const WorkScheduleTypeForm = () => {
   const {

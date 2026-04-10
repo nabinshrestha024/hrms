@@ -40,8 +40,8 @@ export function useMyAttendance() {
   const client = useApiClient();
   return useQuery<Attendance[]>({
     queryKey: dashboardKeys.attendance(),
-    queryFn: async () => {
-      const response = await client.get('/dashboard/attendance');
+    queryFn: async ({ signal }) => {
+      const response = await client.get('/dashboard/attendance', { signal });
       return z.array(attendanceSchema).parse(response.data);
     },
   });
@@ -51,8 +51,8 @@ export function useMyRequests() {
   const client = useApiClient();
   return useQuery<MyRequest[]>({
     queryKey: dashboardKeys.myRequests(),
-    queryFn: async () => {
-      const response = await client.get('/dashboard/my-requests');
+    queryFn: async ({ signal }) => {
+      const response = await client.get('/dashboard/my-requests', { signal });
       return z.array(myRequestSchema).parse(response.data);
     },
   });
@@ -62,8 +62,8 @@ export function useNotices() {
   const client = useApiClient();
   return useQuery<Notice[]>({
     queryKey: dashboardKeys.notices(),
-    queryFn: async () => {
-      const response = await client.get('/dashboard/notices');
+    queryFn: async ({ signal }) => {
+      const response = await client.get('/dashboard/notices', { signal });
       return z.array(noticeSchema).parse(response.data);
     },
   });
@@ -73,8 +73,8 @@ export function useEvents() {
   const client = useApiClient();
   return useQuery<Event[]>({
     queryKey: dashboardKeys.events(),
-    queryFn: async () => {
-      const response = await client.get('/dashboard/events');
+    queryFn: async ({ signal }) => {
+      const response = await client.get('/dashboard/events', { signal });
       return z.array(eventSchema).parse(response.data);
     },
   });
@@ -84,8 +84,8 @@ export function useTeamRequests() {
   const client = useApiClient();
   return useQuery<TeamRequest[]>({
     queryKey: dashboardKeys.teamRequests(),
-    queryFn: async () => {
-      const response = await client.get('/dashboard/team-requests');
+    queryFn: async ({ signal }) => {
+      const response = await client.get('/dashboard/team-requests', { signal });
       return z.array(teamRequestSchema).parse(response.data);
     },
   });
@@ -95,8 +95,8 @@ export function usePersonalInfo() {
   const client = useApiClient();
   return useQuery<PersonalInfo[]>({
     queryKey: dashboardKeys.personalInfo(),
-    queryFn: async () => {
-      const response = await client.get('/dashboard/personal-info');
+    queryFn: async ({ signal }) => {
+      const response = await client.get('/dashboard/personal-info', { signal });
       return z.array(personalInfoSchema).parse(response.data);
     },
   });
@@ -114,8 +114,8 @@ export function useCompanyProfile() {
   const client = useApiClient();
   return useQuery<CompanyProfile>({
     queryKey: companyProfileKeys.all,
-    queryFn: async () => {
-      const response = await client.get('/company-profile');
+    queryFn: async ({ signal }) => {
+      const response = await client.get('/company-profile', { signal });
       return companyProfileSchema.parse(response.data);
     },
   });

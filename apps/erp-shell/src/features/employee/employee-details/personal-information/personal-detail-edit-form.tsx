@@ -4,7 +4,7 @@ import {
   personalInformationSchema,
   type PersonalInfromationFormValue,
 } from './PersonalInfromationZod';
-import { Employee } from '../../schema/EmployeeData';
+import { Employee } from '../../schema/employee-data';
 import { HRDateField, HRInput } from '@erp/ui';
 
 type Props = {

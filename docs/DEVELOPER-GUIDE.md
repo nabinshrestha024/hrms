@@ -18,6 +18,15 @@ This guide covers everything you need to build features in this codebase.
 12. [Testing](#12-testing)
 13. [Common Patterns](#13-common-patterns)
 
+## Reference docs
+
+For deep dives on specific patterns, see the dedicated reference docs:
+
+- **[DIALOGS.md](./DIALOGS.md)** — `<FormDialog>`, `<ControlledFormDialog>`, `<ConfirmDialog>`. When to use each, props reference, common mistakes.
+- **[TABLES.md](./TABLES.md)** — `useServerTableState` hook for URL-synced server-driven tables. Cuts table boilerplate from 90 lines to 20.
+- **[ARCHITECTURE.md](./ARCHITECTURE.md)** — Library structure, dependencies, monorepo layout.
+- **[CHEATSHEET.md](./CHEATSHEET.md)** — Copy-paste snippets for the most common patterns.
+
 ---
 
 ## 1. Creating a New Page
@@ -558,61 +567,262 @@ Then add `'your-module'` to `modulesEnabled` in `libs/shared/tenant/src/mock-ten
 
 ## 7. Dialogs and Modals
 
-Use `<FormDialog>` for form-in-dialog pattern:
+The `@erp/ui` library exposes **three** dialog primitives. Pick the right one
+for the situation — they look identical but each solves a different problem.
+
+### Decision tree
+
+```
+Is the dialog a "are you sure?" confirmation (delete, archive, leave page)?
+├── YES → <ConfirmDialog>
+└── NO → Is the dialog opened by a button click, with no row data needed?
+    ├── YES → <FormDialog>          (95% of cases — zero useState)
+    └── NO  → <ControlledFormDialog> (parent owns state, e.g. row edit)
+```
+
+### A. `<FormDialog>` — the default for most cases
+
+Self-managed open state, trigger colocated, render-prop access to `close`.
+**No `useState` needed.**
+
+```tsx
+import { Button, FormDialog } from '@erp/ui';
+import { BranchForm } from './branch-form';
+
+<FormDialog
+  trigger={<Button variant="secondary">Add Branch</Button>}
+  title="Add Branch"
+  size="lg"
+  formId="branch-form"
+  okText="Add"
+  cancelText="Cancel"
+>
+  {({ close }) => <BranchForm onSuccess={close} />}
+</FormDialog>;
+```
+
+**Props**
+
+| Prop           | Type                                    | Notes                                                                                         |
+| -------------- | --------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `trigger`      | `ReactElement`                          | The button (or any element). Its `onClick` is auto-wired. Existing handlers still fire first. |
+| `title`        | `ReactNode`                             | Dialog header.                                                                                |
+| `size`         | `'sm' \| 'md' \| 'lg' \| 'img'`         | Default `md`.                                                                                 |
+| `formId`       | `string`                                | The `id` of the inner `<form>`. The submit button is wired to this id.                        |
+| `okText`       | `ReactNode`                             | Submit button label. Omit to hide the button.                                                 |
+| `cancelText`   | `ReactNode`                             | Cancel button label. Omit to hide.                                                            |
+| `onCancel`     | `() => void`                            | Called before close on cancel click.                                                          |
+| `isSubmitting` | `boolean`                               | Disables both buttons while a mutation is pending.                                            |
+| `defaultOpen`  | `boolean`                               | Start open (rare — use for tour onboarding).                                                  |
+| `onOpenChange` | `(open: boolean) => void`               | Listen to open/close events.                                                                  |
+| `children`     | `ReactNode \| ({ close }) => ReactNode` | Form body. Use the render-prop form when the form needs to close itself.                      |
+
+**Form `id` is the contract.** The submit button inside `<FormDialog>` uses
+HTML's `form="<id>"` attribute to submit a form anywhere in the dialog. Make
+sure your form's `id` matches the `formId` prop:
+
+```tsx
+// branch-form.tsx
+<FormRenderer config={addBranchFormConfig} ... />
+//   ^^ generates <form id="branch-form"> when entity === 'branch'
+```
+
+For raw `<form>`, just set the `id` attribute:
+
+```tsx
+<form id="branch-form" onSubmit={...}>
+  ...
+</form>
+```
+
+**Closing after submit.** Forms close themselves by accepting an `onSuccess`
+callback and wiring it to `close` from the render-prop:
+
+```tsx
+function BranchForm({ onSuccess }: { onSuccess?: () => void }) {
+  const createBranch = useCreateBranch();
+  return (
+    <form
+      id="branch-form"
+      onSubmit={form.handleSubmit((data) =>
+        createBranch.mutate(data, { onSuccess })
+      )}
+    >
+      ...
+    </form>
+  );
+}
+
+<FormDialog trigger={<Button>Add</Button>} title="Add" formId="branch-form">
+  {({ close }) => <BranchForm onSuccess={close} />}
+</FormDialog>;
+```
+
+If your form doesn't need to close itself, drop the render-prop:
+
+```tsx
+<FormDialog trigger={<Button>Edit</Button>} title="Edit" formId="x-form">
+  <ReadOnlyForm />
+</FormDialog>
+```
+
+### B. `<ControlledFormDialog>` — when the parent must own state
+
+Use this when the dialog's open state depends on **which row** was clicked,
+because `<FormDialog trigger>` doesn't expose its internal state.
 
 ```tsx
 import { useState } from 'react';
-import { Button, FormDialog } from '@erp/ui';
-import { FormRenderer } from '@erp/config-engine';
+import { ControlledFormDialog } from '@erp/ui';
 
-function MyPage() {
-  const [open, setOpen] = useState(false);
+const [editTarget, setEditTarget] = useState<Branch | null>(null);
 
-  return (
-    <>
-      <Button onClick={() => setOpen(true)}>Add Item</Button>
+<BranchTable onEdit={(branch) => setEditTarget(branch)} />
 
-      <FormDialog open={open} onOpenChange={setOpen} title="Add Item" size="lg">
-        <FormRenderer
-          config={myFormConfig}
-          onSubmit={(data) => {
-            console.log(data);
-            setOpen(false);
-          }}
-          submitLabel="Create"
-        />
-      </FormDialog>
-    </>
-  );
-}
+<ControlledFormDialog
+  open={editTarget !== null}
+  onOpenChange={(open) => !open && setEditTarget(null)}
+  title="Edit Branch"
+  size="lg"
+  formId="branch-form"
+  okText="Save"
+  cancelText="Cancel"
+>
+  <BranchForm initialValues={editTarget ?? undefined} />
+</ControlledFormDialog>;
 ```
 
-For non-form dialogs, use `<Dialog>` directly:
+The same prop API as `FormDialog` but takes `open` / `onOpenChange` instead of
+`trigger`. No render-prop — the parent already knows how to close it.
+
+### C. `<ConfirmDialog>` — destructive confirmations
+
+Use for any "are you sure?" checkpoint. Built-in destructive variant, async
+`onConfirm` with loading state, auto-closes on success, stays open on error.
 
 ```tsx
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-  Button,
-} from '@erp/ui';
+import { useState } from 'react';
+import { ConfirmDialog } from '@erp/ui';
+
+const [deleteTarget, setDeleteTarget] = useState<Branch | null>(null);
+const deleteBranch = useDeleteBranch();
+
+<BranchTable onDelete={(id) => setDeleteTarget(branches.find((b) => b.id === id))} />
+
+<ConfirmDialog
+  open={deleteTarget !== null}
+  onOpenChange={(open) => !open && setDeleteTarget(null)}
+  title="Delete branch?"
+  description={
+    deleteTarget
+      ? `"${deleteTarget.branch}" will be permanently deleted. This action cannot be undone.`
+      : undefined
+  }
+  confirmText="Delete"
+  destructive
+  onConfirm={async () => {
+    if (!deleteTarget) return;
+    await deleteBranch.mutateAsync(deleteTarget.id);
+  }}
+/>;
+```
+
+**Async behavior:**
+
+- The confirm button shows `Working…` while `onConfirm` is pending.
+- On resolve → dialog auto-closes.
+- On reject → dialog stays open so the user can retry. Show your error toast
+  via the mutation's `onError` callback.
+
+### Don't use `<LegacyFormDialog>` / `useDialogFormStore`
+
+The `useDialogFormStore` hook and `<LegacyFormDialog />` are **deprecated**.
+They exist only because the legacy `/features/employee/` tree still calls
+`useDialogFormStore().onOpen({ component: <X /> })`.
+
+Why they're bad:
+
+- **JSX in a global store.** Closures get captured at click time → stale data.
+- **Only one dialog at a time, app-wide.** Nested dialogs impossible.
+- **Magic-string `formId` coupling.** Renaming the form id silently breaks submit.
+- **Side-effect-driven close.** Any successful form submission anywhere could close any open dialog.
+- **Untestable.** Needs the global `<LegacyFormDialog />` mounted in the route tree.
+
+If you see this in a PR, push back and ask the author to use one of the three
+patterns above.
+
+### Common mistakes
+
+**1. Forgetting `formId`** — the submit button does nothing.
+
+```tsx
+// ❌ submit button has nothing to submit
+<FormDialog trigger={<Button>Add</Button>} title="Add" okText="Save">
+  <form onSubmit={handleSubmit}>...</form>
+</FormDialog>
+
+// ✅ formId matches the inner form's id
+<FormDialog trigger={<Button>Add</Button>} title="Add" formId="my-form" okText="Save">
+  <form id="my-form" onSubmit={handleSubmit}>...</form>
+</FormDialog>
+```
+
+**2. Closing the dialog before the mutation finishes** — user sees the dialog
+disappear while their data is still being saved, no feedback if it fails.
+
+```tsx
+// ❌ closes immediately, user has no idea if save succeeded
+const handleSubmit = (data) => {
+  createBranch.mutate(data);
+  close();
+};
+
+// ✅ close in the mutation's onSuccess callback
+const handleSubmit = (data) => {
+  createBranch.mutate(data, {
+    onSuccess: () => {
+      toast({ variant: 'success', title: 'Saved' });
+      close();
+    },
+    onError: () => {
+      toast({ variant: 'destructive', title: 'Failed to save' });
+    },
+  });
+};
+```
+
+**3. Using `<ConfirmDialog>` for non-destructive prompts** — the destructive
+variant is opt-in via the `destructive` prop. Without it, the confirm button
+uses the secondary variant, which is correct for archive/restore prompts.
+
+**4. Forgetting `mutateAsync` in `ConfirmDialog.onConfirm`** — `ConfirmDialog`
+relies on the returned promise to show its loading state and auto-close. If
+you use `mutate()` instead of `mutateAsync()`, the dialog closes immediately
+and ignores errors.
+
+```tsx
+// ❌ closes immediately, no loading state, errors silently ignored
+onConfirm={() => deleteMutation.mutate(id)}
+
+// ✅ awaits the promise, dialog stays open if it throws
+onConfirm={async () => {
+  await deleteMutation.mutateAsync(id);
+}}
+```
+
+### For non-dialog modals (image lightbox, etc.)
+
+Use `<Dialog>` directly from `@erp/ui` (the Radix primitive).
+
+```tsx
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@erp/ui';
 
 <Dialog open={open} onOpenChange={setOpen}>
   <DialogContent>
     <DialogHeader>
-      <DialogTitle>Confirm Delete</DialogTitle>
+      <DialogTitle>Image preview</DialogTitle>
     </DialogHeader>
-    <p>Are you sure?</p>
-    <DialogFooter>
-      <Button variant="ghost" onClick={() => setOpen(false)}>
-        Cancel
-      </Button>
-      <Button variant="destructive" onClick={handleDelete}>
-        Delete
-      </Button>
-    </DialogFooter>
+    <img src={url} alt="" />
   </DialogContent>
 </Dialog>;
 ```

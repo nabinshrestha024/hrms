@@ -1,5 +1,8 @@
 import { DataTable } from '@erp/ui';
-import { Attendance, attendanceRecord } from '../../schema/AttendanceTableData';
+import {
+  Attendance,
+  attendanceRecord,
+} from '../../schema/attendance-table-data';
 import { useAttendanceTable } from './use-attendance-table';
 
 interface AttendanceTableProps {

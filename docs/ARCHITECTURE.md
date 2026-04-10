@@ -72,9 +72,16 @@ ui/src/
 │   ├── data-table/     # Full table system (sort, filter, paginate)
 │   ├── page-header     # Standard page header (title, subtitle, actions)
 │   ├── table-page      # Complete table page template
-│   ├── form-dialog     # Dialog wrapper for forms
+│   ├── dialog/         # Dialog system (see below)
+│   │   ├── form-dialog-trigger  → <FormDialog>          (default, self-managed state)
+│   │   ├── controlled-form-dialog → <ControlledFormDialog>  (parent-owned state)
+│   │   ├── confirm-dialog  → <ConfirmDialog>             (destructive confirmations)
+│   │   └── form-dialog     → <LegacyFormDialog>          (deprecated, global store)
 │   └── toaster         # Toast notification container
-├── hooks/              # useDataTable, useIsMobile, useToast
+├── hooks/
+│   ├── use-data-table          # TanStack Table wrapper
+│   ├── use-server-table-state  # URL-synced server-driven table state
+│   └── use-toast
 └── lib/
     └── nav-config      # Sidebar navigation configuration
 ```

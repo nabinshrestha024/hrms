@@ -5,7 +5,7 @@ import type { NavLinkProps } from './sidebar/shell-layout';
 
 const mobileNavItems = [
   { label: 'Dashboard', href: '/dashboard', icon: ChartPie },
-  { label: 'Employees', href: '/employees', icon: UserCog },
+  { label: 'Employees', href: '/employee', icon: UserCog },
   { label: 'Leave', href: '/leave/requests', icon: TentTree },
   { label: 'Attendance', href: '/attendance', icon: Users },
   { label: 'Settings', href: '/settings', icon: FileCog },

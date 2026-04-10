@@ -54,7 +54,7 @@ function OptionRadioGroup({
 
   return (
     <FormField
-      Label={Label || ''}
+      label={Label || ''}
       subLabel={subLabel}
       required={isRequired}
       labelClassName={labelClassName}

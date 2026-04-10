@@ -5,7 +5,7 @@ import {
   documentCategoryOptions,
   documetTempelate,
   statusOption,
-} from '../../schema/AssignDocumentData';
+} from '../../schema/assign-document-data';
 import {
   assignDocumentSchema,
   type AssignDocumentFormValue,

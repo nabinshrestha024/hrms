@@ -34,7 +34,7 @@ function RouteComponent() {
     <div className="w-full max-h-[calc(100vh-84px)] overflow-auto flex flex-col bg-background px-6 pb-13">
       <div
         className="flex gap-1 cursor-pointer px-12 pt-6 items-center"
-        onClick={() => navigate({ to: '/employees' })}
+        onClick={() => navigate({ to: '/employee' })}
       >
         <ArrowLeft />
         <span>Back</span>

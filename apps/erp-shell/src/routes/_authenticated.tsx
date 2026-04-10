@@ -1,15 +1,20 @@
 import {
   createFileRoute,
   Outlet,
-  useNavigate,
+  redirect,
   useRouterState,
   Link,
 } from '@tanstack/react-router';
-import { useEffect } from 'react';
-import { FormDialog, ShellLayout, Skeleton, type NavLinkProps } from '@erp/ui';
-import { useAuth } from '@erp/auth';
+import {
+  LegacyFormDialog,
+  ShellLayout,
+  Skeleton,
+  type NavLinkProps,
+} from '@erp/ui';
+import { authReady, useAuth, useAuthStore } from '@erp/auth';
 import { useTenant } from '@erp/tenant';
 import { AppBreadcrumb } from '../components/app-breadcrumb';
+import { RouteError } from '../components/route-error';
 
 function RouterLink({ to, children, className }: NavLinkProps) {
   return (
@@ -36,34 +41,24 @@ function AuthenticatedPending() {
 export const Route = createFileRoute('/_authenticated')({
   component: AuthenticatedLayout,
   pendingComponent: AuthenticatedPending,
-  beforeLoad: () => ({
-    breadcrumb: 'Home',
-  }),
+  errorComponent: RouteError,
+  beforeLoad: async () => {
+    // Wait for the initial session restore to complete before deciding.
+    // Without this, child loaders would fire authenticated API calls
+    // before the auth state is known.
+    await authReady;
+    const { isAuthenticated } = useAuthStore.getState();
+    if (!isAuthenticated) {
+      throw redirect({ to: '/login' });
+    }
+    return { breadcrumb: 'Home' };
+  },
 });
 
 function AuthenticatedLayout() {
-  const { isAuthenticated, isLoading, user, logout } = useAuth();
+  const { user, logout } = useAuth();
   const { tenant, isDark, setIsDark } = useTenant();
   const { location } = useRouterState();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      navigate({ to: '/login' });
-    }
-  }, [isLoading, isAuthenticated, navigate]);
-
-  if (isLoading) {
-    return (
-      <div className="flex h-screen items-center justify-center bg-background">
-        <p className="text-muted-foreground">Loading...</p>
-      </div>
-    );
-  }
-
-  if (!isAuthenticated) {
-    return null;
-  }
 
   const userInitials = user?.name
     ?.split(' ')
@@ -94,7 +89,7 @@ function AuthenticatedLayout() {
         <AppBreadcrumb />
       </div>
       <Outlet />
-      <FormDialog />
+      <LegacyFormDialog />
     </ShellLayout>
   );
 }

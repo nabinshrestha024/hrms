@@ -45,7 +45,7 @@ export interface DialogActions {
 }
 
 export const useDialogFormStore = create<DialogState & DialogActions>(
-  (set, get) => ({
+  (set) => ({
     open: false,
     title: null,
     formId: '',
@@ -58,10 +58,11 @@ export const useDialogFormStore = create<DialogState & DialogActions>(
 
     onCancel: undefined,
     setFormState: (state) => {
+      // NOTE: the previous implementation auto-closed the dialog on
+      // `isSubmitSuccessful`. That side-effect was brittle (any form in the
+      // app could close any open dialog) and has been removed. Callers must
+      // close the dialog explicitly via `onClose()` after a successful submit.
       set(() => ({ formState: state }));
-      if (state?.isSubmitSuccessful) {
-        get().onClose();
-      }
     },
     onOpen: <T extends string>(config: {
       title: T;

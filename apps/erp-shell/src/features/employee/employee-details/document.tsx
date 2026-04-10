@@ -1,4 +1,4 @@
-import { personalDocumentData } from '../schema/DocumentData';
+import { personalDocumentData } from '../schema/document-data';
 import { DocumentUpload } from './document/document-upload';
 
 type ModalSize = 'sm' | 'md' | 'lg';

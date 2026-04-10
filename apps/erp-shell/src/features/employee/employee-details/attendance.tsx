@@ -1,6 +1,6 @@
 import { DatePicker, HRCard } from '@erp/ui';
-import { cardData } from '../schema/AttendanceCardData';
-import { AttendanceTable } from './attendance/Attendance-table';
+import { cardData } from '../schema/attendance-card-data';
+import { AttendanceTable } from './attendance/attendance-table';
 
 export const AttendanceInformation = () => {
   return (

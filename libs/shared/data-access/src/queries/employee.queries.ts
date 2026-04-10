@@ -42,7 +42,7 @@ export function useEmployees(params?: ListParams & EmployeeFilters) {
   const client = useApiClient();
   return useQuery<PaginatedResponse<Employee>>({
     queryKey: employeeKeys.list(params),
-    queryFn: async () => {
+    queryFn: async ({ signal }) => {
       const searchParams = new URLSearchParams();
       if (params?.page) searchParams.set('page', String(params.page));
       if (params?.pageSize)
@@ -56,7 +56,7 @@ export function useEmployees(params?: ListParams & EmployeeFilters) {
 
       const query = searchParams.toString();
       const path = `/employees${query ? `?${query}` : ''}`;
-      const response = await client.get(path);
+      const response = await client.get(path, { signal });
       return employeeListResponseSchema.parse(response.data);
     },
   });
@@ -66,8 +66,8 @@ export function useEmployee(id: string) {
   const client = useApiClient();
   return useQuery<Employee>({
     queryKey: employeeKeys.detail(id),
-    queryFn: async () => {
-      const response = await client.get(`/employees/${id}`);
+    queryFn: async ({ signal }) => {
+      const response = await client.get(`/employees/${id}`, { signal });
       return employeeSchema.parse(response.data);
     },
     enabled: !!id,

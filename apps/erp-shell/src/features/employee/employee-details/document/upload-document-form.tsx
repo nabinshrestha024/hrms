@@ -4,7 +4,7 @@ import { Controller, useForm } from 'react-hook-form';
 import {
   documentCategoryOptions,
   documetTempelate,
-} from '../../schema/AssignDocumentData';
+} from '../../schema/assign-document-data';
 import {
   uploadDocumentSchema,
   type UploadDocumentFormValue,
