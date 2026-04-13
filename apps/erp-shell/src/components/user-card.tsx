@@ -6,25 +6,27 @@ interface CardProps {
   employeeName?: string;
   employeeId?: string;
   department?: string;
+  className?: string;
 }
 
 export const UserCard = ({
   employeeName,
   employeeId,
   department,
+  className,
 }: CardProps) => {
   return (
     <>
       <HRCard
-        cardClassName="p-3 bg-muted rounded-xl shadow-none border-none"
+        cardClassName={`p-3 bg-muted rounded-xl shadow-none border-none ${className}`}
         cardContentClassName="flex gap-2  p-0"
       >
         <InitialsCard name={employeeName || ''} />
         <div className="flex flex-col gap-1">
-          <span className="text-[14px] leading-5 font-medium text-foreground">
+          <span className="text-[16px] leading-5 font-medium text-foreground">
             {employeeName}
           </span>
-          <span className="flex text-[12px] leading-4 font-medium text-foreground items-center">
+          <span className="flex text-[12px] leading-4 font-medium text-secondary-foreground items-center">
             {employeeId}{' '}
             <Dot className="text-[20px] text-secondary-foreground" />
             {department}

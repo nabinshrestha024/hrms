@@ -19,7 +19,6 @@ import {
   GitBranch,
   Clock,
   History,
-  Eye,
   FolderOpen,
   ListChecks,
   CalendarDays,
@@ -28,7 +27,6 @@ import {
   LogIn,
   LogOut,
   FileSearch,
-  Upload,
   Layers,
   Archive,
   Computer,
@@ -38,6 +36,10 @@ import {
   UserPlus,
   MapPinPlusInside,
   Network,
+  FileUp,
+  Files,
+  FileSearchCorner,
+  FileCheckCorner,
 } from 'lucide-react';
 
 export interface NavSubItem {
@@ -118,27 +120,39 @@ export const navModules: NavModule[] = [
     id: 'documents',
     label: 'Documents',
     icon: File,
-    href: '/documents/missing',
+    href: '/document-management/',
     modules: ['documents'],
     subItems: [
       {
         label: 'Missing Documents',
-        href: '/documents/missing',
-        icon: FileSearch,
+        href: '/document-management/',
+        icon: FileSearchCorner,
       },
       {
         label: 'Review & Approval',
-        href: '/documents/review',
-        icon: ListChecks,
+        href: '/document-management/review-approval',
+        icon: FileCheckCorner,
       },
-      { label: 'Document Upload', href: '/documents/upload', icon: Upload },
-      { label: 'Visibility', href: '/documents/visibility', icon: Eye },
+      {
+        label: 'Assign Documnet',
+        href: '/document-management/assign-document',
+        icon: FileUp,
+      },
       {
         label: 'Category Management',
-        href: '/documents/categories',
-        icon: FolderOpen,
+        href: '/document-management/category-management',
+        icon: Files,
       },
-      { label: 'Version History', href: '/documents/history', icon: History },
+      {
+        label: 'Version History',
+        href: '/document-management/version-history',
+        icon: FileText,
+      },
+      {
+        label: 'Document Template',
+        href: '/document-management/document-template',
+        icon: FileText,
+      },
     ],
   },
   {
