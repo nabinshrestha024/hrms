@@ -3,7 +3,14 @@ import { toast } from '@erp/ui';
 import { CloudUpload } from 'lucide-react';
 import { CreateTemplateField } from './create-template-field';
 
-export const documentTemplateFormConfig: FormViewConfig = {
+interface documentTemplateFormProps {
+  onSuccess?: () => void;
+  onCreateTemplate?: () => void;
+}
+
+export const documentTemplateFormConfig = (
+  onCreateTemplate?: () => void
+): FormViewConfig => ({
   entity: 'document-template',
 
   fields: [
@@ -36,7 +43,7 @@ export const documentTemplateFormConfig: FormViewConfig = {
 
   layout: {
     type: 'section',
-    header: <CreateTemplateField />,
+    header: <CreateTemplateField onClick={() => onCreateTemplate?.()} />,
     title: 'OR Upload File',
     children: [
       { type: 'field', name: 'documentTitle' },
@@ -44,14 +51,11 @@ export const documentTemplateFormConfig: FormViewConfig = {
       { type: 'field', name: 'image' },
     ],
   },
-};
-
-interface documentTemplateFormProps {
-  onSuccess?: () => void;
-}
+});
 
 export function DocumentTemplateForm({
   onSuccess,
+  onCreateTemplate,
 }: documentTemplateFormProps = {}) {
   const onsubmit = (_data: Record<string, unknown>) => {
     toast({
@@ -63,7 +67,7 @@ export function DocumentTemplateForm({
 
   return (
     <FormRenderer
-      config={documentTemplateFormConfig}
+      config={documentTemplateFormConfig(onCreateTemplate)}
       onSubmit={onsubmit}
       submitLabel="Create Document"
       isDialogForm={true}

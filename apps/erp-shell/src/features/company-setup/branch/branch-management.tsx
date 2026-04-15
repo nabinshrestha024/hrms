@@ -54,6 +54,7 @@ export const BranchManagement = () => {
               <Button
                 type="button"
                 variant="secondary"
+                size="lg"
                 className="text-[14px] font-medium leading-5 text-white"
               >
                 Add Branch
