@@ -15,6 +15,7 @@ export const EmployeeManagement = () => {
     <>
       <PageHeader
         title="Employee Management"
+        isSearch={true}
         isTabs={true}
         data={data}
         dropdownKey="branch"

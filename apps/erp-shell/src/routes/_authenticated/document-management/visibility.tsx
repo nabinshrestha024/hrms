@@ -1,17 +1,17 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { CategoryManagement } from '../../../features/document-management/category-management/category-management';
+import { VisibilityManagement } from '../../../features/document-management/visibility/visibility-management';
 
 export const Route = createFileRoute(
-  '/_authenticated/document-management/category-management'
+  '/_authenticated/document-management/visibility'
 )({
   component: RouteComponent,
-  beforeLoad: () => ({ breadcrumb: 'Category Management' }),
+  beforeLoad: () => ({ breadcrumb: 'Visibility' }),
 });
 
 function RouteComponent() {
   return (
     <div className="w-full max-h-[calc(100vh-120px)] overflow-auto bg-background">
-      <CategoryManagement />
+      <VisibilityManagement />
     </div>
   );
 }

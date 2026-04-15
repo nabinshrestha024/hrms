@@ -1,19 +1,18 @@
 import { DocumentHeader } from '../../../components/document-management-header';
-import { missingDocumentData } from '../schema/MissingDocumnetData';
-import { MissingDocumentTable } from './table/missing-document-table';
+import { reviewApprovalData } from '../schema/ReviewApprovalData';
+import { ReviewApprovalCard } from './review-card';
 
-export const MissingDocumnetManagement = () => {
+export const ReviewApprovalManagement = () => {
   return (
     <>
       <DocumentHeader
-        data={missingDocumentData}
-        title="Missing Documents"
+        data={reviewApprovalData}
+        title="Review & Approval"
         isSearch={true}
-        renderTable={(filtered) => <MissingDocumentTable data={filtered} />}
+        renderTable={(filtered) => <ReviewApprovalCard data={filtered} />}
         dropdowns={[
-          { key: 'department', label: 'Department' },
-          { key: 'branch', label: 'Branch' },
-          { key: 'priority', label: 'Priority' },
+          { key: 'type', label: 'Document Type' },
+          { key: 'status', label: 'Status' },
         ]}
         filterFn={(data, search, dropdowns) => {
           return data.filter((item) => {

@@ -1,16 +1,16 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
 import { toast } from '@erp/ui';
 import { CloudUpload } from 'lucide-react';
+import { CreateTemplateField } from './create-template-field';
 
-export const uploadDocumentFormConfig: FormViewConfig = {
-  entity: 'upload-document',
+export const documentTemplateFormConfig: FormViewConfig = {
+  entity: 'document-template',
 
   fields: [
     {
-      name: 'documentTemplate',
+      name: 'documentTitle',
       type: 'text',
-      label: 'Document Name',
-      placeholder: 'Offer Letter',
+      label: 'Document Title',
       isRequired: true,
       validation: { required: true },
     },
@@ -32,42 +32,27 @@ export const uploadDocumentFormConfig: FormViewConfig = {
       label: 'Drag and drop to upload a file',
       subLabel: 'Supported formats: PDF, DOC, DOCX, JPG, PNG (Max 10MB)',
     },
-    {
-      name: 'date',
-      type: 'date',
-      label: 'Due Date',
-      placeholder: 'YYYY-MM-DD',
-      validation: { required: false },
-    },
-    {
-      name: 'note',
-      type: 'textarea',
-      label: 'Note for Employee',
-      placeholder: 'Type here',
-      subLabel: 'Less than 200 words',
-      validation: { required: false, max: 200 },
-    },
   ],
 
   layout: {
     type: 'section',
+    header: <CreateTemplateField />,
+    title: 'OR Upload File',
     children: [
-      { type: 'field', name: 'documentTemplate' },
+      { type: 'field', name: 'documentTitle' },
       { type: 'field', name: 'documentCategory' },
       { type: 'field', name: 'image' },
-      { type: 'field', name: 'date' },
-      { type: 'field', name: 'note' },
     ],
   },
 };
 
-interface UploadDocumentFormProps {
+interface documentTemplateFormProps {
   onSuccess?: () => void;
 }
 
-export function UploadDocumentForm({
+export function DocumentTemplateForm({
   onSuccess,
-}: UploadDocumentFormProps = {}) {
+}: documentTemplateFormProps = {}) {
   const onsubmit = (_data: Record<string, unknown>) => {
     toast({
       variant: 'success',
@@ -78,9 +63,9 @@ export function UploadDocumentForm({
 
   return (
     <FormRenderer
-      config={uploadDocumentFormConfig}
+      config={documentTemplateFormConfig}
       onSubmit={onsubmit}
-      submitLabel="Upload Document"
+      submitLabel="Create Document"
       isDialogForm={true}
     />
   );

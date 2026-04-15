@@ -52,6 +52,7 @@ export const DepartmentManagement = () => {
       <PageHeader
         title="Department Management"
         isTabs={false}
+        isSearch={true}
         data={data}
         actionComponent={
           <FormDialog

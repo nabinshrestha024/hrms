@@ -25,7 +25,7 @@ import { Route as AuthenticatedEmployeeIndexRouteImport } from './routes/_authen
 import { Route as AuthenticatedDocumentManagementIndexRouteImport } from './routes/_authenticated/document-management/index'
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
 import { Route as AuthenticatedCompanySetupIndexRouteImport } from './routes/_authenticated/company-setup/index'
-import { Route as AuthenticatedDocumentManagementVersionHistoryRouteImport } from './routes/_authenticated/document-management/version-history'
+import { Route as AuthenticatedDocumentManagementVisibilityRouteImport } from './routes/_authenticated/document-management/visibility'
 import { Route as AuthenticatedDocumentManagementReviewApprovalRouteImport } from './routes/_authenticated/document-management/review-approval'
 import { Route as AuthenticatedDocumentManagementDocumentTemplateRouteImport } from './routes/_authenticated/document-management/document-template'
 import { Route as AuthenticatedDocumentManagementCategoryManagementRouteImport } from './routes/_authenticated/document-management/category-management'
@@ -120,10 +120,10 @@ const AuthenticatedCompanySetupIndexRoute =
     path: '/company-setup/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
-const AuthenticatedDocumentManagementVersionHistoryRoute =
-  AuthenticatedDocumentManagementVersionHistoryRouteImport.update({
-    id: '/document-management/version-history',
-    path: '/document-management/version-history',
+const AuthenticatedDocumentManagementVisibilityRoute =
+  AuthenticatedDocumentManagementVisibilityRouteImport.update({
+    id: '/document-management/visibility',
+    path: '/document-management/visibility',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedDocumentManagementReviewApprovalRoute =
@@ -199,7 +199,7 @@ export interface FileRoutesByFullPath {
   '/document-management/category-management': typeof AuthenticatedDocumentManagementCategoryManagementRoute
   '/document-management/document-template': typeof AuthenticatedDocumentManagementDocumentTemplateRoute
   '/document-management/review-approval': typeof AuthenticatedDocumentManagementReviewApprovalRoute
-  '/document-management/version-history': typeof AuthenticatedDocumentManagementVersionHistoryRoute
+  '/document-management/visibility': typeof AuthenticatedDocumentManagementVisibilityRoute
   '/company-setup/': typeof AuthenticatedCompanySetupIndexRoute
   '/dashboard/': typeof AuthenticatedDashboardIndexRoute
   '/document-management/': typeof AuthenticatedDocumentManagementIndexRoute
@@ -226,7 +226,7 @@ export interface FileRoutesByTo {
   '/document-management/category-management': typeof AuthenticatedDocumentManagementCategoryManagementRoute
   '/document-management/document-template': typeof AuthenticatedDocumentManagementDocumentTemplateRoute
   '/document-management/review-approval': typeof AuthenticatedDocumentManagementReviewApprovalRoute
-  '/document-management/version-history': typeof AuthenticatedDocumentManagementVersionHistoryRoute
+  '/document-management/visibility': typeof AuthenticatedDocumentManagementVisibilityRoute
   '/company-setup': typeof AuthenticatedCompanySetupIndexRoute
   '/dashboard': typeof AuthenticatedDashboardIndexRoute
   '/document-management': typeof AuthenticatedDocumentManagementIndexRoute
@@ -255,7 +255,7 @@ export interface FileRoutesById {
   '/_authenticated/document-management/category-management': typeof AuthenticatedDocumentManagementCategoryManagementRoute
   '/_authenticated/document-management/document-template': typeof AuthenticatedDocumentManagementDocumentTemplateRoute
   '/_authenticated/document-management/review-approval': typeof AuthenticatedDocumentManagementReviewApprovalRoute
-  '/_authenticated/document-management/version-history': typeof AuthenticatedDocumentManagementVersionHistoryRoute
+  '/_authenticated/document-management/visibility': typeof AuthenticatedDocumentManagementVisibilityRoute
   '/_authenticated/company-setup/': typeof AuthenticatedCompanySetupIndexRoute
   '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
   '/_authenticated/document-management/': typeof AuthenticatedDocumentManagementIndexRoute
@@ -284,7 +284,7 @@ export interface FileRouteTypes {
     | '/document-management/category-management'
     | '/document-management/document-template'
     | '/document-management/review-approval'
-    | '/document-management/version-history'
+    | '/document-management/visibility'
     | '/company-setup/'
     | '/dashboard/'
     | '/document-management/'
@@ -311,7 +311,7 @@ export interface FileRouteTypes {
     | '/document-management/category-management'
     | '/document-management/document-template'
     | '/document-management/review-approval'
-    | '/document-management/version-history'
+    | '/document-management/visibility'
     | '/company-setup'
     | '/dashboard'
     | '/document-management'
@@ -339,7 +339,7 @@ export interface FileRouteTypes {
     | '/_authenticated/document-management/category-management'
     | '/_authenticated/document-management/document-template'
     | '/_authenticated/document-management/review-approval'
-    | '/_authenticated/document-management/version-history'
+    | '/_authenticated/document-management/visibility'
     | '/_authenticated/company-setup/'
     | '/_authenticated/dashboard/'
     | '/_authenticated/document-management/'
@@ -470,11 +470,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCompanySetupIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/document-management/version-history': {
-      id: '/_authenticated/document-management/version-history'
-      path: '/document-management/version-history'
-      fullPath: '/document-management/version-history'
-      preLoaderRoute: typeof AuthenticatedDocumentManagementVersionHistoryRouteImport
+    '/_authenticated/document-management/visibility': {
+      id: '/_authenticated/document-management/visibility'
+      path: '/document-management/visibility'
+      fullPath: '/document-management/visibility'
+      preLoaderRoute: typeof AuthenticatedDocumentManagementVisibilityRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/document-management/review-approval': {
@@ -558,7 +558,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedDocumentManagementCategoryManagementRoute: typeof AuthenticatedDocumentManagementCategoryManagementRoute
   AuthenticatedDocumentManagementDocumentTemplateRoute: typeof AuthenticatedDocumentManagementDocumentTemplateRoute
   AuthenticatedDocumentManagementReviewApprovalRoute: typeof AuthenticatedDocumentManagementReviewApprovalRoute
-  AuthenticatedDocumentManagementVersionHistoryRoute: typeof AuthenticatedDocumentManagementVersionHistoryRoute
+  AuthenticatedDocumentManagementVisibilityRoute: typeof AuthenticatedDocumentManagementVisibilityRoute
   AuthenticatedCompanySetupIndexRoute: typeof AuthenticatedCompanySetupIndexRoute
   AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
   AuthenticatedDocumentManagementIndexRoute: typeof AuthenticatedDocumentManagementIndexRoute
@@ -588,8 +588,8 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
     AuthenticatedDocumentManagementDocumentTemplateRoute,
   AuthenticatedDocumentManagementReviewApprovalRoute:
     AuthenticatedDocumentManagementReviewApprovalRoute,
-  AuthenticatedDocumentManagementVersionHistoryRoute:
-    AuthenticatedDocumentManagementVersionHistoryRoute,
+  AuthenticatedDocumentManagementVisibilityRoute:
+    AuthenticatedDocumentManagementVisibilityRoute,
   AuthenticatedCompanySetupIndexRoute: AuthenticatedCompanySetupIndexRoute,
   AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
   AuthenticatedDocumentManagementIndexRoute:

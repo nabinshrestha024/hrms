@@ -1,4 +1,4 @@
-import { ActionDropdown, SearchBar } from '@erp/ui';
+import { ActionDropdown, DatePicker, SearchBar } from '@erp/ui';
 import { ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 
@@ -9,6 +9,8 @@ interface DropdownConfig<T> {
 
 interface DocumentHeaderProps<T> {
   title: string;
+  isSearch?: boolean;
+  sortByDate?: boolean;
   data: T[];
   dropdowns?: DropdownConfig<T>[];
   onAdd?: () => void;
@@ -26,6 +28,8 @@ export function DocumentHeader<T>({
   onAdd,
   renderTable,
   filterFn,
+  isSearch,
+  sortByDate,
   dropdowns,
 }: DocumentHeaderProps<T>) {
   const [search, setSearch] = useState('');
@@ -67,12 +71,14 @@ export function DocumentHeader<T>({
         <div className="text-[20px] font-semibold">{title}</div>
 
         <div className="flex gap-4 items-center">
-          <SearchBar
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search..."
-            className="w-58 h-10"
-          />
+          {isSearch && (
+            <SearchBar
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search..."
+              className="w-58 h-10"
+            />
+          )}
 
           {dropdowns?.map((dropdownItem) => {
             const key = String(dropdownItem.key);
@@ -94,6 +100,12 @@ export function DocumentHeader<T>({
               />
             );
           })}
+          {sortByDate && (
+            <DatePicker
+              placeholder="Jan 20, 2023 - Feb 09, 2023"
+              className="px-4 py-2.5 border-[#E4E4E7]"
+            />
+          )}
         </div>
       </div>
       {renderTable(filteredData)}

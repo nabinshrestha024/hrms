@@ -15,11 +15,12 @@ export function TextareaWidget({ field, form, disabled }: WidgetProps) {
           {...formField}
           value={typeof formField.value === 'string' ? formField.value : ''}
           disabled={disabled}
-          placeholder="Type here"
+          placeholder={field.placeholder || 'Type here'}
           Label={field.label}
           isRequired={field.isRequired}
           error={errorMessage}
           subLabel={field.subLabel}
+          textAreaClassName={field.textAreaClassName}
         />
       )}
     />

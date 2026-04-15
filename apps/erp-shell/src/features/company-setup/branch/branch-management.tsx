@@ -43,6 +43,7 @@ export const BranchManagement = () => {
     <>
       <PageHeader
         title="Branch Management"
+        isSearch={true}
         isTabs={true}
         data={data}
         dropdownKey="branch"

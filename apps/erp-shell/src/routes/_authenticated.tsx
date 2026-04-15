@@ -46,7 +46,7 @@ export const Route = createFileRoute('/_authenticated')({
     if (!isAuthenticated) {
       throw redirect({ to: '/login' });
     }
-    return { breadcrumb: 'Home' };
+    return { breadcrumb: 'Dashboard' };
   },
 });
 

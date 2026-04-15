@@ -9,10 +9,10 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: 'px-4 py-2 bg-muted rounded-xl',
-        destructive: 'px-2 py-1.5 text-black  ',
+        destructive: 'px-2 py-1.5 text-white bg-badge-text-3 rounded-xl',
         outline:
           'px-3.5 py-3 rounded-lg  border border-border dark:border-input dark:bg-input/30 dark:hover:bg-input/50',
-        primary: '',
+        primary: 'px-4 py-2.5 bg-badge-text-7 rounded-xl text-white',
         secondary: 'px-4 py-2.5 bg-primary rounded-xl text-white',
         ghost:
           'bg:white hover:bg-muted hover:text-accent-foreground dark:hover:bg-accent/50',

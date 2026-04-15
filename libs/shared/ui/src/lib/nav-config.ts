@@ -134,19 +134,19 @@ export const navModules: NavModule[] = [
         icon: FileCheckCorner,
       },
       {
-        label: 'Assign Documnet',
+        label: 'Assign Document',
         href: '/document-management/assign-document',
         icon: FileUp,
+      },
+      {
+        label: 'Visibility',
+        href: '/document-management/visibility',
+        icon: File,
       },
       {
         label: 'Category Management',
         href: '/document-management/category-management',
         icon: Files,
-      },
-      {
-        label: 'Version History',
-        href: '/document-management/version-history',
-        icon: FileText,
       },
       {
         label: 'Document Template',

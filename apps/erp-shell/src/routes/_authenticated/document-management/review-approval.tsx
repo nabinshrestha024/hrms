@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
+import { ReviewApprovalManagement } from '../../../features/document-management/review-approval/review-approval-management';
 
 export const Route = createFileRoute(
   '/_authenticated/document-management/review-approval'
@@ -9,6 +10,8 @@ export const Route = createFileRoute(
 
 function RouteComponent() {
   return (
-    <div>Hello "/_authenticated/document-management/review-approval"!</div>
+    <div className="w-full max-h-[calc(100vh-120px)] overflow-auto bg-background">
+      <ReviewApprovalManagement />
+    </div>
   );
 }

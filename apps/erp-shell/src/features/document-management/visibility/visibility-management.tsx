@@ -1,19 +1,18 @@
 import { DocumentHeader } from '../../../components/document-management-header';
-import { missingDocumentData } from '../schema/MissingDocumnetData';
-import { MissingDocumentTable } from './table/missing-document-table';
+import { visibilityData } from '../schema/VisibilityData';
+import { VisbilityTable } from './table/visibility-table';
 
-export const MissingDocumnetManagement = () => {
+export const VisibilityManagement = () => {
   return (
     <>
       <DocumentHeader
-        data={missingDocumentData}
-        title="Missing Documents"
-        isSearch={true}
-        renderTable={(filtered) => <MissingDocumentTable data={filtered} />}
+        data={visibilityData}
+        title="Document Visibility"
+        sortByDate={true}
+        renderTable={(filtered) => <VisbilityTable data={filtered} />}
         dropdowns={[
-          { key: 'department', label: 'Department' },
-          { key: 'branch', label: 'Branch' },
-          { key: 'priority', label: 'Priority' },
+          { key: 'category', label: 'All Category' },
+          { key: 'visibility', label: 'Status' },
         ]}
         filterFn={(data, search, dropdowns) => {
           return data.filter((item) => {
@@ -25,7 +24,6 @@ export const MissingDocumnetManagement = () => {
               ([key, value]) =>
                 !value || String(item[key as keyof typeof item]) === value
             );
-
             return matchesSearch && matchesDropdowns;
           });
         }}
