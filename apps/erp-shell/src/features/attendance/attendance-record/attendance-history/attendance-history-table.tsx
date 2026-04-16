@@ -1,0 +1,30 @@
+import { DataTable } from '@erp/ui';
+import { AttendanceListRecord } from '../../schema/AttendanceListData';
+import { useAttendanceHistoryTable } from './use-attendance-history-table';
+import { AttendanceListTable } from '../attendance-list/attendance-list-table';
+
+interface AttendanceHistoryTableProps {
+  data: AttendanceListRecord[];
+}
+
+export const AttendanceHistoryTable = ({
+  data,
+}: AttendanceHistoryTableProps) => {
+  const { columns, table, showTable } = useAttendanceHistoryTable({
+    data,
+  });
+
+  return (
+    <>
+      {showTable ? (
+        <AttendanceListTable data={data} />
+      ) : (
+        <DataTable
+          table={table.table}
+          columns={columns}
+          className="p-0 rounded-none"
+        />
+      )}
+    </>
+  );
+};

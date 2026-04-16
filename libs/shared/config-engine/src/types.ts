@@ -11,6 +11,7 @@ export type FieldType =
   | 'relation'
   | 'richtext'
   | 'file'
+  | 'time'
   | 'textarea';
 
 export interface FieldDefinition {

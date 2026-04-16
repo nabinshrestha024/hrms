@@ -38,6 +38,8 @@ import {
   UserPlus,
   MapPinPlusInside,
   Network,
+  BriefcaseBusiness,
+  SquareUser,
 } from 'lucide-react';
 
 export interface NavSubItem {
@@ -148,14 +150,18 @@ export const navModules: NavModule[] = [
     href: '/attendance',
     modules: ['attendance'],
     subItems: [
-      { label: 'My Attendance', href: '/attendance/my', icon: UserCheck },
-      { label: 'Work Record', href: '/attendance/work-record', icon: Clock },
+      { label: 'Attendance Record', href: '/attendance', icon: UserSearch },
       {
-        label: 'Attendance Today',
-        href: '/attendance/today',
-        icon: CalendarDays,
+        label: 'Work Record',
+        href: '/attendance/work-record',
+        icon: BriefcaseBusiness,
       },
-      { label: 'History', href: '/attendance/history', icon: History },
+
+      {
+        label: 'My Attendance',
+        href: '/attendance/my-attendance',
+        icon: SquareUser,
+      },
     ],
   },
   {

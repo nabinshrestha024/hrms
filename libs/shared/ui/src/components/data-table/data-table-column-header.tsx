@@ -36,7 +36,7 @@ function DataTableColumnHeader<TData, TValue>({
           <Button
             variant="ghost"
             size="sm"
-            className="h-8 data-[state=open]:bg-accent has-[>svg]:px-0 hover:bg-none"
+            className="h-8 data-[state=open]:bg-accent has-[>svg]:px-0 hover:bg-transparent"
           >
             <span>{title}</span>
             {column.getCanSort() && (
