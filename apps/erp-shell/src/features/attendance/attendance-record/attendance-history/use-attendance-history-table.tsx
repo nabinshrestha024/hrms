@@ -11,9 +11,11 @@ export function useAttendanceHistoryTable({
   data,
 }: AttendanceHistoryTableProps) {
   const [showTable, setShowTable] = useState(false);
-
+  const [selectedEmployeeId, setSelectedEmployeeId] = useState<string | null>(
+    null
+  );
   const columns = useMemo(
-    () => getAttendanceHistoryColumn(setShowTable),
+    () => getAttendanceHistoryColumn(setShowTable, setSelectedEmployeeId),
     [setShowTable]
   );
 
@@ -24,10 +26,15 @@ export function useAttendanceHistoryTable({
     getRowId: (row) => row.employeeId,
   });
 
+  const filteredData = selectedEmployeeId
+    ? data.filter((item) => item.employeeId === selectedEmployeeId)
+    : [];
   return {
     table,
     columns,
     showTable,
     setShowTable,
+    filteredData,
+    setSelectedEmployeeId,
   };
 }

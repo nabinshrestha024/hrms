@@ -5,7 +5,8 @@ import type { AttendanceListRecord } from '../../schema/AttendanceListData';
 import { DataTableColumnHeader } from '@erp/ui';
 
 export function getAttendanceHistoryColumn(
-  setShowTable: React.Dispatch<React.SetStateAction<boolean>>
+  setShowTable: React.Dispatch<React.SetStateAction<boolean>>,
+  setSelectedEmployeeId: React.Dispatch<React.SetStateAction<string | null>>
 ): ColumnDef<AttendanceListRecord>[] {
   return [
     {
@@ -59,11 +60,21 @@ export function getAttendanceHistoryColumn(
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Action" />
       ),
-      cell: () => (
-        <IconButton variant="default" onClick={() => setShowTable(true)}>
-          <Eye className="w-4 h-4 text-foreground " />
-        </IconButton>
-      ),
+      cell: ({ row }) => {
+        const employeeId = row.getValue('employeeId') as string;
+
+        return (
+          <IconButton
+            variant="default"
+            onClick={() => {
+              setSelectedEmployeeId(employeeId);
+              setShowTable(true);
+            }}
+          >
+            <Eye className="w-4 h-4 text-foreground" />
+          </IconButton>
+        );
+      },
     },
   ];
 }

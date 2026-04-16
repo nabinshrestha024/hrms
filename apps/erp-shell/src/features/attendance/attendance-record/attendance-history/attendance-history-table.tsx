@@ -10,14 +10,16 @@ interface AttendanceHistoryTableProps {
 export const AttendanceHistoryTable = ({
   data,
 }: AttendanceHistoryTableProps) => {
-  const { columns, table, showTable } = useAttendanceHistoryTable({
-    data,
-  });
+  const { columns, table, showTable, filteredData } = useAttendanceHistoryTable(
+    {
+      data,
+    }
+  );
 
   return (
     <>
       {showTable ? (
-        <AttendanceListTable data={data} />
+        <AttendanceListTable data={filteredData} />
       ) : (
         <DataTable
           table={table.table}
