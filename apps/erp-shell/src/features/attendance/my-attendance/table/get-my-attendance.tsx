@@ -6,7 +6,10 @@ import { IconButton } from '../../../../components/icon-button';
 import { AddTimeRequestForm } from '../add-time-request-form';
 import { AddLeaveRequestForm } from '../add-leave-request-form';
 
-export function getMyAttendanceColumns(): ColumnDef<AttendanceListRecord>[] {
+export function getMyAttendanceColumns(): ColumnDef<
+  AttendanceListRecord,
+  unknown
+>[] {
   return [
     {
       accessorKey: 'date',
@@ -38,16 +41,16 @@ export function getMyAttendanceColumns(): ColumnDef<AttendanceListRecord>[] {
         const value = info.getValue() as string;
 
         const isPresent = value?.toLowerCase() === 'present';
+        const isLeave = value?.toLowerCase() === 'leave';
+        const isOff = value?.toLowerCase() === 'off';
 
         return (
           <div
             className={`px-3 py-0.5 rounded-[400px] text-[14px] font-semibold leading-4 text-center `}
           >
-            {isPresent ? (
-              <Badge variant="secondary">Present </Badge>
-            ) : (
-              <Badge variant="primary">Leave</Badge>
-            )}
+            {isPresent && <Badge variant="secondary">Present </Badge>}
+            {isLeave && <Badge variant="destructive">Absent</Badge>}
+            {isOff && <Badge variant="default">Off</Badge>}
           </div>
         );
       },
@@ -88,11 +91,11 @@ export function getMyAttendanceColumns(): ColumnDef<AttendanceListRecord>[] {
       cell: ({ row }) => <>{row.getValue('earlyLeave')}</>,
     },
     {
-      accessorKey: 'OTIn',
+      accessorKey: 'oTIn',
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="OT In" />
       ),
-      cell: ({ row }) => <>{row.getValue('OTIn')}</>,
+      cell: ({ row }) => <>{row.getValue('oTIn')}</>,
     },
     {
       accessorKey: 'otOut',
@@ -102,11 +105,11 @@ export function getMyAttendanceColumns(): ColumnDef<AttendanceListRecord>[] {
       cell: ({ row }) => <>{row.getValue('otOut')}</>,
     },
     {
-      accessorKey: 'overTimeHours',
+      accessorKey: 'overtime',
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Overtime Hours" />
       ),
-      cell: ({ row }) => <>{row.getValue('overTimeHours')}</>,
+      cell: ({ row }) => <>{row.getValue('overtime')}</>,
     },
     {
       accessorKey: 'event',

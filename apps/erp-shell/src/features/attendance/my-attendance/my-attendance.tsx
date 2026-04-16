@@ -2,7 +2,7 @@ import { HRCard } from '@erp/ui';
 import { cardData } from '../../employee/schema/attendance-card-data';
 import { MyAttendanceTable } from './table/my-attendance-table';
 import { TableHeader } from '../../../components/table-header';
-import { attendanceListData } from '../schema/AttendanceListData';
+import { attendanceRecord } from '../schema/MyAttendanceData';
 
 export const MyAttendanceDetails = () => {
   return (
@@ -26,7 +26,7 @@ export const MyAttendanceDetails = () => {
         <TableHeader
           headerClassName="gap-6"
           className="justify-end"
-          data={attendanceListData}
+          data={attendanceRecord}
           renderTable={(filtered) => <MyAttendanceTable data={filtered} />}
           sortByDate={true}
         />

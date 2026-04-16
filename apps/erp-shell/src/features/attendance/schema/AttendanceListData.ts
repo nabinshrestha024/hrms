@@ -39,7 +39,7 @@ export const attendanceListData: AttendanceListRecord[] = [
     overTimeHours: '00:00',
     event: 'Normal',
     remarks: '',
-    status: 'Leave',
+    status: 'Absent',
   },
   {
     employeeId: 'E003',
@@ -102,7 +102,7 @@ export const attendanceListData: AttendanceListRecord[] = [
     overTimeHours: '00:00',
     event: 'Early Leave',
     remarks: 'Left early due to personal reason',
-    status: 'Leave',
+    status: 'Absent',
   },
   {
     employeeId: 'E006',
@@ -144,7 +144,7 @@ export const attendanceListData: AttendanceListRecord[] = [
     overTimeHours: '00:00',
     event: 'Early Leave',
     remarks: 'Medical appointment',
-    status: 'Leave',
+    status: 'Absent',
   },
   {
     employeeId: 'E008',

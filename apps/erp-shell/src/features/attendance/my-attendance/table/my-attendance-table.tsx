@@ -1,9 +1,9 @@
 import { DataTable } from '@erp/ui';
-import { AttendanceListRecord } from '../../schema/AttendanceListData';
 import { useMyAttendanceTable } from './use-my-attendance-table';
+import { Attendance } from '../../schema/MyAttendanceData';
 
 interface MyAttendanceTableProps {
-  data: AttendanceListRecord[];
+  data: Attendance[];
 }
 
 export const MyAttendanceTable = ({ data }: MyAttendanceTableProps) => {

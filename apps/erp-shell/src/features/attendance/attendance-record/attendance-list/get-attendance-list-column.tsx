@@ -73,7 +73,7 @@ export function getAttendanceListColumn(): ColumnDef<AttendanceListRecord>[] {
             {isPresent ? (
               <Badge variant="secondary">Present </Badge>
             ) : (
-              <Badge variant="primary">Leave</Badge>
+              <Badge variant="destructive">Absent</Badge>
             )}
           </div>
         );

@@ -1,19 +1,19 @@
 import { useServerTableState } from '@erp/ui';
-import { AttendanceListRecord } from '../../schema/AttendanceListData';
 import { getMyAttendanceColumns } from './get-my-attendance';
+import { Attendance } from '../../schema/MyAttendanceData';
 
 interface MyAttendanceTableProps {
-  data: AttendanceListRecord[];
+  data: Attendance[];
 }
 
 export function useMyAttendanceTable({ data }: MyAttendanceTableProps) {
-  const columns = getMyAttendanceColumns();
+  const columns = getMyAttendanceColumns() as any;
 
-  const table = useServerTableState<AttendanceListRecord>({
+  const table = useServerTableState<Attendance>({
     data,
     totalCount: data.length,
     columns,
-    getRowId: (row) => row.employeeId,
+    getRowId: (row) => row.date,
   });
 
   return {

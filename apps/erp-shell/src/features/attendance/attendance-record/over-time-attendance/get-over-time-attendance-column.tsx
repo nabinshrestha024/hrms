@@ -71,7 +71,7 @@ export function getOverTimeAttendanceColumn(): ColumnDef<AttendanceListRecord>[]
             {value ? (
               <Badge variant="secondary">Present </Badge>
             ) : (
-              <Badge variant="primary">Leave</Badge>
+              <Badge variant="destructive">Absent</Badge>
             )}
           </div>
         );
