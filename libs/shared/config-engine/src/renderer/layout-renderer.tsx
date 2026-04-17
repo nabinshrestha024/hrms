@@ -25,8 +25,11 @@ export function LayoutRenderer({
     case 'section':
       return (
         <fieldset className={`space-y-4 ${fieldsetClassName}`}>
+          {node.header && <div>{node.header}</div>}
           {node.title && (
-            <legend className="text-lg font-semibold">{node.title}</legend>
+            <div className="text-[14px] leading-5 font-medium">
+              {node.title}
+            </div>
           )}
           {node.children.map((child, i) => (
             <LayoutRenderer

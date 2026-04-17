@@ -42,7 +42,9 @@
   --color-badge-text-3: var(--badge-text-3);
   --color-badge-text-4: var(--badge-text-4);
   --color-badge-text-5: var(--badge-text-5);
-  --color-badge-text-5: var(--badge-text-5);
+  --color-badge-text-6: var(--badge-text-6);
+  --color-badge-text-7: var(--badge-text-7);
+
   --color-card-text: var(--card-text);
   --color-outline: var(--outline);
   --color-sidebar: var(--sidebar);
@@ -115,6 +117,7 @@
   --badge-text-4: #ca8a04;
   --badge-text-5: #2563eb;
   --badge-text-6: #4b5563;
+  --badge-text-7: #00a63e;
 
   --radius: 0.5rem;
   --sidebar: oklch(0.07 0 0); /* #0D0E0F near-black */

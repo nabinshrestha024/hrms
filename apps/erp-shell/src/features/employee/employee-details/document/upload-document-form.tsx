@@ -3,7 +3,7 @@ import { toast } from '@erp/ui';
 import { CloudUpload } from 'lucide-react';
 
 export const uploadDocumentFormConfig: FormViewConfig = {
-  entity: 'uploadDocument',
+  entity: 'upload-document',
 
   fields: [
     {

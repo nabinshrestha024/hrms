@@ -31,11 +31,11 @@ export function DatePicker({
   placeholder = 'Pick a date',
 }: DatePickerProps) {
   const [internalDate, setInternalDate] = React.useState<DateRange | undefined>(
-    value || undefined
+    value
   );
 
   React.useEffect(() => {
-    setInternalDate(value || undefined);
+    setInternalDate(value);
   }, [value]);
 
   const selectedDate = value ?? internalDate;
@@ -51,9 +51,10 @@ export function DatePicker({
         <PopoverTrigger asChild className={className}>
           <Button
             variant="outline"
-            className={`px-2.5 font-normal border border-border bg-[#FFF] rounded-[6px] `}
+            className="px-2.5 font-normal border border-border bg-[#FFF] rounded-[6px] flex items-center gap-2"
           >
             <CalendarDays className="h-4 w-4 text-secondary-foreground" />
+
             {selectedDate?.from ? (
               selectedDate.to ? (
                 <>
@@ -64,14 +65,17 @@ export function DatePicker({
                 format(selectedDate.from, 'LLL dd, y')
               )
             ) : (
-              <span className={placeHolderClassName}>{placeholder}</span>
+              <span className={placeHolderClassName ?? 'text-muted-foreground'}>
+                {placeholder}
+              </span>
             )}
           </Button>
         </PopoverTrigger>
+
         <PopoverContent className="w-auto p-0" align="end">
           <Calendar
             mode="range"
-            defaultMonth={defaultMonth ?? selectedDate?.from}
+            defaultMonth={defaultMonth ?? selectedDate?.from ?? new Date()}
             selected={selectedDate}
             onSelect={handleSelect}
             numberOfMonths={numberOfMonths}

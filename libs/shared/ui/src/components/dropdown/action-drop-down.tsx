@@ -44,7 +44,7 @@ export const ActionDropdown = ({
               action.onClick?.();
               onOpenChange(false);
             }}
-            className={`text-[14px] font-normal leading-5 cursor-pointer text-secondary`}
+            className={`text-[14px] font-normal leading-5 cursor-pointer text-foreground`}
           >
             {action.label}
           </Button>

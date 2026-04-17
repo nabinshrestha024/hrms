@@ -22,8 +22,14 @@ import { Route as AuthenticatedDemoTableRouteImport } from './routes/_authentica
 import { Route as AuthenticatedDemoFormRouteImport } from './routes/_authenticated/demo-form'
 import { Route as AuthenticatedAttendanceRouteImport } from './routes/_authenticated/attendance'
 import { Route as AuthenticatedEmployeeIndexRouteImport } from './routes/_authenticated/employee/index'
+import { Route as AuthenticatedDocumentManagementIndexRouteImport } from './routes/_authenticated/document-management/index'
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
 import { Route as AuthenticatedCompanySetupIndexRouteImport } from './routes/_authenticated/company-setup/index'
+import { Route as AuthenticatedDocumentManagementVisibilityRouteImport } from './routes/_authenticated/document-management/visibility'
+import { Route as AuthenticatedDocumentManagementReviewApprovalRouteImport } from './routes/_authenticated/document-management/review-approval'
+import { Route as AuthenticatedDocumentManagementDocumentTemplateRouteImport } from './routes/_authenticated/document-management/document-template'
+import { Route as AuthenticatedDocumentManagementCategoryManagementRouteImport } from './routes/_authenticated/document-management/category-management'
+import { Route as AuthenticatedDocumentManagementAssignDocumentRouteImport } from './routes/_authenticated/document-management/assign-document'
 import { Route as AuthenticatedCompanySetupDepartmentRouteImport } from './routes/_authenticated/company-setup/department'
 import { Route as AuthenticatedCompanySetupBranchRouteImport } from './routes/_authenticated/company-setup/branch'
 import { Route as AuthenticatedEmployeeEmployeeDetailsIdRouteImport } from './routes/_authenticated/employee/employee-details.$id'
@@ -96,6 +102,12 @@ const AuthenticatedEmployeeIndexRoute =
     path: '/employee/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedDocumentManagementIndexRoute =
+  AuthenticatedDocumentManagementIndexRouteImport.update({
+    id: '/document-management/',
+    path: '/document-management/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedDashboardIndexRoute =
   AuthenticatedDashboardIndexRouteImport.update({
     id: '/dashboard/',
@@ -106,6 +118,36 @@ const AuthenticatedCompanySetupIndexRoute =
   AuthenticatedCompanySetupIndexRouteImport.update({
     id: '/company-setup/',
     path: '/company-setup/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedDocumentManagementVisibilityRoute =
+  AuthenticatedDocumentManagementVisibilityRouteImport.update({
+    id: '/document-management/visibility',
+    path: '/document-management/visibility',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedDocumentManagementReviewApprovalRoute =
+  AuthenticatedDocumentManagementReviewApprovalRouteImport.update({
+    id: '/document-management/review-approval',
+    path: '/document-management/review-approval',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedDocumentManagementDocumentTemplateRoute =
+  AuthenticatedDocumentManagementDocumentTemplateRouteImport.update({
+    id: '/document-management/document-template',
+    path: '/document-management/document-template',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedDocumentManagementCategoryManagementRoute =
+  AuthenticatedDocumentManagementCategoryManagementRouteImport.update({
+    id: '/document-management/category-management',
+    path: '/document-management/category-management',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedDocumentManagementAssignDocumentRoute =
+  AuthenticatedDocumentManagementAssignDocumentRouteImport.update({
+    id: '/document-management/assign-document',
+    path: '/document-management/assign-document',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedCompanySetupDepartmentRoute =
@@ -153,8 +195,14 @@ export interface FileRoutesByFullPath {
   '/tasks': typeof AuthenticatedTasksRoute
   '/company-setup/branch': typeof AuthenticatedCompanySetupBranchRoute
   '/company-setup/department': typeof AuthenticatedCompanySetupDepartmentRoute
+  '/document-management/assign-document': typeof AuthenticatedDocumentManagementAssignDocumentRoute
+  '/document-management/category-management': typeof AuthenticatedDocumentManagementCategoryManagementRoute
+  '/document-management/document-template': typeof AuthenticatedDocumentManagementDocumentTemplateRoute
+  '/document-management/review-approval': typeof AuthenticatedDocumentManagementReviewApprovalRoute
+  '/document-management/visibility': typeof AuthenticatedDocumentManagementVisibilityRoute
   '/company-setup/': typeof AuthenticatedCompanySetupIndexRoute
   '/dashboard/': typeof AuthenticatedDashboardIndexRoute
+  '/document-management/': typeof AuthenticatedDocumentManagementIndexRoute
   '/employee/': typeof AuthenticatedEmployeeIndexRoute
   '/employee/assign-approval/$id': typeof AuthenticatedEmployeeAssignApprovalIdRoute
   '/employee/document-view/$name': typeof AuthenticatedEmployeeDocumentViewNameRoute
@@ -174,8 +222,14 @@ export interface FileRoutesByTo {
   '/tasks': typeof AuthenticatedTasksRoute
   '/company-setup/branch': typeof AuthenticatedCompanySetupBranchRoute
   '/company-setup/department': typeof AuthenticatedCompanySetupDepartmentRoute
+  '/document-management/assign-document': typeof AuthenticatedDocumentManagementAssignDocumentRoute
+  '/document-management/category-management': typeof AuthenticatedDocumentManagementCategoryManagementRoute
+  '/document-management/document-template': typeof AuthenticatedDocumentManagementDocumentTemplateRoute
+  '/document-management/review-approval': typeof AuthenticatedDocumentManagementReviewApprovalRoute
+  '/document-management/visibility': typeof AuthenticatedDocumentManagementVisibilityRoute
   '/company-setup': typeof AuthenticatedCompanySetupIndexRoute
   '/dashboard': typeof AuthenticatedDashboardIndexRoute
+  '/document-management': typeof AuthenticatedDocumentManagementIndexRoute
   '/employee': typeof AuthenticatedEmployeeIndexRoute
   '/employee/assign-approval/$id': typeof AuthenticatedEmployeeAssignApprovalIdRoute
   '/employee/document-view/$name': typeof AuthenticatedEmployeeDocumentViewNameRoute
@@ -197,8 +251,14 @@ export interface FileRoutesById {
   '/_authenticated/tasks': typeof AuthenticatedTasksRoute
   '/_authenticated/company-setup/branch': typeof AuthenticatedCompanySetupBranchRoute
   '/_authenticated/company-setup/department': typeof AuthenticatedCompanySetupDepartmentRoute
+  '/_authenticated/document-management/assign-document': typeof AuthenticatedDocumentManagementAssignDocumentRoute
+  '/_authenticated/document-management/category-management': typeof AuthenticatedDocumentManagementCategoryManagementRoute
+  '/_authenticated/document-management/document-template': typeof AuthenticatedDocumentManagementDocumentTemplateRoute
+  '/_authenticated/document-management/review-approval': typeof AuthenticatedDocumentManagementReviewApprovalRoute
+  '/_authenticated/document-management/visibility': typeof AuthenticatedDocumentManagementVisibilityRoute
   '/_authenticated/company-setup/': typeof AuthenticatedCompanySetupIndexRoute
   '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
+  '/_authenticated/document-management/': typeof AuthenticatedDocumentManagementIndexRoute
   '/_authenticated/employee/': typeof AuthenticatedEmployeeIndexRoute
   '/_authenticated/employee/assign-approval/$id': typeof AuthenticatedEmployeeAssignApprovalIdRoute
   '/_authenticated/employee/document-view/$name': typeof AuthenticatedEmployeeDocumentViewNameRoute
@@ -220,8 +280,14 @@ export interface FileRouteTypes {
     | '/tasks'
     | '/company-setup/branch'
     | '/company-setup/department'
+    | '/document-management/assign-document'
+    | '/document-management/category-management'
+    | '/document-management/document-template'
+    | '/document-management/review-approval'
+    | '/document-management/visibility'
     | '/company-setup/'
     | '/dashboard/'
+    | '/document-management/'
     | '/employee/'
     | '/employee/assign-approval/$id'
     | '/employee/document-view/$name'
@@ -241,8 +307,14 @@ export interface FileRouteTypes {
     | '/tasks'
     | '/company-setup/branch'
     | '/company-setup/department'
+    | '/document-management/assign-document'
+    | '/document-management/category-management'
+    | '/document-management/document-template'
+    | '/document-management/review-approval'
+    | '/document-management/visibility'
     | '/company-setup'
     | '/dashboard'
+    | '/document-management'
     | '/employee'
     | '/employee/assign-approval/$id'
     | '/employee/document-view/$name'
@@ -263,8 +335,14 @@ export interface FileRouteTypes {
     | '/_authenticated/tasks'
     | '/_authenticated/company-setup/branch'
     | '/_authenticated/company-setup/department'
+    | '/_authenticated/document-management/assign-document'
+    | '/_authenticated/document-management/category-management'
+    | '/_authenticated/document-management/document-template'
+    | '/_authenticated/document-management/review-approval'
+    | '/_authenticated/document-management/visibility'
     | '/_authenticated/company-setup/'
     | '/_authenticated/dashboard/'
+    | '/_authenticated/document-management/'
     | '/_authenticated/employee/'
     | '/_authenticated/employee/assign-approval/$id'
     | '/_authenticated/employee/document-view/$name'
@@ -371,6 +449,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedEmployeeIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/document-management/': {
+      id: '/_authenticated/document-management/'
+      path: '/document-management'
+      fullPath: '/document-management/'
+      preLoaderRoute: typeof AuthenticatedDocumentManagementIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/dashboard/': {
       id: '/_authenticated/dashboard/'
       path: '/dashboard'
@@ -383,6 +468,41 @@ declare module '@tanstack/react-router' {
       path: '/company-setup'
       fullPath: '/company-setup/'
       preLoaderRoute: typeof AuthenticatedCompanySetupIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/document-management/visibility': {
+      id: '/_authenticated/document-management/visibility'
+      path: '/document-management/visibility'
+      fullPath: '/document-management/visibility'
+      preLoaderRoute: typeof AuthenticatedDocumentManagementVisibilityRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/document-management/review-approval': {
+      id: '/_authenticated/document-management/review-approval'
+      path: '/document-management/review-approval'
+      fullPath: '/document-management/review-approval'
+      preLoaderRoute: typeof AuthenticatedDocumentManagementReviewApprovalRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/document-management/document-template': {
+      id: '/_authenticated/document-management/document-template'
+      path: '/document-management/document-template'
+      fullPath: '/document-management/document-template'
+      preLoaderRoute: typeof AuthenticatedDocumentManagementDocumentTemplateRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/document-management/category-management': {
+      id: '/_authenticated/document-management/category-management'
+      path: '/document-management/category-management'
+      fullPath: '/document-management/category-management'
+      preLoaderRoute: typeof AuthenticatedDocumentManagementCategoryManagementRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/document-management/assign-document': {
+      id: '/_authenticated/document-management/assign-document'
+      path: '/document-management/assign-document'
+      fullPath: '/document-management/assign-document'
+      preLoaderRoute: typeof AuthenticatedDocumentManagementAssignDocumentRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/company-setup/department': {
@@ -434,8 +554,14 @@ interface AuthenticatedRouteChildren {
   AuthenticatedTasksRoute: typeof AuthenticatedTasksRoute
   AuthenticatedCompanySetupBranchRoute: typeof AuthenticatedCompanySetupBranchRoute
   AuthenticatedCompanySetupDepartmentRoute: typeof AuthenticatedCompanySetupDepartmentRoute
+  AuthenticatedDocumentManagementAssignDocumentRoute: typeof AuthenticatedDocumentManagementAssignDocumentRoute
+  AuthenticatedDocumentManagementCategoryManagementRoute: typeof AuthenticatedDocumentManagementCategoryManagementRoute
+  AuthenticatedDocumentManagementDocumentTemplateRoute: typeof AuthenticatedDocumentManagementDocumentTemplateRoute
+  AuthenticatedDocumentManagementReviewApprovalRoute: typeof AuthenticatedDocumentManagementReviewApprovalRoute
+  AuthenticatedDocumentManagementVisibilityRoute: typeof AuthenticatedDocumentManagementVisibilityRoute
   AuthenticatedCompanySetupIndexRoute: typeof AuthenticatedCompanySetupIndexRoute
   AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
+  AuthenticatedDocumentManagementIndexRoute: typeof AuthenticatedDocumentManagementIndexRoute
   AuthenticatedEmployeeIndexRoute: typeof AuthenticatedEmployeeIndexRoute
   AuthenticatedEmployeeAssignApprovalIdRoute: typeof AuthenticatedEmployeeAssignApprovalIdRoute
   AuthenticatedEmployeeDocumentViewNameRoute: typeof AuthenticatedEmployeeDocumentViewNameRoute
@@ -454,8 +580,20 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedCompanySetupBranchRoute: AuthenticatedCompanySetupBranchRoute,
   AuthenticatedCompanySetupDepartmentRoute:
     AuthenticatedCompanySetupDepartmentRoute,
+  AuthenticatedDocumentManagementAssignDocumentRoute:
+    AuthenticatedDocumentManagementAssignDocumentRoute,
+  AuthenticatedDocumentManagementCategoryManagementRoute:
+    AuthenticatedDocumentManagementCategoryManagementRoute,
+  AuthenticatedDocumentManagementDocumentTemplateRoute:
+    AuthenticatedDocumentManagementDocumentTemplateRoute,
+  AuthenticatedDocumentManagementReviewApprovalRoute:
+    AuthenticatedDocumentManagementReviewApprovalRoute,
+  AuthenticatedDocumentManagementVisibilityRoute:
+    AuthenticatedDocumentManagementVisibilityRoute,
   AuthenticatedCompanySetupIndexRoute: AuthenticatedCompanySetupIndexRoute,
   AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
+  AuthenticatedDocumentManagementIndexRoute:
+    AuthenticatedDocumentManagementIndexRoute,
   AuthenticatedEmployeeIndexRoute: AuthenticatedEmployeeIndexRoute,
   AuthenticatedEmployeeAssignApprovalIdRoute:
     AuthenticatedEmployeeAssignApprovalIdRoute,

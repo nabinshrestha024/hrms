@@ -2,7 +2,7 @@ import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
 import { toast } from '@erp/ui';
 
 export const assignDocumentFormConfig: FormViewConfig = {
-  entity: 'assignDocument',
+  entity: 'assign-document',
 
   fields: [
     {
