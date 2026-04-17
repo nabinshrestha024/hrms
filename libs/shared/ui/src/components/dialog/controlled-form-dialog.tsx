@@ -129,7 +129,7 @@ export function ControlledFormDialog({
         <HRCard
           cardClassName={cn(
             formContainerStyles({ size }),
-            'mt-4',
+            'mt-4 bg-white',
             componentClassName
           )}
           cardContentClassName="flex flex-col gap-4 p-0"

@@ -1,7 +1,7 @@
-import { AttendanceList } from './AttendanceList';
-import { AttendanceHistory } from './AttendanceHistory';
-import { AttendanceValidate } from './AttendanceValidate';
-import { OverTimeAttendance } from './OverTimeAttendance';
+import { AttendanceList } from './attendance-list';
+import { AttendanceHistory } from './attendance-history';
+import { AttendanceValidate } from './attendance-validate';
+import { OverTimeAttendance } from './over-time-attendance';
 import { HRTabs } from '@erp/ui';
 
 export const AttendanceDetail = () => {

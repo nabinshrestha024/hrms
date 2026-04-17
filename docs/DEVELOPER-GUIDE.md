@@ -533,12 +533,12 @@ export const Route = createFileRoute('/_authenticated/leave/requests')({
 For nested routes, each parent also defines its breadcrumb:
 
 ```
-_authenticated.tsx     → breadcrumb: 'Home'
+_authenticated.tsx     → breadcrumb: 'Dashboard'
 leave.tsx              → breadcrumb: 'Leave'
 leave/requests.tsx     → breadcrumb: 'Leave Requests'
 ```
 
-Result: `Home > Leave > Leave Requests`
+Result: `Dashboard > Leave > Leave Requests`
 
 ---
 

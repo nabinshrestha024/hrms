@@ -15,6 +15,7 @@ export const EmployeeManagement = () => {
     <>
       <PageHeader
         title="Employee Management"
+        isSearch={true}
         isTabs={true}
         data={data}
         dropdownKey="branch"
@@ -23,6 +24,7 @@ export const EmployeeManagement = () => {
           <Button
             type="button"
             variant="secondary"
+            size="lg"
             className="text-[14px] font-medium leading-5 text-white"
             onClick={() => setAddOpen(true)}
           >
