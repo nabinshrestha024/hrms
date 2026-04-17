@@ -1,4 +1,5 @@
 import { LucideIcon } from 'lucide-react';
+import { ReactNode } from 'react';
 import type { UseFormReturn } from 'react-hook-form';
 
 export type FieldType =
@@ -11,6 +12,7 @@ export type FieldType =
   | 'relation'
   | 'richtext'
   | 'file'
+  | 'time'
   | 'textarea';
 
 export interface FieldDefinition {
@@ -22,6 +24,7 @@ export interface FieldDefinition {
   icon?: LucideIcon;
   placeholder?: string;
   isRequired?: boolean;
+  textAreaClassName?: string;
   validation?: {
     required?: boolean | string;
     min?: number;
@@ -46,6 +49,7 @@ export type LayoutNode = SectionNode | ColumnsNode | FieldRef | DividerNode;
 export interface SectionNode {
   type: 'section';
   title?: string;
+  header?: ReactNode;
   collapsible?: boolean;
   visible?: string;
   children: LayoutNode[];

@@ -15,6 +15,7 @@ interface PageHeaderProps<T> {
   title: string;
   buttonName?: string;
   isTabs: boolean;
+  isSearch?: boolean;
   data: T[];
   onAdd?: () => void;
   renderCard: (data: T[]) => React.ReactNode;
@@ -35,6 +36,7 @@ export function PageHeader<T>({
   renderCard,
   renderTable,
   filterFn,
+  isSearch,
   dropdownKey,
   dropdownLabel,
 }: PageHeaderProps<T>) {
@@ -69,12 +71,14 @@ export function PageHeader<T>({
         <div className="text-[20px] font-semibold">{title}</div>
 
         <div className="flex gap-4 items-center">
-          <SearchBar
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search..."
-            className="w-58 h-10"
-          />
+          {isSearch && (
+            <SearchBar
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search..."
+              className="w-58 h-10"
+            />
+          )}
 
           {view === 'table' && dropdownKey && (
             <ActionDropdown

@@ -132,7 +132,7 @@ export function getEmployeeColumns({
               }
               title="Assign Access Template"
               size="lg"
-              formId="assignaccesstemplate-form"
+              formId="assign-access-template-form"
               okText="Save Changes"
               cancelText="Cancel"
               dialogClassName="sm:max-w-[465px]"

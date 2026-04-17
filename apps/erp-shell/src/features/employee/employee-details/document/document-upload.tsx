@@ -61,7 +61,7 @@ export const DocumentUpload = ({
               }
               title="Assign Document"
               size="lg"
-              formId="assigndocument-form"
+              formId="assign-document-form"
               okText="Add"
               cancelText="Cancel"
             >
@@ -82,7 +82,7 @@ export const DocumentUpload = ({
               }
               title="Upload Document"
               size="lg"
-              formId="uploaddocument-form"
+              formId="upload-document-form"
               okText="Add"
               cancelText="Cancel"
               dialogClassName="max-h-[100vh]"
