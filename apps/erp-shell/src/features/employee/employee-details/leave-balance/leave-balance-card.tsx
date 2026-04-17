@@ -73,9 +73,8 @@ export const LeaveBalanceCard = () => {
       <ControlledFormDialog
         open={detailsTarget !== null}
         onOpenChange={(open: boolean) => !open && setDetailsTarget(null)}
-        title="Leave Details"
         size="lg"
-        dialogClassName="sm:max-w-[738px]"
+        dialogClassName="sm:max-w-[738px] bg-white"
         componentClassName="p-0 mt-0 shadow-none border-none rounded-none"
       >
         {detailsTarget && <LeaveDetails leaveData={detailsTarget} />}

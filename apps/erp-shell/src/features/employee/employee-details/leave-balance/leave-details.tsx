@@ -13,7 +13,7 @@ export const LeaveDetails = ({ leaveData }: LeaveDetailsProps) => {
     <>
       <div className="flex flex-col">
         <HRCard
-          cardClassName="py-3 px-0 border-none shadow-none rounded-xl bg-[#FFF]"
+          cardClassName="py-3 px-0 border-none shadow-none rounded-none bg-[#FFF]"
           cardContentClassName="p-0 flex justify-between items-end"
         >
           <div className="flex gap-2 ">
