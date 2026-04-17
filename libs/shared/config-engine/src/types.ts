@@ -50,6 +50,7 @@ export interface SectionNode {
   type: 'section';
   title?: string;
   header?: ReactNode;
+  footer?: ReactNode;
   collapsible?: boolean;
   visible?: string;
   children: LayoutNode[];

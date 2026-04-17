@@ -17,14 +17,16 @@ import { Route as AuthenticatedTasksRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedRecruitmentRouteImport } from './routes/_authenticated/recruitment'
 import { Route as AuthenticatedPayrollRouteImport } from './routes/_authenticated/payroll'
-import { Route as AuthenticatedLeaveRouteImport } from './routes/_authenticated/leave'
 import { Route as AuthenticatedDemoTableRouteImport } from './routes/_authenticated/demo-table'
 import { Route as AuthenticatedDemoFormRouteImport } from './routes/_authenticated/demo-form'
+import { Route as AuthenticatedLeaveManagementIndexRouteImport } from './routes/_authenticated/leave-management/index'
 import { Route as AuthenticatedEmployeeIndexRouteImport } from './routes/_authenticated/employee/index'
 import { Route as AuthenticatedDocumentManagementIndexRouteImport } from './routes/_authenticated/document-management/index'
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
 import { Route as AuthenticatedCompanySetupIndexRouteImport } from './routes/_authenticated/company-setup/index'
 import { Route as AuthenticatedAttendanceIndexRouteImport } from './routes/_authenticated/attendance/index'
+import { Route as AuthenticatedLeaveManagementMyRequestRouteImport } from './routes/_authenticated/leave-management/my-request'
+import { Route as AuthenticatedLeaveManagementLeaveBalanceRouteImport } from './routes/_authenticated/leave-management/leave-balance'
 import { Route as AuthenticatedDocumentManagementVisibilityRouteImport } from './routes/_authenticated/document-management/visibility'
 import { Route as AuthenticatedDocumentManagementReviewApprovalRouteImport } from './routes/_authenticated/document-management/review-approval'
 import { Route as AuthenticatedDocumentManagementDocumentTemplateRouteImport } from './routes/_authenticated/document-management/document-template'
@@ -78,11 +80,6 @@ const AuthenticatedPayrollRoute = AuthenticatedPayrollRouteImport.update({
   path: '/payroll',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
-const AuthenticatedLeaveRoute = AuthenticatedLeaveRouteImport.update({
-  id: '/leave',
-  path: '/leave',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
 const AuthenticatedDemoTableRoute = AuthenticatedDemoTableRouteImport.update({
   id: '/demo-table',
   path: '/demo-table',
@@ -93,6 +90,12 @@ const AuthenticatedDemoFormRoute = AuthenticatedDemoFormRouteImport.update({
   path: '/demo-form',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedLeaveManagementIndexRoute =
+  AuthenticatedLeaveManagementIndexRouteImport.update({
+    id: '/leave-management/',
+    path: '/leave-management/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedEmployeeIndexRoute =
   AuthenticatedEmployeeIndexRouteImport.update({
     id: '/employee/',
@@ -121,6 +124,18 @@ const AuthenticatedAttendanceIndexRoute =
   AuthenticatedAttendanceIndexRouteImport.update({
     id: '/attendance/',
     path: '/attendance/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedLeaveManagementMyRequestRoute =
+  AuthenticatedLeaveManagementMyRequestRouteImport.update({
+    id: '/leave-management/my-request',
+    path: '/leave-management/my-request',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedLeaveManagementLeaveBalanceRoute =
+  AuthenticatedLeaveManagementLeaveBalanceRouteImport.update({
+    id: '/leave-management/leave-balance',
+    path: '/leave-management/leave-balance',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedDocumentManagementVisibilityRoute =
@@ -202,7 +217,6 @@ export interface FileRoutesByFullPath {
   '/unauthorized': typeof UnauthorizedRoute
   '/demo-form': typeof AuthenticatedDemoFormRoute
   '/demo-table': typeof AuthenticatedDemoTableRoute
-  '/leave': typeof AuthenticatedLeaveRoute
   '/payroll': typeof AuthenticatedPayrollRoute
   '/recruitment': typeof AuthenticatedRecruitmentRoute
   '/settings': typeof AuthenticatedSettingsRoute
@@ -216,11 +230,14 @@ export interface FileRoutesByFullPath {
   '/document-management/document-template': typeof AuthenticatedDocumentManagementDocumentTemplateRoute
   '/document-management/review-approval': typeof AuthenticatedDocumentManagementReviewApprovalRoute
   '/document-management/visibility': typeof AuthenticatedDocumentManagementVisibilityRoute
+  '/leave-management/leave-balance': typeof AuthenticatedLeaveManagementLeaveBalanceRoute
+  '/leave-management/my-request': typeof AuthenticatedLeaveManagementMyRequestRoute
   '/attendance/': typeof AuthenticatedAttendanceIndexRoute
   '/company-setup/': typeof AuthenticatedCompanySetupIndexRoute
   '/dashboard/': typeof AuthenticatedDashboardIndexRoute
   '/document-management/': typeof AuthenticatedDocumentManagementIndexRoute
   '/employee/': typeof AuthenticatedEmployeeIndexRoute
+  '/leave-management/': typeof AuthenticatedLeaveManagementIndexRoute
   '/employee/assign-approval/$id': typeof AuthenticatedEmployeeAssignApprovalIdRoute
   '/employee/document-view/$name': typeof AuthenticatedEmployeeDocumentViewNameRoute
   '/employee/employee-details/$id': typeof AuthenticatedEmployeeEmployeeDetailsIdRoute
@@ -231,7 +248,6 @@ export interface FileRoutesByTo {
   '/unauthorized': typeof UnauthorizedRoute
   '/demo-form': typeof AuthenticatedDemoFormRoute
   '/demo-table': typeof AuthenticatedDemoTableRoute
-  '/leave': typeof AuthenticatedLeaveRoute
   '/payroll': typeof AuthenticatedPayrollRoute
   '/recruitment': typeof AuthenticatedRecruitmentRoute
   '/settings': typeof AuthenticatedSettingsRoute
@@ -245,11 +261,14 @@ export interface FileRoutesByTo {
   '/document-management/document-template': typeof AuthenticatedDocumentManagementDocumentTemplateRoute
   '/document-management/review-approval': typeof AuthenticatedDocumentManagementReviewApprovalRoute
   '/document-management/visibility': typeof AuthenticatedDocumentManagementVisibilityRoute
+  '/leave-management/leave-balance': typeof AuthenticatedLeaveManagementLeaveBalanceRoute
+  '/leave-management/my-request': typeof AuthenticatedLeaveManagementMyRequestRoute
   '/attendance': typeof AuthenticatedAttendanceIndexRoute
   '/company-setup': typeof AuthenticatedCompanySetupIndexRoute
   '/dashboard': typeof AuthenticatedDashboardIndexRoute
   '/document-management': typeof AuthenticatedDocumentManagementIndexRoute
   '/employee': typeof AuthenticatedEmployeeIndexRoute
+  '/leave-management': typeof AuthenticatedLeaveManagementIndexRoute
   '/employee/assign-approval/$id': typeof AuthenticatedEmployeeAssignApprovalIdRoute
   '/employee/document-view/$name': typeof AuthenticatedEmployeeDocumentViewNameRoute
   '/employee/employee-details/$id': typeof AuthenticatedEmployeeEmployeeDetailsIdRoute
@@ -262,7 +281,6 @@ export interface FileRoutesById {
   '/unauthorized': typeof UnauthorizedRoute
   '/_authenticated/demo-form': typeof AuthenticatedDemoFormRoute
   '/_authenticated/demo-table': typeof AuthenticatedDemoTableRoute
-  '/_authenticated/leave': typeof AuthenticatedLeaveRoute
   '/_authenticated/payroll': typeof AuthenticatedPayrollRoute
   '/_authenticated/recruitment': typeof AuthenticatedRecruitmentRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
@@ -276,11 +294,14 @@ export interface FileRoutesById {
   '/_authenticated/document-management/document-template': typeof AuthenticatedDocumentManagementDocumentTemplateRoute
   '/_authenticated/document-management/review-approval': typeof AuthenticatedDocumentManagementReviewApprovalRoute
   '/_authenticated/document-management/visibility': typeof AuthenticatedDocumentManagementVisibilityRoute
+  '/_authenticated/leave-management/leave-balance': typeof AuthenticatedLeaveManagementLeaveBalanceRoute
+  '/_authenticated/leave-management/my-request': typeof AuthenticatedLeaveManagementMyRequestRoute
   '/_authenticated/attendance/': typeof AuthenticatedAttendanceIndexRoute
   '/_authenticated/company-setup/': typeof AuthenticatedCompanySetupIndexRoute
   '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
   '/_authenticated/document-management/': typeof AuthenticatedDocumentManagementIndexRoute
   '/_authenticated/employee/': typeof AuthenticatedEmployeeIndexRoute
+  '/_authenticated/leave-management/': typeof AuthenticatedLeaveManagementIndexRoute
   '/_authenticated/employee/assign-approval/$id': typeof AuthenticatedEmployeeAssignApprovalIdRoute
   '/_authenticated/employee/document-view/$name': typeof AuthenticatedEmployeeDocumentViewNameRoute
   '/_authenticated/employee/employee-details/$id': typeof AuthenticatedEmployeeEmployeeDetailsIdRoute
@@ -293,7 +314,6 @@ export interface FileRouteTypes {
     | '/unauthorized'
     | '/demo-form'
     | '/demo-table'
-    | '/leave'
     | '/payroll'
     | '/recruitment'
     | '/settings'
@@ -307,11 +327,14 @@ export interface FileRouteTypes {
     | '/document-management/document-template'
     | '/document-management/review-approval'
     | '/document-management/visibility'
+    | '/leave-management/leave-balance'
+    | '/leave-management/my-request'
     | '/attendance/'
     | '/company-setup/'
     | '/dashboard/'
     | '/document-management/'
     | '/employee/'
+    | '/leave-management/'
     | '/employee/assign-approval/$id'
     | '/employee/document-view/$name'
     | '/employee/employee-details/$id'
@@ -322,7 +345,6 @@ export interface FileRouteTypes {
     | '/unauthorized'
     | '/demo-form'
     | '/demo-table'
-    | '/leave'
     | '/payroll'
     | '/recruitment'
     | '/settings'
@@ -336,11 +358,14 @@ export interface FileRouteTypes {
     | '/document-management/document-template'
     | '/document-management/review-approval'
     | '/document-management/visibility'
+    | '/leave-management/leave-balance'
+    | '/leave-management/my-request'
     | '/attendance'
     | '/company-setup'
     | '/dashboard'
     | '/document-management'
     | '/employee'
+    | '/leave-management'
     | '/employee/assign-approval/$id'
     | '/employee/document-view/$name'
     | '/employee/employee-details/$id'
@@ -352,7 +377,6 @@ export interface FileRouteTypes {
     | '/unauthorized'
     | '/_authenticated/demo-form'
     | '/_authenticated/demo-table'
-    | '/_authenticated/leave'
     | '/_authenticated/payroll'
     | '/_authenticated/recruitment'
     | '/_authenticated/settings'
@@ -366,11 +390,14 @@ export interface FileRouteTypes {
     | '/_authenticated/document-management/document-template'
     | '/_authenticated/document-management/review-approval'
     | '/_authenticated/document-management/visibility'
+    | '/_authenticated/leave-management/leave-balance'
+    | '/_authenticated/leave-management/my-request'
     | '/_authenticated/attendance/'
     | '/_authenticated/company-setup/'
     | '/_authenticated/dashboard/'
     | '/_authenticated/document-management/'
     | '/_authenticated/employee/'
+    | '/_authenticated/leave-management/'
     | '/_authenticated/employee/assign-approval/$id'
     | '/_authenticated/employee/document-view/$name'
     | '/_authenticated/employee/employee-details/$id'
@@ -441,13 +468,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPayrollRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/leave': {
-      id: '/_authenticated/leave'
-      path: '/leave'
-      fullPath: '/leave'
-      preLoaderRoute: typeof AuthenticatedLeaveRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
     '/_authenticated/demo-table': {
       id: '/_authenticated/demo-table'
       path: '/demo-table'
@@ -460,6 +480,13 @@ declare module '@tanstack/react-router' {
       path: '/demo-form'
       fullPath: '/demo-form'
       preLoaderRoute: typeof AuthenticatedDemoFormRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/leave-management/': {
+      id: '/_authenticated/leave-management/'
+      path: '/leave-management'
+      fullPath: '/leave-management/'
+      preLoaderRoute: typeof AuthenticatedLeaveManagementIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/employee/': {
@@ -495,6 +522,20 @@ declare module '@tanstack/react-router' {
       path: '/attendance'
       fullPath: '/attendance/'
       preLoaderRoute: typeof AuthenticatedAttendanceIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/leave-management/my-request': {
+      id: '/_authenticated/leave-management/my-request'
+      path: '/leave-management/my-request'
+      fullPath: '/leave-management/my-request'
+      preLoaderRoute: typeof AuthenticatedLeaveManagementMyRequestRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/leave-management/leave-balance': {
+      id: '/_authenticated/leave-management/leave-balance'
+      path: '/leave-management/leave-balance'
+      fullPath: '/leave-management/leave-balance'
+      preLoaderRoute: typeof AuthenticatedLeaveManagementLeaveBalanceRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/document-management/visibility': {
@@ -587,7 +628,6 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteChildren {
   AuthenticatedDemoFormRoute: typeof AuthenticatedDemoFormRoute
   AuthenticatedDemoTableRoute: typeof AuthenticatedDemoTableRoute
-  AuthenticatedLeaveRoute: typeof AuthenticatedLeaveRoute
   AuthenticatedPayrollRoute: typeof AuthenticatedPayrollRoute
   AuthenticatedRecruitmentRoute: typeof AuthenticatedRecruitmentRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
@@ -601,11 +641,14 @@ interface AuthenticatedRouteChildren {
   AuthenticatedDocumentManagementDocumentTemplateRoute: typeof AuthenticatedDocumentManagementDocumentTemplateRoute
   AuthenticatedDocumentManagementReviewApprovalRoute: typeof AuthenticatedDocumentManagementReviewApprovalRoute
   AuthenticatedDocumentManagementVisibilityRoute: typeof AuthenticatedDocumentManagementVisibilityRoute
+  AuthenticatedLeaveManagementLeaveBalanceRoute: typeof AuthenticatedLeaveManagementLeaveBalanceRoute
+  AuthenticatedLeaveManagementMyRequestRoute: typeof AuthenticatedLeaveManagementMyRequestRoute
   AuthenticatedAttendanceIndexRoute: typeof AuthenticatedAttendanceIndexRoute
   AuthenticatedCompanySetupIndexRoute: typeof AuthenticatedCompanySetupIndexRoute
   AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
   AuthenticatedDocumentManagementIndexRoute: typeof AuthenticatedDocumentManagementIndexRoute
   AuthenticatedEmployeeIndexRoute: typeof AuthenticatedEmployeeIndexRoute
+  AuthenticatedLeaveManagementIndexRoute: typeof AuthenticatedLeaveManagementIndexRoute
   AuthenticatedEmployeeAssignApprovalIdRoute: typeof AuthenticatedEmployeeAssignApprovalIdRoute
   AuthenticatedEmployeeDocumentViewNameRoute: typeof AuthenticatedEmployeeDocumentViewNameRoute
   AuthenticatedEmployeeEmployeeDetailsIdRoute: typeof AuthenticatedEmployeeEmployeeDetailsIdRoute
@@ -614,7 +657,6 @@ interface AuthenticatedRouteChildren {
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedDemoFormRoute: AuthenticatedDemoFormRoute,
   AuthenticatedDemoTableRoute: AuthenticatedDemoTableRoute,
-  AuthenticatedLeaveRoute: AuthenticatedLeaveRoute,
   AuthenticatedPayrollRoute: AuthenticatedPayrollRoute,
   AuthenticatedRecruitmentRoute: AuthenticatedRecruitmentRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
@@ -636,12 +678,18 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
     AuthenticatedDocumentManagementReviewApprovalRoute,
   AuthenticatedDocumentManagementVisibilityRoute:
     AuthenticatedDocumentManagementVisibilityRoute,
+  AuthenticatedLeaveManagementLeaveBalanceRoute:
+    AuthenticatedLeaveManagementLeaveBalanceRoute,
+  AuthenticatedLeaveManagementMyRequestRoute:
+    AuthenticatedLeaveManagementMyRequestRoute,
   AuthenticatedAttendanceIndexRoute: AuthenticatedAttendanceIndexRoute,
   AuthenticatedCompanySetupIndexRoute: AuthenticatedCompanySetupIndexRoute,
   AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
   AuthenticatedDocumentManagementIndexRoute:
     AuthenticatedDocumentManagementIndexRoute,
   AuthenticatedEmployeeIndexRoute: AuthenticatedEmployeeIndexRoute,
+  AuthenticatedLeaveManagementIndexRoute:
+    AuthenticatedLeaveManagementIndexRoute,
   AuthenticatedEmployeeAssignApprovalIdRoute:
     AuthenticatedEmployeeAssignApprovalIdRoute,
   AuthenticatedEmployeeDocumentViewNameRoute:
