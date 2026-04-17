@@ -212,7 +212,7 @@ function buildBasicRoute(opts: {
   breadcrumb: string;
 }): string {
   return `import { createFileRoute } from '@tanstack/react-router';
-import { PageHeader } from '@erp/ui';
+import { PageHeading } from '@erp/ui';
 
 export const Route = createFileRoute('${opts.tanstackRoute}')({
   component: ${opts.componentName},
@@ -222,7 +222,7 @@ export const Route = createFileRoute('${opts.tanstackRoute}')({
 function ${opts.componentName}() {
   return (
     <div>
-      <PageHeader title="${opts.title}" />
+      <PageHeading title="${opts.title}" />
       <div className="px-6">
         <p className="text-muted-foreground">This page is under construction.</p>
       </div>
@@ -245,13 +245,15 @@ function buildTableRoute(opts: {
 }): string {
   const pluralEntity = pluralize(opts.entityName);
   const mockImportPath = opts.hasMock
-    ? `import { mockGet${pluralEntity} } from '${getRelativeMockPath(
-        opts.routePath
-      )}mocks/${toKebabHelper(opts.entityName)}.mock';`
+    ? `import { MOCK_${pluralize(
+        opts.entityName.toUpperCase()
+      )} } from '${getRelativeMockPath(opts.routePath)}mocks/${toKebabHelper(
+        opts.entityName
+      )}.mock';`
     : '';
 
   const formImports = opts.hasForm
-    ? `\nimport { useState } from 'react';\nimport { FormDialog } from '@erp/ui';\nimport { FormRenderer } from '@erp/config-engine';\nimport type { FormViewConfig } from '@erp/config-engine';`
+    ? `\nimport { FormDialog } from '@erp/ui';\nimport { FormRenderer } from '@erp/config-engine';\nimport type { FormViewConfig } from '@erp/config-engine';`
     : '';
 
   const formConfig = opts.hasForm
@@ -274,48 +276,37 @@ const ${opts.entityNameCamel}FormConfig: FormViewConfig = {
 `
     : '';
 
-  const formState = opts.hasForm
-    ? '\n  const [formOpen, setFormOpen] = useState(false);\n'
-    : '';
-
   const headerAction = opts.hasForm
-    ? `<Button onClick={() => setFormOpen(true)}><Plus className="mr-2 size-4" />Add ${opts.entityName}</Button>`
+    ? `<FormDialog
+            trigger={<Button><Plus className="mr-2 size-4" />Add ${opts.entityName}</Button>}
+            title="Add ${opts.entityName}"
+            okText="Create"
+          >
+            <FormRenderer
+              config={${opts.entityNameCamel}FormConfig}
+              onSubmit={(data) => {
+                console.log('Form submitted:', data);
+              }}
+              isDialogForm
+            />
+          </FormDialog>`
     : `<Button><Plus className="mr-2 size-4" />Add ${opts.entityName}</Button>`;
 
-  const formDialog = opts.hasForm
-    ? `
-
-      <FormDialog open={formOpen} onOpenChange={setFormOpen} title="Add ${opts.entityName}">
-        <FormRenderer
-          config={${opts.entityNameCamel}FormConfig}
-          onSubmit={(data) => {
-            console.log('Form submitted:', data);
-            setFormOpen(false);
-          }}
-          submitLabel="Create ${opts.entityName}"
-        />
-      </FormDialog>`
-    : '';
-
-  const fetchFn = opts.hasMock
-    ? `mockGet${pluralEntity}`
-    : `async (params: FetchParams): Promise<FetchResult<${opts.entityName}>> => {
-        // TODO: Replace with real API call
-        return { data: [], total: 0 };
-      }`;
+  const dataSource = opts.hasMock
+    ? `MOCK_${pluralize(opts.entityName.toUpperCase())}`
+    : `[] as ${opts.entityName}[] /* TODO: replace with useYourQuery() */`;
 
   return `import { createFileRoute } from '@tanstack/react-router';
 import { type ColumnDef } from '@tanstack/react-table';
 import {
-  TablePage,
+  ListPage,
+  DataTable,
   DataTableColumnHeader,
   Badge,
   Button,
-  type RowAction,
-  type FetchParams,
-  type FetchResult,
+  useServerTableState,
 } from '@erp/ui';
-import { Plus, Eye, Pencil, Trash2 } from 'lucide-react';${formImports}
+import { Plus } from 'lucide-react';${formImports}
 ${mockImportPath}
 
 export const Route = createFileRoute('${opts.tanstackRoute}')({
@@ -350,28 +341,59 @@ const columns: ColumnDef<${opts.entityName}, unknown>[] = [
   },
 ];
 
-// ---- Row Actions ----
+// ---- Card view ----
 
-const rowActions: RowAction<${opts.entityName}>[] = [
-  { label: 'View', icon: Eye, onClick: (row) => alert(\`View: \${row.id}\`) },
-  { label: 'Edit', icon: Pencil, onClick: (row) => alert(\`Edit: \${row.id}\`) },
-  { label: 'Delete', icon: Trash2, onClick: (row) => alert(\`Delete: \${row.id}\`), variant: 'destructive', separator: true },
-];
+function ${opts.entityName}Card({ data }: { data: ${opts.entityName}[] }) {
+  return (
+    <div className="grid grid-cols-1 gap-4 px-6 md:grid-cols-3">
+      {data.map((item) => (
+        <div key={item.id} className="rounded-xl border border-border bg-card p-4">
+          <p className="font-medium">{item.name}</p>
+          <Badge variant={item.status === 'active' ? 'success' : 'secondary'}>
+            {item.status}
+          </Badge>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ---- Table view ----
+
+function ${opts.entityName}Table({ data }: { data: ${opts.entityName}[] }) {
+  const { table } = useServerTableState<${opts.entityName}>({
+    data,
+    totalCount: data.length,
+    columns,
+    getRowId: (row) => row.id,
+  });
+
+  return (
+    <div className="px-6">
+      <DataTable table={table} columns={columns} />
+    </div>
+  );
+}
 
 // ---- Page ----
 
-function ${opts.componentName}() {${formState}
+function ${opts.componentName}() {
+  const data = ${dataSource};
+
   return (
-    <>
-      <TablePage<${opts.entityName}>
-        title="${opts.title}"
-        columns={columns}
-        fetchData={${fetchFn}}
-        rowActions={rowActions}
-        searchPlaceholder="Search..."
-        headerActions={${headerAction}}
-      />${formDialog}
-    </>
+    <ListPage<${opts.entityName}>
+      title="${opts.title}"
+      isTabs
+      data={data}
+      actionComponent={${headerAction}}
+      renderCard={(filtered) => <${opts.entityName}Card data={filtered} />}
+      renderTable={(filtered) => <${opts.entityName}Table data={filtered} />}
+      filterFn={(rows, search) =>
+        rows.filter((row) =>
+          row.name.toLowerCase().includes(search.toLowerCase())
+        )
+      }
+    />
   );
 }
 `;
@@ -387,7 +409,7 @@ function buildFormRoute(opts: {
   const entityCamel = toCamel(toKebabHelper(opts.entityName));
 
   return `import { createFileRoute } from '@tanstack/react-router';
-import { PageHeader } from '@erp/ui';
+import { PageHeading } from '@erp/ui';
 import { FormRenderer } from '@erp/config-engine';
 import type { FormViewConfig } from '@erp/config-engine';
 
@@ -420,7 +442,7 @@ function ${opts.componentName}() {
 
   return (
     <div>
-      <PageHeader title="${opts.title}" />
+      <PageHeading title="${opts.title}" />
       <div className="mx-auto max-w-2xl px-6">
         <div className="rounded-lg border border-border bg-card p-6">
           <FormRenderer
@@ -437,12 +459,9 @@ function ${opts.componentName}() {
 }
 
 function buildMockFile(entityName: string, _entityNameCamel: string): string {
-  const plural = pluralize(entityName);
   const constName = `MOCK_${pluralize(entityName.toUpperCase())}`;
 
-  return `import type { FetchParams, FetchResult } from '@erp/ui';
-
-// ---- Types ----
+  return `// ---- Types ----
 
 export interface ${entityName} {
   id: string;
@@ -453,47 +472,12 @@ export interface ${entityName} {
 
 // ---- Mock Data ----
 
-const ${constName}: ${entityName}[] = Array.from({ length: 25 }, (_, i) => ({
+export const ${constName}: ${entityName}[] = Array.from({ length: 25 }, (_, i) => ({
   id: \`\${i + 1}\`,
   name: \`${entityName} \${i + 1}\`,
   status: i % 3 === 0 ? 'inactive' : 'active',
   createdAt: new Date(2024, 0, i + 1).toISOString(),
 }));
-
-// ---- Mock API ----
-
-async function delay(ms = 100) {
-  return new Promise((r) => setTimeout(r, ms));
-}
-
-export async function mockGet${plural}(params: FetchParams): Promise<FetchResult<${entityName}>> {
-  await delay();
-
-  let filtered = [...${constName}];
-
-  // Search
-  if (params.search) {
-    const q = params.search.toLowerCase();
-    filtered = filtered.filter((item) => item.name.toLowerCase().includes(q));
-  }
-
-  // Sort
-  if (params.sortBy) {
-    const key = params.sortBy as keyof ${entityName};
-    filtered.sort((a, b) => {
-      const aVal = String(a[key]);
-      const bVal = String(b[key]);
-      return params.sortOrder === 'desc' ? bVal.localeCompare(aVal) : aVal.localeCompare(bVal);
-    });
-  }
-
-  // Paginate
-  const total = filtered.length;
-  const start = (params.page - 1) * params.pageSize;
-  const data = filtered.slice(start, start + params.pageSize);
-
-  return { data, total };
-}
 `;
 }
 

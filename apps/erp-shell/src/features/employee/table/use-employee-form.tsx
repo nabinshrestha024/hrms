@@ -13,10 +13,12 @@ export function useEmployeeTable({ data }: EmployeeTableProps) {
 
   const columns = useMemo(() => getEmployeeColumns({ navigate }), [navigate]);
 
-  return useServerTableState<Employee>({
+  const tableState = useServerTableState<Employee>({
     data,
     totalCount: data.length,
     columns,
     getRowId: (row: Employee) => row.id,
   });
+
+  return { ...tableState, columns };
 }

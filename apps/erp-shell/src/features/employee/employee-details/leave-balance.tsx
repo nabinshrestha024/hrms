@@ -24,9 +24,7 @@ export const LeaveBalance = () => {
           }
           title="Assign Leave Type"
           size="lg"
-          formId="assign-leave-form"
           okText="Assign to Employee"
-          cancelText="Cancel"
           dialogClassName="sm:max-w-[738px] max-h-[120vh]"
           componentClassName="sm:max-w-185"
         >

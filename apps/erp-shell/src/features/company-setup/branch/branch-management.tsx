@@ -4,16 +4,17 @@ import {
   ConfirmDialog,
   ControlledFormDialog,
   FormDialog,
+  ListPage,
   toast,
 } from '@erp/ui';
 import { useState } from 'react';
-import { PageHeader } from '../../../components/page-header';
+
 import { BranchCard } from './branch-card';
 import { BranchForm } from './branch-form';
 import { BranchTable } from './branch-table/branch-table';
 
 export const BranchManagement = () => {
-  const { data: branchResponse } = useBranches({ pageSize: 100 });
+  const { data: branchResponse } = useBranches({ page: 1, pageSize: 100 });
   const data: Branch[] = branchResponse?.data ?? [];
   const deleteBranch = useDeleteBranch();
 
@@ -41,7 +42,7 @@ export const BranchManagement = () => {
 
   return (
     <>
-      <PageHeader
+      <ListPage<Branch>
         title="Branch Management"
         isSearch={true}
         isTabs={true}
@@ -62,28 +63,26 @@ export const BranchManagement = () => {
             }
             title="Branch Details"
             size="lg"
-            formId="branch-form"
             okText="Add"
-            cancelText="Cancel"
           >
             <BranchForm />
           </FormDialog>
         }
-        renderCard={(filtered) => (
+        renderCard={(filtered: Branch[]) => (
           <BranchCard
             data={filtered}
             onEdit={handleEdit}
             onDelete={handleDelete}
           />
         )}
-        renderTable={(filtered) => (
+        renderTable={(filtered: Branch[]) => (
           <BranchTable
             data={filtered}
             onEdit={handleEdit}
             onDelete={handleDelete}
           />
         )}
-        filterFn={(data, search, dropdown) => {
+        filterFn={(data: Branch[], search: string, dropdown?: string) => {
           return data.filter((item: Branch) => {
             const matchesSearch = item.branch
               ?.toLowerCase()
@@ -99,9 +98,7 @@ export const BranchManagement = () => {
         onOpenChange={(open: boolean) => !open && setEditTarget(null)}
         title="Edit Branch"
         size="lg"
-        formId="branch-form"
         okText="Save"
-        cancelText="Cancel"
       >
         <BranchForm />
       </ControlledFormDialog>

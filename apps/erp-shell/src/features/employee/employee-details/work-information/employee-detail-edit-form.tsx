@@ -4,13 +4,8 @@ import {
   employeeDetailsSchema,
   type EmployeeDetailsFormValue,
 } from './EmployeeDetailsZod';
-import { Employee } from '../../schema/employee-data';
 import { HRDateField, HRInput } from '@erp/ui';
 
-type Props = {
-  employee: Employee;
-  employeeId: string;
-};
 export const EmployeeDetailEditForm = () => {
   const {
     register,

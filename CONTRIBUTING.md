@@ -156,7 +156,7 @@ function MyComponent({ className, variant, ...props }: MyComponentProps) {
 - Protected routes go under `_authenticated/`
 - Use `<PageHeader>` for page titles
 - Use `<TablePage>` for table pages
-- Use `<FormDialog>` for form modals
+- Use `<FormDialog>` for form modals — see [docs/DIALOGS.md](./docs/DIALOGS.md). The minimum dialog is 4 lines, no `useState`, no magic strings.
 
 ### Data Tables
 

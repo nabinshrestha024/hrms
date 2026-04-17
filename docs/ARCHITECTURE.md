@@ -70,13 +70,14 @@ ui/src/
 │   ├── top-bar         # Header (Clock In, notifications, user)
 │   ├── mobile-nav      # Bottom mobile navigation
 │   ├── data-table/     # Full table system (sort, filter, paginate)
-│   ├── page-header     # Standard page header (title, subtitle, actions)
-│   ├── table-page      # Complete table page template
-│   ├── dialog/         # Dialog system (see below)
-│   │   ├── form-dialog-trigger  → <FormDialog>          (default, self-managed state)
-│   │   ├── controlled-form-dialog → <ControlledFormDialog>  (parent-owned state)
-│   │   ├── confirm-dialog  → <ConfirmDialog>             (destructive confirmations)
-│   │   └── form-dialog     → <LegacyFormDialog>          (deprecated, global store)
+│   ├── page-heading    # Simple page heading bar (title + subtitle + actions)
+│   ├── list-page       # Full list page shell (search, filter, card/table toggle)
+│   ├── dialog/         # Dialog system (see docs/DIALOGS.md)
+│   │   ├── form-dialog-trigger     → <FormDialog>            (default, self-managed state)
+│   │   ├── controlled-form-dialog  → <ControlledFormDialog>  (parent-owned state)
+│   │   ├── confirm-dialog          → <ConfirmDialog>         (destructive confirmations)
+│   │   ├── dialog-close-context    → useDialogClose()        (form → dialog close hook)
+│   │   └── form-id-context         → useFormId()             (form id auto-wiring)
 │   └── toaster         # Toast notification container
 ├── hooks/
 │   ├── use-data-table          # TanStack Table wrapper

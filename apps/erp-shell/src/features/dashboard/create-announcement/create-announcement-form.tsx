@@ -1,6 +1,6 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
 import { useCreateNotice } from '@erp/data-access';
-import { toast } from '@erp/ui';
+import { toast, useDialogClose } from '@erp/ui';
 import { CloudUpload } from 'lucide-react';
 
 export const createAnnouncementFormConfig: FormViewConfig = {
@@ -70,14 +70,9 @@ export const createAnnouncementFormConfig: FormViewConfig = {
     ],
   },
 };
-interface CreateAnnouncementFormProps {
-  onSuccess?: () => void;
-}
-
-export function CreateAnnouncementForm({
-  onSuccess,
-}: CreateAnnouncementFormProps = {}) {
+export function CreateAnnouncementForm() {
   const createNotice = useCreateNotice();
+  const close = useDialogClose();
 
   const onsubmit = (data: Record<string, unknown>) => {
     createNotice.mutate(
@@ -91,7 +86,7 @@ export function CreateAnnouncementForm({
       {
         onSuccess: () => {
           toast({ variant: 'success', title: 'Notice created' });
-          onSuccess?.();
+          close();
         },
         onError: () => {
           toast({ variant: 'destructive', title: 'Failed to create notice' });

@@ -13,7 +13,7 @@ export function TextWidget({ field, form, disabled }: WidgetProps) {
       render={({ field: formField }) => (
         <HRInput
           {...formField}
-          value={formField.value ?? ''}
+          value={(formField.value as string | number | undefined) ?? ''}
           type={field.type}
           disabled={disabled}
           isRequired={field.isRequired}

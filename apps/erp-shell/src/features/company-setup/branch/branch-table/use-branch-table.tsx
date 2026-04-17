@@ -11,10 +11,12 @@ interface BranchTableProps {
 export function useBranchTable({ data, onEdit, onDelete }: BranchTableProps) {
   const columns = getBranchColumns({ onEdit, onDelete });
 
-  return useServerTableState<Branch>({
+  const tableState = useServerTableState<Branch>({
     data,
     totalCount: data.length,
     columns,
     getRowId: (row: Branch) => row.branchId,
   });
+
+  return { ...tableState, columns };
 }

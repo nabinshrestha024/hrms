@@ -63,7 +63,6 @@ export const DocumentUpload = ({
               size="lg"
               formId="assign-document-form"
               okText="Add"
-              cancelText="Cancel"
             >
               {({ close }: { close: () => void }) => (
                 <AssignDocumentForm onSuccess={close} />
@@ -84,7 +83,6 @@ export const DocumentUpload = ({
               size="lg"
               formId="upload-document-form"
               okText="Add"
-              cancelText="Cancel"
               dialogClassName="max-h-[100vh]"
             >
               {({ close }: { close: () => void }) => (
