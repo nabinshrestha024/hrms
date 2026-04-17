@@ -20,11 +20,11 @@ import { Route as AuthenticatedPayrollRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedLeaveRouteImport } from './routes/_authenticated/leave'
 import { Route as AuthenticatedDemoTableRouteImport } from './routes/_authenticated/demo-table'
 import { Route as AuthenticatedDemoFormRouteImport } from './routes/_authenticated/demo-form'
-import { Route as AuthenticatedAttendanceRouteImport } from './routes/_authenticated/attendance'
 import { Route as AuthenticatedEmployeeIndexRouteImport } from './routes/_authenticated/employee/index'
 import { Route as AuthenticatedDocumentManagementIndexRouteImport } from './routes/_authenticated/document-management/index'
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
 import { Route as AuthenticatedCompanySetupIndexRouteImport } from './routes/_authenticated/company-setup/index'
+import { Route as AuthenticatedAttendanceIndexRouteImport } from './routes/_authenticated/attendance/index'
 import { Route as AuthenticatedDocumentManagementVisibilityRouteImport } from './routes/_authenticated/document-management/visibility'
 import { Route as AuthenticatedDocumentManagementReviewApprovalRouteImport } from './routes/_authenticated/document-management/review-approval'
 import { Route as AuthenticatedDocumentManagementDocumentTemplateRouteImport } from './routes/_authenticated/document-management/document-template'
@@ -32,6 +32,8 @@ import { Route as AuthenticatedDocumentManagementCategoryManagementRouteImport }
 import { Route as AuthenticatedDocumentManagementAssignDocumentRouteImport } from './routes/_authenticated/document-management/assign-document'
 import { Route as AuthenticatedCompanySetupDepartmentRouteImport } from './routes/_authenticated/company-setup/department'
 import { Route as AuthenticatedCompanySetupBranchRouteImport } from './routes/_authenticated/company-setup/branch'
+import { Route as AuthenticatedAttendanceWorkRecordRouteImport } from './routes/_authenticated/attendance/work-record'
+import { Route as AuthenticatedAttendanceMyAttendanceRouteImport } from './routes/_authenticated/attendance/my-attendance'
 import { Route as AuthenticatedEmployeeEmployeeDetailsIdRouteImport } from './routes/_authenticated/employee/employee-details.$id'
 import { Route as AuthenticatedEmployeeDocumentViewNameRouteImport } from './routes/_authenticated/employee/document-view.$name'
 import { Route as AuthenticatedEmployeeAssignApprovalIdRouteImport } from './routes/_authenticated/employee/assign-approval.$id'
@@ -91,11 +93,6 @@ const AuthenticatedDemoFormRoute = AuthenticatedDemoFormRouteImport.update({
   path: '/demo-form',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
-const AuthenticatedAttendanceRoute = AuthenticatedAttendanceRouteImport.update({
-  id: '/attendance',
-  path: '/attendance',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
 const AuthenticatedEmployeeIndexRoute =
   AuthenticatedEmployeeIndexRouteImport.update({
     id: '/employee/',
@@ -118,6 +115,12 @@ const AuthenticatedCompanySetupIndexRoute =
   AuthenticatedCompanySetupIndexRouteImport.update({
     id: '/company-setup/',
     path: '/company-setup/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAttendanceIndexRoute =
+  AuthenticatedAttendanceIndexRouteImport.update({
+    id: '/attendance/',
+    path: '/attendance/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedDocumentManagementVisibilityRoute =
@@ -162,6 +165,18 @@ const AuthenticatedCompanySetupBranchRoute =
     path: '/company-setup/branch',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedAttendanceWorkRecordRoute =
+  AuthenticatedAttendanceWorkRecordRouteImport.update({
+    id: '/attendance/work-record',
+    path: '/attendance/work-record',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAttendanceMyAttendanceRoute =
+  AuthenticatedAttendanceMyAttendanceRouteImport.update({
+    id: '/attendance/my-attendance',
+    path: '/attendance/my-attendance',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedEmployeeEmployeeDetailsIdRoute =
   AuthenticatedEmployeeEmployeeDetailsIdRouteImport.update({
     id: '/employee/employee-details/$id',
@@ -185,7 +200,6 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/unauthorized': typeof UnauthorizedRoute
-  '/attendance': typeof AuthenticatedAttendanceRoute
   '/demo-form': typeof AuthenticatedDemoFormRoute
   '/demo-table': typeof AuthenticatedDemoTableRoute
   '/leave': typeof AuthenticatedLeaveRoute
@@ -193,6 +207,8 @@ export interface FileRoutesByFullPath {
   '/recruitment': typeof AuthenticatedRecruitmentRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/tasks': typeof AuthenticatedTasksRoute
+  '/attendance/my-attendance': typeof AuthenticatedAttendanceMyAttendanceRoute
+  '/attendance/work-record': typeof AuthenticatedAttendanceWorkRecordRoute
   '/company-setup/branch': typeof AuthenticatedCompanySetupBranchRoute
   '/company-setup/department': typeof AuthenticatedCompanySetupDepartmentRoute
   '/document-management/assign-document': typeof AuthenticatedDocumentManagementAssignDocumentRoute
@@ -200,6 +216,7 @@ export interface FileRoutesByFullPath {
   '/document-management/document-template': typeof AuthenticatedDocumentManagementDocumentTemplateRoute
   '/document-management/review-approval': typeof AuthenticatedDocumentManagementReviewApprovalRoute
   '/document-management/visibility': typeof AuthenticatedDocumentManagementVisibilityRoute
+  '/attendance/': typeof AuthenticatedAttendanceIndexRoute
   '/company-setup/': typeof AuthenticatedCompanySetupIndexRoute
   '/dashboard/': typeof AuthenticatedDashboardIndexRoute
   '/document-management/': typeof AuthenticatedDocumentManagementIndexRoute
@@ -212,7 +229,6 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/unauthorized': typeof UnauthorizedRoute
-  '/attendance': typeof AuthenticatedAttendanceRoute
   '/demo-form': typeof AuthenticatedDemoFormRoute
   '/demo-table': typeof AuthenticatedDemoTableRoute
   '/leave': typeof AuthenticatedLeaveRoute
@@ -220,6 +236,8 @@ export interface FileRoutesByTo {
   '/recruitment': typeof AuthenticatedRecruitmentRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/tasks': typeof AuthenticatedTasksRoute
+  '/attendance/my-attendance': typeof AuthenticatedAttendanceMyAttendanceRoute
+  '/attendance/work-record': typeof AuthenticatedAttendanceWorkRecordRoute
   '/company-setup/branch': typeof AuthenticatedCompanySetupBranchRoute
   '/company-setup/department': typeof AuthenticatedCompanySetupDepartmentRoute
   '/document-management/assign-document': typeof AuthenticatedDocumentManagementAssignDocumentRoute
@@ -227,6 +245,7 @@ export interface FileRoutesByTo {
   '/document-management/document-template': typeof AuthenticatedDocumentManagementDocumentTemplateRoute
   '/document-management/review-approval': typeof AuthenticatedDocumentManagementReviewApprovalRoute
   '/document-management/visibility': typeof AuthenticatedDocumentManagementVisibilityRoute
+  '/attendance': typeof AuthenticatedAttendanceIndexRoute
   '/company-setup': typeof AuthenticatedCompanySetupIndexRoute
   '/dashboard': typeof AuthenticatedDashboardIndexRoute
   '/document-management': typeof AuthenticatedDocumentManagementIndexRoute
@@ -241,7 +260,6 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/login': typeof LoginRoute
   '/unauthorized': typeof UnauthorizedRoute
-  '/_authenticated/attendance': typeof AuthenticatedAttendanceRoute
   '/_authenticated/demo-form': typeof AuthenticatedDemoFormRoute
   '/_authenticated/demo-table': typeof AuthenticatedDemoTableRoute
   '/_authenticated/leave': typeof AuthenticatedLeaveRoute
@@ -249,6 +267,8 @@ export interface FileRoutesById {
   '/_authenticated/recruitment': typeof AuthenticatedRecruitmentRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/tasks': typeof AuthenticatedTasksRoute
+  '/_authenticated/attendance/my-attendance': typeof AuthenticatedAttendanceMyAttendanceRoute
+  '/_authenticated/attendance/work-record': typeof AuthenticatedAttendanceWorkRecordRoute
   '/_authenticated/company-setup/branch': typeof AuthenticatedCompanySetupBranchRoute
   '/_authenticated/company-setup/department': typeof AuthenticatedCompanySetupDepartmentRoute
   '/_authenticated/document-management/assign-document': typeof AuthenticatedDocumentManagementAssignDocumentRoute
@@ -256,6 +276,7 @@ export interface FileRoutesById {
   '/_authenticated/document-management/document-template': typeof AuthenticatedDocumentManagementDocumentTemplateRoute
   '/_authenticated/document-management/review-approval': typeof AuthenticatedDocumentManagementReviewApprovalRoute
   '/_authenticated/document-management/visibility': typeof AuthenticatedDocumentManagementVisibilityRoute
+  '/_authenticated/attendance/': typeof AuthenticatedAttendanceIndexRoute
   '/_authenticated/company-setup/': typeof AuthenticatedCompanySetupIndexRoute
   '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
   '/_authenticated/document-management/': typeof AuthenticatedDocumentManagementIndexRoute
@@ -270,7 +291,6 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/unauthorized'
-    | '/attendance'
     | '/demo-form'
     | '/demo-table'
     | '/leave'
@@ -278,6 +298,8 @@ export interface FileRouteTypes {
     | '/recruitment'
     | '/settings'
     | '/tasks'
+    | '/attendance/my-attendance'
+    | '/attendance/work-record'
     | '/company-setup/branch'
     | '/company-setup/department'
     | '/document-management/assign-document'
@@ -285,6 +307,7 @@ export interface FileRouteTypes {
     | '/document-management/document-template'
     | '/document-management/review-approval'
     | '/document-management/visibility'
+    | '/attendance/'
     | '/company-setup/'
     | '/dashboard/'
     | '/document-management/'
@@ -297,7 +320,6 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/unauthorized'
-    | '/attendance'
     | '/demo-form'
     | '/demo-table'
     | '/leave'
@@ -305,6 +327,8 @@ export interface FileRouteTypes {
     | '/recruitment'
     | '/settings'
     | '/tasks'
+    | '/attendance/my-attendance'
+    | '/attendance/work-record'
     | '/company-setup/branch'
     | '/company-setup/department'
     | '/document-management/assign-document'
@@ -312,6 +336,7 @@ export interface FileRouteTypes {
     | '/document-management/document-template'
     | '/document-management/review-approval'
     | '/document-management/visibility'
+    | '/attendance'
     | '/company-setup'
     | '/dashboard'
     | '/document-management'
@@ -325,7 +350,6 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/login'
     | '/unauthorized'
-    | '/_authenticated/attendance'
     | '/_authenticated/demo-form'
     | '/_authenticated/demo-table'
     | '/_authenticated/leave'
@@ -333,6 +357,8 @@ export interface FileRouteTypes {
     | '/_authenticated/recruitment'
     | '/_authenticated/settings'
     | '/_authenticated/tasks'
+    | '/_authenticated/attendance/my-attendance'
+    | '/_authenticated/attendance/work-record'
     | '/_authenticated/company-setup/branch'
     | '/_authenticated/company-setup/department'
     | '/_authenticated/document-management/assign-document'
@@ -340,6 +366,7 @@ export interface FileRouteTypes {
     | '/_authenticated/document-management/document-template'
     | '/_authenticated/document-management/review-approval'
     | '/_authenticated/document-management/visibility'
+    | '/_authenticated/attendance/'
     | '/_authenticated/company-setup/'
     | '/_authenticated/dashboard/'
     | '/_authenticated/document-management/'
@@ -435,13 +462,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDemoFormRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/attendance': {
-      id: '/_authenticated/attendance'
-      path: '/attendance'
-      fullPath: '/attendance'
-      preLoaderRoute: typeof AuthenticatedAttendanceRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
     '/_authenticated/employee/': {
       id: '/_authenticated/employee/'
       path: '/employee'
@@ -468,6 +488,13 @@ declare module '@tanstack/react-router' {
       path: '/company-setup'
       fullPath: '/company-setup/'
       preLoaderRoute: typeof AuthenticatedCompanySetupIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/attendance/': {
+      id: '/_authenticated/attendance/'
+      path: '/attendance'
+      fullPath: '/attendance/'
+      preLoaderRoute: typeof AuthenticatedAttendanceIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/document-management/visibility': {
@@ -519,6 +546,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCompanySetupBranchRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/attendance/work-record': {
+      id: '/_authenticated/attendance/work-record'
+      path: '/attendance/work-record'
+      fullPath: '/attendance/work-record'
+      preLoaderRoute: typeof AuthenticatedAttendanceWorkRecordRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/attendance/my-attendance': {
+      id: '/_authenticated/attendance/my-attendance'
+      path: '/attendance/my-attendance'
+      fullPath: '/attendance/my-attendance'
+      preLoaderRoute: typeof AuthenticatedAttendanceMyAttendanceRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/employee/employee-details/$id': {
       id: '/_authenticated/employee/employee-details/$id'
       path: '/employee/employee-details/$id'
@@ -544,7 +585,6 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteChildren {
-  AuthenticatedAttendanceRoute: typeof AuthenticatedAttendanceRoute
   AuthenticatedDemoFormRoute: typeof AuthenticatedDemoFormRoute
   AuthenticatedDemoTableRoute: typeof AuthenticatedDemoTableRoute
   AuthenticatedLeaveRoute: typeof AuthenticatedLeaveRoute
@@ -552,6 +592,8 @@ interface AuthenticatedRouteChildren {
   AuthenticatedRecruitmentRoute: typeof AuthenticatedRecruitmentRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedTasksRoute: typeof AuthenticatedTasksRoute
+  AuthenticatedAttendanceMyAttendanceRoute: typeof AuthenticatedAttendanceMyAttendanceRoute
+  AuthenticatedAttendanceWorkRecordRoute: typeof AuthenticatedAttendanceWorkRecordRoute
   AuthenticatedCompanySetupBranchRoute: typeof AuthenticatedCompanySetupBranchRoute
   AuthenticatedCompanySetupDepartmentRoute: typeof AuthenticatedCompanySetupDepartmentRoute
   AuthenticatedDocumentManagementAssignDocumentRoute: typeof AuthenticatedDocumentManagementAssignDocumentRoute
@@ -559,6 +601,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedDocumentManagementDocumentTemplateRoute: typeof AuthenticatedDocumentManagementDocumentTemplateRoute
   AuthenticatedDocumentManagementReviewApprovalRoute: typeof AuthenticatedDocumentManagementReviewApprovalRoute
   AuthenticatedDocumentManagementVisibilityRoute: typeof AuthenticatedDocumentManagementVisibilityRoute
+  AuthenticatedAttendanceIndexRoute: typeof AuthenticatedAttendanceIndexRoute
   AuthenticatedCompanySetupIndexRoute: typeof AuthenticatedCompanySetupIndexRoute
   AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
   AuthenticatedDocumentManagementIndexRoute: typeof AuthenticatedDocumentManagementIndexRoute
@@ -569,7 +612,6 @@ interface AuthenticatedRouteChildren {
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
-  AuthenticatedAttendanceRoute: AuthenticatedAttendanceRoute,
   AuthenticatedDemoFormRoute: AuthenticatedDemoFormRoute,
   AuthenticatedDemoTableRoute: AuthenticatedDemoTableRoute,
   AuthenticatedLeaveRoute: AuthenticatedLeaveRoute,
@@ -577,6 +619,10 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedRecruitmentRoute: AuthenticatedRecruitmentRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedTasksRoute: AuthenticatedTasksRoute,
+  AuthenticatedAttendanceMyAttendanceRoute:
+    AuthenticatedAttendanceMyAttendanceRoute,
+  AuthenticatedAttendanceWorkRecordRoute:
+    AuthenticatedAttendanceWorkRecordRoute,
   AuthenticatedCompanySetupBranchRoute: AuthenticatedCompanySetupBranchRoute,
   AuthenticatedCompanySetupDepartmentRoute:
     AuthenticatedCompanySetupDepartmentRoute,
@@ -590,6 +636,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
     AuthenticatedDocumentManagementReviewApprovalRoute,
   AuthenticatedDocumentManagementVisibilityRoute:
     AuthenticatedDocumentManagementVisibilityRoute,
+  AuthenticatedAttendanceIndexRoute: AuthenticatedAttendanceIndexRoute,
   AuthenticatedCompanySetupIndexRoute: AuthenticatedCompanySetupIndexRoute,
   AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
   AuthenticatedDocumentManagementIndexRoute:

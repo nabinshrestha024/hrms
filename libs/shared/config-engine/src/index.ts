@@ -26,7 +26,7 @@ export { DateWidget } from './widgets/date-widget';
 export { BooleanWidget } from './widgets/boolean-widget';
 export { TextareaWidget } from './widgets/textarea-widget';
 export { FileWidget } from './widgets/file-widget';
-
+export { TimeWidget } from './widgets/time-widget';
 // Renderer
 export { FormRenderer } from './renderer/form-renderer';
 export { LayoutRenderer } from './renderer/layout-renderer';

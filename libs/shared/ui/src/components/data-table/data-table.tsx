@@ -18,6 +18,12 @@ import { DataTablePagination } from './data-table-pagination';
 import { DataTableRowActions, type RowAction } from './data-table-row-actions';
 import { HRCard } from '../../components/card/card';
 
+declare module '@tanstack/react-table' {
+  interface ColumnMeta<TData, TValue> {
+    className?: string;
+    headerClassName?: string;
+  }
+}
 interface DataTableProps<TData> {
   table: TanstackTable<TData>;
   columns: ColumnDef<TData, unknown>[];
@@ -80,7 +86,10 @@ function DataTable<TData>({
                   <TableHead
                     key={header.id}
                     colSpan={header.colSpan}
-                    className="px-4 py-3.5 border-b text-center align-middle whitespace-nowrap"
+                    className={cn(
+                      'px-4 py-3.5 border-b text-center align-middle whitespace-nowrap',
+                      header.column.columnDef.meta?.headerClassName
+                    )}
                   >
                     {header.isPlaceholder
                       ? null
@@ -126,7 +135,8 @@ function DataTable<TData>({
                     <TableCell
                       key={cell.id}
                       className={`p-4
-                        text-[14px] font-medium leading-5 border-b text-center whitespace-nowrap text-foreground`}
+                        text-[14px] font-medium leading-5 border-b text-center align-middle whitespace-nowrap text-foreground
+                        ${cell.column.columnDef.meta?.className}`}
                     >
                       {flexRender(
                         cell.column.columnDef.cell,
