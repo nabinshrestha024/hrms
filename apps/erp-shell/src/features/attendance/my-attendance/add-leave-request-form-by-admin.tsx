@@ -1,6 +1,7 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
 import { toast } from '@erp/ui';
 import { CloudUpload } from 'lucide-react';
+import { BalanceDetails } from './balance-details';
 
 export const addLeaveRequestFormConfig: FormViewConfig = {
   entity: 'leave-request',
@@ -74,6 +75,7 @@ export const addLeaveRequestFormConfig: FormViewConfig = {
 
   layout: {
     type: 'section',
+    header: <BalanceDetails />,
     children: [
       { type: 'field', name: 'employeeName' },
 

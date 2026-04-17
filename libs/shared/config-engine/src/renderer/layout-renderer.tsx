@@ -41,6 +41,7 @@ export function LayoutRenderer({
               disabled={disabled}
             />
           ))}
+          {node.footer && <div>{node.footer}</div>}
         </fieldset>
       );
 

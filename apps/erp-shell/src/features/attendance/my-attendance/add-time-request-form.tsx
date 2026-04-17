@@ -1,5 +1,6 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
 import { toast } from '@erp/ui';
+import { RequestApprover } from './request-approver';
 
 export const addTimeRequestFormConfig: FormViewConfig = {
   entity: 'add-time-request',
@@ -56,6 +57,7 @@ export const addTimeRequestFormConfig: FormViewConfig = {
 
   layout: {
     type: 'section',
+    footer: <RequestApprover />,
     children: [
       { type: 'field', name: 'date' },
 

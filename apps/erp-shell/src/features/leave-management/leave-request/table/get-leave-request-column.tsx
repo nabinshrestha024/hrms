@@ -12,6 +12,10 @@ export function getLeaveRequestColumn(): ColumnDef<LeaveRequest>[] {
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Employee Name" />
       ),
+      meta: {
+        className: 'sticky left-0 z-20 bg-white',
+        headerClassName: 'sticky left-0  z-30 bg-[#FAFAFA]',
+      },
       cell: ({ row }) => {
         return <>{row.getValue('employeeName')}</>;
       },

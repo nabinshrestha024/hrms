@@ -1,8 +1,10 @@
 import type { ColumnDef } from '@tanstack/react-table';
 import type { AttendanceListRecord } from '../../schema/AttendanceListData';
-import { Badge, DataTableColumnHeader } from '@erp/ui';
+import { Badge, DataTableColumnHeader, FormDialog } from '@erp/ui';
 import { TentTree, TimerReset } from 'lucide-react';
 import { IconButton } from '../../../../components/icon-button';
+import { AddTimeRequestForm } from '../../my-attendance/add-time-request-form';
+import { AddLeaveRequestForm } from '../../my-attendance/add-leave-request-form';
 
 export function getAttendanceListColumn(): ColumnDef<AttendanceListRecord>[] {
   return [
@@ -144,17 +146,45 @@ export function getAttendanceListColumn(): ColumnDef<AttendanceListRecord>[] {
     },
     {
       id: 'actions',
-      header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Actions" />
-      ),
+      header: 'Action',
       cell: () => (
         <div className="flex items-center gap-2">
-          <IconButton variant="default">
-            <TimerReset className="w-4 h-4 text-foreground" />
-          </IconButton>
-          <IconButton variant="default">
-            <TentTree className="w-4 h-4 text-foreground" />
-          </IconButton>
+          <FormDialog
+            trigger={
+              <IconButton variant="default">
+                <TimerReset className="text-[16px] text-foreground" />
+              </IconButton>
+            }
+            title="Add Time Request"
+            okText="Add"
+            size="lg"
+            cancelText="Cancel"
+            formId="add-time-request-form"
+            dialogClassName="sm:max-w-[709px]"
+            componentClassName="py-4 pl-4 pr-2"
+          >
+            {({ close }: { close: () => void }) => (
+              <AddTimeRequestForm onSuccess={close} />
+            )}
+          </FormDialog>
+
+          <FormDialog
+            trigger={
+              <IconButton variant="default">
+                <TentTree className="text-[16px] text-foreground" />
+              </IconButton>
+            }
+            title="Add Leave Request"
+            okText="Add"
+            size="lg"
+            cancelText="Cancel"
+            formId="add-leave-request-form"
+            componentClassName="py-4 pl-4 pr-2"
+          >
+            {({ close }: { close: () => void }) => (
+              <AddLeaveRequestForm onSuccess={close} />
+            )}
+          </FormDialog>
         </div>
       ),
     },

@@ -3,6 +3,7 @@ import { TableHeader } from '../../../components/table-header';
 import { leaveRequestData } from '../schema/LeaveRequestData';
 import { Plus } from 'lucide-react';
 import { MyRequestTable } from './table/my-request-table';
+import { AddLeaveRequestForm } from '../../attendance/my-attendance/add-leave-request-form';
 
 export const MyRequestDetails = () => {
   return (
@@ -42,12 +43,11 @@ export const MyRequestDetails = () => {
             okText="Add"
             size="lg"
             cancelText="Cancel"
-            formId="add-leave-request-admin-form"
+            formId="add-leave-request-form"
             componentClassName="py-4 pl-4 pr-2"
           >
             {({ close }: { close: () => void }) => (
-              //   <AddLeaveRequestForm onSuccess={close} />
-              <></>
+              <AddLeaveRequestForm onSuccess={close} />
             )}
           </FormDialog>
         }
