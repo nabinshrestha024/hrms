@@ -35,11 +35,11 @@ import {
   MapPinPlusInside,
   Network,
   BriefcaseBusiness,
-  SquareUser,
   FileSearchCorner,
   FileCheckCorner,
   FileUp,
   Files,
+  SquareUser,
 } from 'lucide-react';
 
 export interface NavSubItem {
@@ -180,12 +180,20 @@ export const navModules: NavModule[] = [
     id: 'leave',
     label: 'Leave',
     icon: TentTree,
-    href: '/leave/requests',
+    href: '/leave-management',
     modules: ['leave'],
     subItems: [
-      { label: 'Leave Requests', href: '/leave/requests', icon: ListChecks },
-      { label: 'My Requests', href: '/leave/my-requests', icon: FileText },
-      { label: 'Leave Balance', href: '/leave/balance', icon: CalendarDays },
+      { label: 'Leave Requests', href: '/leave-management/', icon: SquareUser },
+      {
+        label: 'My Requests',
+        href: '/leave-management/my-request',
+        icon: SquareUser,
+      },
+      {
+        label: 'Leave Balance',
+        href: '/leave-management/leave-balance',
+        icon: SquareUser,
+      },
     ],
   },
 

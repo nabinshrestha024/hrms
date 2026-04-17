@@ -142,7 +142,11 @@ export function ControlledFormDialog({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
-        className={cn(dialogContentStyles({ size }), 'p-4', dialogClassName)}
+        className={cn(
+          dialogContentStyles({ size }),
+          'p-4 bg-white',
+          dialogClassName
+        )}
       >
         <DialogHeader className={cn(dialogHeaderStyles({ size }), 'px-0 py-0')}>
           <div className="flex justify-between items-center">
