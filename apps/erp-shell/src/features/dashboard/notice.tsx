@@ -88,15 +88,11 @@ export const Notice = () => {
             }
             title="Create Announcement"
             size="lg"
-            formId="announcement-form"
             okText="Add"
-            cancelText="Cancel"
             dialogClassName="max-h-[150vh]"
             componentClassName="py-4 pl-4 pr-2"
           >
-            {({ close }: { close: () => void }) => (
-              <CreateAnnouncementForm onSuccess={close} />
-            )}
+            <CreateAnnouncementForm />
           </FormDialog>
         </div>
       </div>

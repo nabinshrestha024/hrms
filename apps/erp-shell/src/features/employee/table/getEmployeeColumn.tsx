@@ -134,7 +134,6 @@ export function getEmployeeColumns({
               size="lg"
               formId="assign-access-template-form"
               okText="Save Changes"
-              cancelText="Cancel"
               dialogClassName="sm:max-w-[465px]"
             >
               {({ close }: { close: () => void }) => (

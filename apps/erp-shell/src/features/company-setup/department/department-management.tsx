@@ -8,10 +8,11 @@ import {
   ConfirmDialog,
   ControlledFormDialog,
   FormDialog,
+  ListPage,
   toast,
 } from '@erp/ui';
 import { useState } from 'react';
-import { PageHeader } from '../../../components/page-header';
+
 import { DepartmentCard } from './department-card';
 import { DepartmentForm } from './department-form';
 
@@ -49,7 +50,7 @@ export const DepartmentManagement = () => {
 
   return (
     <>
-      <PageHeader
+      <ListPage<Department>
         title="Department Management"
         isTabs={false}
         isSearch={true}
@@ -68,14 +69,12 @@ export const DepartmentManagement = () => {
             }
             title="Department Details"
             size="lg"
-            formId="department-form"
             okText="Add"
-            cancelText="Cancel"
           >
             <DepartmentForm />
           </FormDialog>
         }
-        renderCard={(filtered) => (
+        renderCard={(filtered: Department[]) => (
           <DepartmentCard
             data={filtered}
             onEdit={handleEdit}
@@ -83,7 +82,7 @@ export const DepartmentManagement = () => {
           />
         )}
         renderTable={() => <></>}
-        filterFn={(data, search, dropdown) => {
+        filterFn={(data: Department[], search: string, dropdown?: string) => {
           return data.filter((item: Department) => {
             const matchesSearch = item.department
               ?.toLowerCase()
@@ -101,9 +100,7 @@ export const DepartmentManagement = () => {
         onOpenChange={(open: boolean) => !open && setEditTarget(null)}
         title="Edit Department"
         size="lg"
-        formId="department-form"
         okText="Save"
-        cancelText="Cancel"
       >
         <DepartmentForm />
       </ControlledFormDialog>

@@ -1,7 +1,7 @@
 import { useEmployees, type Employee } from '@erp/data-access';
-import { Button, Dialog, DialogContent } from '@erp/ui';
+import { Button, Dialog, DialogContent, ListPage } from '@erp/ui';
 import { useState } from 'react';
-import { PageHeader } from '../../components/page-header';
+
 import { EmployeeCard } from './employee-card';
 import { EmployeeForm } from './employee-form-collection/employee-form';
 import { EmployeeTable } from './table/employee-table';
@@ -13,7 +13,7 @@ export const EmployeeManagement = () => {
 
   return (
     <>
-      <PageHeader
+      <ListPage<Employee>
         title="Employee Management"
         isSearch={true}
         isTabs={true}
@@ -31,9 +31,11 @@ export const EmployeeManagement = () => {
             Add Employee
           </Button>
         }
-        renderCard={(filtered) => <EmployeeCard data={filtered} />}
-        renderTable={(filtered) => <EmployeeTable data={filtered} />}
-        filterFn={(data, search, dropdown) => {
+        renderCard={(filtered: Employee[]) => <EmployeeCard data={filtered} />}
+        renderTable={(filtered: Employee[]) => (
+          <EmployeeTable data={filtered} />
+        )}
+        filterFn={(data: Employee[], search: string, dropdown?: string) => {
           return data.filter((item: Employee) => {
             const matchesSearch =
               item.branch?.toLowerCase().includes(search.toLowerCase()) ||

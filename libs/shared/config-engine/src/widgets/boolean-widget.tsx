@@ -11,7 +11,7 @@ export function BooleanWidget({ field, form, disabled }: WidgetProps) {
         render={({ field: formField }) => (
           <Switch
             id={field.name}
-            checked={formField.value ?? false}
+            checked={(formField.value as boolean | undefined) ?? false}
             onCheckedChange={formField.onChange}
             disabled={disabled}
             aria-label={field.label}

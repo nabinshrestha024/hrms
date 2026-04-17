@@ -1,6 +1,6 @@
 import { cva } from 'class-variance-authority';
 import { cn } from '@erp/utils';
-import type { ReactNode } from 'react';
+import { useCallback, useId, type ReactNode } from 'react';
 import { Button } from '../../primitives/button';
 import {
   Dialog,
@@ -10,6 +10,8 @@ import {
   DialogTitle,
 } from '../../primitives/dialog';
 import { HRCard } from '../card/card';
+import { DialogCloseContext } from './dialog-close-context';
+import { FormIdContext } from './form-id-context';
 
 type ModalSize = 'sm' | 'md' | 'lg' | 'img';
 
@@ -57,10 +59,16 @@ export interface ControlledFormDialogProps {
   onOpenChange: (open: boolean) => void;
   title?: ReactNode;
   size?: ModalSize;
-  /** Form id of the inner <form> — wires the submit button to it. */
+  /**
+   * Optional override for the inner form id. Most callers should omit this —
+   * the dialog generates an id via `useId()` and provides it to descendants
+   * via `FormIdContext`. The `<Form>` wrapper picks it up automatically.
+   */
   formId?: string;
-  okText?: ReactNode;
-  cancelText?: ReactNode;
+  /** Defaults to "Save". Pass `null` to hide the submit button. */
+  okText?: ReactNode | null;
+  /** Defaults to "Cancel". Pass `null` to hide the cancel button. */
+  cancelText?: ReactNode | null;
   onCancel?: () => void;
   /** Loading state for the submit button. */
   isSubmitting?: boolean;
@@ -70,25 +78,34 @@ export interface ControlledFormDialogProps {
 }
 
 /**
- * Controlled dialog for forms. Unlike the legacy `<FormDialog />` which reads
- * from a global Zustand store (only one dialog at a time, side-effect-driven
- * close), this component is fully controlled via props — supports nested
- * dialogs, is testable, and doesn't couple Form internals to a global.
+ * Controlled dialog for forms. Use when the parent must own the open state
+ * (e.g. opening from a row action with row data). For the common
+ * "button → dialog" case, use `<FormDialog>` (with `trigger`) instead.
  *
- * Usage:
+ * Forms inside this dialog can grab `close` via `useDialogClose()` and the
+ * form id is auto-wired via `FormIdContext` — no `onSuccess` prop, no
+ * `formId` magic string:
+ *
  * ```tsx
- * const [open, setOpen] = useState(false);
+ * function MyForm() {
+ *   const close = useDialogClose();
+ *   const form = useForm({ ... });
+ *   const handleSubmit = (data) => {
+ *     mutation.mutate(data, { onSuccess: close });
+ *   };
+ *   return (
+ *     <Form form={form} onSubmit={handleSubmit}>  // picks up id from context
+ *       ...
+ *     </Form>
+ *   );
+ * }
  *
  * <ControlledFormDialog
  *   open={open}
  *   onOpenChange={setOpen}
- *   title="Add Branch"
- *   formId="branch-form"
- *   okText="Add"
- *   cancelText="Cancel"
- *   isSubmitting={mutation.isPending}
+ *   title="Edit Branch"
  * >
- *   <BranchForm onSuccess={() => setOpen(false)} />
+ *   <MyForm />
  * </ControlledFormDialog>
  * ```
  */
@@ -98,17 +115,28 @@ export function ControlledFormDialog({
   title,
   size = 'md',
   formId,
-  okText,
-  cancelText,
+  okText = 'Save',
+  cancelText = 'Cancel',
   onCancel,
   isSubmitting,
   dialogClassName,
   componentClassName,
   children,
 }: ControlledFormDialogProps) {
+  // Auto-generate a form id so callers don't have to type magic strings.
+  // The `<Form>` wrapper picks this up via FormIdContext and applies it to
+  // the inner <form> tag, so the dialog's submit button (which uses
+  // `form="<id>"`) is automatically wired to the form.
+  const generatedFormId = useId();
+  const resolvedFormId = formId ?? generatedFormId;
+
+  // Stable close function exposed to descendants via DialogCloseContext —
+  // forms can call `useDialogClose()` instead of accepting an `onSuccess` prop.
+  const close = useCallback(() => onOpenChange(false), [onOpenChange]);
+
   const handleCancel = () => {
     onCancel?.();
-    onOpenChange(false);
+    close();
   };
 
   return (
@@ -134,7 +162,11 @@ export function ControlledFormDialog({
           )}
           cardContentClassName="flex flex-col gap-4 p-0"
         >
-          {children}
+          <DialogCloseContext.Provider value={close}>
+            <FormIdContext.Provider value={resolvedFormId}>
+              {children}
+            </FormIdContext.Provider>
+          </DialogCloseContext.Provider>
           {(okText || cancelText) && (
             <div className="flex justify-end gap-4">
               {cancelText && (
@@ -152,7 +184,7 @@ export function ControlledFormDialog({
                 <Button
                   type="submit"
                   variant="secondary"
-                  form={formId}
+                  form={resolvedFormId}
                   disabled={isSubmitting}
                   className="text-[14px] font-medium leading-5 text-white cursor-pointer"
                 >

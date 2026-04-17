@@ -5,7 +5,7 @@ import { fetchTenantConfig } from './mock-tenants';
 import { applyTenantTheme } from './apply-theme';
 import { applyTenantBranding } from './apply-branding';
 
-interface TenantContextValue {
+export interface TenantContextValue {
   tenant: TenantConfig;
   slug: string;
   isDark: boolean;

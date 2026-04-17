@@ -21,13 +21,16 @@ export function ExtensionSlot<T extends SlotName>({
 
   return (
     <>
-      {registrations.map((reg) => (
-        <PluginErrorBoundary key={reg.pluginId} pluginId={reg.pluginId}>
-          <Suspense fallback={<Skeleton className="h-8 w-full" />}>
-            <reg.component {...(slotProps as any)} />
-          </Suspense>
-        </PluginErrorBoundary>
-      ))}
+      {registrations.map((reg) => {
+        const Component = reg.component as React.ComponentType<SlotPropsMap[T]>;
+        return (
+          <PluginErrorBoundary key={reg.pluginId} pluginId={reg.pluginId}>
+            <Suspense fallback={<Skeleton className="h-8 w-full" />}>
+              <Component {...(slotProps as unknown as SlotPropsMap[T])} />
+            </Suspense>
+          </PluginErrorBoundary>
+        );
+      })}
     </>
   );
 }

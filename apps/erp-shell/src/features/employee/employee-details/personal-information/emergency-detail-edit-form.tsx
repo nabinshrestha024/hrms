@@ -1,13 +1,8 @@
 import { useForm, type Resolver } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { emergencySchema, type EmergencyFormValue } from './EmergencyDetailZod';
-import { Employee } from '../../schema/employee-data';
 import { HRInput } from '@erp/ui';
 
-type Props = {
-  employee: Employee;
-  employeeId: string;
-};
 export const EmergencyDetailEditForm = () => {
   const {
     register,

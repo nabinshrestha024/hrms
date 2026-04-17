@@ -6,7 +6,7 @@ import { addressData, municipalityData } from '../../schema/employee-schema';
 export const AddressInformationForm = () => {
   const [country, setCountry] = useState<string>();
   const [province, setProvince] = useState<string>();
-  const [district, setDistrict] = useState<string>();
+  const [, setDistrict] = useState<string>();
 
   const {
     register,

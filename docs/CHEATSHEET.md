@@ -88,25 +88,47 @@ const onSubmit = handleSubmit((data) => {
 
 ## Dialog Patterns
 
-Three components, three use cases. **Pick the right one.**
+Three components, three use cases. **Pick the right one.** No magic
+strings, no `useState`, no render-props.
 
 ### 1. `<FormDialog>` — button → form (95% of cases)
 
-Self-managed state, **no `useState` needed**.
+The minimum dialog is **4 lines**. No `useState`, no `formId`, no
+`onSuccess` prop on the form.
 
 ```tsx
 import { Button, FormDialog } from '@erp/ui';
 
-<FormDialog
-  trigger={<Button>Add Branch</Button>}
-  title="Add Branch"
-  size="lg"
-  formId="branch-form"
-  okText="Add"
-  cancelText="Cancel"
->
-  {({ close }) => <BranchForm onSuccess={close} />}
+<FormDialog trigger={<Button>Add Branch</Button>} title="Add Branch">
+  <BranchForm />
 </FormDialog>;
+```
+
+The form closes itself via `useDialogClose()`:
+
+```tsx
+import { Form, HRInput, useDialogClose, toast } from '@erp/ui';
+
+export function BranchForm() {
+  const createBranch = useCreateBranch();
+  const close = useDialogClose();
+  const form = useForm({ resolver: zodResolver(branchSchema) });
+
+  const onSubmit = (data) => {
+    createBranch.mutate(data, {
+      onSuccess: () => {
+        toast({ title: 'Saved', variant: 'success' });
+        close();
+      },
+    });
+  };
+
+  return (
+    <Form form={form} onSubmit={onSubmit}>
+      <HRInput {...form.register('name')} label="Name" />
+    </Form>
+  );
+}
 ```
 
 ### 2. `<ControlledFormDialog>` — when parent owns state (e.g. row edit)
@@ -118,8 +140,7 @@ const [editTarget, setEditTarget] = useState<Branch | null>(null);
   open={editTarget !== null}
   onOpenChange={(open) => !open && setEditTarget(null)}
   title="Edit Branch"
-  formId="branch-form"
-  okText="Save"
+  size="lg"
 >
   <BranchForm initialValues={editTarget ?? undefined} />
 </ControlledFormDialog>;
@@ -146,7 +167,14 @@ const [target, setTarget] = useState<Branch | null>(null);
 ⚠️ **Use `mutateAsync()`, not `mutate()`** — `ConfirmDialog` relies on the
 returned promise for loading state and auto-close.
 
-❌ **Don't use** `<LegacyFormDialog />` or `useDialogFormStore` — deprecated.
+### Defaults you can omit
+
+| Prop         | Default          |
+| ------------ | ---------------- |
+| `okText`     | `"Save"`         |
+| `cancelText` | `"Cancel"`       |
+| `size`       | `"md"`           |
+| `formId`     | auto (`useId()`) |
 
 ## Table Column
 

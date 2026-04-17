@@ -1,18 +1,24 @@
 import type { ReactNode } from 'react';
 
-interface PageHeaderProps {
+interface PageHeadingProps {
   title: string;
   subtitle?: string;
   actions?: ReactNode;
   children?: ReactNode;
 }
 
-export function PageHeader({
+/**
+ * Simple page heading bar — title + optional subtitle + optional action slot.
+ *
+ * Use this when you need just a header (e.g. above a custom layout). For a
+ * full list page with search, filter, and card/table toggle, use `<ListPage>`.
+ */
+export function PageHeading({
   title,
   subtitle,
   actions,
   children,
-}: PageHeaderProps) {
+}: PageHeadingProps) {
   return (
     <div className="px-6 pt-6 pb-4">
       <div className="flex items-center justify-between gap-4">

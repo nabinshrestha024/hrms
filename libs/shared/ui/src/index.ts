@@ -222,18 +222,16 @@ export { FormDialog } from './components/dialog/form-dialog-trigger';
 export type { FormDialogProps } from './components/dialog/form-dialog-trigger';
 export { ConfirmDialog } from './components/dialog/confirm-dialog';
 export type { ConfirmDialogProps } from './components/dialog/confirm-dialog';
+export { useDialogClose } from './components/dialog/dialog-close-context';
+export { useFormId } from './components/dialog/form-id-context';
 export { MultiStepForm } from './components/multi-step-form';
 export type {
   MultiStepFormProps,
   StepConfig,
 } from './components/multi-step-form';
-export { PageHeader } from './components/page-header';
-export { TablePage } from './components/table-page';
-export type {
-  FetchParams,
-  FetchResult,
-  TablePageProps,
-} from './components/table-page';
+export { PageHeading } from './components/page-heading';
+export { ListPage } from './components/list-page';
+export type { ListPageProps } from './components/list-page';
 
 // Data table components
 export {

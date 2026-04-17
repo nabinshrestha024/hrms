@@ -1,10 +1,7 @@
-import { leaveBalanceData } from '../../schema/leave-balance-data';
-
 interface LeaveBalanceProps {
   leaveId: number;
 }
-export const YearSummary = ({ leaveId }: LeaveBalanceProps) => {
-  const leave = leaveBalanceData.filter((item) => item.id === leaveId);
+export const YearSummary = ({ leaveId: _leaveId }: LeaveBalanceProps) => {
   return (
     <>
       <div></div>

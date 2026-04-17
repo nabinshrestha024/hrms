@@ -24,11 +24,7 @@ export const AssignAccessTemplateForm = ({
     },
   });
 
-  const {
-    register,
-    setValue,
-    formState: { errors: _errors },
-  } = form;
+  const { register, setValue } = form;
 
   const onsubmit = (_data: AssignAccessTemplateFormValue) => {
     toast({ variant: 'success', title: 'Assign access template' });

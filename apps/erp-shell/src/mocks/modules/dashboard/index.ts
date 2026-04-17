@@ -35,7 +35,7 @@ export function initDashboardModule() {
     http.get(`${API_BASE}/dashboard/attendance`, async ({ request }) => {
       await delay(150);
       const p = parseParams(request.url);
-      const filter = (item: any) => {
+      const filter = (item: Record<string, unknown>) => {
         if (p.event && item.event !== p.event) return false;
         return true;
       };
@@ -51,7 +51,7 @@ export function initDashboardModule() {
     http.get(`${API_BASE}/dashboard/my-requests`, async ({ request }) => {
       await delay(150);
       const p = parseParams(request.url);
-      const filter = (item: any) => {
+      const filter = (item: Record<string, unknown>) => {
         if (p.status && item.status !== p.status) return false;
         if (p.type && item.type !== p.type) return false;
         return true;
@@ -68,7 +68,7 @@ export function initDashboardModule() {
     http.get(`${API_BASE}/dashboard/notices`, async ({ request }) => {
       await delay(150);
       const p = parseParams(request.url);
-      const filter = (item: any) => {
+      const filter = (item: Record<string, unknown>) => {
         if (p.noticeType && item.noticeType !== p.noticeType) return false;
         if (p.search) {
           const q = p.search.toLowerCase();
@@ -118,7 +118,7 @@ export function initDashboardModule() {
     http.get(`${API_BASE}/dashboard/events`, async ({ request }) => {
       await delay(150);
       const p = parseParams(request.url);
-      const filter = (item: any) => {
+      const filter = (item: Record<string, unknown>) => {
         if (p.eventType && item.eventType !== p.eventType) return false;
         return true;
       };
@@ -130,7 +130,7 @@ export function initDashboardModule() {
     http.get(`${API_BASE}/dashboard/team-requests`, async ({ request }) => {
       await delay(150);
       const p = parseParams(request.url);
-      const filter = (item: any) => {
+      const filter = (item: Record<string, unknown>) => {
         if (p.status && item.status !== p.status) return false;
         if (p.type && item.type !== p.type) return false;
         return true;

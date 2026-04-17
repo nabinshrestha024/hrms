@@ -56,14 +56,16 @@ export function FormRenderer({
     />
   );
 
-  const formId = `${config.entity}-form`;
+  // Standalone forms (not in a dialog) get an explicit id derived from the
+  // entity. Dialog forms inherit the id from FormIdContext via <Form>.
+  const standaloneFormId = `${config.entity}-form`;
 
   return isDialogForm ? (
-    <Form id={formId} onSubmit={onSubmit} form={form}>
+    <Form onSubmit={onSubmit} form={form}>
       {content}
     </Form>
   ) : (
-    <form onSubmit={form.handleSubmit(onSubmit)} id={formId}>
+    <form onSubmit={form.handleSubmit(onSubmit)} id={standaloneFormId}>
       {content}
     </form>
   );

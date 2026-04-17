@@ -12,7 +12,7 @@ export function DateWidget({ field, form, disabled }: WidgetProps) {
       control={form.control}
       render={({ field: formField }) => (
         <HRDateField
-          date={formField.value}
+          date={formField.value as Date | undefined}
           onDateChange={formField.onChange}
           disabled={disabled}
           Label={field.label}

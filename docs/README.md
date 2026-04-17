@@ -33,10 +33,11 @@ Start here. Pick the doc that matches what you're trying to do.
 
 ## Conventions
 
-- **Don't use** the legacy `useDialogFormStore` / `<LegacyFormDialog />` pattern. See [DIALOGS.md](./DIALOGS.md#-dont-use-legacyformdialog--usedialogformstore) for why and what to use instead.
-- **Don't use** the legacy `<form id="hardcoded-string">` magic string pattern. Let `<FormRenderer>` generate the form id from the entity name.
+- **Use `<Form>` from `@erp/ui` for forms inside dialogs.** It auto-picks up the form id from `FormIdContext` so you never have to type a magic string. See [DIALOGS.md](./DIALOGS.md).
+- **Forms close themselves via `useDialogClose()`.** Don't pass `onSuccess` callbacks through props — grab `close` from React context instead.
 - **Don't fetch** data without passing the React Query `signal` to `client.get/post/...` — see existing query hooks for the pattern.
-- **Don't store JSX in state**. Components live in the render tree. Dialogs are no exception — that's what the new dialog patterns exist for.
+- **Don't store JSX in state.** Components live in the render tree. Dialogs are no exception — that's what `<FormDialog>` exists for.
+- **Use `mutateAsync()` (not `mutate()`) inside `<ConfirmDialog onConfirm>`** — the dialog relies on the returned promise for its loading state and auto-close.
 
 ## Where to find working examples in the codebase
 

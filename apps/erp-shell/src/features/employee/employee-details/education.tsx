@@ -25,9 +25,7 @@ export const Education = () => {
           }
           title="Education Details"
           size="lg"
-          formId="education-form"
           okText="Add"
-          cancelText="Cancel"
         >
           {({ close }: { close: () => void }) => (
             <AddEducationForm onSuccess={close} />

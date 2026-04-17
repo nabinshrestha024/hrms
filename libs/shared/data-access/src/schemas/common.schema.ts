@@ -34,7 +34,7 @@ export const listParamsSchema = z.object({
   search: z.string().optional(),
 });
 
-export type ListParams = z.infer<typeof listParamsSchema>;
+export type ListParams = z.input<typeof listParamsSchema>;
 
 // ---------------------------------------------------------------------------
 // API error response shape
@@ -43,7 +43,7 @@ export type ListParams = z.infer<typeof listParamsSchema>;
 export const apiErrorResponseSchema = z.object({
   message: z.string(),
   code: z.string().optional(),
-  details: z.record(z.unknown()).optional(),
+  details: z.record(z.string(), z.unknown()).optional(),
 });
 
 export type ApiErrorResponse = z.infer<typeof apiErrorResponseSchema>;

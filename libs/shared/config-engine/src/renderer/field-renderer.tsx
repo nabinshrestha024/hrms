@@ -16,7 +16,7 @@ export function FieldRenderer({
   disabled,
 }: FieldRendererProps) {
   // Subscribe to this field's error so React re-renders when validation state changes
-  const _error = form.formState.errors[field.name];
+  void form.formState.errors[field.name];
 
   const Widget = widgetRegistry.resolve(field);
 
