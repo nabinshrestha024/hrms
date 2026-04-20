@@ -2,29 +2,29 @@ import type { ColumnDef } from '@tanstack/react-table';
 import { Edit, Trash2 } from 'lucide-react';
 import { JobLevelDataType } from '../../schema/JobLevelData';
 import { IconButton } from '../../../../components/icon-button';
+import { DataTableColumnHeader } from '@erp/ui';
 
 export function getJobLevelColumn(): ColumnDef<JobLevelDataType>[] {
   return [
     {
       accessorKey: 'name',
-      header: 'Name',
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue('name')}</div>
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Name" />
       ),
+      cell: ({ row }) => <>{row.getValue('name')}</>,
     },
     {
       accessorKey: 'details',
-      header: 'Details',
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue('details')}</div>
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Details" />
       ),
+      cell: ({ row }) => <>{row.getValue('details')}</>,
     },
-
     {
       id: 'actions',
-      header: () => <div className="text-left">Action</div>,
+      header: 'Action',
       cell: () => (
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 justify-center">
           <IconButton variant="default">
             <Edit className="w-4 h-4" />
           </IconButton>

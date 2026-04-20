@@ -2,36 +2,37 @@ import type { ColumnDef } from '@tanstack/react-table';
 import { Edit, Trash2 } from 'lucide-react';
 import { leaveTypeDataType } from '../../schema/LeaveTypeData';
 import { IconButton } from '../../../../components/icon-button';
+import { DataTableColumnHeader } from '@erp/ui';
 
 export function getLeaveTypeColumn(): ColumnDef<leaveTypeDataType>[] {
   return [
     {
       accessorKey: 'leavetype',
-      header: 'Leave Type',
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue('leavetype')}</div>
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Leave Type" />
       ),
+      cell: ({ row }) => <>{row.getValue('leavetype')}</>,
     },
     {
       accessorKey: 'code',
-      header: 'Code',
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue('code')}</div>
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Code" />
       ),
+      cell: ({ row }) => <>{row.getValue('code')}</>,
     },
     {
       accessorKey: 'details',
-      header: 'Details',
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue('details')}</div>
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Details" />
       ),
+      cell: ({ row }) => <>{row.getValue('details')}</>,
     },
 
     {
       id: 'actions',
-      header: () => <div className="text-left">Action</div>,
+      header: 'Action',
       cell: () => (
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 justify-center">
           <IconButton variant="default">
             <Edit className="w-4 h-4" />
           </IconButton>
