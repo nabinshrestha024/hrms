@@ -11,6 +11,7 @@ import {
 interface CrumbItem {
   label: string;
   path: string;
+  sublabel?: string;
 }
 
 export function AppBreadcrumb() {
@@ -21,10 +22,14 @@ export function AppBreadcrumb() {
       const ctx = match.context as Record<string, unknown> | undefined;
       return ctx?.breadcrumb && typeof ctx.breadcrumb === 'string';
     })
-    .map((match) => ({
-      label: (match.context as Record<string, unknown>).breadcrumb as string,
-      path: match.pathname,
-    }));
+    .map((match) => {
+      const ctx = match.context as Record<string, unknown>;
+      return {
+        label: ctx.breadcrumb as string,
+        sublabel: ctx.subbreadcrumb as string,
+        path: match.pathname,
+      };
+    });
 
   if (crumbs.length <= 1) return null;
 
@@ -37,7 +42,15 @@ export function AppBreadcrumb() {
           return (
             <BreadcrumbItem key={crumb.path}>
               {isLast ? (
-                <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
+                <BreadcrumbPage className="flex items-center gap-2">
+                  <span className="text-secondary-foreground cursor-pointer hover:text-foreground">
+                    {crumb.label}
+                  </span>
+                  <BreadcrumbSeparator />
+                  {crumb.sublabel && (
+                    <span className="text-foreground"> {crumb.sublabel}</span>
+                  )}
+                </BreadcrumbPage>
               ) : (
                 <>
                   <BreadcrumbLink asChild>

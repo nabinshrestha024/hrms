@@ -5,7 +5,10 @@ export const Route = createFileRoute(
   '/_authenticated/company-setup/department'
 )({
   component: RouteComponent,
-  beforeLoad: () => ({ breadcrumb: 'Department Management' }),
+  beforeLoad: () => ({
+    breadcrumb: 'Company Setup',
+    subbreadcrumb: 'Department Management',
+  }),
 });
 
 function RouteComponent() {

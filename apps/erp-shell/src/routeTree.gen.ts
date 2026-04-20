@@ -21,9 +21,11 @@ import { Route as AuthenticatedDemoFormRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedLeaveManagementIndexRouteImport } from './routes/_authenticated/leave-management/index'
 import { Route as AuthenticatedEmployeeIndexRouteImport } from './routes/_authenticated/employee/index'
 import { Route as AuthenticatedDocumentManagementIndexRouteImport } from './routes/_authenticated/document-management/index'
+import { Route as AuthenticatedDirectoriesIndexRouteImport } from './routes/_authenticated/directories/index'
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
 import { Route as AuthenticatedCompanySetupIndexRouteImport } from './routes/_authenticated/company-setup/index'
 import { Route as AuthenticatedAttendanceIndexRouteImport } from './routes/_authenticated/attendance/index'
+import { Route as AuthenticatedAssetsManagementIndexRouteImport } from './routes/_authenticated/assets-management/index'
 import { Route as AuthenticatedLeaveManagementMyRequestRouteImport } from './routes/_authenticated/leave-management/my-request'
 import { Route as AuthenticatedLeaveManagementLeaveBalanceRouteImport } from './routes/_authenticated/leave-management/leave-balance'
 import { Route as AuthenticatedDocumentManagementVisibilityRouteImport } from './routes/_authenticated/document-management/visibility'
@@ -35,6 +37,8 @@ import { Route as AuthenticatedCompanySetupDepartmentRouteImport } from './route
 import { Route as AuthenticatedCompanySetupBranchRouteImport } from './routes/_authenticated/company-setup/branch'
 import { Route as AuthenticatedAttendanceWorkRecordRouteImport } from './routes/_authenticated/attendance/work-record'
 import { Route as AuthenticatedAttendanceMyAttendanceRouteImport } from './routes/_authenticated/attendance/my-attendance'
+import { Route as AuthenticatedAssetsManagementAssignmentHistoryRouteImport } from './routes/_authenticated/assets-management/assignment-history'
+import { Route as AuthenticatedAssetsManagementAllAssetsRouteImport } from './routes/_authenticated/assets-management/all-assets'
 import { Route as AuthenticatedEmployeeEmployeeDetailsIdRouteImport } from './routes/_authenticated/employee/employee-details.$id'
 import { Route as AuthenticatedEmployeeDocumentViewNameRouteImport } from './routes/_authenticated/employee/document-view.$name'
 import { Route as AuthenticatedEmployeeAssignApprovalIdRouteImport } from './routes/_authenticated/employee/assign-approval.$id'
@@ -102,6 +106,12 @@ const AuthenticatedDocumentManagementIndexRoute =
     path: '/document-management/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedDirectoriesIndexRoute =
+  AuthenticatedDirectoriesIndexRouteImport.update({
+    id: '/directories/',
+    path: '/directories/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedDashboardIndexRoute =
   AuthenticatedDashboardIndexRouteImport.update({
     id: '/dashboard/',
@@ -118,6 +128,12 @@ const AuthenticatedAttendanceIndexRoute =
   AuthenticatedAttendanceIndexRouteImport.update({
     id: '/attendance/',
     path: '/attendance/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAssetsManagementIndexRoute =
+  AuthenticatedAssetsManagementIndexRouteImport.update({
+    id: '/assets-management/',
+    path: '/assets-management/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedLeaveManagementMyRequestRoute =
@@ -186,6 +202,18 @@ const AuthenticatedAttendanceMyAttendanceRoute =
     path: '/attendance/my-attendance',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedAssetsManagementAssignmentHistoryRoute =
+  AuthenticatedAssetsManagementAssignmentHistoryRouteImport.update({
+    id: '/assets-management/assignment-history',
+    path: '/assets-management/assignment-history',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAssetsManagementAllAssetsRoute =
+  AuthenticatedAssetsManagementAllAssetsRouteImport.update({
+    id: '/assets-management/all-assets',
+    path: '/assets-management/all-assets',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedEmployeeEmployeeDetailsIdRoute =
   AuthenticatedEmployeeEmployeeDetailsIdRouteImport.update({
     id: '/employee/employee-details/$id',
@@ -214,6 +242,8 @@ export interface FileRoutesByFullPath {
   '/recruitment': typeof AuthenticatedRecruitmentRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/tasks': typeof AuthenticatedTasksRoute
+  '/assets-management/all-assets': typeof AuthenticatedAssetsManagementAllAssetsRoute
+  '/assets-management/assignment-history': typeof AuthenticatedAssetsManagementAssignmentHistoryRoute
   '/attendance/my-attendance': typeof AuthenticatedAttendanceMyAttendanceRoute
   '/attendance/work-record': typeof AuthenticatedAttendanceWorkRecordRoute
   '/company-setup/branch': typeof AuthenticatedCompanySetupBranchRoute
@@ -225,9 +255,11 @@ export interface FileRoutesByFullPath {
   '/document-management/visibility': typeof AuthenticatedDocumentManagementVisibilityRoute
   '/leave-management/leave-balance': typeof AuthenticatedLeaveManagementLeaveBalanceRoute
   '/leave-management/my-request': typeof AuthenticatedLeaveManagementMyRequestRoute
+  '/assets-management/': typeof AuthenticatedAssetsManagementIndexRoute
   '/attendance/': typeof AuthenticatedAttendanceIndexRoute
   '/company-setup/': typeof AuthenticatedCompanySetupIndexRoute
   '/dashboard/': typeof AuthenticatedDashboardIndexRoute
+  '/directories/': typeof AuthenticatedDirectoriesIndexRoute
   '/document-management/': typeof AuthenticatedDocumentManagementIndexRoute
   '/employee/': typeof AuthenticatedEmployeeIndexRoute
   '/leave-management/': typeof AuthenticatedLeaveManagementIndexRoute
@@ -244,6 +276,8 @@ export interface FileRoutesByTo {
   '/recruitment': typeof AuthenticatedRecruitmentRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/tasks': typeof AuthenticatedTasksRoute
+  '/assets-management/all-assets': typeof AuthenticatedAssetsManagementAllAssetsRoute
+  '/assets-management/assignment-history': typeof AuthenticatedAssetsManagementAssignmentHistoryRoute
   '/attendance/my-attendance': typeof AuthenticatedAttendanceMyAttendanceRoute
   '/attendance/work-record': typeof AuthenticatedAttendanceWorkRecordRoute
   '/company-setup/branch': typeof AuthenticatedCompanySetupBranchRoute
@@ -255,9 +289,11 @@ export interface FileRoutesByTo {
   '/document-management/visibility': typeof AuthenticatedDocumentManagementVisibilityRoute
   '/leave-management/leave-balance': typeof AuthenticatedLeaveManagementLeaveBalanceRoute
   '/leave-management/my-request': typeof AuthenticatedLeaveManagementMyRequestRoute
+  '/assets-management': typeof AuthenticatedAssetsManagementIndexRoute
   '/attendance': typeof AuthenticatedAttendanceIndexRoute
   '/company-setup': typeof AuthenticatedCompanySetupIndexRoute
   '/dashboard': typeof AuthenticatedDashboardIndexRoute
+  '/directories': typeof AuthenticatedDirectoriesIndexRoute
   '/document-management': typeof AuthenticatedDocumentManagementIndexRoute
   '/employee': typeof AuthenticatedEmployeeIndexRoute
   '/leave-management': typeof AuthenticatedLeaveManagementIndexRoute
@@ -276,6 +312,8 @@ export interface FileRoutesById {
   '/_authenticated/recruitment': typeof AuthenticatedRecruitmentRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/tasks': typeof AuthenticatedTasksRoute
+  '/_authenticated/assets-management/all-assets': typeof AuthenticatedAssetsManagementAllAssetsRoute
+  '/_authenticated/assets-management/assignment-history': typeof AuthenticatedAssetsManagementAssignmentHistoryRoute
   '/_authenticated/attendance/my-attendance': typeof AuthenticatedAttendanceMyAttendanceRoute
   '/_authenticated/attendance/work-record': typeof AuthenticatedAttendanceWorkRecordRoute
   '/_authenticated/company-setup/branch': typeof AuthenticatedCompanySetupBranchRoute
@@ -287,9 +325,11 @@ export interface FileRoutesById {
   '/_authenticated/document-management/visibility': typeof AuthenticatedDocumentManagementVisibilityRoute
   '/_authenticated/leave-management/leave-balance': typeof AuthenticatedLeaveManagementLeaveBalanceRoute
   '/_authenticated/leave-management/my-request': typeof AuthenticatedLeaveManagementMyRequestRoute
+  '/_authenticated/assets-management/': typeof AuthenticatedAssetsManagementIndexRoute
   '/_authenticated/attendance/': typeof AuthenticatedAttendanceIndexRoute
   '/_authenticated/company-setup/': typeof AuthenticatedCompanySetupIndexRoute
   '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
+  '/_authenticated/directories/': typeof AuthenticatedDirectoriesIndexRoute
   '/_authenticated/document-management/': typeof AuthenticatedDocumentManagementIndexRoute
   '/_authenticated/employee/': typeof AuthenticatedEmployeeIndexRoute
   '/_authenticated/leave-management/': typeof AuthenticatedLeaveManagementIndexRoute
@@ -308,6 +348,8 @@ export interface FileRouteTypes {
     | '/recruitment'
     | '/settings'
     | '/tasks'
+    | '/assets-management/all-assets'
+    | '/assets-management/assignment-history'
     | '/attendance/my-attendance'
     | '/attendance/work-record'
     | '/company-setup/branch'
@@ -319,9 +361,11 @@ export interface FileRouteTypes {
     | '/document-management/visibility'
     | '/leave-management/leave-balance'
     | '/leave-management/my-request'
+    | '/assets-management/'
     | '/attendance/'
     | '/company-setup/'
     | '/dashboard/'
+    | '/directories/'
     | '/document-management/'
     | '/employee/'
     | '/leave-management/'
@@ -338,6 +382,8 @@ export interface FileRouteTypes {
     | '/recruitment'
     | '/settings'
     | '/tasks'
+    | '/assets-management/all-assets'
+    | '/assets-management/assignment-history'
     | '/attendance/my-attendance'
     | '/attendance/work-record'
     | '/company-setup/branch'
@@ -349,9 +395,11 @@ export interface FileRouteTypes {
     | '/document-management/visibility'
     | '/leave-management/leave-balance'
     | '/leave-management/my-request'
+    | '/assets-management'
     | '/attendance'
     | '/company-setup'
     | '/dashboard'
+    | '/directories'
     | '/document-management'
     | '/employee'
     | '/leave-management'
@@ -369,6 +417,8 @@ export interface FileRouteTypes {
     | '/_authenticated/recruitment'
     | '/_authenticated/settings'
     | '/_authenticated/tasks'
+    | '/_authenticated/assets-management/all-assets'
+    | '/_authenticated/assets-management/assignment-history'
     | '/_authenticated/attendance/my-attendance'
     | '/_authenticated/attendance/work-record'
     | '/_authenticated/company-setup/branch'
@@ -380,9 +430,11 @@ export interface FileRouteTypes {
     | '/_authenticated/document-management/visibility'
     | '/_authenticated/leave-management/leave-balance'
     | '/_authenticated/leave-management/my-request'
+    | '/_authenticated/assets-management/'
     | '/_authenticated/attendance/'
     | '/_authenticated/company-setup/'
     | '/_authenticated/dashboard/'
+    | '/_authenticated/directories/'
     | '/_authenticated/document-management/'
     | '/_authenticated/employee/'
     | '/_authenticated/leave-management/'
@@ -484,6 +536,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDocumentManagementIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/directories/': {
+      id: '/_authenticated/directories/'
+      path: '/directories'
+      fullPath: '/directories/'
+      preLoaderRoute: typeof AuthenticatedDirectoriesIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/dashboard/': {
       id: '/_authenticated/dashboard/'
       path: '/dashboard'
@@ -503,6 +562,13 @@ declare module '@tanstack/react-router' {
       path: '/attendance'
       fullPath: '/attendance/'
       preLoaderRoute: typeof AuthenticatedAttendanceIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/assets-management/': {
+      id: '/_authenticated/assets-management/'
+      path: '/assets-management'
+      fullPath: '/assets-management/'
+      preLoaderRoute: typeof AuthenticatedAssetsManagementIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/leave-management/my-request': {
@@ -582,6 +648,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAttendanceMyAttendanceRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/assets-management/assignment-history': {
+      id: '/_authenticated/assets-management/assignment-history'
+      path: '/assets-management/assignment-history'
+      fullPath: '/assets-management/assignment-history'
+      preLoaderRoute: typeof AuthenticatedAssetsManagementAssignmentHistoryRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/assets-management/all-assets': {
+      id: '/_authenticated/assets-management/all-assets'
+      path: '/assets-management/all-assets'
+      fullPath: '/assets-management/all-assets'
+      preLoaderRoute: typeof AuthenticatedAssetsManagementAllAssetsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/employee/employee-details/$id': {
       id: '/_authenticated/employee/employee-details/$id'
       path: '/employee/employee-details/$id'
@@ -612,6 +692,8 @@ interface AuthenticatedRouteChildren {
   AuthenticatedRecruitmentRoute: typeof AuthenticatedRecruitmentRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedTasksRoute: typeof AuthenticatedTasksRoute
+  AuthenticatedAssetsManagementAllAssetsRoute: typeof AuthenticatedAssetsManagementAllAssetsRoute
+  AuthenticatedAssetsManagementAssignmentHistoryRoute: typeof AuthenticatedAssetsManagementAssignmentHistoryRoute
   AuthenticatedAttendanceMyAttendanceRoute: typeof AuthenticatedAttendanceMyAttendanceRoute
   AuthenticatedAttendanceWorkRecordRoute: typeof AuthenticatedAttendanceWorkRecordRoute
   AuthenticatedCompanySetupBranchRoute: typeof AuthenticatedCompanySetupBranchRoute
@@ -623,9 +705,11 @@ interface AuthenticatedRouteChildren {
   AuthenticatedDocumentManagementVisibilityRoute: typeof AuthenticatedDocumentManagementVisibilityRoute
   AuthenticatedLeaveManagementLeaveBalanceRoute: typeof AuthenticatedLeaveManagementLeaveBalanceRoute
   AuthenticatedLeaveManagementMyRequestRoute: typeof AuthenticatedLeaveManagementMyRequestRoute
+  AuthenticatedAssetsManagementIndexRoute: typeof AuthenticatedAssetsManagementIndexRoute
   AuthenticatedAttendanceIndexRoute: typeof AuthenticatedAttendanceIndexRoute
   AuthenticatedCompanySetupIndexRoute: typeof AuthenticatedCompanySetupIndexRoute
   AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
+  AuthenticatedDirectoriesIndexRoute: typeof AuthenticatedDirectoriesIndexRoute
   AuthenticatedDocumentManagementIndexRoute: typeof AuthenticatedDocumentManagementIndexRoute
   AuthenticatedEmployeeIndexRoute: typeof AuthenticatedEmployeeIndexRoute
   AuthenticatedLeaveManagementIndexRoute: typeof AuthenticatedLeaveManagementIndexRoute
@@ -640,6 +724,10 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedRecruitmentRoute: AuthenticatedRecruitmentRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedTasksRoute: AuthenticatedTasksRoute,
+  AuthenticatedAssetsManagementAllAssetsRoute:
+    AuthenticatedAssetsManagementAllAssetsRoute,
+  AuthenticatedAssetsManagementAssignmentHistoryRoute:
+    AuthenticatedAssetsManagementAssignmentHistoryRoute,
   AuthenticatedAttendanceMyAttendanceRoute:
     AuthenticatedAttendanceMyAttendanceRoute,
   AuthenticatedAttendanceWorkRecordRoute:
@@ -661,9 +749,12 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
     AuthenticatedLeaveManagementLeaveBalanceRoute,
   AuthenticatedLeaveManagementMyRequestRoute:
     AuthenticatedLeaveManagementMyRequestRoute,
+  AuthenticatedAssetsManagementIndexRoute:
+    AuthenticatedAssetsManagementIndexRoute,
   AuthenticatedAttendanceIndexRoute: AuthenticatedAttendanceIndexRoute,
   AuthenticatedCompanySetupIndexRoute: AuthenticatedCompanySetupIndexRoute,
   AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
+  AuthenticatedDirectoriesIndexRoute: AuthenticatedDirectoriesIndexRoute,
   AuthenticatedDocumentManagementIndexRoute:
     AuthenticatedDocumentManagementIndexRoute,
   AuthenticatedEmployeeIndexRoute: AuthenticatedEmployeeIndexRoute,

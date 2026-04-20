@@ -59,7 +59,7 @@ export const EmployeeCard = ({ data }: EmployeeCardProps) => {
                             </Button>
                             <Button
                               type="button"
-                              variant="destructive"
+                              variant="outline"
                               className="rounded-none border-t border-t-border text-badge-text-3 cursor-pointer text-[14px] font-normal leading-5"
                             >
                               Delete

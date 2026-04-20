@@ -6,7 +6,7 @@ export const Route = createFileRoute(
   '/_authenticated/leave-management/leave-balance'
 )({
   component: RouteComponent,
-  beforeLoad: () => ({ breadcrumb: 'Leave-balance' }),
+  beforeLoad: () => ({ breadcrumb: 'Leave', subbreadcrumb: 'Leave-balance' }),
 });
 
 function RouteComponent() {

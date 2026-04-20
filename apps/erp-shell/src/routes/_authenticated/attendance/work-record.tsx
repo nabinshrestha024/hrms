@@ -4,7 +4,10 @@ import { WorkRecord } from '../../../features/attendance/work-record/work-record
 
 export const Route = createFileRoute('/_authenticated/attendance/work-record')({
   component: RouteComponent,
-  beforeLoad: () => ({ breadcrumb: 'Work Record' }),
+  beforeLoad: () => ({
+    breadcrumb: 'Attendance Management',
+    subbreadcrumb: 'Work Record',
+  }),
 });
 
 function RouteComponent() {

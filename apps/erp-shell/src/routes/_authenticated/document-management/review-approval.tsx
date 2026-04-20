@@ -5,7 +5,10 @@ export const Route = createFileRoute(
   '/_authenticated/document-management/review-approval'
 )({
   component: RouteComponent,
-  beforeLoad: () => ({ breadcrumb: 'Review Approval' }),
+  beforeLoad: () => ({
+    breadcrumb: 'Document Management',
+    subbreadcrumb: 'Review Approval',
+  }),
 });
 
 function RouteComponent() {

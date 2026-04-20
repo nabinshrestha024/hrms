@@ -1,7 +1,6 @@
 import { useMemo, useState, type ReactNode } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { ActionDropdown } from './dropdown/action-drop-down';
-import { Button } from '../primitives/button';
 import { SearchBar } from './search/search';
 import { Tabs, TabsContent } from '../primitives/tabs';
 import { TabsFlex } from './tabs/tabs-flex';
@@ -15,6 +14,7 @@ export interface ListPageProps<T> {
    * Show the card/table view toggle. When `false`, only `renderCard` is
    * rendered (no toggle, no table view).
    */
+  isSearch?: boolean;
   isTabs?: boolean;
   /** The full dataset. Filtering happens client-side via `filterFn`. */
   data: T[];
@@ -92,6 +92,7 @@ export function ListPage<T>({
   data,
   isTabs = false,
   buttonName,
+  isSearch,
   actionComponent,
   onAdd,
   renderCard,
@@ -133,14 +134,16 @@ export function ListPage<T>({
         <div className="text-[20px] font-semibold">{title}</div>
 
         <div className="flex gap-4 items-center">
-          <SearchBar
-            value={search}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setSearch(e.target.value)
-            }
-            placeholder="Search..."
-            className="w-58 h-10"
-          />
+          {isSearch && (
+            <SearchBar
+              value={search}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setSearch(e.target.value)
+              }
+              placeholder="Search..."
+              className="w-58 h-10"
+            />
+          )}
 
           {view === 'table' && dropdownKey && (
             <ActionDropdown
@@ -160,16 +163,7 @@ export function ListPage<T>({
 
           {isTabs && <TabsFlex />}
 
-          {actionComponent ?? (
-            <Button
-              type="button"
-              variant="secondary"
-              className="h-10 cursor-pointer text-[14px] font-medium leading-5 text-white"
-              onClick={onAdd}
-            >
-              {buttonName}
-            </Button>
-          )}
+          {actionComponent ?? actionComponent}
         </div>
       </div>
 

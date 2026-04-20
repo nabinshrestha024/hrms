@@ -3,7 +3,10 @@ import { MissingDocumnetManagement } from '../../../features/document-management
 
 export const Route = createFileRoute('/_authenticated/document-management/')({
   component: RouteComponent,
-  beforeLoad: () => ({ breadcrumb: 'Missing Document' }),
+  beforeLoad: () => ({
+    breadcrumb: 'Document Management',
+    subbreadcrumb: 'Missing Document',
+  }),
 });
 
 function RouteComponent() {

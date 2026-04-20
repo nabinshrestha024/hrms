@@ -6,7 +6,10 @@ export const Route = createFileRoute(
   '/_authenticated/attendance/my-attendance'
 )({
   component: RouteComponent,
-  beforeLoad: () => ({ breadcrumb: 'My Attendance' }),
+  beforeLoad: () => ({
+    breadcrumb: 'Attendance Management',
+    subbreadcrumb: 'My Attendance',
+  }),
 });
 
 function RouteComponent() {
