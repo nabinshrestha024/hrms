@@ -1,3 +1,5 @@
+import { cn } from '@erp/utils';
+
 type InitialsCardProps = {
   name: string;
   className?: string;
@@ -16,7 +18,9 @@ export const InitialsCard = ({ name, className }: InitialsCardProps) => {
   const initials = getInitials(name);
   return (
     <div
-      className={`p-4 rounded-full bg-primary text-[12px] font-semibold text-white w-12 h-12 items-center justify-center flex ${className}`}
+      className={cn(
+        `p-4 rounded-full bg-primary text-[12px] font-semibold text-white w-12 h-12 items-center justify-center flex ${className}`
+      )}
     >
       {initials}
     </div>

@@ -1,4 +1,5 @@
 import { ActionDropdown, DatePicker, SearchBar } from '@erp/ui';
+import { cn } from '@erp/utils';
 import { ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 
@@ -13,7 +14,8 @@ interface DocumentHeaderProps<T> {
   sortByDate?: boolean;
   data: T[];
   dropdowns?: DropdownConfig<T>[];
-  onAdd?: () => void;
+  actionComponent?: React.ReactNode;
+  className?: string;
   renderTable: (data: T[]) => React.ReactNode;
   filterFn?: (
     data: T[],
@@ -25,12 +27,13 @@ interface DocumentHeaderProps<T> {
 export function DocumentHeader<T>({
   title,
   data,
-  onAdd,
+  actionComponent,
   renderTable,
   filterFn,
   isSearch,
   sortByDate,
   dropdowns,
+  className,
 }: DocumentHeaderProps<T>) {
   const [search, setSearch] = useState('');
 
@@ -67,7 +70,12 @@ export function DocumentHeader<T>({
 
   return (
     <div className="flex flex-col">
-      <div className="flex justify-between items-center px-12 py-6">
+      <div
+        className={cn(
+          'flex justify-between items-center px-12 py-6',
+          className
+        )}
+      >
         <div className="text-[20px] font-semibold">{title}</div>
 
         <div className="flex gap-4 items-center">
@@ -106,6 +114,7 @@ export function DocumentHeader<T>({
               className="px-4 py-2.5 border-[#E4E4E7]"
             />
           )}
+          {actionComponent && actionComponent}
         </div>
       </div>
       {renderTable(filteredData)}

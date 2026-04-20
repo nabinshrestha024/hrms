@@ -5,7 +5,10 @@ export const Route = createFileRoute(
   '/_authenticated/document-management/visibility'
 )({
   component: RouteComponent,
-  beforeLoad: () => ({ breadcrumb: 'Visibility' }),
+  beforeLoad: () => ({
+    breadcrumb: 'Document Management',
+    subbreadcrumb: 'Visibility',
+  }),
 });
 
 function RouteComponent() {

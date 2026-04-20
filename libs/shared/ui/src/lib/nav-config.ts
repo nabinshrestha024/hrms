@@ -8,7 +8,6 @@ import {
   FileText,
   UserSearch,
   TentTree,
-  Monitor,
   BookUser,
   Settings,
   FileCheck2,
@@ -19,14 +18,11 @@ import {
   GitBranch,
   Clock,
   History,
-  FolderOpen,
-  ListChecks,
   CalendarDays,
   Briefcase,
   LogIn,
   LogOut,
   Layers,
-  Archive,
   Computer,
   Coins,
   MapPin,
@@ -40,6 +36,7 @@ import {
   FileUp,
   Files,
   SquareUser,
+  LayoutDashboard,
 } from 'lucide-react';
 
 export interface NavSubItem {
@@ -200,21 +197,34 @@ export const navModules: NavModule[] = [
   {
     id: 'assets',
     label: 'Assets',
-    icon: Monitor,
-    href: '/assets/categories',
+    icon: Computer,
+    href: '/assets-management',
     modules: ['assets'],
     subItems: [
-      { label: 'Categories', href: '/assets/categories', icon: FolderOpen },
-      { label: 'All Assets', href: '/assets/all', icon: Archive },
-      { label: 'Assignment History', href: '/assets/history', icon: History },
+      {
+        label: 'Categories',
+        href: '/assets-management',
+        icon: LayoutDashboard,
+      },
+      {
+        label: 'All Assets',
+        href: '/assets-management/all-assets',
+        icon: Computer,
+      },
+      {
+        label: 'Assignment History',
+        href: '/assets-management/assignment-history',
+        icon: History,
+      },
     ],
   },
   {
     id: 'directory',
-    label: 'Directory',
+    label: 'Directories',
     icon: BookUser,
-    href: '/directory',
+    href: '/directories',
     modules: ['hr'],
+    subItems: [{ label: 'Directories', href: '/directories', icon: BookUser }],
   },
 
   {

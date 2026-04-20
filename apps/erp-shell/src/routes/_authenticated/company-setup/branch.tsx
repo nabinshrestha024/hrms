@@ -3,7 +3,10 @@ import { BranchManagement } from '../../../features/company-setup/branch/branch-
 
 export const Route = createFileRoute('/_authenticated/company-setup/branch')({
   component: RouteComponent,
-  beforeLoad: () => ({ breadcrumb: 'Branch Management' }),
+  beforeLoad: () => ({
+    breadcrumb: 'Company Setup',
+    subbreadcrumb: 'Branch Management',
+  }),
 });
 
 function RouteComponent() {

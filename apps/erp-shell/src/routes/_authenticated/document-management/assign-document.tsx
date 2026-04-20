@@ -5,7 +5,10 @@ export const Route = createFileRoute(
   '/_authenticated/document-management/assign-document'
 )({
   component: RouteComponent,
-  beforeLoad: () => ({ breadcrumb: 'Assign Document' }),
+  beforeLoad: () => ({
+    breadcrumb: 'Document Management',
+    subbreadcrumb: 'Assign Document',
+  }),
 });
 
 function RouteComponent() {

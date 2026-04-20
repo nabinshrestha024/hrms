@@ -70,7 +70,7 @@ export function getEmployeeColumns({
         <DataTableColumnHeader column={column} title="Designation" />
       ),
       cell: ({ row }) => (
-        <div className="truncate">{row.getValue('designation')}</div>
+        <div className="w-30 truncate">{row.getValue('designation')}</div>
       ),
     },
     {
@@ -81,11 +81,20 @@ export function getEmployeeColumns({
       cell: ({ row }) => <div>{row.original.startDate ?? '-'}</div>,
     },
     {
-      accessorKey: 'phone',
+      id: 'Contact',
+      accessorFn: (row) => `${row.phone} ${row.email}`,
+
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Phone" />
+        <DataTableColumnHeader column={column} title="Contact" />
       ),
-      cell: ({ row }) => <div>{row.original.phone ?? '-'}</div>,
+      cell: ({ row }) => (
+        <div className="flex flex-col">
+          {row.original.phone}{' '}
+          <span className="w-30 truncate text-[12px] font-normal leading-4">
+            {row.original.email}
+          </span>
+        </div>
+      ),
     },
     {
       accessorKey: 'status',
