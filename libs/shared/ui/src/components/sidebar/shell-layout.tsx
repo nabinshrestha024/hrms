@@ -127,7 +127,7 @@ export function ShellLayout({
 
       {/* Main content area */}
       <div className="flex flex-1 flex-col overflow-hidden">
-        <TopBar />
+        <TopBar onLogout={onLogout} />
 
         <main className="flex-1 pb-16 md:pb-0 bg-background">{children}</main>
       </div>

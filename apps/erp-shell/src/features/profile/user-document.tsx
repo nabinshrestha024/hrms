@@ -1,7 +1,7 @@
-import { personalDocumentData } from '../schema/document-data';
-import { DocumentUpload } from './document/document-upload';
+import { DocumentUpload } from '../employee/employee-details/document/document-upload';
+import { personalDocumentData } from '../employee/schema/document-data';
 
-export const Document = () => {
+export const UserDocument = () => {
   return (
     <div className="flex flex-col gap-6 max-h-115 overflow-auto pr-3">
       <div className="flex justify-between items-center">
@@ -20,12 +20,12 @@ export const Document = () => {
       <DocumentUpload
         title="HR & Company Documents"
         subTitle="Uploaded by HR Admin"
-        activeButton={true}
+        activeButton={false}
         primaryButton="Assign Document"
         secondaryButton="Upload Document"
         documents={personalDocumentData}
         viewComponent={true}
-        isDelete={true}
+        isDelete={false}
         uploadComponent={false}
       />
     </div>

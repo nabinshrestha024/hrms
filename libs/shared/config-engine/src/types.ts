@@ -13,8 +13,8 @@ export type FieldType =
   | 'richtext'
   | 'file'
   | 'time'
-  | 'textarea';
-
+  | 'textarea'
+  | 'colorRadio';
 export interface FieldDefinition {
   name: string;
   type: FieldType;

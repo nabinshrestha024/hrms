@@ -37,6 +37,7 @@ import {
   Files,
   SquareUser,
   LayoutDashboard,
+  Columns3Cog,
 } from 'lucide-react';
 
 export interface NavSubItem {
@@ -300,8 +301,8 @@ export const navModules: NavModule[] = [
     id: 'master-setup',
     label: 'Master Setup',
     href: '/master-setup',
-    modules: ['master-setup'],
-    icon: Computer,
+    modules: ['hr'],
+    icon: Columns3Cog,
     subItems: [
       {
         label: 'Holiday Types',

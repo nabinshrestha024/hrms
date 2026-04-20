@@ -18,6 +18,8 @@ import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedRecruitmentRouteImport } from './routes/_authenticated/recruitment'
 import { Route as AuthenticatedPayrollRouteImport } from './routes/_authenticated/payroll'
 import { Route as AuthenticatedDemoFormRouteImport } from './routes/_authenticated/demo-form'
+import { Route as AuthenticatedProfileIndexRouteImport } from './routes/_authenticated/profile/index'
+import { Route as AuthenticatedMasterSetupIndexRouteImport } from './routes/_authenticated/master-setup/index'
 import { Route as AuthenticatedLeaveManagementIndexRouteImport } from './routes/_authenticated/leave-management/index'
 import { Route as AuthenticatedEmployeeIndexRouteImport } from './routes/_authenticated/employee/index'
 import { Route as AuthenticatedDocumentManagementIndexRouteImport } from './routes/_authenticated/document-management/index'
@@ -26,6 +28,10 @@ import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authe
 import { Route as AuthenticatedCompanySetupIndexRouteImport } from './routes/_authenticated/company-setup/index'
 import { Route as AuthenticatedAttendanceIndexRouteImport } from './routes/_authenticated/attendance/index'
 import { Route as AuthenticatedAssetsManagementIndexRouteImport } from './routes/_authenticated/assets-management/index'
+import { Route as AuthenticatedMasterSetupWorkTypeRouteImport } from './routes/_authenticated/master-setup/work-type'
+import { Route as AuthenticatedMasterSetupLeaveTypeRouteImport } from './routes/_authenticated/master-setup/leave-type'
+import { Route as AuthenticatedMasterSetupJobLevelRouteImport } from './routes/_authenticated/master-setup/job-level'
+import { Route as AuthenticatedMasterSetupCurrenciesRouteImport } from './routes/_authenticated/master-setup/currencies'
 import { Route as AuthenticatedLeaveManagementMyRequestRouteImport } from './routes/_authenticated/leave-management/my-request'
 import { Route as AuthenticatedLeaveManagementLeaveBalanceRouteImport } from './routes/_authenticated/leave-management/leave-balance'
 import { Route as AuthenticatedDocumentManagementVisibilityRouteImport } from './routes/_authenticated/document-management/visibility'
@@ -88,6 +94,18 @@ const AuthenticatedDemoFormRoute = AuthenticatedDemoFormRouteImport.update({
   path: '/demo-form',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedProfileIndexRoute =
+  AuthenticatedProfileIndexRouteImport.update({
+    id: '/profile/',
+    path: '/profile/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedMasterSetupIndexRoute =
+  AuthenticatedMasterSetupIndexRouteImport.update({
+    id: '/master-setup/',
+    path: '/master-setup/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedLeaveManagementIndexRoute =
   AuthenticatedLeaveManagementIndexRouteImport.update({
     id: '/leave-management/',
@@ -134,6 +152,30 @@ const AuthenticatedAssetsManagementIndexRoute =
   AuthenticatedAssetsManagementIndexRouteImport.update({
     id: '/assets-management/',
     path: '/assets-management/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedMasterSetupWorkTypeRoute =
+  AuthenticatedMasterSetupWorkTypeRouteImport.update({
+    id: '/master-setup/work-type',
+    path: '/master-setup/work-type',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedMasterSetupLeaveTypeRoute =
+  AuthenticatedMasterSetupLeaveTypeRouteImport.update({
+    id: '/master-setup/leave-type',
+    path: '/master-setup/leave-type',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedMasterSetupJobLevelRoute =
+  AuthenticatedMasterSetupJobLevelRouteImport.update({
+    id: '/master-setup/job-level',
+    path: '/master-setup/job-level',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedMasterSetupCurrenciesRoute =
+  AuthenticatedMasterSetupCurrenciesRouteImport.update({
+    id: '/master-setup/currencies',
+    path: '/master-setup/currencies',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedLeaveManagementMyRequestRoute =
@@ -255,6 +297,10 @@ export interface FileRoutesByFullPath {
   '/document-management/visibility': typeof AuthenticatedDocumentManagementVisibilityRoute
   '/leave-management/leave-balance': typeof AuthenticatedLeaveManagementLeaveBalanceRoute
   '/leave-management/my-request': typeof AuthenticatedLeaveManagementMyRequestRoute
+  '/master-setup/currencies': typeof AuthenticatedMasterSetupCurrenciesRoute
+  '/master-setup/job-level': typeof AuthenticatedMasterSetupJobLevelRoute
+  '/master-setup/leave-type': typeof AuthenticatedMasterSetupLeaveTypeRoute
+  '/master-setup/work-type': typeof AuthenticatedMasterSetupWorkTypeRoute
   '/assets-management/': typeof AuthenticatedAssetsManagementIndexRoute
   '/attendance/': typeof AuthenticatedAttendanceIndexRoute
   '/company-setup/': typeof AuthenticatedCompanySetupIndexRoute
@@ -263,6 +309,8 @@ export interface FileRoutesByFullPath {
   '/document-management/': typeof AuthenticatedDocumentManagementIndexRoute
   '/employee/': typeof AuthenticatedEmployeeIndexRoute
   '/leave-management/': typeof AuthenticatedLeaveManagementIndexRoute
+  '/master-setup/': typeof AuthenticatedMasterSetupIndexRoute
+  '/profile/': typeof AuthenticatedProfileIndexRoute
   '/employee/assign-approval/$id': typeof AuthenticatedEmployeeAssignApprovalIdRoute
   '/employee/document-view/$name': typeof AuthenticatedEmployeeDocumentViewNameRoute
   '/employee/employee-details/$id': typeof AuthenticatedEmployeeEmployeeDetailsIdRoute
@@ -289,6 +337,10 @@ export interface FileRoutesByTo {
   '/document-management/visibility': typeof AuthenticatedDocumentManagementVisibilityRoute
   '/leave-management/leave-balance': typeof AuthenticatedLeaveManagementLeaveBalanceRoute
   '/leave-management/my-request': typeof AuthenticatedLeaveManagementMyRequestRoute
+  '/master-setup/currencies': typeof AuthenticatedMasterSetupCurrenciesRoute
+  '/master-setup/job-level': typeof AuthenticatedMasterSetupJobLevelRoute
+  '/master-setup/leave-type': typeof AuthenticatedMasterSetupLeaveTypeRoute
+  '/master-setup/work-type': typeof AuthenticatedMasterSetupWorkTypeRoute
   '/assets-management': typeof AuthenticatedAssetsManagementIndexRoute
   '/attendance': typeof AuthenticatedAttendanceIndexRoute
   '/company-setup': typeof AuthenticatedCompanySetupIndexRoute
@@ -297,6 +349,8 @@ export interface FileRoutesByTo {
   '/document-management': typeof AuthenticatedDocumentManagementIndexRoute
   '/employee': typeof AuthenticatedEmployeeIndexRoute
   '/leave-management': typeof AuthenticatedLeaveManagementIndexRoute
+  '/master-setup': typeof AuthenticatedMasterSetupIndexRoute
+  '/profile': typeof AuthenticatedProfileIndexRoute
   '/employee/assign-approval/$id': typeof AuthenticatedEmployeeAssignApprovalIdRoute
   '/employee/document-view/$name': typeof AuthenticatedEmployeeDocumentViewNameRoute
   '/employee/employee-details/$id': typeof AuthenticatedEmployeeEmployeeDetailsIdRoute
@@ -325,6 +379,10 @@ export interface FileRoutesById {
   '/_authenticated/document-management/visibility': typeof AuthenticatedDocumentManagementVisibilityRoute
   '/_authenticated/leave-management/leave-balance': typeof AuthenticatedLeaveManagementLeaveBalanceRoute
   '/_authenticated/leave-management/my-request': typeof AuthenticatedLeaveManagementMyRequestRoute
+  '/_authenticated/master-setup/currencies': typeof AuthenticatedMasterSetupCurrenciesRoute
+  '/_authenticated/master-setup/job-level': typeof AuthenticatedMasterSetupJobLevelRoute
+  '/_authenticated/master-setup/leave-type': typeof AuthenticatedMasterSetupLeaveTypeRoute
+  '/_authenticated/master-setup/work-type': typeof AuthenticatedMasterSetupWorkTypeRoute
   '/_authenticated/assets-management/': typeof AuthenticatedAssetsManagementIndexRoute
   '/_authenticated/attendance/': typeof AuthenticatedAttendanceIndexRoute
   '/_authenticated/company-setup/': typeof AuthenticatedCompanySetupIndexRoute
@@ -333,6 +391,8 @@ export interface FileRoutesById {
   '/_authenticated/document-management/': typeof AuthenticatedDocumentManagementIndexRoute
   '/_authenticated/employee/': typeof AuthenticatedEmployeeIndexRoute
   '/_authenticated/leave-management/': typeof AuthenticatedLeaveManagementIndexRoute
+  '/_authenticated/master-setup/': typeof AuthenticatedMasterSetupIndexRoute
+  '/_authenticated/profile/': typeof AuthenticatedProfileIndexRoute
   '/_authenticated/employee/assign-approval/$id': typeof AuthenticatedEmployeeAssignApprovalIdRoute
   '/_authenticated/employee/document-view/$name': typeof AuthenticatedEmployeeDocumentViewNameRoute
   '/_authenticated/employee/employee-details/$id': typeof AuthenticatedEmployeeEmployeeDetailsIdRoute
@@ -361,6 +421,10 @@ export interface FileRouteTypes {
     | '/document-management/visibility'
     | '/leave-management/leave-balance'
     | '/leave-management/my-request'
+    | '/master-setup/currencies'
+    | '/master-setup/job-level'
+    | '/master-setup/leave-type'
+    | '/master-setup/work-type'
     | '/assets-management/'
     | '/attendance/'
     | '/company-setup/'
@@ -369,6 +433,8 @@ export interface FileRouteTypes {
     | '/document-management/'
     | '/employee/'
     | '/leave-management/'
+    | '/master-setup/'
+    | '/profile/'
     | '/employee/assign-approval/$id'
     | '/employee/document-view/$name'
     | '/employee/employee-details/$id'
@@ -395,6 +461,10 @@ export interface FileRouteTypes {
     | '/document-management/visibility'
     | '/leave-management/leave-balance'
     | '/leave-management/my-request'
+    | '/master-setup/currencies'
+    | '/master-setup/job-level'
+    | '/master-setup/leave-type'
+    | '/master-setup/work-type'
     | '/assets-management'
     | '/attendance'
     | '/company-setup'
@@ -403,6 +473,8 @@ export interface FileRouteTypes {
     | '/document-management'
     | '/employee'
     | '/leave-management'
+    | '/master-setup'
+    | '/profile'
     | '/employee/assign-approval/$id'
     | '/employee/document-view/$name'
     | '/employee/employee-details/$id'
@@ -430,6 +502,10 @@ export interface FileRouteTypes {
     | '/_authenticated/document-management/visibility'
     | '/_authenticated/leave-management/leave-balance'
     | '/_authenticated/leave-management/my-request'
+    | '/_authenticated/master-setup/currencies'
+    | '/_authenticated/master-setup/job-level'
+    | '/_authenticated/master-setup/leave-type'
+    | '/_authenticated/master-setup/work-type'
     | '/_authenticated/assets-management/'
     | '/_authenticated/attendance/'
     | '/_authenticated/company-setup/'
@@ -438,6 +514,8 @@ export interface FileRouteTypes {
     | '/_authenticated/document-management/'
     | '/_authenticated/employee/'
     | '/_authenticated/leave-management/'
+    | '/_authenticated/master-setup/'
+    | '/_authenticated/profile/'
     | '/_authenticated/employee/assign-approval/$id'
     | '/_authenticated/employee/document-view/$name'
     | '/_authenticated/employee/employee-details/$id'
@@ -515,6 +593,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDemoFormRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/profile/': {
+      id: '/_authenticated/profile/'
+      path: '/profile'
+      fullPath: '/profile/'
+      preLoaderRoute: typeof AuthenticatedProfileIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/master-setup/': {
+      id: '/_authenticated/master-setup/'
+      path: '/master-setup'
+      fullPath: '/master-setup/'
+      preLoaderRoute: typeof AuthenticatedMasterSetupIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/leave-management/': {
       id: '/_authenticated/leave-management/'
       path: '/leave-management'
@@ -569,6 +661,34 @@ declare module '@tanstack/react-router' {
       path: '/assets-management'
       fullPath: '/assets-management/'
       preLoaderRoute: typeof AuthenticatedAssetsManagementIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/master-setup/work-type': {
+      id: '/_authenticated/master-setup/work-type'
+      path: '/master-setup/work-type'
+      fullPath: '/master-setup/work-type'
+      preLoaderRoute: typeof AuthenticatedMasterSetupWorkTypeRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/master-setup/leave-type': {
+      id: '/_authenticated/master-setup/leave-type'
+      path: '/master-setup/leave-type'
+      fullPath: '/master-setup/leave-type'
+      preLoaderRoute: typeof AuthenticatedMasterSetupLeaveTypeRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/master-setup/job-level': {
+      id: '/_authenticated/master-setup/job-level'
+      path: '/master-setup/job-level'
+      fullPath: '/master-setup/job-level'
+      preLoaderRoute: typeof AuthenticatedMasterSetupJobLevelRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/master-setup/currencies': {
+      id: '/_authenticated/master-setup/currencies'
+      path: '/master-setup/currencies'
+      fullPath: '/master-setup/currencies'
+      preLoaderRoute: typeof AuthenticatedMasterSetupCurrenciesRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/leave-management/my-request': {
@@ -705,6 +825,10 @@ interface AuthenticatedRouteChildren {
   AuthenticatedDocumentManagementVisibilityRoute: typeof AuthenticatedDocumentManagementVisibilityRoute
   AuthenticatedLeaveManagementLeaveBalanceRoute: typeof AuthenticatedLeaveManagementLeaveBalanceRoute
   AuthenticatedLeaveManagementMyRequestRoute: typeof AuthenticatedLeaveManagementMyRequestRoute
+  AuthenticatedMasterSetupCurrenciesRoute: typeof AuthenticatedMasterSetupCurrenciesRoute
+  AuthenticatedMasterSetupJobLevelRoute: typeof AuthenticatedMasterSetupJobLevelRoute
+  AuthenticatedMasterSetupLeaveTypeRoute: typeof AuthenticatedMasterSetupLeaveTypeRoute
+  AuthenticatedMasterSetupWorkTypeRoute: typeof AuthenticatedMasterSetupWorkTypeRoute
   AuthenticatedAssetsManagementIndexRoute: typeof AuthenticatedAssetsManagementIndexRoute
   AuthenticatedAttendanceIndexRoute: typeof AuthenticatedAttendanceIndexRoute
   AuthenticatedCompanySetupIndexRoute: typeof AuthenticatedCompanySetupIndexRoute
@@ -713,6 +837,8 @@ interface AuthenticatedRouteChildren {
   AuthenticatedDocumentManagementIndexRoute: typeof AuthenticatedDocumentManagementIndexRoute
   AuthenticatedEmployeeIndexRoute: typeof AuthenticatedEmployeeIndexRoute
   AuthenticatedLeaveManagementIndexRoute: typeof AuthenticatedLeaveManagementIndexRoute
+  AuthenticatedMasterSetupIndexRoute: typeof AuthenticatedMasterSetupIndexRoute
+  AuthenticatedProfileIndexRoute: typeof AuthenticatedProfileIndexRoute
   AuthenticatedEmployeeAssignApprovalIdRoute: typeof AuthenticatedEmployeeAssignApprovalIdRoute
   AuthenticatedEmployeeDocumentViewNameRoute: typeof AuthenticatedEmployeeDocumentViewNameRoute
   AuthenticatedEmployeeEmployeeDetailsIdRoute: typeof AuthenticatedEmployeeEmployeeDetailsIdRoute
@@ -749,6 +875,12 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
     AuthenticatedLeaveManagementLeaveBalanceRoute,
   AuthenticatedLeaveManagementMyRequestRoute:
     AuthenticatedLeaveManagementMyRequestRoute,
+  AuthenticatedMasterSetupCurrenciesRoute:
+    AuthenticatedMasterSetupCurrenciesRoute,
+  AuthenticatedMasterSetupJobLevelRoute: AuthenticatedMasterSetupJobLevelRoute,
+  AuthenticatedMasterSetupLeaveTypeRoute:
+    AuthenticatedMasterSetupLeaveTypeRoute,
+  AuthenticatedMasterSetupWorkTypeRoute: AuthenticatedMasterSetupWorkTypeRoute,
   AuthenticatedAssetsManagementIndexRoute:
     AuthenticatedAssetsManagementIndexRoute,
   AuthenticatedAttendanceIndexRoute: AuthenticatedAttendanceIndexRoute,
@@ -760,6 +892,8 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedEmployeeIndexRoute: AuthenticatedEmployeeIndexRoute,
   AuthenticatedLeaveManagementIndexRoute:
     AuthenticatedLeaveManagementIndexRoute,
+  AuthenticatedMasterSetupIndexRoute: AuthenticatedMasterSetupIndexRoute,
+  AuthenticatedProfileIndexRoute: AuthenticatedProfileIndexRoute,
   AuthenticatedEmployeeAssignApprovalIdRoute:
     AuthenticatedEmployeeAssignApprovalIdRoute,
   AuthenticatedEmployeeDocumentViewNameRoute:
