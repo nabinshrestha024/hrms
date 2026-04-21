@@ -21,12 +21,14 @@ interface DocumentUploadProps {
   secondaryButton?: string;
   uploadComponent: boolean;
   viewComponent: boolean;
+  isDelete?: boolean;
   documents: Document[];
 }
 
 export const DocumentUpload = ({
   title,
   subTitle,
+  isDelete,
   primaryButton,
   secondaryButton,
   activeButton,
@@ -129,7 +131,6 @@ export const DocumentUpload = ({
                   <IconButton variant="default">
                     <Icon className="w-4 h-4" />
                   </IconButton>
-
                   <div className="flex flex-col gap-1">
                     <span className="text-[16px] text-foreground leading-6 font-medium">
                       {val.title}
@@ -142,7 +143,7 @@ export const DocumentUpload = ({
                   </div>
                 </div>
                 <div className="flex gap-1">
-                  <Trash2 className="w-4 h-4 text-badge-text-3" />
+                  {isDelete && <Trash2 className="w-4 h-4 text-badge-text-3" />}
                   <Eye
                     className="w-4 h-4 text-secondary-foreground"
                     onClick={() =>
