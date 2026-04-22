@@ -12,6 +12,8 @@ const iconVariants = cva(
           'p-1 rounded-sm  w-6 h-6 text-gray-600 cursor-pointer bg-muted  text-center ',
         request:
           'p-1 rounded-sm  w-6 h-6 bg-chart-1 text-indigo-600 text-center cursor-pointer',
+        shift:
+          'p-1 rounded-sm  w-6 h-6 bg-chart-7 text-badge-text-8 text-center cursor-pointer',
         warning:
           'p-1 rounded-sm  w-6 h-6 text-yellow-600 bg-chart-4 cursor-pointer  text-center',
         primary:

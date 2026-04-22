@@ -36,7 +36,9 @@ export interface FieldDefinition {
   readonly?: string | boolean;
   computed?: string;
   widget?: string;
-  options?: string[];
+  options?:
+    | string[]
+    | { id: number; content: string; value: string; color?: string }[];
   relation?: {
     entity: string;
     displayField: string;

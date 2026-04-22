@@ -8,7 +8,7 @@ import {
 type CustomAlertProps = {
   icon?: ReactNode;
   title?: string;
-  description: string;
+  description: ReactNode;
   descriptionClassName?: string;
   titleClassName?: string;
 };

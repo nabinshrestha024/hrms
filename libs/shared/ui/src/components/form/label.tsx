@@ -17,7 +17,7 @@ export const HRLabel = ({
   return (
     <Root
       htmlFor={htmlFor}
-      className={`text-[14px] text-foreground font-medium leading-5 ${
+      className={`text-[14px] text-foreground font-normal leading-5 ${
         labelClassName || ''
       }`}
       onClick={onClick}
