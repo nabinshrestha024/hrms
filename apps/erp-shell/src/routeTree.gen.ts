@@ -16,9 +16,9 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedTasksRouteImport } from './routes/_authenticated/tasks'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedRecruitmentRouteImport } from './routes/_authenticated/recruitment'
-import { Route as AuthenticatedPayrollRouteImport } from './routes/_authenticated/payroll'
 import { Route as AuthenticatedDemoFormRouteImport } from './routes/_authenticated/demo-form'
 import { Route as AuthenticatedProfileIndexRouteImport } from './routes/_authenticated/profile/index'
+import { Route as AuthenticatedPolicyConfigurationIndexRouteImport } from './routes/_authenticated/policy-configuration/index'
 import { Route as AuthenticatedMasterSetupIndexRouteImport } from './routes/_authenticated/master-setup/index'
 import { Route as AuthenticatedLeaveManagementIndexRouteImport } from './routes/_authenticated/leave-management/index'
 import { Route as AuthenticatedEmployeeIndexRouteImport } from './routes/_authenticated/employee/index'
@@ -29,6 +29,9 @@ import { Route as AuthenticatedConfigurationIndexRouteImport } from './routes/_a
 import { Route as AuthenticatedCompanySetupIndexRouteImport } from './routes/_authenticated/company-setup/index'
 import { Route as AuthenticatedAttendanceIndexRouteImport } from './routes/_authenticated/attendance/index'
 import { Route as AuthenticatedAssetsManagementIndexRouteImport } from './routes/_authenticated/assets-management/index'
+import { Route as AuthenticatedPolicyConfigurationWorkflowRouteImport } from './routes/_authenticated/policy-configuration/workflow'
+import { Route as AuthenticatedPolicyConfigurationSandwichRuleRouteImport } from './routes/_authenticated/policy-configuration/sandwich-rule'
+import { Route as AuthenticatedPolicyConfigurationPayrollRouteImport } from './routes/_authenticated/policy-configuration/payroll'
 import { Route as AuthenticatedMasterSetupWorkTypeRouteImport } from './routes/_authenticated/master-setup/work-type'
 import { Route as AuthenticatedMasterSetupLeaveTypeRouteImport } from './routes/_authenticated/master-setup/leave-type'
 import { Route as AuthenticatedMasterSetupJobLevelRouteImport } from './routes/_authenticated/master-setup/job-level'
@@ -88,11 +91,6 @@ const AuthenticatedRecruitmentRoute =
     path: '/recruitment',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
-const AuthenticatedPayrollRoute = AuthenticatedPayrollRouteImport.update({
-  id: '/payroll',
-  path: '/payroll',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
 const AuthenticatedDemoFormRoute = AuthenticatedDemoFormRouteImport.update({
   id: '/demo-form',
   path: '/demo-form',
@@ -102,6 +100,12 @@ const AuthenticatedProfileIndexRoute =
   AuthenticatedProfileIndexRouteImport.update({
     id: '/profile/',
     path: '/profile/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedPolicyConfigurationIndexRoute =
+  AuthenticatedPolicyConfigurationIndexRouteImport.update({
+    id: '/policy-configuration/',
+    path: '/policy-configuration/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedMasterSetupIndexRoute =
@@ -162,6 +166,24 @@ const AuthenticatedAssetsManagementIndexRoute =
   AuthenticatedAssetsManagementIndexRouteImport.update({
     id: '/assets-management/',
     path: '/assets-management/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedPolicyConfigurationWorkflowRoute =
+  AuthenticatedPolicyConfigurationWorkflowRouteImport.update({
+    id: '/policy-configuration/workflow',
+    path: '/policy-configuration/workflow',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedPolicyConfigurationSandwichRuleRoute =
+  AuthenticatedPolicyConfigurationSandwichRuleRouteImport.update({
+    id: '/policy-configuration/sandwich-rule',
+    path: '/policy-configuration/sandwich-rule',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedPolicyConfigurationPayrollRoute =
+  AuthenticatedPolicyConfigurationPayrollRouteImport.update({
+    id: '/policy-configuration/payroll',
+    path: '/policy-configuration/payroll',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedMasterSetupWorkTypeRoute =
@@ -308,7 +330,6 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/unauthorized': typeof UnauthorizedRoute
   '/demo-form': typeof AuthenticatedDemoFormRoute
-  '/payroll': typeof AuthenticatedPayrollRoute
   '/recruitment': typeof AuthenticatedRecruitmentRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/tasks': typeof AuthenticatedTasksRoute
@@ -332,6 +353,9 @@ export interface FileRoutesByFullPath {
   '/master-setup/job-level': typeof AuthenticatedMasterSetupJobLevelRoute
   '/master-setup/leave-type': typeof AuthenticatedMasterSetupLeaveTypeRoute
   '/master-setup/work-type': typeof AuthenticatedMasterSetupWorkTypeRoute
+  '/policy-configuration/payroll': typeof AuthenticatedPolicyConfigurationPayrollRoute
+  '/policy-configuration/sandwich-rule': typeof AuthenticatedPolicyConfigurationSandwichRuleRoute
+  '/policy-configuration/workflow': typeof AuthenticatedPolicyConfigurationWorkflowRoute
   '/assets-management/': typeof AuthenticatedAssetsManagementIndexRoute
   '/attendance/': typeof AuthenticatedAttendanceIndexRoute
   '/company-setup/': typeof AuthenticatedCompanySetupIndexRoute
@@ -342,6 +366,7 @@ export interface FileRoutesByFullPath {
   '/employee/': typeof AuthenticatedEmployeeIndexRoute
   '/leave-management/': typeof AuthenticatedLeaveManagementIndexRoute
   '/master-setup/': typeof AuthenticatedMasterSetupIndexRoute
+  '/policy-configuration/': typeof AuthenticatedPolicyConfigurationIndexRoute
   '/profile/': typeof AuthenticatedProfileIndexRoute
   '/employee/assign-approval/$id': typeof AuthenticatedEmployeeAssignApprovalIdRoute
   '/employee/document-view/$name': typeof AuthenticatedEmployeeDocumentViewNameRoute
@@ -352,7 +377,6 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/unauthorized': typeof UnauthorizedRoute
   '/demo-form': typeof AuthenticatedDemoFormRoute
-  '/payroll': typeof AuthenticatedPayrollRoute
   '/recruitment': typeof AuthenticatedRecruitmentRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/tasks': typeof AuthenticatedTasksRoute
@@ -376,6 +400,9 @@ export interface FileRoutesByTo {
   '/master-setup/job-level': typeof AuthenticatedMasterSetupJobLevelRoute
   '/master-setup/leave-type': typeof AuthenticatedMasterSetupLeaveTypeRoute
   '/master-setup/work-type': typeof AuthenticatedMasterSetupWorkTypeRoute
+  '/policy-configuration/payroll': typeof AuthenticatedPolicyConfigurationPayrollRoute
+  '/policy-configuration/sandwich-rule': typeof AuthenticatedPolicyConfigurationSandwichRuleRoute
+  '/policy-configuration/workflow': typeof AuthenticatedPolicyConfigurationWorkflowRoute
   '/assets-management': typeof AuthenticatedAssetsManagementIndexRoute
   '/attendance': typeof AuthenticatedAttendanceIndexRoute
   '/company-setup': typeof AuthenticatedCompanySetupIndexRoute
@@ -386,6 +413,7 @@ export interface FileRoutesByTo {
   '/employee': typeof AuthenticatedEmployeeIndexRoute
   '/leave-management': typeof AuthenticatedLeaveManagementIndexRoute
   '/master-setup': typeof AuthenticatedMasterSetupIndexRoute
+  '/policy-configuration': typeof AuthenticatedPolicyConfigurationIndexRoute
   '/profile': typeof AuthenticatedProfileIndexRoute
   '/employee/assign-approval/$id': typeof AuthenticatedEmployeeAssignApprovalIdRoute
   '/employee/document-view/$name': typeof AuthenticatedEmployeeDocumentViewNameRoute
@@ -398,7 +426,6 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/unauthorized': typeof UnauthorizedRoute
   '/_authenticated/demo-form': typeof AuthenticatedDemoFormRoute
-  '/_authenticated/payroll': typeof AuthenticatedPayrollRoute
   '/_authenticated/recruitment': typeof AuthenticatedRecruitmentRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/tasks': typeof AuthenticatedTasksRoute
@@ -422,6 +449,9 @@ export interface FileRoutesById {
   '/_authenticated/master-setup/job-level': typeof AuthenticatedMasterSetupJobLevelRoute
   '/_authenticated/master-setup/leave-type': typeof AuthenticatedMasterSetupLeaveTypeRoute
   '/_authenticated/master-setup/work-type': typeof AuthenticatedMasterSetupWorkTypeRoute
+  '/_authenticated/policy-configuration/payroll': typeof AuthenticatedPolicyConfigurationPayrollRoute
+  '/_authenticated/policy-configuration/sandwich-rule': typeof AuthenticatedPolicyConfigurationSandwichRuleRoute
+  '/_authenticated/policy-configuration/workflow': typeof AuthenticatedPolicyConfigurationWorkflowRoute
   '/_authenticated/assets-management/': typeof AuthenticatedAssetsManagementIndexRoute
   '/_authenticated/attendance/': typeof AuthenticatedAttendanceIndexRoute
   '/_authenticated/company-setup/': typeof AuthenticatedCompanySetupIndexRoute
@@ -432,6 +462,7 @@ export interface FileRoutesById {
   '/_authenticated/employee/': typeof AuthenticatedEmployeeIndexRoute
   '/_authenticated/leave-management/': typeof AuthenticatedLeaveManagementIndexRoute
   '/_authenticated/master-setup/': typeof AuthenticatedMasterSetupIndexRoute
+  '/_authenticated/policy-configuration/': typeof AuthenticatedPolicyConfigurationIndexRoute
   '/_authenticated/profile/': typeof AuthenticatedProfileIndexRoute
   '/_authenticated/employee/assign-approval/$id': typeof AuthenticatedEmployeeAssignApprovalIdRoute
   '/_authenticated/employee/document-view/$name': typeof AuthenticatedEmployeeDocumentViewNameRoute
@@ -444,7 +475,6 @@ export interface FileRouteTypes {
     | '/login'
     | '/unauthorized'
     | '/demo-form'
-    | '/payroll'
     | '/recruitment'
     | '/settings'
     | '/tasks'
@@ -468,6 +498,9 @@ export interface FileRouteTypes {
     | '/master-setup/job-level'
     | '/master-setup/leave-type'
     | '/master-setup/work-type'
+    | '/policy-configuration/payroll'
+    | '/policy-configuration/sandwich-rule'
+    | '/policy-configuration/workflow'
     | '/assets-management/'
     | '/attendance/'
     | '/company-setup/'
@@ -478,6 +511,7 @@ export interface FileRouteTypes {
     | '/employee/'
     | '/leave-management/'
     | '/master-setup/'
+    | '/policy-configuration/'
     | '/profile/'
     | '/employee/assign-approval/$id'
     | '/employee/document-view/$name'
@@ -488,7 +522,6 @@ export interface FileRouteTypes {
     | '/login'
     | '/unauthorized'
     | '/demo-form'
-    | '/payroll'
     | '/recruitment'
     | '/settings'
     | '/tasks'
@@ -512,6 +545,9 @@ export interface FileRouteTypes {
     | '/master-setup/job-level'
     | '/master-setup/leave-type'
     | '/master-setup/work-type'
+    | '/policy-configuration/payroll'
+    | '/policy-configuration/sandwich-rule'
+    | '/policy-configuration/workflow'
     | '/assets-management'
     | '/attendance'
     | '/company-setup'
@@ -522,6 +558,7 @@ export interface FileRouteTypes {
     | '/employee'
     | '/leave-management'
     | '/master-setup'
+    | '/policy-configuration'
     | '/profile'
     | '/employee/assign-approval/$id'
     | '/employee/document-view/$name'
@@ -533,7 +570,6 @@ export interface FileRouteTypes {
     | '/login'
     | '/unauthorized'
     | '/_authenticated/demo-form'
-    | '/_authenticated/payroll'
     | '/_authenticated/recruitment'
     | '/_authenticated/settings'
     | '/_authenticated/tasks'
@@ -557,6 +593,9 @@ export interface FileRouteTypes {
     | '/_authenticated/master-setup/job-level'
     | '/_authenticated/master-setup/leave-type'
     | '/_authenticated/master-setup/work-type'
+    | '/_authenticated/policy-configuration/payroll'
+    | '/_authenticated/policy-configuration/sandwich-rule'
+    | '/_authenticated/policy-configuration/workflow'
     | '/_authenticated/assets-management/'
     | '/_authenticated/attendance/'
     | '/_authenticated/company-setup/'
@@ -567,6 +606,7 @@ export interface FileRouteTypes {
     | '/_authenticated/employee/'
     | '/_authenticated/leave-management/'
     | '/_authenticated/master-setup/'
+    | '/_authenticated/policy-configuration/'
     | '/_authenticated/profile/'
     | '/_authenticated/employee/assign-approval/$id'
     | '/_authenticated/employee/document-view/$name'
@@ -631,13 +671,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRecruitmentRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/payroll': {
-      id: '/_authenticated/payroll'
-      path: '/payroll'
-      fullPath: '/payroll'
-      preLoaderRoute: typeof AuthenticatedPayrollRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
     '/_authenticated/demo-form': {
       id: '/_authenticated/demo-form'
       path: '/demo-form'
@@ -650,6 +683,13 @@ declare module '@tanstack/react-router' {
       path: '/profile'
       fullPath: '/profile/'
       preLoaderRoute: typeof AuthenticatedProfileIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/policy-configuration/': {
+      id: '/_authenticated/policy-configuration/'
+      path: '/policy-configuration'
+      fullPath: '/policy-configuration/'
+      preLoaderRoute: typeof AuthenticatedPolicyConfigurationIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/master-setup/': {
@@ -720,6 +760,27 @@ declare module '@tanstack/react-router' {
       path: '/assets-management'
       fullPath: '/assets-management/'
       preLoaderRoute: typeof AuthenticatedAssetsManagementIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/policy-configuration/workflow': {
+      id: '/_authenticated/policy-configuration/workflow'
+      path: '/policy-configuration/workflow'
+      fullPath: '/policy-configuration/workflow'
+      preLoaderRoute: typeof AuthenticatedPolicyConfigurationWorkflowRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/policy-configuration/sandwich-rule': {
+      id: '/_authenticated/policy-configuration/sandwich-rule'
+      path: '/policy-configuration/sandwich-rule'
+      fullPath: '/policy-configuration/sandwich-rule'
+      preLoaderRoute: typeof AuthenticatedPolicyConfigurationSandwichRuleRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/policy-configuration/payroll': {
+      id: '/_authenticated/policy-configuration/payroll'
+      path: '/policy-configuration/payroll'
+      fullPath: '/policy-configuration/payroll'
+      preLoaderRoute: typeof AuthenticatedPolicyConfigurationPayrollRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/master-setup/work-type': {
@@ -888,7 +949,6 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteChildren {
   AuthenticatedDemoFormRoute: typeof AuthenticatedDemoFormRoute
-  AuthenticatedPayrollRoute: typeof AuthenticatedPayrollRoute
   AuthenticatedRecruitmentRoute: typeof AuthenticatedRecruitmentRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedTasksRoute: typeof AuthenticatedTasksRoute
@@ -912,6 +972,9 @@ interface AuthenticatedRouteChildren {
   AuthenticatedMasterSetupJobLevelRoute: typeof AuthenticatedMasterSetupJobLevelRoute
   AuthenticatedMasterSetupLeaveTypeRoute: typeof AuthenticatedMasterSetupLeaveTypeRoute
   AuthenticatedMasterSetupWorkTypeRoute: typeof AuthenticatedMasterSetupWorkTypeRoute
+  AuthenticatedPolicyConfigurationPayrollRoute: typeof AuthenticatedPolicyConfigurationPayrollRoute
+  AuthenticatedPolicyConfigurationSandwichRuleRoute: typeof AuthenticatedPolicyConfigurationSandwichRuleRoute
+  AuthenticatedPolicyConfigurationWorkflowRoute: typeof AuthenticatedPolicyConfigurationWorkflowRoute
   AuthenticatedAssetsManagementIndexRoute: typeof AuthenticatedAssetsManagementIndexRoute
   AuthenticatedAttendanceIndexRoute: typeof AuthenticatedAttendanceIndexRoute
   AuthenticatedCompanySetupIndexRoute: typeof AuthenticatedCompanySetupIndexRoute
@@ -922,6 +985,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedEmployeeIndexRoute: typeof AuthenticatedEmployeeIndexRoute
   AuthenticatedLeaveManagementIndexRoute: typeof AuthenticatedLeaveManagementIndexRoute
   AuthenticatedMasterSetupIndexRoute: typeof AuthenticatedMasterSetupIndexRoute
+  AuthenticatedPolicyConfigurationIndexRoute: typeof AuthenticatedPolicyConfigurationIndexRoute
   AuthenticatedProfileIndexRoute: typeof AuthenticatedProfileIndexRoute
   AuthenticatedEmployeeAssignApprovalIdRoute: typeof AuthenticatedEmployeeAssignApprovalIdRoute
   AuthenticatedEmployeeDocumentViewNameRoute: typeof AuthenticatedEmployeeDocumentViewNameRoute
@@ -930,7 +994,6 @@ interface AuthenticatedRouteChildren {
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedDemoFormRoute: AuthenticatedDemoFormRoute,
-  AuthenticatedPayrollRoute: AuthenticatedPayrollRoute,
   AuthenticatedRecruitmentRoute: AuthenticatedRecruitmentRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedTasksRoute: AuthenticatedTasksRoute,
@@ -970,6 +1033,12 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedMasterSetupLeaveTypeRoute:
     AuthenticatedMasterSetupLeaveTypeRoute,
   AuthenticatedMasterSetupWorkTypeRoute: AuthenticatedMasterSetupWorkTypeRoute,
+  AuthenticatedPolicyConfigurationPayrollRoute:
+    AuthenticatedPolicyConfigurationPayrollRoute,
+  AuthenticatedPolicyConfigurationSandwichRuleRoute:
+    AuthenticatedPolicyConfigurationSandwichRuleRoute,
+  AuthenticatedPolicyConfigurationWorkflowRoute:
+    AuthenticatedPolicyConfigurationWorkflowRoute,
   AuthenticatedAssetsManagementIndexRoute:
     AuthenticatedAssetsManagementIndexRoute,
   AuthenticatedAttendanceIndexRoute: AuthenticatedAttendanceIndexRoute,
@@ -983,6 +1052,8 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedLeaveManagementIndexRoute:
     AuthenticatedLeaveManagementIndexRoute,
   AuthenticatedMasterSetupIndexRoute: AuthenticatedMasterSetupIndexRoute,
+  AuthenticatedPolicyConfigurationIndexRoute:
+    AuthenticatedPolicyConfigurationIndexRoute,
   AuthenticatedProfileIndexRoute: AuthenticatedProfileIndexRoute,
   AuthenticatedEmployeeAssignApprovalIdRoute:
     AuthenticatedEmployeeAssignApprovalIdRoute,

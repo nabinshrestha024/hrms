@@ -39,6 +39,9 @@ import {
   LayoutDashboard,
   CalendarPlus,
   Columns3Cog,
+  CalendarMinus2,
+  Wallet,
+  Layers3,
 } from 'lucide-react';
 
 export interface NavSubItem {
@@ -247,6 +250,32 @@ export const navModules: NavModule[] = [
         label: 'Work Week',
         href: '/configuration/work-week',
         icon: CalendarDays,
+      },
+    ],
+  },
+
+  {
+    id: 'policy-configuration',
+    label: 'Policy Configuration',
+    icon: FileCheck2,
+    href: '/policy-configuration/',
+    modules: ['configuration'],
+    subItems: [
+      {
+        label: 'Leave Deduction',
+        href: '/policy-configuration/',
+        icon: CalendarMinus2,
+      },
+      {
+        label: 'Sandwich Rule',
+        href: '/policy-configuration/sandwich-rule',
+        icon: Layers3,
+      },
+      { label: 'Payroll', href: '/policy-configuration/payroll', icon: Wallet },
+      {
+        label: 'Workflow',
+        href: '/policy-configuration/workflow',
+        icon: GitBranch,
       },
     ],
   },

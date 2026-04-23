@@ -11,6 +11,7 @@ type CustomAlertProps = {
   description: ReactNode;
   descriptionClassName?: string;
   titleClassName?: string;
+  className?: string;
 };
 
 export function CustomAlert({
@@ -19,9 +20,12 @@ export function CustomAlert({
   description,
   descriptionClassName,
   titleClassName,
+  className,
 }: CustomAlertProps) {
   return (
-    <Root className="flex gap-2 items-center px-3 py-2.5 bg-alert-background border border-border rounded-[6px]">
+    <Root
+      className={`flex gap-2 items-center px-3 py-2.5 bg-alert-background border border-border rounded-[6px] ${className}`}
+    >
       {icon && <div className="p-1">{icon}</div>}
 
       <div className="flex flex-col gap-1">
