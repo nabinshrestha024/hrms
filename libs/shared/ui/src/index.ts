@@ -211,6 +211,8 @@ export { HRTextarea } from './components/form/textarea';
 export { HRTimeField } from './components/form/time-field';
 export { HRTabs } from './components/tabs/tabs';
 export { TabsFlex } from './components/tabs/tabs-flex';
+export { OptionCheckboxGroup } from './components/form/check-box/custom-checkbox';
+export { OptionSwitchCheckboxGroup } from './components/form/check-box/switch-checkbox';
 
 //Search Bar
 export { SearchBar } from './components/search/search';

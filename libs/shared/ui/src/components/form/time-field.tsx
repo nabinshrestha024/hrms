@@ -43,7 +43,7 @@ export const HRTimeField = ({
       labelClassName={labelClassName}
       error={error}
     >
-      <InputGroup className={className}>
+      <InputGroup className={`cursor-pointer ${className}`}>
         <InputGroupInput
           type="time"
           step="1"

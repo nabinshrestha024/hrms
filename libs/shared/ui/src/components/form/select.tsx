@@ -8,11 +8,15 @@ import {
   SelectValue,
 } from '../../primitives/select';
 import { FormField } from './form-field';
+import { cn } from '@erp/utils';
+import { LucideIcon } from 'lucide-react';
 
 interface SelectDataType {
   id: number;
   content: ReactNode;
   value: string;
+  color?: string;
+  icon?: LucideIcon;
 }
 
 interface SelectProps {
@@ -51,21 +55,43 @@ export const HRSelect = ({
     >
       <Root value={value} onValueChange={onValueChange} disabled={disabled}>
         <SelectTrigger
-          className={`w-full px-3 py-2.5 rounded-[6px] border border-border  bg-white ${triggerClassName}`}
+          className={`w-full px-3 py-2.5 rounded-[6px] border border-border cursor-pointer bg-white ${triggerClassName}`}
         >
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
-        <SelectContent className="bg-background text-foreground">
+
+        <SelectContent className="bg-white text-foreground">
           <SelectGroup className="bg-background text-foreground">
-            {selectData.map((val) => (
-              <SelectItem
-                key={val.id}
-                value={val.value}
-                className={`${itemClassName} bg-background text-foreground`}
-              >
-                {val.content}
-              </SelectItem>
-            ))}
+            {selectData.map((val) => {
+              const Icon = val.icon;
+
+              return (
+                <SelectItem
+                  key={val.id}
+                  value={val.value}
+                  className={cn(
+                    `bg-white text-foreground cursor-pointer ${itemClassName}`
+                  )}
+                >
+                  {val.color ? (
+                    <div className="flex gap-2 items-center">
+                      <div
+                        className="rounded-full w-4 h-4"
+                        style={{ backgroundColor: val.color }}
+                      />
+                      {val.content}
+                    </div>
+                  ) : val.icon && Icon ? (
+                    <div className="flex gap-2 items-center">
+                      <Icon className="w-4 h-4 text-badge-text-8" />
+                      {val.content}
+                    </div>
+                  ) : (
+                    <>{val.content}</>
+                  )}
+                </SelectItem>
+              );
+            })}
           </SelectGroup>
         </SelectContent>
       </Root>

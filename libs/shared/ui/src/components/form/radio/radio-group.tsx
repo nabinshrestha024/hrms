@@ -89,7 +89,10 @@ function OptionRadioGroup({
                 )}
               />
               <span
-                className={cn('text-[12px] text-foreground', labelClassName)}
+                className={cn(
+                  'text-[14px] text-foreground font-normal leading-5',
+                  labelClassName
+                )}
               >
                 {opt.label}
               </span>

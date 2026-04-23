@@ -25,6 +25,7 @@ import { Route as AuthenticatedEmployeeIndexRouteImport } from './routes/_authen
 import { Route as AuthenticatedDocumentManagementIndexRouteImport } from './routes/_authenticated/document-management/index'
 import { Route as AuthenticatedDirectoriesIndexRouteImport } from './routes/_authenticated/directories/index'
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
+import { Route as AuthenticatedConfigurationIndexRouteImport } from './routes/_authenticated/configuration/index'
 import { Route as AuthenticatedCompanySetupIndexRouteImport } from './routes/_authenticated/company-setup/index'
 import { Route as AuthenticatedAttendanceIndexRouteImport } from './routes/_authenticated/attendance/index'
 import { Route as AuthenticatedAssetsManagementIndexRouteImport } from './routes/_authenticated/assets-management/index'
@@ -39,6 +40,9 @@ import { Route as AuthenticatedDocumentManagementReviewApprovalRouteImport } fro
 import { Route as AuthenticatedDocumentManagementDocumentTemplateRouteImport } from './routes/_authenticated/document-management/document-template'
 import { Route as AuthenticatedDocumentManagementCategoryManagementRouteImport } from './routes/_authenticated/document-management/category-management'
 import { Route as AuthenticatedDocumentManagementAssignDocumentRouteImport } from './routes/_authenticated/document-management/assign-document'
+import { Route as AuthenticatedConfigurationWorkWeekRouteImport } from './routes/_authenticated/configuration/work-week'
+import { Route as AuthenticatedConfigurationShiftsRouteImport } from './routes/_authenticated/configuration/shifts'
+import { Route as AuthenticatedConfigurationHolidaysRouteImport } from './routes/_authenticated/configuration/holidays'
 import { Route as AuthenticatedCompanySetupDepartmentRouteImport } from './routes/_authenticated/company-setup/department'
 import { Route as AuthenticatedCompanySetupBranchRouteImport } from './routes/_authenticated/company-setup/branch'
 import { Route as AuthenticatedAttendanceWorkRecordRouteImport } from './routes/_authenticated/attendance/work-record'
@@ -136,6 +140,12 @@ const AuthenticatedDashboardIndexRoute =
     path: '/dashboard/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedConfigurationIndexRoute =
+  AuthenticatedConfigurationIndexRouteImport.update({
+    id: '/configuration/',
+    path: '/configuration/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedCompanySetupIndexRoute =
   AuthenticatedCompanySetupIndexRouteImport.update({
     id: '/company-setup/',
@@ -220,6 +230,24 @@ const AuthenticatedDocumentManagementAssignDocumentRoute =
     path: '/document-management/assign-document',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedConfigurationWorkWeekRoute =
+  AuthenticatedConfigurationWorkWeekRouteImport.update({
+    id: '/configuration/work-week',
+    path: '/configuration/work-week',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedConfigurationShiftsRoute =
+  AuthenticatedConfigurationShiftsRouteImport.update({
+    id: '/configuration/shifts',
+    path: '/configuration/shifts',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedConfigurationHolidaysRoute =
+  AuthenticatedConfigurationHolidaysRouteImport.update({
+    id: '/configuration/holidays',
+    path: '/configuration/holidays',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedCompanySetupDepartmentRoute =
   AuthenticatedCompanySetupDepartmentRouteImport.update({
     id: '/company-setup/department',
@@ -290,6 +318,9 @@ export interface FileRoutesByFullPath {
   '/attendance/work-record': typeof AuthenticatedAttendanceWorkRecordRoute
   '/company-setup/branch': typeof AuthenticatedCompanySetupBranchRoute
   '/company-setup/department': typeof AuthenticatedCompanySetupDepartmentRoute
+  '/configuration/holidays': typeof AuthenticatedConfigurationHolidaysRoute
+  '/configuration/shifts': typeof AuthenticatedConfigurationShiftsRoute
+  '/configuration/work-week': typeof AuthenticatedConfigurationWorkWeekRoute
   '/document-management/assign-document': typeof AuthenticatedDocumentManagementAssignDocumentRoute
   '/document-management/category-management': typeof AuthenticatedDocumentManagementCategoryManagementRoute
   '/document-management/document-template': typeof AuthenticatedDocumentManagementDocumentTemplateRoute
@@ -304,6 +335,7 @@ export interface FileRoutesByFullPath {
   '/assets-management/': typeof AuthenticatedAssetsManagementIndexRoute
   '/attendance/': typeof AuthenticatedAttendanceIndexRoute
   '/company-setup/': typeof AuthenticatedCompanySetupIndexRoute
+  '/configuration/': typeof AuthenticatedConfigurationIndexRoute
   '/dashboard/': typeof AuthenticatedDashboardIndexRoute
   '/directories/': typeof AuthenticatedDirectoriesIndexRoute
   '/document-management/': typeof AuthenticatedDocumentManagementIndexRoute
@@ -330,6 +362,9 @@ export interface FileRoutesByTo {
   '/attendance/work-record': typeof AuthenticatedAttendanceWorkRecordRoute
   '/company-setup/branch': typeof AuthenticatedCompanySetupBranchRoute
   '/company-setup/department': typeof AuthenticatedCompanySetupDepartmentRoute
+  '/configuration/holidays': typeof AuthenticatedConfigurationHolidaysRoute
+  '/configuration/shifts': typeof AuthenticatedConfigurationShiftsRoute
+  '/configuration/work-week': typeof AuthenticatedConfigurationWorkWeekRoute
   '/document-management/assign-document': typeof AuthenticatedDocumentManagementAssignDocumentRoute
   '/document-management/category-management': typeof AuthenticatedDocumentManagementCategoryManagementRoute
   '/document-management/document-template': typeof AuthenticatedDocumentManagementDocumentTemplateRoute
@@ -344,6 +379,7 @@ export interface FileRoutesByTo {
   '/assets-management': typeof AuthenticatedAssetsManagementIndexRoute
   '/attendance': typeof AuthenticatedAttendanceIndexRoute
   '/company-setup': typeof AuthenticatedCompanySetupIndexRoute
+  '/configuration': typeof AuthenticatedConfigurationIndexRoute
   '/dashboard': typeof AuthenticatedDashboardIndexRoute
   '/directories': typeof AuthenticatedDirectoriesIndexRoute
   '/document-management': typeof AuthenticatedDocumentManagementIndexRoute
@@ -372,6 +408,9 @@ export interface FileRoutesById {
   '/_authenticated/attendance/work-record': typeof AuthenticatedAttendanceWorkRecordRoute
   '/_authenticated/company-setup/branch': typeof AuthenticatedCompanySetupBranchRoute
   '/_authenticated/company-setup/department': typeof AuthenticatedCompanySetupDepartmentRoute
+  '/_authenticated/configuration/holidays': typeof AuthenticatedConfigurationHolidaysRoute
+  '/_authenticated/configuration/shifts': typeof AuthenticatedConfigurationShiftsRoute
+  '/_authenticated/configuration/work-week': typeof AuthenticatedConfigurationWorkWeekRoute
   '/_authenticated/document-management/assign-document': typeof AuthenticatedDocumentManagementAssignDocumentRoute
   '/_authenticated/document-management/category-management': typeof AuthenticatedDocumentManagementCategoryManagementRoute
   '/_authenticated/document-management/document-template': typeof AuthenticatedDocumentManagementDocumentTemplateRoute
@@ -386,6 +425,7 @@ export interface FileRoutesById {
   '/_authenticated/assets-management/': typeof AuthenticatedAssetsManagementIndexRoute
   '/_authenticated/attendance/': typeof AuthenticatedAttendanceIndexRoute
   '/_authenticated/company-setup/': typeof AuthenticatedCompanySetupIndexRoute
+  '/_authenticated/configuration/': typeof AuthenticatedConfigurationIndexRoute
   '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
   '/_authenticated/directories/': typeof AuthenticatedDirectoriesIndexRoute
   '/_authenticated/document-management/': typeof AuthenticatedDocumentManagementIndexRoute
@@ -414,6 +454,9 @@ export interface FileRouteTypes {
     | '/attendance/work-record'
     | '/company-setup/branch'
     | '/company-setup/department'
+    | '/configuration/holidays'
+    | '/configuration/shifts'
+    | '/configuration/work-week'
     | '/document-management/assign-document'
     | '/document-management/category-management'
     | '/document-management/document-template'
@@ -428,6 +471,7 @@ export interface FileRouteTypes {
     | '/assets-management/'
     | '/attendance/'
     | '/company-setup/'
+    | '/configuration/'
     | '/dashboard/'
     | '/directories/'
     | '/document-management/'
@@ -454,6 +498,9 @@ export interface FileRouteTypes {
     | '/attendance/work-record'
     | '/company-setup/branch'
     | '/company-setup/department'
+    | '/configuration/holidays'
+    | '/configuration/shifts'
+    | '/configuration/work-week'
     | '/document-management/assign-document'
     | '/document-management/category-management'
     | '/document-management/document-template'
@@ -468,6 +515,7 @@ export interface FileRouteTypes {
     | '/assets-management'
     | '/attendance'
     | '/company-setup'
+    | '/configuration'
     | '/dashboard'
     | '/directories'
     | '/document-management'
@@ -495,6 +543,9 @@ export interface FileRouteTypes {
     | '/_authenticated/attendance/work-record'
     | '/_authenticated/company-setup/branch'
     | '/_authenticated/company-setup/department'
+    | '/_authenticated/configuration/holidays'
+    | '/_authenticated/configuration/shifts'
+    | '/_authenticated/configuration/work-week'
     | '/_authenticated/document-management/assign-document'
     | '/_authenticated/document-management/category-management'
     | '/_authenticated/document-management/document-template'
@@ -509,6 +560,7 @@ export interface FileRouteTypes {
     | '/_authenticated/assets-management/'
     | '/_authenticated/attendance/'
     | '/_authenticated/company-setup/'
+    | '/_authenticated/configuration/'
     | '/_authenticated/dashboard/'
     | '/_authenticated/directories/'
     | '/_authenticated/document-management/'
@@ -642,6 +694,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/configuration/': {
+      id: '/_authenticated/configuration/'
+      path: '/configuration'
+      fullPath: '/configuration/'
+      preLoaderRoute: typeof AuthenticatedConfigurationIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/company-setup/': {
       id: '/_authenticated/company-setup/'
       path: '/company-setup'
@@ -740,6 +799,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDocumentManagementAssignDocumentRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/configuration/work-week': {
+      id: '/_authenticated/configuration/work-week'
+      path: '/configuration/work-week'
+      fullPath: '/configuration/work-week'
+      preLoaderRoute: typeof AuthenticatedConfigurationWorkWeekRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/configuration/shifts': {
+      id: '/_authenticated/configuration/shifts'
+      path: '/configuration/shifts'
+      fullPath: '/configuration/shifts'
+      preLoaderRoute: typeof AuthenticatedConfigurationShiftsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/configuration/holidays': {
+      id: '/_authenticated/configuration/holidays'
+      path: '/configuration/holidays'
+      fullPath: '/configuration/holidays'
+      preLoaderRoute: typeof AuthenticatedConfigurationHolidaysRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/company-setup/department': {
       id: '/_authenticated/company-setup/department'
       path: '/company-setup/department'
@@ -818,6 +898,9 @@ interface AuthenticatedRouteChildren {
   AuthenticatedAttendanceWorkRecordRoute: typeof AuthenticatedAttendanceWorkRecordRoute
   AuthenticatedCompanySetupBranchRoute: typeof AuthenticatedCompanySetupBranchRoute
   AuthenticatedCompanySetupDepartmentRoute: typeof AuthenticatedCompanySetupDepartmentRoute
+  AuthenticatedConfigurationHolidaysRoute: typeof AuthenticatedConfigurationHolidaysRoute
+  AuthenticatedConfigurationShiftsRoute: typeof AuthenticatedConfigurationShiftsRoute
+  AuthenticatedConfigurationWorkWeekRoute: typeof AuthenticatedConfigurationWorkWeekRoute
   AuthenticatedDocumentManagementAssignDocumentRoute: typeof AuthenticatedDocumentManagementAssignDocumentRoute
   AuthenticatedDocumentManagementCategoryManagementRoute: typeof AuthenticatedDocumentManagementCategoryManagementRoute
   AuthenticatedDocumentManagementDocumentTemplateRoute: typeof AuthenticatedDocumentManagementDocumentTemplateRoute
@@ -832,6 +915,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedAssetsManagementIndexRoute: typeof AuthenticatedAssetsManagementIndexRoute
   AuthenticatedAttendanceIndexRoute: typeof AuthenticatedAttendanceIndexRoute
   AuthenticatedCompanySetupIndexRoute: typeof AuthenticatedCompanySetupIndexRoute
+  AuthenticatedConfigurationIndexRoute: typeof AuthenticatedConfigurationIndexRoute
   AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
   AuthenticatedDirectoriesIndexRoute: typeof AuthenticatedDirectoriesIndexRoute
   AuthenticatedDocumentManagementIndexRoute: typeof AuthenticatedDocumentManagementIndexRoute
@@ -861,6 +945,11 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedCompanySetupBranchRoute: AuthenticatedCompanySetupBranchRoute,
   AuthenticatedCompanySetupDepartmentRoute:
     AuthenticatedCompanySetupDepartmentRoute,
+  AuthenticatedConfigurationHolidaysRoute:
+    AuthenticatedConfigurationHolidaysRoute,
+  AuthenticatedConfigurationShiftsRoute: AuthenticatedConfigurationShiftsRoute,
+  AuthenticatedConfigurationWorkWeekRoute:
+    AuthenticatedConfigurationWorkWeekRoute,
   AuthenticatedDocumentManagementAssignDocumentRoute:
     AuthenticatedDocumentManagementAssignDocumentRoute,
   AuthenticatedDocumentManagementCategoryManagementRoute:
@@ -885,6 +974,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
     AuthenticatedAssetsManagementIndexRoute,
   AuthenticatedAttendanceIndexRoute: AuthenticatedAttendanceIndexRoute,
   AuthenticatedCompanySetupIndexRoute: AuthenticatedCompanySetupIndexRoute,
+  AuthenticatedConfigurationIndexRoute: AuthenticatedConfigurationIndexRoute,
   AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
   AuthenticatedDirectoriesIndexRoute: AuthenticatedDirectoriesIndexRoute,
   AuthenticatedDocumentManagementIndexRoute:

@@ -37,6 +37,7 @@ import {
   Files,
   SquareUser,
   LayoutDashboard,
+  CalendarPlus,
   Columns3Cog,
 } from 'lucide-react';
 
@@ -232,15 +233,15 @@ export const navModules: NavModule[] = [
     id: 'configuration',
     label: 'Configuration',
     icon: Settings,
-    href: '/configuration/leave-type',
+    href: '/configuration',
     modules: ['configuration'],
     subItems: [
       {
         label: 'Leave Type',
-        href: '/configuration/leave-type',
-        icon: TentTree,
+        href: '/configuration',
+        icon: CalendarPlus,
       },
-      { label: 'Holidays', href: '/configuration/holidays', icon: Users },
+      { label: 'Holidays', href: '/configuration/holidays', icon: TentTree },
       { label: 'Shifts', href: '/configuration/shifts', icon: Clock },
       {
         label: 'Work Week',
