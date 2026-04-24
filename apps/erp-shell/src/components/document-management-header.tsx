@@ -16,6 +16,7 @@ interface DocumentHeaderProps<T> {
   dropdowns?: DropdownConfig<T>[];
   actionComponent?: React.ReactNode;
   className?: string;
+  titleClassName?: string;
   renderTable: (data: T[]) => React.ReactNode;
   filterFn?: (
     data: T[],
@@ -34,6 +35,7 @@ export function DocumentHeader<T>({
   sortByDate,
   dropdowns,
   className,
+  titleClassName,
 }: DocumentHeaderProps<T>) {
   const [search, setSearch] = useState('');
 
@@ -76,7 +78,9 @@ export function DocumentHeader<T>({
           className
         )}
       >
-        <div className="text-[20px] font-semibold">{title}</div>
+        <div className={cn(`text-[20px] font-semibold ${titleClassName}`)}>
+          {title}
+        </div>
 
         <div className="flex gap-4 items-center">
           {isSearch && (

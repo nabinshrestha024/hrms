@@ -36,7 +36,9 @@ export const HRAccordionCard = ({
             `w-full flex items-center justify-between px-0 py-0 border-b-none transition-all duration-200 hover:cursor-pointer ${triggerClassName}`
           )}
         >
-          <div className="text-sm font-bold text-foreground">{title}</div>
+          <div className="text-[14px] leading-5 font-medium text-foreground">
+            {title}
+          </div>
         </AccordionTrigger>
 
         <AccordionContent className={`pb-0 ${contentClassName}`}>
