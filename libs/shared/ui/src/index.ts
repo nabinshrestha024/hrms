@@ -212,6 +212,8 @@ export { HRTimeField } from './components/form/time-field';
 export { HRTabs } from './components/tabs/tabs';
 export { TabsFlex } from './components/tabs/tabs-flex';
 export { OptionCheckboxGroup } from './components/form/check-box/custom-checkbox';
+export { CheckboxGroup } from './components/form/check-box/checkbox-group';
+
 export { OptionSwitchCheckboxGroup } from './components/form/check-box/switch-checkbox';
 
 //Search Bar
@@ -256,4 +258,12 @@ export type {
   RowAction,
 } from './components/data-table';
 
+// accordion
+export {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from './primitives/accordion';
+export { HRAccordionCard } from './components/accordion/accordion';
 export { HRFileUpload } from './components/form/hr-form-upload';

@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
+import { GeneratePayroll } from '../../../features/payroll/generate-payroll/generate-payroll';
 
 export const Route = createFileRoute('/_authenticated/payroll/')({
   component: RouteComponent,
@@ -14,6 +15,7 @@ function RouteComponent() {
       <div className="text-[20px] font-semibold px-12 py-6">
         Generate Payroll
       </div>
+      <GeneratePayroll />
     </div>
   );
 }

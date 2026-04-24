@@ -13,9 +13,6 @@ import { Route as UnauthorizedRouteImport } from './routes/unauthorized'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthenticatedTasksRouteImport } from './routes/_authenticated/tasks'
-import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
-import { Route as AuthenticatedRecruitmentRouteImport } from './routes/_authenticated/recruitment'
 import { Route as AuthenticatedDemoFormRouteImport } from './routes/_authenticated/demo-form'
 import { Route as AuthenticatedProfileIndexRouteImport } from './routes/_authenticated/profile/index'
 import { Route as AuthenticatedPolicyConfigurationIndexRouteImport } from './routes/_authenticated/policy-configuration/index'
@@ -84,22 +81,6 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedTasksRoute = AuthenticatedTasksRouteImport.update({
-  id: '/tasks',
-  path: '/tasks',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
-const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
-const AuthenticatedRecruitmentRoute =
-  AuthenticatedRecruitmentRouteImport.update({
-    id: '/recruitment',
-    path: '/recruitment',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
 const AuthenticatedDemoFormRoute = AuthenticatedDemoFormRouteImport.update({
   id: '/demo-form',
   path: '/demo-form',
@@ -393,9 +374,6 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/unauthorized': typeof UnauthorizedRoute
   '/demo-form': typeof AuthenticatedDemoFormRoute
-  '/recruitment': typeof AuthenticatedRecruitmentRoute
-  '/settings': typeof AuthenticatedSettingsRoute
-  '/tasks': typeof AuthenticatedTasksRoute
   '/assets-management/all-assets': typeof AuthenticatedAssetsManagementAllAssetsRoute
   '/assets-management/assignment-history': typeof AuthenticatedAssetsManagementAssignmentHistoryRoute
   '/attendance/my-attendance': typeof AuthenticatedAttendanceMyAttendanceRoute
@@ -449,9 +427,6 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/unauthorized': typeof UnauthorizedRoute
   '/demo-form': typeof AuthenticatedDemoFormRoute
-  '/recruitment': typeof AuthenticatedRecruitmentRoute
-  '/settings': typeof AuthenticatedSettingsRoute
-  '/tasks': typeof AuthenticatedTasksRoute
   '/assets-management/all-assets': typeof AuthenticatedAssetsManagementAllAssetsRoute
   '/assets-management/assignment-history': typeof AuthenticatedAssetsManagementAssignmentHistoryRoute
   '/attendance/my-attendance': typeof AuthenticatedAttendanceMyAttendanceRoute
@@ -507,9 +482,6 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/unauthorized': typeof UnauthorizedRoute
   '/_authenticated/demo-form': typeof AuthenticatedDemoFormRoute
-  '/_authenticated/recruitment': typeof AuthenticatedRecruitmentRoute
-  '/_authenticated/settings': typeof AuthenticatedSettingsRoute
-  '/_authenticated/tasks': typeof AuthenticatedTasksRoute
   '/_authenticated/assets-management/all-assets': typeof AuthenticatedAssetsManagementAllAssetsRoute
   '/_authenticated/assets-management/assignment-history': typeof AuthenticatedAssetsManagementAssignmentHistoryRoute
   '/_authenticated/attendance/my-attendance': typeof AuthenticatedAttendanceMyAttendanceRoute
@@ -565,9 +537,6 @@ export interface FileRouteTypes {
     | '/login'
     | '/unauthorized'
     | '/demo-form'
-    | '/recruitment'
-    | '/settings'
-    | '/tasks'
     | '/assets-management/all-assets'
     | '/assets-management/assignment-history'
     | '/attendance/my-attendance'
@@ -621,9 +590,6 @@ export interface FileRouteTypes {
     | '/login'
     | '/unauthorized'
     | '/demo-form'
-    | '/recruitment'
-    | '/settings'
-    | '/tasks'
     | '/assets-management/all-assets'
     | '/assets-management/assignment-history'
     | '/attendance/my-attendance'
@@ -678,9 +644,6 @@ export interface FileRouteTypes {
     | '/login'
     | '/unauthorized'
     | '/_authenticated/demo-form'
-    | '/_authenticated/recruitment'
-    | '/_authenticated/settings'
-    | '/_authenticated/tasks'
     | '/_authenticated/assets-management/all-assets'
     | '/_authenticated/assets-management/assignment-history'
     | '/_authenticated/attendance/my-attendance'
@@ -766,27 +729,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/tasks': {
-      id: '/_authenticated/tasks'
-      path: '/tasks'
-      fullPath: '/tasks'
-      preLoaderRoute: typeof AuthenticatedTasksRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/settings': {
-      id: '/_authenticated/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/recruitment': {
-      id: '/_authenticated/recruitment'
-      path: '/recruitment'
-      fullPath: '/recruitment'
-      preLoaderRoute: typeof AuthenticatedRecruitmentRouteImport
-      parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/demo-form': {
       id: '/_authenticated/demo-form'
@@ -1129,9 +1071,6 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteChildren {
   AuthenticatedDemoFormRoute: typeof AuthenticatedDemoFormRoute
-  AuthenticatedRecruitmentRoute: typeof AuthenticatedRecruitmentRoute
-  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
-  AuthenticatedTasksRoute: typeof AuthenticatedTasksRoute
   AuthenticatedAssetsManagementAllAssetsRoute: typeof AuthenticatedAssetsManagementAllAssetsRoute
   AuthenticatedAssetsManagementAssignmentHistoryRoute: typeof AuthenticatedAssetsManagementAssignmentHistoryRoute
   AuthenticatedAttendanceMyAttendanceRoute: typeof AuthenticatedAttendanceMyAttendanceRoute
@@ -1183,9 +1122,6 @@ interface AuthenticatedRouteChildren {
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedDemoFormRoute: AuthenticatedDemoFormRoute,
-  AuthenticatedRecruitmentRoute: AuthenticatedRecruitmentRoute,
-  AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
-  AuthenticatedTasksRoute: AuthenticatedTasksRoute,
   AuthenticatedAssetsManagementAllAssetsRoute:
     AuthenticatedAssetsManagementAllAssetsRoute,
   AuthenticatedAssetsManagementAssignmentHistoryRoute:

@@ -1,4 +1,5 @@
 import { ActionDropdown, DatePicker, SearchBar } from '@erp/ui';
+import { cn } from '@erp/utils';
 import { ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 
@@ -16,6 +17,7 @@ interface TableHeaderProps<T> {
   buttonName?: string;
   headerClassName?: string;
   className?: string;
+  searchClassName?: string;
   renderTable: (data: T[]) => React.ReactNode;
   filterFn?: (
     data: T[],
@@ -34,6 +36,7 @@ export function TableHeader<T>({
   actionComponent,
   className,
   headerClassName,
+  searchClassName,
 }: TableHeaderProps<T>) {
   const [search, setSearch] = useState('');
 
@@ -69,14 +72,14 @@ export function TableHeader<T>({
   };
 
   return (
-    <div className={`flex flex-col gap-8 ${headerClassName}`}>
-      <div className={`flex gap-6 items-center ${className}`}>
+    <div className={cn(`flex flex-col gap-8 ${headerClassName}`)}>
+      <div className={cn(`flex gap-6 items-center ${className}`)}>
         {isSearch && (
           <SearchBar
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search..."
-            className=" h-10"
+            className={cn(`h-10 ${searchClassName}`)}
           />
         )}
         <div className="flex gap-4 items-center">
