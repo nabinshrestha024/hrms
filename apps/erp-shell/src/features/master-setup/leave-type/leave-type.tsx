@@ -1,15 +1,27 @@
+import { useLeavePayTypes, type LeavePayType } from '@erp/data-access';
 import { Button, FormDialog, ListPage } from '@erp/ui';
 import { MasterSetupBody } from '../body';
-import { leaveTypeData } from '../schema/LeaveTypeData';
 import { LeaveTypeTable } from './table/leave-type-table';
 import { AddLeaveTypeForm } from './add-leave-type-form';
 
 export const LeaveType = () => {
+  const { data: response } = useLeavePayTypes({ pageSize: 100 });
+  const data: LeavePayType[] = response?.data ?? [];
+
   return (
-    <ListPage
-      title="Currencies"
+    <ListPage<LeavePayType>
+      title="Leave Type"
       search
-      data={leaveTypeData}
+      data={data}
+      filterFn={(rows, { search }) =>
+        rows.filter((row) => {
+          const q = search.toLowerCase();
+          return (
+            row.name.toLowerCase().includes(q) ||
+            row.code.toLowerCase().includes(q)
+          );
+        })
+      }
       actionComponent={
         <FormDialog
           trigger={
@@ -19,12 +31,12 @@ export const LeaveType = () => {
               size="lg"
               className="text-[14px] font-medium leading-5 text-white"
             >
-              Add LeaveType Type
+              Add Leave Type
             </Button>
           }
-          title="Add New Leave"
+          title="Add New Leave Type"
           size="lg"
-          formId="Leave-type-form"
+          formId="leave-pay-type-form"
           okText="Add"
           cancelText="Cancel"
         >

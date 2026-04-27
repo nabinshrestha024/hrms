@@ -6,6 +6,8 @@ import { initDepartmentsModule } from './modules/departments';
 import { initEmployeesModule } from './modules/employees';
 import { initHolidayTypesModule } from './modules/holiday-types';
 import { initJobLevelsModule } from './modules/job-levels';
+import { initLeavePayTypesModule } from './modules/leave-pay-types';
+import { initWorkTypesModule } from './modules/work-types';
 
 /**
  * Central handler registry.
@@ -24,6 +26,8 @@ export const handlers = [
   ...initHolidayTypesModule(),
   ...initCurrenciesModule(),
   ...initJobLevelsModule(),
+  ...initWorkTypesModule(),
+  ...initLeavePayTypesModule(),
   // Add new modules here:
   // ...initLeaveModule(),
   // ...initPayrollModule(),

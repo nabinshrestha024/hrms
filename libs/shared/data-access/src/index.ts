@@ -195,3 +195,48 @@ export type {
   JobLevelFilters,
   UpdateJobLevelInput,
 } from './schemas/job-level.schema';
+
+// Master setup — Work types
+export {
+  useCreateWorkType,
+  useDeleteWorkType,
+  useUpdateWorkType,
+  useWorkType,
+  useWorkTypes,
+  workTypeKeys,
+} from './queries/work-type.queries';
+export {
+  createWorkTypeSchema,
+  updateWorkTypeSchema,
+  workTypeFiltersSchema,
+  workTypeSchema,
+} from './schemas/work-type.schema';
+export type {
+  CreateWorkTypeInput,
+  UpdateWorkTypeInput,
+  WorkType,
+  WorkTypeFilters,
+} from './schemas/work-type.schema';
+
+// Master setup — Leave pay types (Fully Paid / Not Paid / etc.)
+// Distinct from configuration's leave-types resource (Annual / Sick / ...).
+export {
+  leavePayTypeKeys,
+  useCreateLeavePayType,
+  useDeleteLeavePayType,
+  useLeavePayType,
+  useLeavePayTypes,
+  useUpdateLeavePayType,
+} from './queries/leave-pay-type.queries';
+export {
+  createLeavePayTypeSchema,
+  leavePayTypeFiltersSchema,
+  leavePayTypeSchema,
+  updateLeavePayTypeSchema,
+} from './schemas/leave-pay-type.schema';
+export type {
+  CreateLeavePayTypeInput,
+  LeavePayType,
+  LeavePayTypeFilters,
+  UpdateLeavePayTypeInput,
+} from './schemas/leave-pay-type.schema';

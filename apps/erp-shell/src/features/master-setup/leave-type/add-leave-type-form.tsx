@@ -1,47 +1,47 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
 import { toast } from '@erp/ui';
 
+// Field names align with the canonical `leavePayTypeSchema`
+// (`@erp/data-access`): `name`, `code`, optional `description`. Phase 3.2
+// will replace the placeholder submit handler with
+// `useCreateLeavePayType().mutate()`.
 export const addLeaveTypeFormConfig: FormViewConfig = {
-  entity: 'leaveType',
+  entity: 'leave-pay-type',
 
   fields: [
     {
-      name: 'leaveType',
+      name: 'name',
       type: 'text',
       label: 'Leave Type Name',
-      placeholder: 'Intern',
+      placeholder: 'Fully Paid',
       isRequired: true,
-      validation: {
-        required: true,
-      },
+      validation: { required: true, max: 100 },
     },
     {
       name: 'code',
       type: 'text',
       label: 'Leave Code',
       placeholder: 'FP',
+      subLabel: 'Two to six uppercase letters',
       isRequired: true,
       validation: {
         required: true,
+        pattern: '^[A-Z]{2,6}$',
       },
     },
     {
       name: 'description',
       type: 'textarea',
       label: 'Description',
-      isRequired: true,
-      subLabel: 'Less than 200 words',
-      validation: {
-        required: true,
-        max: 200,
-      },
+      subLabel: 'Optional, less than 500 characters',
+      validation: { max: 500 },
     },
   ],
 
   layout: {
     type: 'section',
     children: [
-      { type: 'field', name: 'leaveType' },
+      { type: 'field', name: 'name' },
       { type: 'field', name: 'code' },
       { type: 'field', name: 'description' },
     ],
@@ -54,11 +54,12 @@ interface AddLeaveTypeFormProps {
 
 export function AddLeaveTypeForm({ onSuccess }: AddLeaveTypeFormProps) {
   const onsubmit = (data: Record<string, unknown>) => {
+    // Phase 3.2 will replace this with useCreateLeavePayType().mutate(...).
     console.warn('Save Changes:', data);
 
     toast({
       variant: 'success',
-      title: 'Leave Type Added',
+      title: 'Leave type added',
     });
 
     onSuccess?.();

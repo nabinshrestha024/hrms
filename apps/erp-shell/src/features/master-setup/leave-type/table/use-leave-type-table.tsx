@@ -1,19 +1,19 @@
+import { type LeavePayType } from '@erp/data-access';
 import { useServerTableState } from '@erp/ui';
-import { leaveTypeDataType } from '../../schema/LeaveTypeData';
 import { getLeaveTypeColumn } from './get-leave-type-column';
 
 interface LeaveTypeTableProps {
-  data: leaveTypeDataType[];
+  data: LeavePayType[];
 }
 
 export function useLeaveTypeTable({ data }: LeaveTypeTableProps) {
   const columns = getLeaveTypeColumn();
 
-  const table = useServerTableState<leaveTypeDataType>({
+  const table = useServerTableState<LeavePayType>({
     data,
     totalCount: data.length,
     columns,
-    getRowId: (row) => row.leavetype,
+    getRowId: (row) => row.id,
   });
 
   return {

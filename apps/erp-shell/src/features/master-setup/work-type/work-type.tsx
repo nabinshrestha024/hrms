@@ -1,15 +1,26 @@
+import {
+  useWorkTypes,
+  type WorkType as WorkTypeRecord,
+} from '@erp/data-access';
 import { Button, FormDialog, ListPage } from '@erp/ui';
 import { MasterSetupBody } from '../body';
-import { workTypeData } from '../schema/WorkTypeData';
 import { WorkTable } from './table/work-type-table';
 import { AddWorkTypeForm } from './add-work-type-form';
 
 export const WorkType = () => {
+  const { data: response } = useWorkTypes({ pageSize: 100 });
+  const data: WorkTypeRecord[] = response?.data ?? [];
+
   return (
-    <ListPage
+    <ListPage<WorkTypeRecord>
       title="Work Type"
       search
-      data={workTypeData}
+      data={data}
+      filterFn={(rows, { search }) =>
+        rows.filter((row) =>
+          row.name.toLowerCase().includes(search.toLowerCase())
+        )
+      }
       actionComponent={
         <FormDialog
           trigger={
