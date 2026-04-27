@@ -1,10 +1,7 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
+import { useCreateLeavePayType } from '@erp/data-access';
 import { toast } from '@erp/ui';
 
-// Field names align with the canonical `leavePayTypeSchema`
-// (`@erp/data-access`): `name`, `code`, optional `description`. Phase 3.2
-// will replace the placeholder submit handler with
-// `useCreateLeavePayType().mutate()`.
 export const addLeaveTypeFormConfig: FormViewConfig = {
   entity: 'leave-pay-type',
 
@@ -53,16 +50,25 @@ interface AddLeaveTypeFormProps {
 }
 
 export function AddLeaveTypeForm({ onSuccess }: AddLeaveTypeFormProps) {
+  const createLeavePayType = useCreateLeavePayType();
+
   const onsubmit = (data: Record<string, unknown>) => {
-    // Phase 3.2 will replace this with useCreateLeavePayType().mutate(...).
-    console.warn('Save Changes:', data);
-
-    toast({
-      variant: 'success',
-      title: 'Leave type added',
-    });
-
-    onSuccess?.();
+    createLeavePayType.mutate(
+      {
+        name: String(data.name ?? ''),
+        code: String(data.code ?? ''),
+        description: data.description ? String(data.description) : undefined,
+      },
+      {
+        onSuccess: () => {
+          toast({ variant: 'success', title: 'Leave type added' });
+          onSuccess?.();
+        },
+        onError: () => {
+          toast({ variant: 'destructive', title: 'Failed to add leave type' });
+        },
+      }
+    );
   };
 
   return (

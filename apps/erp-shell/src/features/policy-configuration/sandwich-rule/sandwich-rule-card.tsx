@@ -1,6 +1,26 @@
 import { HRCard } from '@erp/ui';
-import { sandwichRuleCardData } from '../schema/SandwichRuleData';
-import { X } from 'lucide-react';
+import { Check, X } from 'lucide-react';
+
+const sandwichRuleCardData = [
+  {
+    icon: X,
+    title: 'Sandwich Rule ON',
+    sandwichRule: [
+      'Leave: Friday + Monday',
+      'Holiday: Saturday & Sunday',
+      'Result: 4 days deducted',
+    ],
+  },
+  {
+    icon: Check,
+    title: 'Sandwich Rule OFF',
+    sandwichRule: [
+      'Leave: Friday + Monday',
+      'Holiday: Saturday & Sunday',
+      'Result: 4 days deducted',
+    ],
+  },
+];
 
 export const SandwichRuleCard = () => {
   return (

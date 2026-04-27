@@ -1,17 +1,20 @@
+import { useDocumentCategories, type DocumentCategory } from '@erp/data-access';
 import { Button, FormDialog } from '@erp/ui';
 import { PageHeader } from '../../../components/page-header';
-import { categoryData } from '../schema/CategoryData';
 import { CategoryManagementCard } from './category-card';
 import { CategoryTable } from './table/category-table';
 import { CategoryForm } from './category-form';
 
 export const CategoryManagement = () => {
+  const { data: response } = useDocumentCategories({ pageSize: 100 });
+  const data: DocumentCategory[] = response?.data ?? [];
+
   return (
     <>
       <PageHeader
         title="Category Management"
         isTabs={true}
-        data={categoryData}
+        data={data}
         actionComponent={
           <FormDialog
             trigger={

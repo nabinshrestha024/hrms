@@ -1,4 +1,5 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
+import { useUpdateDocumentReview } from '@erp/data-access';
 import { toast } from '@erp/ui';
 
 export const addRejectionFormConfig: FormViewConfig = {
@@ -32,13 +33,39 @@ export const addRejectionFormConfig: FormViewConfig = {
   },
 };
 interface rejectionFormProps {
+  documentId?: string;
   onSuccess?: () => void;
 }
-export function RejectionForm({ onSuccess }: rejectionFormProps = {}) {
+export function RejectionForm({
+  documentId,
+  onSuccess,
+}: rejectionFormProps = {}) {
+  const updateReview = useUpdateDocumentReview(documentId ?? '');
+
   const onsubmit = (data: Record<string, unknown>) => {
-    console.warn('Rejection: ', data);
-    toast({ variant: 'success', title: 'Rejection message send' });
-    onSuccess?.();
+    if (!documentId) {
+      toast({
+        variant: 'destructive',
+        title: 'Missing document context',
+      });
+      return;
+    }
+
+    updateReview.mutate(
+      {
+        status: 'rejected',
+        rejectedReason: String(data.rejectionReason ?? ''),
+      },
+      {
+        onSuccess: () => {
+          toast({ variant: 'success', title: 'Rejection message sent' });
+          onSuccess?.();
+        },
+        onError: () => {
+          toast({ variant: 'destructive', title: 'Failed to send rejection' });
+        },
+      }
+    );
   };
 
   return (

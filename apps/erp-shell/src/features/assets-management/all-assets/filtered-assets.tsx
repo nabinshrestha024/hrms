@@ -1,16 +1,16 @@
+import { type Asset } from '@erp/data-access';
 import { Button, FormDialog, ListPage } from '@erp/ui';
-import { AssetType } from '../schema/AllAssetsData';
 import { AssetsForm } from './assets-form';
 import { FilteredAssetsTable } from './table/filtered-assets-table';
 
 interface FilteredAssetsProps {
-  data: AssetType[];
+  data: Asset[];
   category: string;
 }
 export const FilteredAssets = ({ data, category }: FilteredAssetsProps) => {
   const filteredData = data.filter((item) => item.category === category);
   return (
-    <ListPage
+    <ListPage<Asset>
       flat
       title="Asset List"
       data={filteredData}

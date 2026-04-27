@@ -1,5 +1,6 @@
 import { HRCard, Switch } from '@erp/ui';
-import { notificationData } from '../schema/WorkflowData';
+
+const notificationData = ['On Apply', 'On Approve', 'On Reject', 'On Cancel'];
 
 export const NotificationSetting = () => {
   return (

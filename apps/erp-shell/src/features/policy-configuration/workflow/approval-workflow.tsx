@@ -1,6 +1,21 @@
 import { Badge, HRCard, Switch } from '@erp/ui';
 import { ArrowRight } from 'lucide-react';
-import { approvalWorkflowData } from '../schema/WorkflowData';
+
+const approvalWorkflowData = [
+  {
+    approvalWorkflowTitle: 'Require Manager Approval',
+    approvalWorkflowSubTitle: 'First level approval',
+  },
+  {
+    approvalWorkflowTitle: 'Require HR Approval',
+    approvalWorkflowSubTitle: 'Second level approval',
+  },
+  {
+    approvalWorkflowTitle: 'Enable Auto-Approve',
+    approvalWorkflowSubTitle:
+      'Automatically approve if no action taken within specified days',
+  },
+];
 
 export const ApprovalWorkflow = () => {
   return (

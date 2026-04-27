@@ -1,15 +1,25 @@
+import { useLeaveRequests } from '@erp/data-access';
 import { Button, FormDialog, ListPage } from '@erp/ui';
-import { leaveRequestData } from '../schema/LeaveRequestData';
+import type { LeaveRequest as LeaveRequestRow } from '../schema/LeaveRequestData';
 import { Plus } from 'lucide-react';
 import { MyRequestTable } from './table/my-request-table';
 import { AddLeaveRequestForm } from '../../attendance/my-attendance/add-leave-request-form';
 
 export const MyRequestDetails = () => {
+  const { data: response } = useLeaveRequests({ pageSize: 100 });
+  // Inner table types against legacy shape (`duration` + capitalized status);
+  // bridge the canonical fields here until Phase 3.2 reconciles them.
+  const data = (response?.data ?? []).map((r) => ({
+    ...r,
+    duration: `${r.fromDate}-${r.toDate}`,
+    status: r.status.charAt(0).toUpperCase() + r.status.slice(1),
+  })) as unknown as LeaveRequestRow[];
+
   return (
-    <ListPage
+    <ListPage<LeaveRequestRow>
       search
       dateRange
-      data={leaveRequestData}
+      data={data}
       renderTable={(filtered) => <MyRequestTable data={filtered} />}
       dropdowns={[
         { key: 'branch', label: 'Branch' },

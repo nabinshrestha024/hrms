@@ -1,19 +1,34 @@
+import { type Asset } from '@erp/data-access';
 import { Badge, DataTableColumnHeader, FormDialog } from '@erp/ui';
 import type { ColumnDef } from '@tanstack/react-table';
 import { Eye, Redo2, Trash2, UserRoundPlus } from 'lucide-react';
-import { AssetType } from '../../schema/AllAssetsData';
 import { IconButton } from '../../../../components/icon-button';
 import { ReturnAssetsForm } from '../return-assets-form';
 import { AssignAssetsForm } from '../assign-assets-form';
 
-export function getAssetsColumns(): ColumnDef<AssetType, unknown>[] {
+const STATUS_LABEL: Record<Asset['status'], string> = {
+  available: 'Available',
+  assigned: 'Assigned',
+  maintenance: 'Maintenance',
+  retired: 'Retired',
+};
+
+const CONDITION_LABEL: Record<Asset['condition'], string> = {
+  excellent: 'Excellent',
+  good: 'Good',
+  fair: 'Fair',
+  poor: 'Poor',
+};
+
+export function getAssetsColumns(): ColumnDef<Asset, unknown>[] {
   return [
     {
-      accessorKey: 'assetName',
+      accessorKey: 'name',
       header: ({ column }) => (
+        // Header preserved per the original design (typo "Asssets" preserved).
         <DataTableColumnHeader column={column} title="Asssets Name" />
       ),
-      cell: ({ row }) => <>{row.getValue('assetName')}</>,
+      cell: ({ row }) => <>{row.getValue('name')}</>,
     },
     {
       accessorKey: 'category',
@@ -29,34 +44,31 @@ export function getAssetsColumns(): ColumnDef<AssetType, unknown>[] {
       ),
       cell: ({ row }) => <>{row.getValue('serialNumber')}</>,
     },
-
     {
       accessorKey: 'status',
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Status" />
       ),
-      cell: ({ row }) => {
-        const value = row.getValue('status');
-        return value === 'Assigned' ? (
+      cell: ({ row }) =>
+        row.original.status === 'assigned' ? (
           <Badge variant="primary">Assigned</Badge>
         ) : (
-          <Badge variant="secondary">Available</Badge>
-        );
-      },
+          <Badge variant="secondary">{STATUS_LABEL[row.original.status]}</Badge>
+        ),
     },
     {
       accessorKey: 'assignedTo',
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Assigned To" />
       ),
-      cell: ({ row }) => <>{row.getValue('assignedTo')}</>,
+      cell: ({ row }) => <>{row.getValue('assignedTo') ?? '—'}</>,
     },
     {
       accessorKey: 'condition',
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Condition" />
       ),
-      cell: ({ row }) => <>{row.getValue('condition')}</>,
+      cell: ({ row }) => <>{CONDITION_LABEL[row.original.condition]}</>,
     },
     {
       accessorKey: 'value',
@@ -71,13 +83,13 @@ export function getAssetsColumns(): ColumnDef<AssetType, unknown>[] {
         <DataTableColumnHeader column={column} title="Action" />
       ),
       cell: ({ row }) => {
-        const value = row.getValue('status');
+        const isAssigned = row.original.status === 'assigned';
         return (
           <div className="flex gap-2 items-center justify-center">
             <IconButton variant="default">
               <Eye className="w-4 h-4 " />
             </IconButton>
-            {value === 'Assigned' ? (
+            {isAssigned ? (
               <FormDialog
                 trigger={
                   <IconButton variant="default">
@@ -92,7 +104,10 @@ export function getAssetsColumns(): ColumnDef<AssetType, unknown>[] {
                 componentClassName="py-4 pl-4 pr-2"
               >
                 {({ close }: { close: () => void }) => (
-                  <ReturnAssetsForm onSuccess={close} />
+                  <ReturnAssetsForm
+                    assetId={row.original.id}
+                    onSuccess={close}
+                  />
                 )}
               </FormDialog>
             ) : (
@@ -110,7 +125,11 @@ export function getAssetsColumns(): ColumnDef<AssetType, unknown>[] {
                 componentClassName="py-4 pl-4 pr-2"
               >
                 {({ close }: { close: () => void }) => (
-                  <AssignAssetsForm onSuccess={close} />
+                  <AssignAssetsForm
+                    assetId={row.original.id}
+                    assetName={row.original.name}
+                    onSuccess={close}
+                  />
                 )}
               </FormDialog>
             )}

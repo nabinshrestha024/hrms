@@ -1,13 +1,20 @@
+import { useAttendanceRecords } from '@erp/data-access';
 import { ListPage } from '@erp/ui';
-import { attendanceListData } from '../schema/AttendanceListData';
+import {
+  toAttendanceListRecord,
+  type AttendanceListRecord,
+} from '../schema/AttendanceListData';
 import { AttendanceValidateTable } from './attendance-validate/attendance-validate-table';
 
 export const AttendanceValidate = () => {
+  const { data: response } = useAttendanceRecords({ pageSize: 100 });
+  const data = (response?.data ?? []).map(toAttendanceListRecord);
+
   return (
-    <ListPage
+    <ListPage<AttendanceListRecord>
       search
       dateRange
-      data={attendanceListData}
+      data={data}
       renderTable={(filtered) => <AttendanceValidateTable data={filtered} />}
       dropdowns={[
         { key: 'branch', label: 'Branch' },

@@ -1,9 +1,19 @@
 import { useForm, type Resolver } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { emergencySchema, type EmergencyFormValue } from './EmergencyDetailZod';
-import { HRInput } from '@erp/ui';
+import { useUpdateEmployee, type Employee } from '@erp/data-access';
+import { HRInput, toast } from '@erp/ui';
 
-export const EmergencyDetailEditForm = () => {
+interface EmergencyDetailEditFormProps {
+  employee: Employee;
+  onSuccess: () => void;
+}
+
+export const EmergencyDetailEditForm = ({
+  employee,
+  onSuccess,
+}: EmergencyDetailEditFormProps) => {
+  const updateEmployee = useUpdateEmployee(employee.id);
   const {
     register,
     handleSubmit,
@@ -11,9 +21,32 @@ export const EmergencyDetailEditForm = () => {
   } = useForm<EmergencyFormValue>({
     resolver: zodResolver(emergencySchema) as Resolver<EmergencyFormValue>,
     mode: 'onChange',
+    defaultValues: {
+      emergencyContact: employee.emergencyContact ?? '',
+      emergencyContactName: employee.emergencyContactName ?? '',
+      emergencyContactRelation: employee.emergencyContactRelation ?? '',
+    },
   });
   const onsubmit = (data: EmergencyFormValue) => {
-    console.warn('Submitted Form Data: ', data);
+    updateEmployee.mutate(
+      {
+        emergencyContact: data.emergencyContact,
+        emergencyContactName: data.emergencyContactName,
+        emergencyContactRelation: data.emergencyContactRelation,
+      },
+      {
+        onSuccess: () => {
+          toast({ variant: 'success', title: 'Emergency details updated' });
+          onSuccess();
+        },
+        onError: () => {
+          toast({
+            variant: 'destructive',
+            title: 'Failed to update emergency details',
+          });
+        },
+      }
+    );
   };
   return (
     <>

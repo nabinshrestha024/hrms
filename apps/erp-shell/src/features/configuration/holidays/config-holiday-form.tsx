@@ -1,3 +1,4 @@
+import { useCreateHoliday } from '@erp/data-access';
 import {
   Button,
   HRCard,
@@ -27,10 +28,26 @@ export const ConfigHolidayForm = () => {
   });
 
   const close = useDialogClose();
+  const createHoliday = useCreateHoliday();
+
   const onsubmit = (data: ConfigHolidayTemplateFormValue) => {
-    console.warn('Save Changes: ', data);
-    close();
-    toast({ title: 'Holiday Added', variant: 'success' });
+    createHoliday.mutate(
+      {
+        name: data.holidayName,
+        date: data.date.toISOString().split('T')[0],
+        type: data.holidayType,
+        description: data.description,
+      },
+      {
+        onSuccess: () => {
+          toast({ title: 'Holiday Added', variant: 'success' });
+          close();
+        },
+        onError: () => {
+          toast({ variant: 'destructive', title: 'Failed to add holiday' });
+        },
+      }
+    );
   };
   const holidayTypeOption = [
     {

@@ -1,4 +1,5 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
+import { useUpdateAsset, type AssetCondition } from '@erp/data-access';
 import { toast } from '@erp/ui';
 import { UserCard } from '../../../components/user-card';
 
@@ -54,19 +55,42 @@ export const returnAssetsFormConfig: FormViewConfig = {
   },
 };
 interface ReturnAssetsFormProps {
+  assetId?: string;
   onSuccess?: () => void;
 }
 
-export function ReturnAssetsForm({ onSuccess }: ReturnAssetsFormProps = {}) {
+export function ReturnAssetsForm({
+  assetId,
+  onSuccess,
+}: ReturnAssetsFormProps = {}) {
+  const updateAsset = useUpdateAsset(assetId ?? '');
+
   const onsubmit = (data: Record<string, unknown>) => {
-    console.warn('Save Changes:', data);
+    if (!assetId) {
+      toast({ variant: 'destructive', title: 'Missing asset context' });
+      return;
+    }
+    const condition = String(
+      data.condition ?? ''
+    ).toLowerCase() as AssetCondition;
 
-    toast({
-      variant: 'success',
-      title: 'Return Assets',
-    });
-
-    onSuccess?.();
+    updateAsset.mutate(
+      {
+        status: 'available',
+        assignedTo: null,
+        assignedDate: null,
+        condition,
+      },
+      {
+        onSuccess: () => {
+          toast({ variant: 'success', title: 'Asset returned' });
+          onSuccess?.();
+        },
+        onError: () => {
+          toast({ variant: 'destructive', title: 'Failed to return asset' });
+        },
+      }
+    );
   };
 
   return (

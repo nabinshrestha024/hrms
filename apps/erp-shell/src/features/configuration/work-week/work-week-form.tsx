@@ -1,3 +1,4 @@
+import { useUpdateWorkWeekConfig } from '@erp/data-access';
 import {
   Button,
   HRCard,
@@ -54,13 +55,58 @@ export const WorkWeekForm = () => {
     mode: 'onChange',
   });
 
-  console.warn(errors);
-  const onsubmit = (data: WorkWeekTemplateFormValue) => {
-    console.warn('Submitted Form Data: ', data);
-    reset();
-    toast({ title: 'Work Week added', variant: 'success' });
-  };
+  const updateWorkWeekConfig = useUpdateWorkWeekConfig();
   const [enabled, setEnabled] = useState(false);
+
+  const onsubmit = (data: WorkWeekTemplateFormValue) => {
+    // Map legacy form values onto the canonical work-week-config singleton.
+    const weekendPolicy =
+      data.weekendPolicy === 'Full Weekend Off'
+        ? 'full-weekend-off'
+        : 'public-holiday-off';
+    const weekStartsMap: Record<
+      string,
+      'sun' | 'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat'
+    > = {
+      Sunday: 'sun',
+      Monday: 'mon',
+      Tuesday: 'tue',
+      Wednesday: 'wed',
+      Thursday: 'thu',
+      Friday: 'fri',
+      Saturday: 'sat',
+    };
+
+    updateWorkWeekConfig.mutate(
+      {
+        weekStarts: weekStartsMap[data.weekStarts] ?? 'mon',
+        weekendPolicy,
+        payrollCycleStartDay: Number(data.payrollCycleStarts),
+        payrollCycleEndDay: Number(data.payrollCycleEnds),
+        minHoursPerDay: Number(data.minHours),
+        maxHoursPerDay: Number(data.maxHours),
+        overtimeEnabled: enabled,
+        overtime: {
+          regular: Number(data.regularOT) || 1,
+          weekend: Number(data.weekendOT) || 1,
+          holiday: Number(data.holidayOT) || 1,
+        },
+        workingDays: data.workingDays as Array<{
+          day: 'sun' | 'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat';
+          type: 'full' | 'half';
+        }>,
+      },
+      {
+        onSuccess: () => {
+          toast({ title: 'Work week saved', variant: 'success' });
+          reset();
+        },
+        onError: () => {
+          toast({ variant: 'destructive', title: 'Failed to save work week' });
+        },
+      }
+    );
+  };
   const workingDays = watch('workingDays') || [];
   const halfDayCount = workingDays.filter((d) => d.type === 'half').length;
   const payrollCycleStarts = watch('payrollCycleStarts');

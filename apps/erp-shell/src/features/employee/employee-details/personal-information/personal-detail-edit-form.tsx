@@ -4,9 +4,19 @@ import {
   personalInformationSchema,
   type PersonalInfromationFormValue,
 } from './PersonalInfromationZod';
-import { HRDateField, HRInput } from '@erp/ui';
+import { useUpdateEmployee, type Employee } from '@erp/data-access';
+import { HRDateField, HRInput, toast } from '@erp/ui';
 
-export const PersonalDetailEditForm = () => {
+interface PersonalDetailEditFormProps {
+  employee: Employee;
+  onSuccess: () => void;
+}
+
+export const PersonalDetailEditForm = ({
+  employee,
+  onSuccess,
+}: PersonalDetailEditFormProps) => {
+  const updateEmployee = useUpdateEmployee(employee.id);
   const {
     register,
     control,
@@ -17,9 +27,51 @@ export const PersonalDetailEditForm = () => {
       personalInformationSchema
     ) as Resolver<PersonalInfromationFormValue>,
     mode: 'onChange',
+    defaultValues: {
+      firstName: employee.firstName,
+      middleName: employee.middleName ?? '',
+      lastName: employee.lastName,
+      email: employee.email,
+      phoneNumber: employee.phone ?? '',
+      dateOfBirth: employee.dateOfBirth
+        ? new Date(employee.dateOfBirth)
+        : undefined,
+      gender: employee.gender ?? '',
+      maritalStatus: employee.maritalStatus ?? '',
+      country: employee.country ?? '',
+      province: employee.province ?? '',
+      city: employee.city ?? '',
+      municipality: employee.municipality ?? '',
+      ward: employee.ward ?? '',
+    },
   });
   const onsubmit = (data: PersonalInfromationFormValue) => {
-    console.warn('Submitted Form Data: ', data);
+    updateEmployee.mutate(
+      {
+        firstName: data.firstName,
+        middleName: data.middleName,
+        lastName: data.lastName,
+        email: data.email,
+        phone: data.phoneNumber,
+        dateOfBirth: data.dateOfBirth.toISOString().split('T')[0],
+        gender: data.gender,
+        maritalStatus: data.maritalStatus,
+        country: data.country,
+        province: data.province,
+        city: data.city,
+        municipality: data.municipality,
+        ward: data.ward,
+      },
+      {
+        onSuccess: () => {
+          toast({ variant: 'success', title: 'Personal details updated' });
+          onSuccess();
+        },
+        onError: () => {
+          toast({ variant: 'destructive', title: 'Failed to update details' });
+        },
+      }
+    );
   };
   return (
     <>

@@ -1,12 +1,9 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
+import { useCreateJobLevel } from '@erp/data-access';
 import { toast } from '@erp/ui';
 
-// Field names align with the canonical `jobLevelSchema` (`@erp/data-access`):
-// `name`, `rank`, optional `description`. Phase 3.2 will replace the
-// placeholder submit handler with `useCreateJobLevel().mutate()`.
-//
-// Note: `hierarchyRank` was renamed to `rank` to match the canonical
-// schema; the label still surfaces "1 = Top" so the UX is unchanged.
+// `hierarchyRank` was renamed to `rank` to match the canonical schema;
+// the label still surfaces "1 = Top" so the UX is unchanged.
 export const addJobLevelFormConfig: FormViewConfig = {
   entity: 'job-level',
 
@@ -51,16 +48,25 @@ interface AddJobLevelFormProps {
 }
 
 export function AddJobLevelForm({ onSuccess }: AddJobLevelFormProps) {
+  const createJobLevel = useCreateJobLevel();
+
   const onsubmit = (data: Record<string, unknown>) => {
-    // Phase 3.2 will replace this with useCreateJobLevel().mutate(...).
-    console.warn('Save Changes:', data);
-
-    toast({
-      variant: 'success',
-      title: 'Job level added',
-    });
-
-    onSuccess?.();
+    createJobLevel.mutate(
+      {
+        name: String(data.name ?? ''),
+        rank: Number(data.rank ?? 1),
+        description: data.description ? String(data.description) : undefined,
+      },
+      {
+        onSuccess: () => {
+          toast({ variant: 'success', title: 'Job level added' });
+          onSuccess?.();
+        },
+        onError: () => {
+          toast({ variant: 'destructive', title: 'Failed to add job level' });
+        },
+      }
+    );
   };
 
   return (

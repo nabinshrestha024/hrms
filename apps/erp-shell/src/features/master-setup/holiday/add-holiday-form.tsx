@@ -1,9 +1,7 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
+import { useCreateHolidayType } from '@erp/data-access';
 import { toast } from '@erp/ui';
 
-// Field names align with the canonical `holidayTypeSchema`
-// (`@erp/data-access`): `name`, `description`, `color`. Phase 3 will swap
-// the placeholder submit handler below for `useCreateHolidayType().mutate()`.
 export const addHolidayFormConfig: FormViewConfig = {
   entity: 'holiday-type',
 
@@ -48,16 +46,28 @@ interface AddHolidayFormProps {
 }
 
 export function AddHolidayForm({ onSuccess }: AddHolidayFormProps) {
+  const createHolidayType = useCreateHolidayType();
+
   const onsubmit = (data: Record<string, unknown>) => {
-    // Phase 3 will replace this with useCreateHolidayType().mutate(...).
-    console.warn('Save Changes:', data);
-
-    toast({
-      variant: 'success',
-      title: 'Holiday type added',
-    });
-
-    onSuccess?.();
+    createHolidayType.mutate(
+      {
+        name: String(data.name ?? ''),
+        color: String(data.color ?? ''),
+        description: data.description ? String(data.description) : undefined,
+      },
+      {
+        onSuccess: () => {
+          toast({ variant: 'success', title: 'Holiday type added' });
+          onSuccess?.();
+        },
+        onError: () => {
+          toast({
+            variant: 'destructive',
+            title: 'Failed to add holiday type',
+          });
+        },
+      }
+    );
   };
 
   return (

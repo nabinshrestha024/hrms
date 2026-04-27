@@ -7,7 +7,18 @@ import { initEmployeesModule } from './modules/employees';
 import { initHolidaysModule } from './modules/holidays';
 import { initHolidayTypesModule } from './modules/holiday-types';
 import { initJobLevelsModule } from './modules/job-levels';
+import { initAssetCategoriesModule } from './modules/asset-categories';
+import { initAssetsModule } from './modules/assets';
+import { initAttendanceRecordsModule } from './modules/attendance-records';
+import { initDirectoryEntriesModule } from './modules/directory-entries';
+import { initDocumentCategoriesModule } from './modules/document-categories';
+import { initDocumentReviewsModule } from './modules/document-reviews';
+import { initDocumentTemplatesModule } from './modules/document-templates';
+import { initEmployeeDocumentsModule } from './modules/employee-documents';
 import { initLeavePayTypesModule } from './modules/leave-pay-types';
+import { initLeaveRequestsModule } from './modules/leave-requests';
+import { initLeaveTypesModule } from './modules/leave-types';
+import { initMissingDocumentsModule } from './modules/missing-documents';
 import { initShiftsModule } from './modules/shifts';
 import { initWorkTypesModule } from './modules/work-types';
 import { initWorkWeekConfigModule } from './modules/work-week-config';
@@ -34,6 +45,17 @@ export const handlers = [
   ...initHolidaysModule(),
   ...initShiftsModule(),
   ...initWorkWeekConfigModule(),
+  ...initLeaveTypesModule(),
+  ...initMissingDocumentsModule(),
+  ...initDocumentReviewsModule(),
+  ...initEmployeeDocumentsModule(),
+  ...initDocumentCategoriesModule(),
+  ...initDocumentTemplatesModule(),
+  ...initAssetsModule(),
+  ...initAssetCategoriesModule(),
+  ...initAttendanceRecordsModule(),
+  ...initLeaveRequestsModule(),
+  ...initDirectoryEntriesModule(),
   // Add new modules here:
   // ...initLeaveModule(),
   // ...initPayrollModule(),

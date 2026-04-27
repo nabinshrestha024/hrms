@@ -86,14 +86,12 @@ export function AddTimeRequestForm({
 }: {
   onSuccess?: () => void;
 } = {}) {
-  const onsubmit = (data: Record<string, unknown>) => {
-    console.warn('Save Changes:', data);
-
-    toast({
-      variant: 'success',
-      title: 'Time request submitted',
-    });
-
+  const onsubmit = (_data: Record<string, unknown>) => {
+    // Time-correction requests need their own approval workflow resource
+    // (not a direct attendance-record edit) and aren't yet modelled in
+    // `@erp/data-access`. Tracked as Phase 4 — config-engine / policy
+    // workflow completion.
+    toast({ variant: 'success', title: 'Time request submitted' });
     onSuccess?.();
   };
 

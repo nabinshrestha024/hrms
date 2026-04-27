@@ -1,9 +1,9 @@
+import { type Asset } from '@erp/data-access';
 import { DataTable } from '@erp/ui';
-import { AssetType } from '../../schema/AllAssetsData';
 import { useAssignmentHistoryTable } from './use-assignement-history-table';
 
 interface AssignmentHistoryTableProps {
-  data: AssetType[];
+  data: Asset[];
 }
 
 export const AssignmentHistoryTable = ({

@@ -1,9 +1,7 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
+import { useCreateCurrency } from '@erp/data-access';
 import { toast } from '@erp/ui';
 
-// Field names align with the canonical `currencySchema` (`@erp/data-access`):
-// `code`, `name`, `symbol`, optional `description`. Phase 3.2 will replace
-// the placeholder submit handler with `useCreateCurrency().mutate()`.
 export const addCurrencyFormConfig: FormViewConfig = {
   entity: 'currency',
 
@@ -61,15 +59,26 @@ interface AddCurrencyFormProps {
 }
 
 export function AddCurrencyForm({ onSuccess }: AddCurrencyFormProps) {
-  const onsubmit = (data: Record<string, unknown>) => {
-    // Phase 3.2 will replace this with useCreateCurrency().mutate(...).
-    console.warn('Save Changes:', data);
-    toast({
-      variant: 'success',
-      title: 'Currency added',
-    });
+  const createCurrency = useCreateCurrency();
 
-    onSuccess?.();
+  const onsubmit = (data: Record<string, unknown>) => {
+    createCurrency.mutate(
+      {
+        code: String(data.code ?? ''),
+        name: String(data.name ?? ''),
+        symbol: String(data.symbol ?? ''),
+        description: data.description ? String(data.description) : undefined,
+      },
+      {
+        onSuccess: () => {
+          toast({ variant: 'success', title: 'Currency added' });
+          onSuccess?.();
+        },
+        onError: () => {
+          toast({ variant: 'destructive', title: 'Failed to add currency' });
+        },
+      }
+    );
   };
 
   return (

@@ -1,13 +1,16 @@
+import { useLeaveTypes, type LeaveType } from '@erp/data-access';
 import { Button, FormDialog, ListPage } from '@erp/ui';
-import { configurationleaveTypeData } from '../schema/LeaveTypeData';
 import { ConfigurationLeaveTypeTable } from './table/leave-types-table';
 import { ConfigurationLeaveTypeTabs } from './leave-type-form-tabs';
 
 export const ConfigurationLeaveTypes = () => {
+  const { data: response } = useLeaveTypes({ pageSize: 100 });
+  const data: LeaveType[] = response?.data ?? [];
+
   return (
-    <ListPage
+    <ListPage<LeaveType>
       title="Leave Type"
-      data={configurationleaveTypeData}
+      data={data}
       actionComponent={
         <FormDialog
           trigger={

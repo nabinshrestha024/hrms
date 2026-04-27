@@ -1,7 +1,21 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
+import { useCreateLeaveRequest } from '@erp/data-access';
 import { toast } from '@erp/ui';
 import { CloudUpload } from 'lucide-react';
 import { BalanceDetails } from './balance-details';
+
+// Date in / Date out -> ISO yyyy-mm-dd; tolerates Date | string.
+const toIso = (v: unknown): string => {
+  if (v instanceof Date) return v.toISOString().split('T')[0];
+  return String(v ?? '');
+};
+
+const daysBetween = (startIso: string, endIso: string): number => {
+  const s = new Date(startIso).getTime();
+  const e = new Date(endIso).getTime();
+  if (isNaN(s) || isNaN(e) || e < s) return 1;
+  return Math.floor((e - s) / 86_400_000) + 1;
+};
 
 export const addLeaveRequestFormConfig: FormViewConfig = {
   entity: 'add-leave-request',
@@ -100,15 +114,37 @@ interface AddLeaveRequestFormProps {
 export function AddLeaveRequestForm({
   onSuccess,
 }: AddLeaveRequestFormProps = {}) {
+  const createLeaveRequest = useCreateLeaveRequest();
+
   const onsubmit = (data: Record<string, unknown>) => {
-    console.warn('Save Changes:', data);
+    const fromDate = toIso(data.startDate);
+    const toDate = toIso(data.endDate);
 
-    toast({
-      variant: 'success',
-      title: 'Leave request created',
-    });
-
-    onSuccess?.();
+    createLeaveRequest.mutate(
+      {
+        // Phase 5 (RBAC) will pull employeeId/Name from the auth session.
+        employeeId: 'SELF',
+        employeeName: 'Self',
+        type: String(data.leaveType ?? ''),
+        fromDate,
+        toDate,
+        totalDays: daysBetween(fromDate, toDate),
+        reason: String(data.reasonforLeave ?? ''),
+        status: 'pending',
+      },
+      {
+        onSuccess: () => {
+          toast({ variant: 'success', title: 'Leave request created' });
+          onSuccess?.();
+        },
+        onError: () => {
+          toast({
+            variant: 'destructive',
+            title: 'Failed to create leave request',
+          });
+        },
+      }
+    );
   };
 
   return (

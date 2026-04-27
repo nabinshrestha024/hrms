@@ -1,9 +1,7 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
+import { useCreateWorkType } from '@erp/data-access';
 import { toast } from '@erp/ui';
 
-// Field names align with the canonical `workTypeSchema` (`@erp/data-access`):
-// `name`, optional `description`. Phase 3.2 will replace the placeholder
-// submit handler with `useCreateWorkType().mutate()`.
 export const addWorkTypeFormConfig: FormViewConfig = {
   entity: 'work-type',
 
@@ -39,16 +37,24 @@ interface AddWorkTypeFormProps {
 }
 
 export function AddWorkTypeForm({ onSuccess }: AddWorkTypeFormProps) {
+  const createWorkType = useCreateWorkType();
+
   const onsubmit = (data: Record<string, unknown>) => {
-    // Phase 3.2 will replace this with useCreateWorkType().mutate(...).
-    console.warn('Save Changes:', data);
-
-    toast({
-      variant: 'success',
-      title: 'Work type added',
-    });
-
-    onSuccess?.();
+    createWorkType.mutate(
+      {
+        name: String(data.name ?? ''),
+        description: data.description ? String(data.description) : undefined,
+      },
+      {
+        onSuccess: () => {
+          toast({ variant: 'success', title: 'Work type added' });
+          onSuccess?.();
+        },
+        onError: () => {
+          toast({ variant: 'destructive', title: 'Failed to add work type' });
+        },
+      }
+    );
   };
 
   return (

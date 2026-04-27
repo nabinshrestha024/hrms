@@ -1,13 +1,20 @@
 import { Dot } from 'lucide-react';
-import { leaveRequestData } from '../schema/LeaveRequestData';
+import { useLeaveRequests } from '@erp/data-access';
+import type { LeaveRequest } from '../schema/LeaveRequestData';
 
 interface LeaveRequestDetailProps {
   employeeId: string;
 }
 export const LeaveRequestDetail = ({ employeeId }: LeaveRequestDetailProps) => {
-  const employee = leaveRequestData.find(
-    (emp) => emp.employeeId === employeeId
-  );
+  const { data: response } = useLeaveRequests({ pageSize: 100 });
+  // Bridge canonical (`fromDate`/`toDate`, lowercase status) to legacy shape
+  // (`duration`, capitalized status) until Phase 3.2 reconciles consumers.
+  const records = (response?.data ?? []).map((r) => ({
+    ...r,
+    duration: `${r.fromDate}-${r.toDate}`,
+    status: r.status.charAt(0).toUpperCase() + r.status.slice(1),
+  })) as unknown as LeaveRequest[];
+  const employee = records.find((emp) => emp.employeeId === employeeId);
 
   const value = employee?.status;
   const isPending = value?.toLowerCase() === 'pending';

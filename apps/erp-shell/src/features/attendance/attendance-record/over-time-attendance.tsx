@@ -1,13 +1,20 @@
+import { useAttendanceRecords } from '@erp/data-access';
 import { ListPage } from '@erp/ui';
-import { attendanceListData } from '../schema/AttendanceListData';
+import {
+  toAttendanceListRecord,
+  type AttendanceListRecord,
+} from '../schema/AttendanceListData';
 import { OverTimeAttendanceTable } from './over-time-attendance/over-time-attendance-table';
 
 export const OverTimeAttendance = () => {
+  const { data: response } = useAttendanceRecords({ pageSize: 100 });
+  const data = (response?.data ?? []).map(toAttendanceListRecord);
+
   return (
-    <ListPage
+    <ListPage<AttendanceListRecord>
       search
       dateRange
-      data={attendanceListData}
+      data={data}
       renderTable={(filtered) => <OverTimeAttendanceTable data={filtered} />}
       dropdowns={[
         { key: 'branch', label: 'Branch' },

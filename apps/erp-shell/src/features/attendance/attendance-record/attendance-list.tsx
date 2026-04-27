@@ -1,13 +1,20 @@
+import { useAttendanceRecords } from '@erp/data-access';
 import { ListPage } from '@erp/ui';
-import { attendanceListData } from '../schema/AttendanceListData';
+import {
+  toAttendanceListRecord,
+  type AttendanceListRecord,
+} from '../schema/AttendanceListData';
 import { AttendanceListTable } from './attendance-list/attendance-list-table';
 
 export const AttendanceList = () => {
+  const { data: response } = useAttendanceRecords({ pageSize: 100 });
+  const data = (response?.data ?? []).map(toAttendanceListRecord);
+
   return (
-    <ListPage
+    <ListPage<AttendanceListRecord>
       search
       dateRange
-      data={attendanceListData}
+      data={data}
       renderTable={(filtered) => <AttendanceListTable data={filtered} />}
       dropdowns={[
         { key: 'branch', label: 'Branch' },

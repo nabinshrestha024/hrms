@@ -1,9 +1,18 @@
+import { useAttendanceRecords } from '@erp/data-access';
 import { HRCard, ListPage } from '@erp/ui';
 import { cardData } from '../../employee/schema/attendance-card-data';
 import { MyAttendanceTable } from './table/my-attendance-table';
-import { attendanceRecord } from '../schema/MyAttendanceData';
+import {
+  toMyAttendanceRecord,
+  type Attendance,
+} from '../schema/MyAttendanceData';
 
 export const MyAttendanceDetails = () => {
+  // "My Attendance" filtered by current user — for Phase 2 we just take
+  // all records; Phase 5 (RBAC) will scope to the authenticated employee.
+  const { data: response } = useAttendanceRecords({ pageSize: 100 });
+  const data = (response?.data ?? []).map(toMyAttendanceRecord);
+
   return (
     <div className="flex flex-col gap-6">
       <div className="grid grid-cols-5 gap-4">
@@ -22,9 +31,9 @@ export const MyAttendanceDetails = () => {
           </HRCard>
         ))}
       </div>
-      <ListPage
+      <ListPage<Attendance>
         dateRange
-        data={attendanceRecord}
+        data={data}
         renderTable={(filtered) => <MyAttendanceTable data={filtered} />}
       />
     </div>

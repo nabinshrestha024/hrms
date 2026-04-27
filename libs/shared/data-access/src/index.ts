@@ -310,3 +310,267 @@ export type {
   WorkingDayEntry,
   WorkWeekConfig,
 } from './schemas/work-week-config.schema';
+
+// Configuration — Leave types (Annual / Sick / Maternity ...).
+// Distinct from master-setup's leave-pay-types resource (Fully Paid /
+// Half Paid / Not Paid pay-status categorisation).
+export {
+  leaveTypeKeys,
+  useCreateLeaveType,
+  useDeleteLeaveType,
+  useLeaveType,
+  useLeaveTypes,
+  useUpdateLeaveType,
+} from './queries/leave-type.queries';
+export {
+  createLeaveTypeSchema,
+  leaveApplicableToEnum,
+  leavePolicySchema,
+  leaveTypeFiltersSchema,
+  leaveTypeSchema,
+  updateLeaveTypeSchema,
+} from './schemas/leave-type.schema';
+export type {
+  CreateLeaveTypeInput,
+  LeaveApplicableTo,
+  LeavePolicy,
+  LeaveType,
+  LeaveTypeFilters,
+  UpdateLeaveTypeInput,
+} from './schemas/leave-type.schema';
+
+// Document management — Missing documents (per-employee gap list)
+export {
+  missingDocumentKeys,
+  useCreateMissingDocument,
+  useDeleteMissingDocument,
+  useMissingDocument,
+  useMissingDocuments,
+  useUpdateMissingDocument,
+} from './queries/missing-document.queries';
+export {
+  createMissingDocumentSchema,
+  documentPriorityEnum,
+  missingDocumentFiltersSchema,
+  missingDocumentSchema,
+  updateMissingDocumentSchema,
+} from './schemas/missing-document.schema';
+export type {
+  CreateMissingDocumentInput,
+  DocumentPriority,
+  MissingDocument,
+  MissingDocumentFilters,
+  UpdateMissingDocumentInput,
+} from './schemas/missing-document.schema';
+
+// Document management — Review/approval queue
+export {
+  documentReviewKeys,
+  useCreateDocumentReview,
+  useDeleteDocumentReview,
+  useDocumentReview,
+  useDocumentReviews,
+  useUpdateDocumentReview,
+} from './queries/document-review.queries';
+export {
+  createDocumentReviewSchema,
+  documentReviewFiltersSchema,
+  documentReviewSchema,
+  documentReviewStatusEnum,
+  updateDocumentReviewSchema,
+} from './schemas/document-review.schema';
+export type {
+  CreateDocumentReviewInput,
+  DocumentReview,
+  DocumentReviewFilters,
+  DocumentReviewStatus,
+  UpdateDocumentReviewInput,
+} from './schemas/document-review.schema';
+
+// Document management — Employee document records (with visibility flag)
+export {
+  employeeDocumentKeys,
+  useCreateEmployeeDocument,
+  useDeleteEmployeeDocument,
+  useEmployeeDocument,
+  useEmployeeDocuments,
+  useUpdateEmployeeDocument,
+} from './queries/employee-document.queries';
+export {
+  createEmployeeDocumentSchema,
+  employeeDocumentFiltersSchema,
+  employeeDocumentSchema,
+  updateEmployeeDocumentSchema,
+} from './schemas/employee-document.schema';
+export type {
+  CreateEmployeeDocumentInput,
+  EmployeeDocument,
+  EmployeeDocumentFilters,
+  UpdateEmployeeDocumentInput,
+} from './schemas/employee-document.schema';
+
+// Document management — Categories
+export {
+  documentCategoryKeys,
+  useCreateDocumentCategory,
+  useDeleteDocumentCategory,
+  useDocumentCategories,
+  useDocumentCategory,
+  useUpdateDocumentCategory,
+} from './queries/document-category.queries';
+export {
+  createDocumentCategorySchema,
+  documentCategoryFiltersSchema,
+  documentCategorySchema,
+  updateDocumentCategorySchema,
+} from './schemas/document-category.schema';
+export type {
+  CreateDocumentCategoryInput,
+  DocumentCategory,
+  DocumentCategoryFilters,
+  UpdateDocumentCategoryInput,
+} from './schemas/document-category.schema';
+
+// Document management — Templates
+export {
+  documentTemplateKeys,
+  useCreateDocumentTemplate,
+  useDeleteDocumentTemplate,
+  useDocumentTemplate,
+  useDocumentTemplates,
+  useUpdateDocumentTemplate,
+} from './queries/document-template.queries';
+export {
+  createDocumentTemplateSchema,
+  documentTemplateFiltersSchema,
+  documentTemplateKindEnum,
+  documentTemplateSchema,
+  updateDocumentTemplateSchema,
+} from './schemas/document-template.schema';
+export type {
+  CreateDocumentTemplateInput,
+  DocumentTemplate,
+  DocumentTemplateFilters,
+  DocumentTemplateKind,
+  UpdateDocumentTemplateInput,
+} from './schemas/document-template.schema';
+
+// Assets management — Assets
+export {
+  assetKeys,
+  useAsset,
+  useAssets,
+  useCreateAsset,
+  useDeleteAsset,
+  useUpdateAsset,
+} from './queries/asset.queries';
+export {
+  assetConditionEnum,
+  assetFiltersSchema,
+  assetSchema,
+  assetStatusEnum,
+  createAssetSchema,
+  updateAssetSchema,
+} from './schemas/asset.schema';
+export type {
+  Asset,
+  AssetCondition,
+  AssetFilters,
+  AssetStatus,
+  CreateAssetInput,
+  UpdateAssetInput,
+} from './schemas/asset.schema';
+
+// Assets management — Categories
+export {
+  assetCategoryKeys,
+  useAssetCategories,
+  useAssetCategory,
+  useCreateAssetCategory,
+  useDeleteAssetCategory,
+  useUpdateAssetCategory,
+} from './queries/asset-category.queries';
+export {
+  assetCategoryFiltersSchema,
+  assetCategoryIconKeyEnum,
+  assetCategorySchema,
+  createAssetCategorySchema,
+  updateAssetCategorySchema,
+} from './schemas/asset-category.schema';
+export type {
+  AssetCategory,
+  AssetCategoryFilters,
+  AssetCategoryIconKey,
+  CreateAssetCategoryInput,
+  UpdateAssetCategoryInput,
+} from './schemas/asset-category.schema';
+
+// Attendance — Attendance records
+export {
+  attendanceRecordKeys,
+  useAttendanceRecord,
+  useAttendanceRecords,
+  useCreateAttendanceRecord,
+  useDeleteAttendanceRecord,
+  useUpdateAttendanceRecord,
+} from './queries/attendance-record.queries';
+export {
+  attendanceRecordFiltersSchema,
+  attendanceRecordSchema,
+  attendanceStatusEnum,
+  createAttendanceRecordSchema,
+  updateAttendanceRecordSchema,
+} from './schemas/attendance-record.schema';
+export type {
+  AttendanceRecord,
+  AttendanceRecordFilters,
+  AttendanceStatus,
+  CreateAttendanceRecordInput,
+  UpdateAttendanceRecordInput,
+} from './schemas/attendance-record.schema';
+
+// Leave management — Leave requests
+export {
+  leaveRequestKeys,
+  useCreateLeaveRequest,
+  useDeleteLeaveRequest,
+  useLeaveRequest,
+  useLeaveRequests,
+  useUpdateLeaveRequest,
+} from './queries/leave-request.queries';
+export {
+  createLeaveRequestSchema,
+  leaveRequestFiltersSchema,
+  leaveRequestSchema,
+  leaveRequestStatusEnum,
+  updateLeaveRequestSchema,
+} from './schemas/leave-request.schema';
+export type {
+  CreateLeaveRequestInput,
+  LeaveRequest,
+  LeaveRequestFilters,
+  LeaveRequestStatus,
+  UpdateLeaveRequestInput,
+} from './schemas/leave-request.schema';
+
+// Directories
+export {
+  directoryEntryKeys,
+  useCreateDirectoryEntry,
+  useDeleteDirectoryEntry,
+  useDirectoryEntries,
+  useDirectoryEntry,
+  useUpdateDirectoryEntry,
+} from './queries/directory.queries';
+export {
+  createDirectoryEntrySchema,
+  directoryEntryFiltersSchema,
+  directoryEntrySchema,
+  updateDirectoryEntrySchema,
+} from './schemas/directory.schema';
+export type {
+  CreateDirectoryEntryInput,
+  DirectoryEntry,
+  DirectoryEntryFilters,
+  UpdateDirectoryEntryInput,
+} from './schemas/directory.schema';

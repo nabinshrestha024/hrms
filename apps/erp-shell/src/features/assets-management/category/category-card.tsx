@@ -1,34 +1,38 @@
+import { useAssets, type AssetCategory } from '@erp/data-access';
 import { HRCard } from '@erp/ui';
-import { IconButton } from '../../../components/icon-button';
 import { Edit, Trash2 } from 'lucide-react';
-import { CategoryType } from '../schema/CategoryData';
 import { useState } from 'react';
+import { IconButton } from '../../../components/icon-button';
 import { FilteredAssets } from '../all-assets/filtered-assets';
-import { assetsData } from '../schema/AllAssetsData';
+import { getAssetCategoryIcon } from './asset-category-icon';
 
 interface CategoryProps {
-  data: CategoryType[];
+  data: AssetCategory[];
 }
+
 export const CategoryCard = ({ data }: CategoryProps) => {
   const [openTable, setOpenTable] = useState(false);
   const [category, setCategory] = useState('');
+  const { data: assetsResponse } = useAssets({ pageSize: 100 });
+  const assets = assetsResponse?.data ?? [];
+
   return (
     <div className="flex flex-col gap-8">
       <div className="grid grid-cols-3 gap-6 mt-8">
-        {data.map((items, index) => {
-          const Icon = items.icon;
+        {data.map((items) => {
+          const Icon = getAssetCategoryIcon(items.iconKey);
           return (
             <HRCard
-              key={index}
+              key={items.id}
               cardClassName={`p-4  rounded-xl bg-white shadow-[0_1px_2px_0_rgba(0,0,0,0.05)] cursor-pointer ${
-                category === items.categoryName
+                category === items.name
                   ? 'border-2 border-primary'
                   : 'border border-[#E4E4E7]'
               }`}
               cardContentClassName="flex flex-col gap-4 p-0"
               onClick={() => {
                 setOpenTable(true);
-                setCategory(items.categoryName);
+                setCategory(items.name);
               }}
             >
               <div className="flex justify-between items-center ">
@@ -46,15 +50,15 @@ export const CategoryCard = ({ data }: CategoryProps) => {
               </div>
               <div className="flex flex-col text-[16px] leading-6">
                 <span className="text-secondary-foreground font-normal">
-                  {items.categoryName}
+                  {items.name}
                 </span>
                 <span className="text-foreground font-medium">
-                  {items.noOfAssets} assets
+                  {items.assetCount} assets
                 </span>
                 <span className="text-foreground font-medium">
-                  {items.assetsList.map((assets, i) => (
+                  {items.exampleAssets.map((assetName, i) => (
                     <span key={i}>
-                      {assets}
+                      {assetName}
                       {', '}
                     </span>
                   ))}
@@ -64,7 +68,7 @@ export const CategoryCard = ({ data }: CategoryProps) => {
           );
         })}
       </div>
-      {openTable && <FilteredAssets data={assetsData} category={category} />}
+      {openTable && <FilteredAssets data={assets} category={category} />}
     </div>
   );
 };

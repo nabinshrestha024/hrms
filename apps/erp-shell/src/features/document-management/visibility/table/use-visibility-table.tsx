@@ -1,19 +1,19 @@
+import { type EmployeeDocument } from '@erp/data-access';
 import { useServerTableState } from '@erp/ui';
-import { VisibilityType } from '../../schema/VisibilityData';
 import { getVisibilityColumns } from './get-visibility-column';
 
 interface VisibilityTableProps {
-  data: VisibilityType[];
+  data: EmployeeDocument[];
 }
 
 export function useVisibilityTable({ data }: VisibilityTableProps) {
   const columns = getVisibilityColumns();
 
-  const tableState = useServerTableState<VisibilityType>({
+  const tableState = useServerTableState<EmployeeDocument>({
     data,
     totalCount: data.length,
     columns,
-    getRowId: (row: VisibilityType) => row.employeeName,
+    getRowId: (row) => row.id,
   });
 
   return { ...tableState, columns };

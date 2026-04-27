@@ -1,18 +1,21 @@
+import { useAssetCategories, type AssetCategory } from '@erp/data-access';
 import { Button, FormDialog, HRCard, ListPage } from '@erp/ui';
-import { categoryData } from '../schema/CategoryData';
 import { CategoryCard } from './category-card';
 import { AssetsCategoryForm } from './assets-category-form';
 
 export const Category = () => {
+  const { data: response } = useAssetCategories({ pageSize: 100 });
+  const data: AssetCategory[] = response?.data ?? [];
+
   return (
     <HRCard
       cardClassName="p-6 border border-border bg-white shadow-none rounded-xl"
       cardContentClassName="p-0 flex flex-col gap-8"
     >
-      <ListPage
+      <ListPage<AssetCategory>
         flat
         title="Asset Category"
-        data={categoryData}
+        data={data}
         renderTable={(rows) => <CategoryCard data={rows} />}
         actionComponent={
           <FormDialog
