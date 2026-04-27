@@ -10,6 +10,7 @@ import { initJobLevelsModule } from './modules/job-levels';
 import { initLeavePayTypesModule } from './modules/leave-pay-types';
 import { initShiftsModule } from './modules/shifts';
 import { initWorkTypesModule } from './modules/work-types';
+import { initWorkWeekConfigModule } from './modules/work-week-config';
 
 /**
  * Central handler registry.
@@ -32,6 +33,7 @@ export const handlers = [
   ...initLeavePayTypesModule(),
   ...initHolidaysModule(),
   ...initShiftsModule(),
+  ...initWorkWeekConfigModule(),
   // Add new modules here:
   // ...initLeaveModule(),
   // ...initPayrollModule(),

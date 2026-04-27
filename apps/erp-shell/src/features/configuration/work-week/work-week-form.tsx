@@ -14,11 +14,32 @@ import {
   workWeekTemplateSchema,
 } from '../zod/WorkWeek.Zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  weekendPolicyOptions,
-  weekStartsOptions,
-} from '../schema/WorkWeekData';
 import { useState } from 'react';
+
+// Form-only UI dropdown options. Previously lived in
+// `configuration/schema/WorkWeekData.ts`; moved inline because they're
+// fixed UI choices (chrome), not entity data persisted by the backend.
+// Phase 3.2 will reconcile these against the canonical `weekendPolicyEnum`
+// ('full-weekend-off' | 'public-holiday-off') in `@erp/data-access` and
+// fix the legacy "Pulbic" typo at the same time.
+const weekStartsOptions = [
+  { id: 0, value: 'Sunday', content: 'Sunday' },
+  { id: 1, value: 'Monday', content: 'Monday' },
+  { id: 2, value: 'Tuesday', content: 'Tuesday' },
+  { id: 3, value: 'Wednesday', content: 'Wednesday' },
+  { id: 4, value: 'Thursday', content: 'Thursday' },
+  { id: 5, value: 'Friday', content: 'Friday' },
+  { id: 6, value: 'Saturday', content: 'Saturday' },
+];
+
+const weekendPolicyOptions = [
+  { id: 0, value: 'Full Weekend Off', content: 'Full Weekend Off' },
+  {
+    id: 1,
+    value: 'Full Pulbic holiday Off',
+    content: 'Full Pulbic holiday Off',
+  },
+];
 
 export const WorkWeekForm = () => {
   const {

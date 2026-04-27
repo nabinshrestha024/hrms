@@ -289,3 +289,24 @@ export type {
   UpdateShiftInput,
   Weekday,
 } from './schemas/shift.schema';
+
+// Configuration — Work-week config (tenant-scoped singleton settings)
+export {
+  useUpdateWorkWeekConfig,
+  useWorkWeekConfig,
+  workWeekConfigKeys,
+} from './queries/work-week-config.queries';
+export {
+  overtimeMultipliersSchema,
+  updateWorkWeekConfigSchema,
+  weekendPolicyEnum,
+  workingDayEntrySchema,
+  workWeekConfigSchema,
+} from './schemas/work-week-config.schema';
+export type {
+  OvertimeMultipliers,
+  UpdateWorkWeekConfigInput,
+  WeekendPolicy,
+  WorkingDayEntry,
+  WorkWeekConfig,
+} from './schemas/work-week-config.schema';
