@@ -1,5 +1,17 @@
 import { HRCard } from '@erp/ui';
-import { configHolidayData } from '../schema/HolidayData';
+
+// Visual summary chrome for the holidays page. Each entry is a category
+// + day-count + accent color. The day counts are placeholder values —
+// a future task should derive them from `useHolidays()` aggregated by
+// `Holiday.type` and pull colors from `useHolidayTypes()`. Inlined here
+// so the legacy `schema/HolidayData.ts` could be deleted; the constant
+// itself is local-only and not exported.
+const configHolidayData = [
+  { holidayType: 'National Holiday', days: '08', color: '#51A2FF' },
+  { holidayType: 'Regional Holiday', days: '0', color: '#05DF72' },
+  { holidayType: 'Company Holiday', days: '01', color: '#C27AFF' },
+  { holidayType: 'Optional Holiday', days: '01', color: '#FF8904' },
+];
 
 export const ConfigHolidayCard = () => {
   return (

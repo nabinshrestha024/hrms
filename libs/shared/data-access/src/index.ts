@@ -240,3 +240,26 @@ export type {
   LeavePayTypeFilters,
   UpdateLeavePayTypeInput,
 } from './schemas/leave-pay-type.schema';
+
+// Configuration — Holidays (calendar entries; categories live in
+// holiday-types under master-setup).
+export {
+  holidayKeys,
+  useCreateHoliday,
+  useDeleteHoliday,
+  useHoliday,
+  useHolidays,
+  useUpdateHoliday,
+} from './queries/holiday.queries';
+export {
+  createHolidaySchema,
+  holidayFiltersSchema,
+  holidaySchema,
+  updateHolidaySchema,
+} from './schemas/holiday.schema';
+export type {
+  CreateHolidayInput,
+  Holiday,
+  HolidayFilters,
+  UpdateHolidayInput,
+} from './schemas/holiday.schema';

@@ -1,14 +1,21 @@
+import { useHolidays, type Holiday } from '@erp/data-access';
 import { Button, FormDialog, ListPage } from '@erp/ui';
-import { holidayTableData } from '../schema/HolidayData';
 import { ConfigHoliday } from './config-holiday';
 import { ConfigHolidayForm } from './config-holiday-form';
 import { ConfigBulkUploadForm } from './bulk-upload-form';
 
 export const ConfigHolidayHeader = () => {
+  const { data: response } = useHolidays({
+    pageSize: 100,
+    sortBy: 'date',
+    sortOrder: 'asc',
+  });
+  const data: Holiday[] = response?.data ?? [];
+
   return (
-    <ListPage
+    <ListPage<Holiday>
       title="Leave Type"
-      data={holidayTableData}
+      data={data}
       actionComponent={
         <div className="flex gap-4">
           <FormDialog
@@ -49,15 +56,14 @@ export const ConfigHolidayHeader = () => {
         </div>
       }
       dropdowns={[{ key: 'date', label: 'Date' }]}
-      filterFn={(data, { dropdowns }) => {
-        return data.filter((item) => {
-          const matchesDropdowns = Object.entries(dropdowns).every(
+      filterFn={(rows, { dropdowns }) =>
+        rows.filter((row) =>
+          Object.entries(dropdowns).every(
             ([key, value]) =>
-              !value || String(item[key as keyof typeof item]) === value
-          );
-          return matchesDropdowns;
-        });
-      }}
+              !value || String(row[key as keyof typeof row]) === value
+          )
+        )
+      }
       renderTable={(rows) => <ConfigHoliday data={rows} />}
     />
   );
