@@ -1,15 +1,27 @@
+import { useJobLevels, type JobLevel as JobLevelType } from '@erp/data-access';
 import { Button, FormDialog, ListPage } from '@erp/ui';
 import { MasterSetupBody } from '../body';
 import { AddJobLevelForm } from './job-level-form';
-import { jobLevelData } from '../schema/JobLevelData';
 import { JobLevelTable } from './table/job-level-table';
 
 export const JobLevel = () => {
+  const { data: response } = useJobLevels({
+    pageSize: 100,
+    sortBy: 'rank',
+    sortOrder: 'asc',
+  });
+  const data: JobLevelType[] = response?.data ?? [];
+
   return (
-    <ListPage
+    <ListPage<JobLevelType>
       title="Job Levels"
       search
-      data={jobLevelData}
+      data={data}
+      filterFn={(rows, { search }) =>
+        rows.filter((row) =>
+          row.name.toLowerCase().includes(search.toLowerCase())
+        )
+      }
       actionComponent={
         <FormDialog
           trigger={

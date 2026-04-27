@@ -173,3 +173,25 @@ export type {
   CurrencyFilters,
   UpdateCurrencyInput,
 } from './schemas/currency.schema';
+
+// Master setup — Job levels
+export {
+  jobLevelKeys,
+  useCreateJobLevel,
+  useDeleteJobLevel,
+  useJobLevel,
+  useJobLevels,
+  useUpdateJobLevel,
+} from './queries/job-level.queries';
+export {
+  createJobLevelSchema,
+  jobLevelFiltersSchema,
+  jobLevelSchema,
+  updateJobLevelSchema,
+} from './schemas/job-level.schema';
+export type {
+  CreateJobLevelInput,
+  JobLevel,
+  JobLevelFilters,
+  UpdateJobLevelInput,
+} from './schemas/job-level.schema';

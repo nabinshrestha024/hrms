@@ -1,23 +1,19 @@
+import { type JobLevel } from '@erp/data-access';
 import { DataTable } from '@erp/ui';
-import { JobLevelDataType } from '../../schema/JobLevelData';
 import { useJobLevelTable } from './use-job-level-table';
 
 interface JobLevelTableProps {
-  data: JobLevelDataType[];
+  data: JobLevel[];
 }
 
 export const JobLevelTable = ({ data }: JobLevelTableProps) => {
-  const { columns, table } = useJobLevelTable({
-    data,
-  });
+  const { columns, table } = useJobLevelTable({ data });
 
   return (
-    <>
-      <DataTable
-        table={table.table}
-        columns={columns}
-        className="p-0 rounded-none"
-      />
-    </>
+    <DataTable
+      table={table.table}
+      columns={columns}
+      className="p-0 rounded-none"
+    />
   );
 };
