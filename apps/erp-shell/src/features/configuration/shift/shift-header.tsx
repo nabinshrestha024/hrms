@@ -1,14 +1,12 @@
-import { Button, FormDialog } from '@erp/ui';
-import { DocumentHeader } from '../../../components/document-management-header';
+import { Button, FormDialog, ListPage } from '@erp/ui';
 import { shiftData } from '../schema/ShiftData';
 import { Shift } from './shift';
 import { ShiftForm } from './shift-form';
 
 export const ShiftHeader = () => {
   return (
-    <DocumentHeader
+    <ListPage
       title="Shift Management"
-      isSearch={false}
       data={shiftData}
       actionComponent={
         <FormDialog
@@ -32,7 +30,7 @@ export const ShiftHeader = () => {
           <ShiftForm />
         </FormDialog>
       }
-      renderTable={(filteredData) => <Shift data={filteredData} />}
+      renderTable={(rows) => <Shift data={rows} />}
     />
   );
 };

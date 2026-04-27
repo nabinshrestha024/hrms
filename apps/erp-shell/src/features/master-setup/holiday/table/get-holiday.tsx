@@ -1,26 +1,34 @@
+import { type HolidayType } from '@erp/data-access';
+import { DataTableColumnHeader } from '@erp/ui';
 import type { ColumnDef } from '@tanstack/react-table';
 import { Edit, Trash2 } from 'lucide-react';
-import { HolidayDataType } from '../../schema/HolidayData';
 import { IconButton } from '../../../../components/icon-button';
-import { DataTableColumnHeader } from '@erp/ui';
 
-export function getHolidayColumn(): ColumnDef<HolidayDataType>[] {
+export function getHolidayColumn(): ColumnDef<HolidayType>[] {
   return [
     {
-      accessorKey: 'leaveType',
+      accessorKey: 'name',
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Leave Type" />
+        <DataTableColumnHeader column={column} title="Name" />
       ),
-      cell: ({ row }) => <>{row.getValue('leaveType')}</>,
+      cell: ({ row }) => (
+        <div className="flex items-center gap-2">
+          <span
+            className="inline-block w-2.5 h-2.5 rounded-full"
+            style={{ backgroundColor: row.original.color }}
+            aria-hidden
+          />
+          <span>{row.getValue('name')}</span>
+        </div>
+      ),
     },
     {
-      accessorKey: 'details',
+      accessorKey: 'description',
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Details" />
+        <DataTableColumnHeader column={column} title="Description" />
       ),
-      cell: ({ row }) => <>{row.getValue('details')}</>,
+      cell: ({ row }) => <>{row.getValue('description') ?? '—'}</>,
     },
-
     {
       id: 'actions',
       header: 'Action',

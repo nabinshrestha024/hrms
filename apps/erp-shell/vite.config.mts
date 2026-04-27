@@ -57,6 +57,7 @@ export default defineConfig(() => ({
               return 'ui-vendor';
             if (id.includes('@tanstack')) return 'tanstack-vendor';
           }
+          return undefined;
         },
       },
     },

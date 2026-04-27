@@ -129,3 +129,25 @@ export type {
   UpdateBranchInput,
   UpdateDepartmentInput,
 } from './schemas/company-setup.schema';
+
+// Master setup — Holiday types
+export {
+  holidayTypeKeys,
+  useCreateHolidayType,
+  useDeleteHolidayType,
+  useHolidayType,
+  useHolidayTypes,
+  useUpdateHolidayType,
+} from './queries/holiday-type.queries';
+export {
+  createHolidayTypeSchema,
+  holidayTypeFiltersSchema,
+  holidayTypeSchema,
+  updateHolidayTypeSchema,
+} from './schemas/holiday-type.schema';
+export type {
+  CreateHolidayTypeInput,
+  HolidayType,
+  HolidayTypeFilters,
+  UpdateHolidayTypeInput,
+} from './schemas/holiday-type.schema';

@@ -1,3 +1,4 @@
+import { ContentShell } from '@erp/ui';
 import { createFileRoute } from '@tanstack/react-router';
 import { WorkType } from '../../../features/master-setup/work-type/work-type';
 
@@ -11,8 +12,8 @@ export const Route = createFileRoute('/_authenticated/master-setup/work-type')({
 
 function RouteComponent() {
   return (
-    <div className="w-full max-h-[calc(100vh-84px)] overflow-auto flex flex-col bg-background ">
+    <ContentShell className="bg-background">
       <WorkType />
-    </div>
+    </ContentShell>
   );
 }

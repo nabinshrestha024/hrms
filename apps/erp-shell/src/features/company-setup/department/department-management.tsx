@@ -52,8 +52,8 @@ export const DepartmentManagement = () => {
     <>
       <ListPage<Department>
         title="Department Management"
-        isTabs={false}
-        isSearch={true}
+        search
+        views={['card']}
         data={data}
         actionComponent={
           <FormDialog
@@ -81,8 +81,8 @@ export const DepartmentManagement = () => {
             onDelete={handleDelete}
           />
         )}
-        renderTable={() => <></>}
-        filterFn={(data: Department[], search: string, dropdown?: string) => {
+        filterFn={(data, { search, dropdowns }) => {
+          const dropdown = dropdowns.location;
           return data.filter((item: Department) => {
             const matchesSearch = item.department
               ?.toLowerCase()

@@ -1,16 +1,23 @@
-import { Button, FormDialog } from '@erp/ui';
-import { DocumentHeader } from '../../../components/document-management-header';
+import { useHolidayTypes, type HolidayType } from '@erp/data-access';
+import { Button, FormDialog, ListPage } from '@erp/ui';
 import { MasterSetupBody } from '../body';
 import { AddHolidayForm } from './add-holiday-form';
 import { HolidayTable } from './table/holiday-table';
-import { holidayData } from '../schema/HolidayData';
 
 export const Holiday = () => {
+  const { data: response } = useHolidayTypes({ pageSize: 100 });
+  const data: HolidayType[] = response?.data ?? [];
+
   return (
-    <DocumentHeader
+    <ListPage<HolidayType>
       title="Holiday"
-      isSearch={true}
-      data={holidayData}
+      search
+      data={data}
+      filterFn={(rows, { search }) =>
+        rows.filter((row) =>
+          row.name.toLowerCase().includes(search.toLowerCase())
+        )
+      }
       actionComponent={
         <FormDialog
           trigger={
@@ -34,8 +41,8 @@ export const Holiday = () => {
           )}
         </FormDialog>
       }
-      renderTable={(filteredData) => (
-        <MasterSetupBody component={<HolidayTable data={filteredData} />} />
+      renderTable={(rows) => (
+        <MasterSetupBody component={<HolidayTable data={rows} />} />
       )}
     />
   );

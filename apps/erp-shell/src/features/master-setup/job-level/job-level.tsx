@@ -1,5 +1,4 @@
-import { Button, FormDialog } from '@erp/ui';
-import { DocumentHeader } from '../../../components/document-management-header';
+import { Button, FormDialog, ListPage } from '@erp/ui';
 import { MasterSetupBody } from '../body';
 import { AddJobLevelForm } from './job-level-form';
 import { jobLevelData } from '../schema/JobLevelData';
@@ -7,9 +6,9 @@ import { JobLevelTable } from './table/job-level-table';
 
 export const JobLevel = () => {
   return (
-    <DocumentHeader
+    <ListPage
       title="Job Levels"
-      isSearch={true}
+      search
       data={jobLevelData}
       actionComponent={
         <FormDialog
@@ -34,8 +33,8 @@ export const JobLevel = () => {
           )}
         </FormDialog>
       }
-      renderTable={(filteredData) => (
-        <MasterSetupBody component={<JobLevelTable data={filteredData} />} />
+      renderTable={(rows) => (
+        <MasterSetupBody component={<JobLevelTable data={rows} />} />
       )}
     />
   );

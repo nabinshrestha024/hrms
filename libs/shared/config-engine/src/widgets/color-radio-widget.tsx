@@ -21,7 +21,11 @@ export function ColorRadioWidget({ field, form, disabled }: WidgetProps) {
         color: opt,
       };
     }
-    return opt as Option;
+    return {
+      label: opt.content,
+      value: opt.value,
+      color: opt.color ?? opt.value,
+    };
   });
 
   return (

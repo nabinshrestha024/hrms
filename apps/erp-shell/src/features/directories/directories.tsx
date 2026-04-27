@@ -8,14 +8,13 @@ export const Directories = () => {
     <>
       <ListPage
         title="Employee Directories"
-        isSearch={true}
-        isTabs={true}
+        search
         data={directoriesDetails}
-        dropdownKey="branch"
-        dropdownLabel="Branch"
+        dropdowns={[{ key: 'branch', label: 'Branch' }]}
         renderCard={(filtered) => <DirectoriesCard data={filtered} />}
         renderTable={(filtered) => <DirectoriesTable data={filtered} />}
-        filterFn={(data, search, dropdown) => {
+        filterFn={(data, { search, dropdowns }) => {
+          const dropdown = dropdowns.branch;
           return data.filter((item) => {
             const matchesSearch = item.employeeName
               ?.toLowerCase()

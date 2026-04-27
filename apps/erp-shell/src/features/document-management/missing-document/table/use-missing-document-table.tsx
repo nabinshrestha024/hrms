@@ -9,10 +9,12 @@ interface MissingDocumentTableProps {
 export function useMissingDocumentTable({ data }: MissingDocumentTableProps) {
   const columns = getMissingDocumentColumns();
 
-  return useServerTableState<MissingDocumentType>({
+  const tableState = useServerTableState<MissingDocumentType>({
     data,
     totalCount: data.length,
     columns,
     getRowId: (row: MissingDocumentType) => row.employeeId,
   });
+
+  return { ...tableState, columns };
 }

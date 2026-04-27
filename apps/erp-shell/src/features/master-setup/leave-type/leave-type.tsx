@@ -1,5 +1,4 @@
-import { Button, FormDialog } from '@erp/ui';
-import { DocumentHeader } from '../../../components/document-management-header';
+import { Button, FormDialog, ListPage } from '@erp/ui';
 import { MasterSetupBody } from '../body';
 import { leaveTypeData } from '../schema/LeaveTypeData';
 import { LeaveTypeTable } from './table/leave-type-table';
@@ -7,9 +6,9 @@ import { AddLeaveTypeForm } from './add-leave-type-form';
 
 export const LeaveType = () => {
   return (
-    <DocumentHeader
+    <ListPage
       title="Currencies"
-      isSearch={true}
+      search
       data={leaveTypeData}
       actionComponent={
         <FormDialog
@@ -34,8 +33,8 @@ export const LeaveType = () => {
           )}
         </FormDialog>
       }
-      renderTable={(filteredData) => (
-        <MasterSetupBody component={<LeaveTypeTable data={filteredData} />} />
+      renderTable={(rows) => (
+        <MasterSetupBody component={<LeaveTypeTable data={rows} />} />
       )}
     />
   );

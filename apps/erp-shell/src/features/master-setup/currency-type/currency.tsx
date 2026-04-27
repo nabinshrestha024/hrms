@@ -1,5 +1,4 @@
-import { Button, FormDialog } from '@erp/ui';
-import { DocumentHeader } from '../../../components/document-management-header';
+import { Button, FormDialog, ListPage } from '@erp/ui';
 import { AddCurrencyForm } from './add-currency-form';
 import { CurrencyTable } from './table/currency-table';
 import { MasterSetupBody } from '../body';
@@ -7,9 +6,9 @@ import { currencyData } from '../schema/CurrencyData';
 
 export const Currency = () => {
   return (
-    <DocumentHeader
+    <ListPage
       title="Currencies"
-      isSearch={true}
+      search
       data={currencyData}
       actionComponent={
         <FormDialog
@@ -34,8 +33,8 @@ export const Currency = () => {
           )}
         </FormDialog>
       }
-      renderTable={(filteredData) => (
-        <MasterSetupBody component={<CurrencyTable data={filteredData} />} />
+      renderTable={(rows) => (
+        <MasterSetupBody component={<CurrencyTable data={rows} />} />
       )}
     />
   );

@@ -1,3 +1,4 @@
+import { ContentShell } from '@erp/ui';
 import { createFileRoute } from '@tanstack/react-router';
 import { Assets } from '../../../features/assets-management/all-assets/assets';
 
@@ -13,8 +14,8 @@ export const Route = createFileRoute(
 
 function RouteComponent() {
   return (
-    <div className="w-full h-[calc(100vh-84px)] overflow-auto flex flex-col bg-[#F9FAFB] ">
+    <ContentShell>
       <Assets />
-    </div>
+    </ContentShell>
   );
 }

@@ -9,10 +9,12 @@ interface CategoryTableProps {
 export function useCategoryTable({ data }: CategoryTableProps) {
   const columns = getCategoryColumns();
 
-  return useServerTableState<CategoryType>({
+  const tableState = useServerTableState<CategoryType>({
     data,
     totalCount: data.length,
     columns,
     getRowId: (row: CategoryType) => row.documentCategory,
   });
+
+  return { ...tableState, columns };
 }

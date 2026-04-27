@@ -1,8 +1,7 @@
-import { DocumentHeader } from '../../../components/document-management-header';
+import { Button, FormDialog, ListPage } from '@erp/ui';
 import { AssetType } from '../schema/AllAssetsData';
 import { AssetsForm } from './assets-form';
 import { FilteredAssetsTable } from './table/filtered-assets-table';
-import { Button, FormDialog } from '@erp/ui';
 
 interface FilteredAssetsProps {
   data: AssetType[];
@@ -11,13 +10,11 @@ interface FilteredAssetsProps {
 export const FilteredAssets = ({ data, category }: FilteredAssetsProps) => {
   const filteredData = data.filter((item) => item.category === category);
   return (
-    <DocumentHeader
-      className="px-0 py-0"
-      data={filteredData}
+    <ListPage
+      flat
       title="Asset List"
-      renderTable={(filteredData) => (
-        <FilteredAssetsTable data={filteredData} />
-      )}
+      data={filteredData}
+      renderTable={(rows) => <FilteredAssetsTable data={rows} />}
       actionComponent={
         <FormDialog
           trigger={

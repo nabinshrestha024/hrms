@@ -1,14 +1,12 @@
-import { Button, FormDialog } from '@erp/ui';
-import { DocumentHeader } from '../../../components/document-management-header';
+import { Button, FormDialog, ListPage } from '@erp/ui';
 import { configurationleaveTypeData } from '../schema/LeaveTypeData';
 import { ConfigurationLeaveTypeTable } from './table/leave-types-table';
 import { ConfigurationLeaveTypeTabs } from './leave-type-form-tabs';
 
 export const ConfigurationLeaveTypes = () => {
   return (
-    <DocumentHeader
+    <ListPage
       title="Leave Type"
-      isSearch={false}
       data={configurationleaveTypeData}
       actionComponent={
         <FormDialog
@@ -30,9 +28,7 @@ export const ConfigurationLeaveTypes = () => {
           <ConfigurationLeaveTypeTabs />
         </FormDialog>
       }
-      renderTable={(filteredData) => (
-        <ConfigurationLeaveTypeTable data={filteredData} />
-      )}
+      renderTable={(rows) => <ConfigurationLeaveTypeTable data={rows} />}
     />
   );
 };

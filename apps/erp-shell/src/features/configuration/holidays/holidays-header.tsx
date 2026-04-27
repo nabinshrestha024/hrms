@@ -1,5 +1,4 @@
-import { Button, FormDialog } from '@erp/ui';
-import { DocumentHeader } from '../../../components/document-management-header';
+import { Button, FormDialog, ListPage } from '@erp/ui';
 import { holidayTableData } from '../schema/HolidayData';
 import { ConfigHoliday } from './config-holiday';
 import { ConfigHolidayForm } from './config-holiday-form';
@@ -7,9 +6,8 @@ import { ConfigBulkUploadForm } from './bulk-upload-form';
 
 export const ConfigHolidayHeader = () => {
   return (
-    <DocumentHeader
+    <ListPage
       title="Leave Type"
-      isSearch={false}
       data={holidayTableData}
       actionComponent={
         <div className="flex gap-4">
@@ -51,17 +49,16 @@ export const ConfigHolidayHeader = () => {
         </div>
       }
       dropdowns={[{ key: 'date', label: 'Date' }]}
-      filterFn={(data, dropdowns) => {
+      filterFn={(data, { dropdowns }) => {
         return data.filter((item) => {
-          const matchesDropdowns = Object.entries(dropdowns || {}).every(
+          const matchesDropdowns = Object.entries(dropdowns).every(
             ([key, value]) =>
               !value || String(item[key as keyof typeof item]) === value
           );
-
           return matchesDropdowns;
         });
       }}
-      renderTable={(filteredData) => <ConfigHoliday data={filteredData} />}
+      renderTable={(rows) => <ConfigHoliday data={rows} />}
     />
   );
 };

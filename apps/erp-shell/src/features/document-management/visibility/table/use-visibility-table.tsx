@@ -9,10 +9,12 @@ interface VisibilityTableProps {
 export function useVisibilityTable({ data }: VisibilityTableProps) {
   const columns = getVisibilityColumns();
 
-  return useServerTableState<VisibilityType>({
+  const tableState = useServerTableState<VisibilityType>({
     data,
     totalCount: data.length,
     columns,
     getRowId: (row: VisibilityType) => row.employeeName,
   });
+
+  return { ...tableState, columns };
 }

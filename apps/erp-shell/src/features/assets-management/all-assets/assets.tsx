@@ -1,25 +1,20 @@
-import { DocumentHeader } from '../../../components/document-management-header';
-import { Button, FormDialog } from '@erp/ui';
+import { Button, FormDialog, ListPage } from '@erp/ui';
 import { AssetsTable } from './table/all-assets-table';
 import { assetsData } from '../schema/AllAssetsData';
 import { AssetsForm } from './assets-form';
 
 export const Assets = () => {
   return (
-    <DocumentHeader
-      data={assetsData}
+    <ListPage
       title="All Assets"
-      isSearch={true}
-      renderTable={(filteredData) => <AssetsTable data={filteredData} />}
-      filterFn={(data, search) => {
-        return data.filter((item) => {
-          const matchesSearch = item.assetName
-            .toLowerCase()
-            .includes(search.toLowerCase());
-
-          return matchesSearch;
-        });
-      }}
+      search
+      data={assetsData}
+      renderTable={(rows) => <AssetsTable data={rows} />}
+      filterFn={(data, { search }) =>
+        data.filter((item) =>
+          item.assetName.toLowerCase().includes(search.toLowerCase())
+        )
+      }
       actionComponent={
         <FormDialog
           trigger={

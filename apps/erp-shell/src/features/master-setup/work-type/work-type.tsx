@@ -1,5 +1,4 @@
-import { Button, FormDialog } from '@erp/ui';
-import { DocumentHeader } from '../../../components/document-management-header';
+import { Button, FormDialog, ListPage } from '@erp/ui';
 import { MasterSetupBody } from '../body';
 import { workTypeData } from '../schema/WorkTypeData';
 import { WorkTable } from './table/work-type-table';
@@ -7,9 +6,9 @@ import { AddWorkTypeForm } from './add-work-type-form';
 
 export const WorkType = () => {
   return (
-    <DocumentHeader
+    <ListPage
       title="Work Type"
-      isSearch={true}
+      search
       data={workTypeData}
       actionComponent={
         <FormDialog
@@ -34,8 +33,8 @@ export const WorkType = () => {
           )}
         </FormDialog>
       }
-      renderTable={(filteredData) => (
-        <MasterSetupBody component={<WorkTable data={filteredData} />} />
+      renderTable={(rows) => (
+        <MasterSetupBody component={<WorkTable data={rows} />} />
       )}
     />
   );

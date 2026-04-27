@@ -15,11 +15,9 @@ export const EmployeeManagement = () => {
     <>
       <ListPage<Employee>
         title="Employee Management"
-        isSearch={true}
-        isTabs={true}
+        search
         data={data}
-        dropdownKey="branch"
-        dropdownLabel="Branch"
+        dropdowns={[{ key: 'branch', label: 'Branch' }]}
         actionComponent={
           <Button
             type="button"
@@ -35,7 +33,8 @@ export const EmployeeManagement = () => {
         renderTable={(filtered: Employee[]) => (
           <EmployeeTable data={filtered} />
         )}
-        filterFn={(data: Employee[], search: string, dropdown?: string) => {
+        filterFn={(data, { search, dropdowns }) => {
+          const dropdown = dropdowns.branch;
           return data.filter((item: Employee) => {
             const matchesSearch =
               item.branch?.toLowerCase().includes(search.toLowerCase()) ||

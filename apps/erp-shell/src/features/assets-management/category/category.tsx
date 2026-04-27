@@ -1,5 +1,4 @@
-import { DocumentHeader } from '../../../components/document-management-header';
-import { Button, FormDialog, HRCard } from '@erp/ui';
+import { Button, FormDialog, HRCard, ListPage } from '@erp/ui';
 import { categoryData } from '../schema/CategoryData';
 import { CategoryCard } from './category-card';
 import { AssetsCategoryForm } from './assets-category-form';
@@ -10,11 +9,11 @@ export const Category = () => {
       cardClassName="p-6 border border-border bg-white shadow-none rounded-xl"
       cardContentClassName="p-0 flex flex-col gap-8"
     >
-      <DocumentHeader
-        className="px-0 py-0"
-        data={categoryData}
+      <ListPage
+        flat
         title="Asset Category"
-        renderTable={(filteredData) => <CategoryCard data={filteredData} />}
+        data={categoryData}
+        renderTable={(rows) => <CategoryCard data={rows} />}
         actionComponent={
           <FormDialog
             trigger={

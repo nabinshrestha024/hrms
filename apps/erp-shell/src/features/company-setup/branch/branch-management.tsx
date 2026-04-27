@@ -44,11 +44,9 @@ export const BranchManagement = () => {
     <>
       <ListPage<Branch>
         title="Branch Management"
-        isSearch={true}
-        isTabs={true}
+        search
         data={data}
-        dropdownKey="branch"
-        dropdownLabel="Branch"
+        dropdowns={[{ key: 'branch', label: 'Branch' }]}
         actionComponent={
           <FormDialog
             trigger={
@@ -82,7 +80,8 @@ export const BranchManagement = () => {
             onDelete={handleDelete}
           />
         )}
-        filterFn={(data: Branch[], search: string, dropdown?: string) => {
+        filterFn={(data, { search, dropdowns }) => {
+          const dropdown = dropdowns.branch;
           return data.filter((item: Branch) => {
             const matchesSearch = item.branch
               ?.toLowerCase()

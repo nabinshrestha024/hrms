@@ -12,7 +12,7 @@ export function TimeWidget({ field, form, disabled }: WidgetProps) {
       control={form.control}
       render={({ field: formField }) => (
         <HRTimeField
-          time={formField.value}
+          time={formField.value as string | undefined}
           onTimeChange={formField.onChange}
           disabled={disabled}
           Label={field.label}

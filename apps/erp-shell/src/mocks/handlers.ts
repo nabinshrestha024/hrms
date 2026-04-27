@@ -3,6 +3,7 @@ import { initBranchesModule } from './modules/branches';
 import { initDashboardModule } from './modules/dashboard';
 import { initDepartmentsModule } from './modules/departments';
 import { initEmployeesModule } from './modules/employees';
+import { initHolidayTypesModule } from './modules/holiday-types';
 
 /**
  * Central handler registry.
@@ -18,6 +19,7 @@ export const handlers = [
   ...initDashboardModule(),
   ...initDepartmentsModule(),
   ...initEmployeesModule(),
+  ...initHolidayTypesModule(),
   // Add new modules here:
   // ...initLeaveModule(),
   // ...initPayrollModule(),
