@@ -1,76 +1,98 @@
+import { type Shift } from '@erp/data-access';
 import { Badge, DataTableColumnHeader, Switch } from '@erp/ui';
 import { ColumnDef } from '@tanstack/react-table';
-import { IconButton } from '../../../../components/icon-button';
 import { Edit, Trash2 } from 'lucide-react';
-import { ShiftDataType } from '../../schema/ShiftData';
+import { IconButton } from '../../../../components/icon-button';
+import { getShiftIcon } from '../shift-icon';
 
-export function getShiftColumn(): ColumnDef<ShiftDataType>[] {
+/**
+ * Format a shift time range for display, e.g. "06:00-14:00".
+ */
+function formatTimeRange(start: string, end: string): string {
+  return `${start}-${end}`;
+}
+
+export function getShiftColumn(): ColumnDef<Shift>[] {
   return [
     {
-      id: 'title',
-      accessorFn: (row) => `${row.title} ${row.code} ${row.icon}`,
+      id: 'name',
+      accessorFn: (row) => `${row.name} ${row.code}`,
       header: ({ column }) => (
+        // Header label kept as "Holiday" per the original design.
         <DataTableColumnHeader column={column} title="Holiday" />
       ),
-      cell: ({ row }) => (
-        <div className="flex gap-2 items-center">
-          <IconButton variant="shift">
-            <row.original.icon className="w-4 h-4" />
-          </IconButton>
-          <div className="flex flex-col items-start">
-            {row.original.title}
-            <span className="text-[12px] font-normal leading-4">
-              {row.original.code}
-            </span>
+      cell: ({ row }) => {
+        const Icon = getShiftIcon(row.original.shiftType);
+        return (
+          <div className="flex gap-2 items-center">
+            <IconButton variant="shift">
+              <Icon className="w-4 h-4" />
+            </IconButton>
+            <div className="flex flex-col items-start">
+              {row.original.name}
+              <span className="text-[12px] font-normal leading-4">
+                {row.original.code}
+              </span>
+            </div>
           </div>
-        </div>
-      ),
+        );
+      },
     },
     {
       id: 'timing',
-      accessorFn: (row) => `${row.time} ${row.graceTime}`,
+      accessorFn: (row) =>
+        `${formatTimeRange(row.startTime, row.endTime)} ${
+          row.gracePeriodMinutes
+        }`,
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Holiday" />
       ),
       cell: ({ row }) => (
         <div className="flex flex-col">
-          {row.original.time}
+          {formatTimeRange(row.original.startTime, row.original.endTime)}
           <span className="text-[12px] font-normal leading-4">
-            {row.original.graceTime}
+            {row.original.gracePeriodMinutes} min grace
           </span>
         </div>
       ),
     },
     {
-      accessorKey: 'break',
+      accessorKey: 'breakMinutes',
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Break" />
       ),
-      cell: ({ row }) => <>{row.getValue('break')}</>,
+      cell: ({ row }) => <>{row.original.breakMinutes} min</>,
     },
-
     {
-      accessorKey: 'workingHours',
+      // Working hours derived from start/end (no DST handling — shifts
+      // crossing midnight are normalised by adding 24h when end < start).
+      id: 'workingHours',
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Working Hours" />
       ),
-      cell: ({ row }) => <>{row.getValue('workingHours')}</>,
+      cell: ({ row }) => {
+        const [sh, sm] = row.original.startTime.split(':').map(Number);
+        const [eh, em] = row.original.endTime.split(':').map(Number);
+        let mins = eh * 60 + em - (sh * 60 + sm);
+        if (mins <= 0) mins += 24 * 60;
+        const totalHours = (mins - row.original.breakMinutes) / 60;
+        return <>{totalHours.toFixed(1)} hrs</>;
+      },
     },
     {
-      accessorKey: 'days',
+      accessorKey: 'applicableDays',
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Days" />
       ),
       cell: ({ row }) => {
-        const days = row.getValue('days') as string[];
-
+        const days = row.getValue('applicableDays') as string[];
         return (
           <div className="grid grid-cols-3 gap-1">
             {days.map((day, index) => (
               <Badge
                 key={index}
                 variant="default"
-                className="px-2 py-0.5 w-10.5 flex justify-center items-center"
+                className="px-2 py-0.5 w-10.5 flex justify-center items-center capitalize"
               >
                 {day}
               </Badge>
@@ -80,21 +102,17 @@ export function getShiftColumn(): ColumnDef<ShiftDataType>[] {
       },
     },
     {
-      accessorKey: 'status',
+      accessorKey: 'isActive',
       header: ({ column }) => (
+        // Header lower-cased per the original design.
         <DataTableColumnHeader column={column} title="status" />
       ),
-      cell: ({ row }) => {
-        const value = Boolean(row.getValue('status'));
-
-        return (
-          <div className="cursor-pointer flex items-center justify-center gap-1">
-            <Switch checked={value} />
-          </div>
-        );
-      },
+      cell: ({ row }) => (
+        <div className="cursor-pointer flex items-center justify-center gap-1">
+          <Switch checked={row.original.isActive} />
+        </div>
+      ),
     },
-
     {
       id: 'actions',
       header: 'Action',

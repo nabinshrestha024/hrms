@@ -8,6 +8,7 @@ import { initHolidaysModule } from './modules/holidays';
 import { initHolidayTypesModule } from './modules/holiday-types';
 import { initJobLevelsModule } from './modules/job-levels';
 import { initLeavePayTypesModule } from './modules/leave-pay-types';
+import { initShiftsModule } from './modules/shifts';
 import { initWorkTypesModule } from './modules/work-types';
 
 /**
@@ -30,6 +31,7 @@ export const handlers = [
   ...initWorkTypesModule(),
   ...initLeavePayTypesModule(),
   ...initHolidaysModule(),
+  ...initShiftsModule(),
   // Add new modules here:
   // ...initLeaveModule(),
   // ...initPayrollModule(),

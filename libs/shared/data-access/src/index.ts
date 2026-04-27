@@ -263,3 +263,29 @@ export type {
   HolidayFilters,
   UpdateHolidayInput,
 } from './schemas/holiday.schema';
+
+// Configuration — Shifts
+export {
+  shiftKeys,
+  useCreateShift,
+  useDeleteShift,
+  useShift,
+  useShifts,
+  useUpdateShift,
+} from './queries/shift.queries';
+export {
+  createShiftSchema,
+  shiftFiltersSchema,
+  shiftSchema,
+  shiftTypeEnum,
+  updateShiftSchema,
+  weekdayEnum,
+} from './schemas/shift.schema';
+export type {
+  CreateShiftInput,
+  Shift,
+  ShiftFilters,
+  ShiftTypeKind,
+  UpdateShiftInput,
+  Weekday,
+} from './schemas/shift.schema';

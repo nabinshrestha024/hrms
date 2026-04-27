@@ -1,13 +1,16 @@
+import { useShifts, type Shift as ShiftRecord } from '@erp/data-access';
 import { Button, FormDialog, ListPage } from '@erp/ui';
-import { shiftData } from '../schema/ShiftData';
 import { Shift } from './shift';
 import { ShiftForm } from './shift-form';
 
 export const ShiftHeader = () => {
+  const { data: response } = useShifts({ pageSize: 100 });
+  const data: ShiftRecord[] = response?.data ?? [];
+
   return (
-    <ListPage
+    <ListPage<ShiftRecord>
       title="Shift Management"
-      data={shiftData}
+      data={data}
       actionComponent={
         <FormDialog
           trigger={
