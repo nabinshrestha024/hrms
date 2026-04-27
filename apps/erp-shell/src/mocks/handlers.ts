@@ -1,5 +1,6 @@
 import { initAuthModule } from './modules/auth';
 import { initBranchesModule } from './modules/branches';
+import { initCurrenciesModule } from './modules/currencies';
 import { initDashboardModule } from './modules/dashboard';
 import { initDepartmentsModule } from './modules/departments';
 import { initEmployeesModule } from './modules/employees';
@@ -20,6 +21,7 @@ export const handlers = [
   ...initDepartmentsModule(),
   ...initEmployeesModule(),
   ...initHolidayTypesModule(),
+  ...initCurrenciesModule(),
   // Add new modules here:
   // ...initLeaveModule(),
   // ...initPayrollModule(),

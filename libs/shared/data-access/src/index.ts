@@ -151,3 +151,25 @@ export type {
   HolidayTypeFilters,
   UpdateHolidayTypeInput,
 } from './schemas/holiday-type.schema';
+
+// Master setup — Currencies
+export {
+  currencyKeys,
+  useCreateCurrency,
+  useCurrencies,
+  useCurrency,
+  useDeleteCurrency,
+  useUpdateCurrency,
+} from './queries/currency.queries';
+export {
+  createCurrencySchema,
+  currencyFiltersSchema,
+  currencySchema,
+  updateCurrencySchema,
+} from './schemas/currency.schema';
+export type {
+  CreateCurrencyInput,
+  Currency,
+  CurrencyFilters,
+  UpdateCurrencyInput,
+} from './schemas/currency.schema';

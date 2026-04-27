@@ -1,15 +1,27 @@
+import { useCurrencies, type Currency as CurrencyType } from '@erp/data-access';
 import { Button, FormDialog, ListPage } from '@erp/ui';
 import { AddCurrencyForm } from './add-currency-form';
 import { CurrencyTable } from './table/currency-table';
 import { MasterSetupBody } from '../body';
-import { currencyData } from '../schema/CurrencyData';
 
 export const Currency = () => {
+  const { data: response } = useCurrencies({ pageSize: 100 });
+  const data: CurrencyType[] = response?.data ?? [];
+
   return (
-    <ListPage
+    <ListPage<CurrencyType>
       title="Currencies"
       search
-      data={currencyData}
+      data={data}
+      filterFn={(rows, { search }) =>
+        rows.filter((row) => {
+          const q = search.toLowerCase();
+          return (
+            row.code.toLowerCase().includes(q) ||
+            row.name.toLowerCase().includes(q)
+          );
+        })
+      }
       actionComponent={
         <FormDialog
           trigger={
