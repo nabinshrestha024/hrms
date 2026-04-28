@@ -1,3 +1,4 @@
+import { Can, PERM_SUBJECTS } from '@erp/auth';
 import { useUpdateDocumentReview, type DocumentReview } from '@erp/data-access';
 import { Badge, Button, FormDialog, HRCard, toast } from '@erp/ui';
 import {
@@ -119,37 +120,41 @@ const ReviewActions = ({ document }: { document: DocumentReview }) => {
 
   return (
     <div className="flex gap-4">
-      <Button
-        type="button"
-        variant="primary"
-        className="flex gap-2 items-center"
-        onClick={onApprove}
-      >
-        <Check /> Approve
-      </Button>
+      <Can action="approve" subject={PERM_SUBJECTS.DOCUMENTS_REVIEWS}>
+        <Button
+          type="button"
+          variant="primary"
+          className="flex gap-2 items-center"
+          onClick={onApprove}
+        >
+          <Check /> Approve
+        </Button>
+      </Can>
 
-      <FormDialog
-        trigger={
-          <Button
-            type="button"
-            variant="destructive"
-            className="flex items-center gap-2 bg-[#E7000B]"
-          >
-            <X /> Reject
-          </Button>
-        }
-        title="Rejection Message"
-        size="lg"
-        formId="rejection-form"
-        okText="Send Rejection"
-        cancelText="Cancel"
-        componentClassName="border-none shadow-none p-0 rounded-none bg-background"
-        dialogClassName="sm:max-w-[465px]"
-      >
-        {({ close }: { close: () => void }) => (
-          <RejectionForm documentId={document.id} onSuccess={close} />
-        )}
-      </FormDialog>
+      <Can action="reject" subject={PERM_SUBJECTS.DOCUMENTS_REVIEWS}>
+        <FormDialog
+          trigger={
+            <Button
+              type="button"
+              variant="destructive"
+              className="flex items-center gap-2 bg-[#E7000B]"
+            >
+              <X /> Reject
+            </Button>
+          }
+          title="Rejection Message"
+          size="lg"
+          formId="rejection-form"
+          okText="Send Rejection"
+          cancelText="Cancel"
+          componentClassName="border-none shadow-none p-0 rounded-none bg-background"
+          dialogClassName="sm:max-w-[465px]"
+        >
+          {({ close }: { close: () => void }) => (
+            <RejectionForm documentId={document.id} onSuccess={close} />
+          )}
+        </FormDialog>
+      </Can>
     </div>
   );
 };

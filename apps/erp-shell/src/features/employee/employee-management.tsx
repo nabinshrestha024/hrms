@@ -1,3 +1,4 @@
+import { Can, PERM_SUBJECTS } from '@erp/auth';
 import { useEmployees, type Employee } from '@erp/data-access';
 import { Button, Dialog, DialogContent, ListPage } from '@erp/ui';
 import { useState } from 'react';
@@ -19,15 +20,17 @@ export const EmployeeManagement = () => {
         data={data}
         dropdowns={[{ key: 'branch', label: 'Branch' }]}
         actionComponent={
-          <Button
-            type="button"
-            variant="secondary"
-            size="lg"
-            className="text-[14px] font-medium leading-5 text-white"
-            onClick={() => setAddOpen(true)}
-          >
-            Add Employee
-          </Button>
+          <Can action="create" subject={PERM_SUBJECTS.HR_EMPLOYEES}>
+            <Button
+              type="button"
+              variant="secondary"
+              size="lg"
+              className="text-[14px] font-medium leading-5 text-white"
+              onClick={() => setAddOpen(true)}
+            >
+              Add Employee
+            </Button>
+          </Can>
         }
         renderCard={(filtered: Employee[]) => <EmployeeCard data={filtered} />}
         renderTable={(filtered: Employee[]) => (

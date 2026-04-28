@@ -1,3 +1,4 @@
+import { Can, PERM_SUBJECTS } from '@erp/auth';
 import { useHolidayTypes, type HolidayType } from '@erp/data-access';
 import { Button, FormDialog, ListPage } from '@erp/ui';
 import { MasterSetupBody } from '../body';
@@ -19,27 +20,29 @@ export const Holiday = () => {
         )
       }
       actionComponent={
-        <FormDialog
-          trigger={
-            <Button
-              type="button"
-              variant="secondary"
-              size="lg"
-              className="text-[14px] font-medium leading-5 text-white"
-            >
-              Add Holiday Type
-            </Button>
-          }
-          title="Add New Holiday Type"
-          size="lg"
-          formId="holiday-form"
-          okText="Add"
-          cancelText="Cancel"
-        >
-          {({ close }: { close: () => void }) => (
-            <AddHolidayForm onSuccess={close} />
-          )}
-        </FormDialog>
+        <Can action="create" subject={PERM_SUBJECTS.MASTER_HOLIDAY_TYPES}>
+          <FormDialog
+            trigger={
+              <Button
+                type="button"
+                variant="secondary"
+                size="lg"
+                className="text-[14px] font-medium leading-5 text-white"
+              >
+                Add Holiday Type
+              </Button>
+            }
+            title="Add New Holiday Type"
+            size="lg"
+            formId="holiday-form"
+            okText="Add"
+            cancelText="Cancel"
+          >
+            {({ close }: { close: () => void }) => (
+              <AddHolidayForm onSuccess={close} />
+            )}
+          </FormDialog>
+        </Can>
       }
       renderTable={(rows) => (
         <MasterSetupBody component={<HolidayTable data={rows} />} />

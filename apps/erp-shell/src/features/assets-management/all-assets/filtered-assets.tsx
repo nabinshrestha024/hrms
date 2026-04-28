@@ -1,3 +1,4 @@
+import { Can, PERM_SUBJECTS } from '@erp/auth';
 import { type Asset } from '@erp/data-access';
 import { Button, FormDialog, ListPage } from '@erp/ui';
 import { AssetsForm } from './assets-form';
@@ -16,23 +17,25 @@ export const FilteredAssets = ({ data, category }: FilteredAssetsProps) => {
       data={filteredData}
       renderTable={(rows) => <FilteredAssetsTable data={rows} />}
       actionComponent={
-        <FormDialog
-          trigger={
-            <Button variant="secondary" className="h-10">
-              <span>Add Assets</span>
-            </Button>
-          }
-          title="Assets  Details"
-          okText="Add"
-          size="lg"
-          cancelText="Cancel"
-          formId="assets-form"
-          componentClassName="py-4 pl-4 pr-2"
-        >
-          {({ close }: { close: () => void }) => (
-            <AssetsForm onSuccess={close} />
-          )}
-        </FormDialog>
+        <Can action="create" subject={PERM_SUBJECTS.ASSETS_ITEMS}>
+          <FormDialog
+            trigger={
+              <Button variant="secondary" className="h-10">
+                <span>Add Assets</span>
+              </Button>
+            }
+            title="Assets  Details"
+            okText="Add"
+            size="lg"
+            cancelText="Cancel"
+            formId="assets-form"
+            componentClassName="py-4 pl-4 pr-2"
+          >
+            {({ close }: { close: () => void }) => (
+              <AssetsForm onSuccess={close} />
+            )}
+          </FormDialog>
+        </Can>
       }
     />
   );

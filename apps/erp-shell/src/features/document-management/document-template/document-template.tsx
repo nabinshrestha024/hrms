@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Can, PERM_SUBJECTS } from '@erp/auth';
 import {
   useDocumentTemplates,
   type DocumentTemplate as DocumentTemplateRecord,
@@ -24,15 +25,17 @@ export const DocumentTemplate = () => {
         isTabs={false}
         data={data}
         actionComponent={
-          <Button
-            type="button"
-            variant="secondary"
-            size="lg"
-            className="text-[14px] font-medium leading-5 text-white"
-            onClick={() => setOpenUpload(true)}
-          >
-            Create Document
-          </Button>
+          <Can action="create" subject={PERM_SUBJECTS.DOCUMENTS_TEMPLATES}>
+            <Button
+              type="button"
+              variant="secondary"
+              size="lg"
+              className="text-[14px] font-medium leading-5 text-white"
+              onClick={() => setOpenUpload(true)}
+            >
+              Create Document
+            </Button>
+          </Can>
         }
         renderCard={(filtered) => <DocumentTemplateCard data={filtered} />}
         renderTable={(filtered) => <></>}

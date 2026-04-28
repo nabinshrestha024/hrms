@@ -1,3 +1,4 @@
+import { Can, PERM_SUBJECTS } from '@erp/auth';
 import {
   useDepartments,
   useDeleteDepartment,
@@ -56,23 +57,25 @@ export const DepartmentManagement = () => {
         views={['card']}
         data={data}
         actionComponent={
-          <FormDialog
-            trigger={
-              <Button
-                type="button"
-                variant="secondary"
-                size="lg"
-                className="text-[14px] font-medium leading-5 text-white"
-              >
-                Add Department
-              </Button>
-            }
-            title="Department Details"
-            size="lg"
-            okText="Add"
-          >
-            <DepartmentForm />
-          </FormDialog>
+          <Can action="create" subject={PERM_SUBJECTS.HR_DEPARTMENTS}>
+            <FormDialog
+              trigger={
+                <Button
+                  type="button"
+                  variant="secondary"
+                  size="lg"
+                  className="text-[14px] font-medium leading-5 text-white"
+                >
+                  Add Department
+                </Button>
+              }
+              title="Department Details"
+              size="lg"
+              okText="Add"
+            >
+              <DepartmentForm />
+            </FormDialog>
+          </Can>
         }
         renderCard={(filtered: Department[]) => (
           <DepartmentCard

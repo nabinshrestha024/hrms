@@ -1,3 +1,4 @@
+import { Can, PERM_SUBJECTS } from '@erp/auth';
 import { type Asset } from '@erp/data-access';
 import { Badge, DataTableColumnHeader, FormDialog } from '@erp/ui';
 import type { ColumnDef } from '@tanstack/react-table';
@@ -90,52 +91,58 @@ export function getAssetsColumns(): ColumnDef<Asset, unknown>[] {
               <Eye className="w-4 h-4 " />
             </IconButton>
             {isAssigned ? (
-              <FormDialog
-                trigger={
-                  <IconButton variant="default">
-                    <Redo2 className="w-4 h-4 " />
-                  </IconButton>
-                }
-                title="Return Assets "
-                okText="Add"
-                size="lg"
-                cancelText="Cancel"
-                formId="return-assets-form"
-                componentClassName="py-4 pl-4 pr-2"
-              >
-                {({ close }: { close: () => void }) => (
-                  <ReturnAssetsForm
-                    assetId={row.original.id}
-                    onSuccess={close}
-                  />
-                )}
-              </FormDialog>
+              <Can action="return" subject={PERM_SUBJECTS.ASSETS_ITEMS}>
+                <FormDialog
+                  trigger={
+                    <IconButton variant="default">
+                      <Redo2 className="w-4 h-4 " />
+                    </IconButton>
+                  }
+                  title="Return Assets "
+                  okText="Add"
+                  size="lg"
+                  cancelText="Cancel"
+                  formId="return-assets-form"
+                  componentClassName="py-4 pl-4 pr-2"
+                >
+                  {({ close }: { close: () => void }) => (
+                    <ReturnAssetsForm
+                      assetId={row.original.id}
+                      onSuccess={close}
+                    />
+                  )}
+                </FormDialog>
+              </Can>
             ) : (
-              <FormDialog
-                trigger={
-                  <IconButton variant="default">
-                    <UserRoundPlus className="w-4 h-4 " />
-                  </IconButton>
-                }
-                title="Assign Assets "
-                okText="Add"
-                size="lg"
-                cancelText="Cancel"
-                formId="assign-assets-form"
-                componentClassName="py-4 pl-4 pr-2"
-              >
-                {({ close }: { close: () => void }) => (
-                  <AssignAssetsForm
-                    assetId={row.original.id}
-                    assetName={row.original.name}
-                    onSuccess={close}
-                  />
-                )}
-              </FormDialog>
+              <Can action="assign" subject={PERM_SUBJECTS.ASSETS_ITEMS}>
+                <FormDialog
+                  trigger={
+                    <IconButton variant="default">
+                      <UserRoundPlus className="w-4 h-4 " />
+                    </IconButton>
+                  }
+                  title="Assign Assets "
+                  okText="Add"
+                  size="lg"
+                  cancelText="Cancel"
+                  formId="assign-assets-form"
+                  componentClassName="py-4 pl-4 pr-2"
+                >
+                  {({ close }: { close: () => void }) => (
+                    <AssignAssetsForm
+                      assetId={row.original.id}
+                      assetName={row.original.name}
+                      onSuccess={close}
+                    />
+                  )}
+                </FormDialog>
+              </Can>
             )}
-            <IconButton variant="destructive">
-              <Trash2 className="w-4 h-4 " />
-            </IconButton>
+            <Can action="delete" subject={PERM_SUBJECTS.ASSETS_ITEMS}>
+              <IconButton variant="destructive">
+                <Trash2 className="w-4 h-4 " />
+              </IconButton>
+            </Can>
           </div>
         );
       },

@@ -1,3 +1,4 @@
+import { Can, PERM_SUBJECTS } from '@erp/auth';
 import { HRCard } from '@erp/ui';
 import { Edit, Network, Trash2 } from 'lucide-react';
 import type { Department as DepartmentType } from '@erp/data-access';
@@ -31,22 +32,26 @@ export const DepartmentCard = ({
                   <Network className="w-4 h-4 text-white font-normal" />
                 </div>
                 <div className="flex gap-2">
-                  <button
-                    type="button"
-                    aria-label="Edit department"
-                    className="w-6 h-6 flex items-center justify-center rounded-sm bg-muted p-1 cursor-pointer hover:bg-muted/80"
-                    onClick={() => onEdit?.(items)}
-                  >
-                    <Edit className="w-4 h-4 text-black font-bold" />
-                  </button>
-                  <button
-                    type="button"
-                    aria-label="Delete department"
-                    className="w-6 h-6 flex items-center justify-center rounded-sm bg-chart-3 p-1 cursor-pointer hover:bg-chart-3/80"
-                    onClick={() => onDelete?.(items.id)}
-                  >
-                    <Trash2 className="w-4 h-4 text-badge-text-3 font-bold" />
-                  </button>
+                  <Can action="update" subject={PERM_SUBJECTS.HR_DEPARTMENTS}>
+                    <button
+                      type="button"
+                      aria-label="Edit department"
+                      className="w-6 h-6 flex items-center justify-center rounded-sm bg-muted p-1 cursor-pointer hover:bg-muted/80"
+                      onClick={() => onEdit?.(items)}
+                    >
+                      <Edit className="w-4 h-4 text-black font-bold" />
+                    </button>
+                  </Can>
+                  <Can action="delete" subject={PERM_SUBJECTS.HR_DEPARTMENTS}>
+                    <button
+                      type="button"
+                      aria-label="Delete department"
+                      className="w-6 h-6 flex items-center justify-center rounded-sm bg-chart-3 p-1 cursor-pointer hover:bg-chart-3/80"
+                      onClick={() => onDelete?.(items.id)}
+                    >
+                      <Trash2 className="w-4 h-4 text-badge-text-3 font-bold" />
+                    </button>
+                  </Can>
                 </div>
               </div>
               <div className="flex flex-col text-[16px] leading-6">

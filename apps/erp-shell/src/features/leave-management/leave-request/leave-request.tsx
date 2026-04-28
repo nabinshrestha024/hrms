@@ -1,3 +1,4 @@
+import { Can, PERM_SUBJECTS } from '@erp/auth';
 import { useLeaveRequests } from '@erp/data-access';
 import { Button, FormDialog, ListPage } from '@erp/ui';
 import type { LeaveRequest as LeaveRequestRow } from '../schema/LeaveRequestData';
@@ -40,24 +41,26 @@ export const LeaveRequest = () => {
         });
       }}
       actionComponent={
-        <FormDialog
-          trigger={
-            <Button variant="secondary" className="flex gap-1">
-              <Plus className="w-4 h-4 text-white" />
-              <span>Leave Request</span>
-            </Button>
-          }
-          title="Add Leave Request"
-          okText="Add"
-          size="lg"
-          cancelText="Cancel"
-          formId="leave-request-form"
-          componentClassName="py-4 pl-4 pr-2"
-        >
-          {({ close }: { close: () => void }) => (
-            <AddLeaveRequestFormByAdmin onSuccess={close} />
-          )}
-        </FormDialog>
+        <Can action="create" subject={PERM_SUBJECTS.LEAVE_REQUESTS}>
+          <FormDialog
+            trigger={
+              <Button variant="secondary" className="flex gap-1">
+                <Plus className="w-4 h-4 text-white" />
+                <span>Leave Request</span>
+              </Button>
+            }
+            title="Add Leave Request"
+            okText="Add"
+            size="lg"
+            cancelText="Cancel"
+            formId="leave-request-form"
+            componentClassName="py-4 pl-4 pr-2"
+          >
+            {({ close }: { close: () => void }) => (
+              <AddLeaveRequestFormByAdmin onSuccess={close} />
+            )}
+          </FormDialog>
+        </Can>
       }
     />
   );

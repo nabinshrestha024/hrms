@@ -1,3 +1,4 @@
+import { Can, PERM_SUBJECTS } from '@erp/auth';
 import { useCurrencies, type Currency as CurrencyType } from '@erp/data-access';
 import { Button, FormDialog, ListPage } from '@erp/ui';
 import { AddCurrencyForm } from './add-currency-form';
@@ -23,27 +24,29 @@ export const Currency = () => {
         })
       }
       actionComponent={
-        <FormDialog
-          trigger={
-            <Button
-              type="button"
-              variant="secondary"
-              size="lg"
-              className="text-[14px] font-medium leading-5 text-white"
-            >
-              Add Currency Type
-            </Button>
-          }
-          title="Add New Currency Type"
-          size="lg"
-          formId="currency-form"
-          okText="Add"
-          cancelText="Cancel"
-        >
-          {({ close }: { close: () => void }) => (
-            <AddCurrencyForm onSuccess={close} />
-          )}
-        </FormDialog>
+        <Can action="create" subject={PERM_SUBJECTS.MASTER_CURRENCIES}>
+          <FormDialog
+            trigger={
+              <Button
+                type="button"
+                variant="secondary"
+                size="lg"
+                className="text-[14px] font-medium leading-5 text-white"
+              >
+                Add Currency Type
+              </Button>
+            }
+            title="Add New Currency Type"
+            size="lg"
+            formId="currency-form"
+            okText="Add"
+            cancelText="Cancel"
+          >
+            {({ close }: { close: () => void }) => (
+              <AddCurrencyForm onSuccess={close} />
+            )}
+          </FormDialog>
+        </Can>
       }
       renderTable={(rows) => (
         <MasterSetupBody component={<CurrencyTable data={rows} />} />

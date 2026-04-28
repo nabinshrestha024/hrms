@@ -1,3 +1,4 @@
+import { Can, PERM_SUBJECTS } from '@erp/auth';
 import {
   useWorkTypes,
   type WorkType as WorkTypeRecord,
@@ -22,27 +23,29 @@ export const WorkType = () => {
         )
       }
       actionComponent={
-        <FormDialog
-          trigger={
-            <Button
-              type="button"
-              variant="secondary"
-              size="lg"
-              className="text-[14px] font-medium leading-5 text-white"
-            >
-              Add Work Type
-            </Button>
-          }
-          title="Add New Work Type"
-          size="lg"
-          formId="WorkType-form"
-          okText="Add"
-          cancelText="Cancel"
-        >
-          {({ close }: { close: () => void }) => (
-            <AddWorkTypeForm onSuccess={close} />
-          )}
-        </FormDialog>
+        <Can action="create" subject={PERM_SUBJECTS.MASTER_WORK_TYPES}>
+          <FormDialog
+            trigger={
+              <Button
+                type="button"
+                variant="secondary"
+                size="lg"
+                className="text-[14px] font-medium leading-5 text-white"
+              >
+                Add Work Type
+              </Button>
+            }
+            title="Add New Work Type"
+            size="lg"
+            formId="WorkType-form"
+            okText="Add"
+            cancelText="Cancel"
+          >
+            {({ close }: { close: () => void }) => (
+              <AddWorkTypeForm onSuccess={close} />
+            )}
+          </FormDialog>
+        </Can>
       }
       renderTable={(rows) => (
         <MasterSetupBody component={<WorkTable data={rows} />} />

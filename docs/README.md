@@ -12,18 +12,20 @@ Start here. Pick the doc that matches what you're trying to do.
 | Add a list page with sortable/paginated table | [TABLES.md](./TABLES.md) — `useServerTableState`              |
 | Look up a quick snippet                       | [CHEATSHEET.md](./CHEATSHEET.md)                              |
 | Understand the project layout                 | [ARCHITECTURE.md](./ARCHITECTURE.md)                          |
+| See the upgrade roadmap / pick up a task      | [IMPROVEMENT-PLAN.md](./IMPROVEMENT-PLAN.md)                  |
 
 ## Doc index
 
 ### Reference docs
 
-| File                                           | What's in it                                                                                                                                                |
-| ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **[DEVELOPER-GUIDE.md](./DEVELOPER-GUIDE.md)** | The main guide. Covers routing, table pages, form pages, detail pages, dialogs, auth, data fetching, toasts, styling, testing, and common patterns.         |
-| **[DIALOGS.md](./DIALOGS.md)**                 | Deep reference for the three dialog patterns: `<FormDialog>`, `<ControlledFormDialog>`, `<ConfirmDialog>`. Decision tree, props, examples, common mistakes. |
-| **[TABLES.md](./TABLES.md)**                   | `useServerTableState` hook reference. URL-synced pagination, sorting, search. Column definitions. Action callbacks.                                         |
-| **[ARCHITECTURE.md](./ARCHITECTURE.md)**       | Monorepo layout, library boundaries, dependencies.                                                                                                          |
-| **[CHEATSHEET.md](./CHEATSHEET.md)**           | Copy-paste snippets — quickest way to remember syntax.                                                                                                      |
+| File                                             | What's in it                                                                                                                                                |
+| ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **[DEVELOPER-GUIDE.md](./DEVELOPER-GUIDE.md)**   | The main guide. Covers routing, table pages, form pages, detail pages, dialogs, auth, data fetching, toasts, styling, testing, and common patterns.         |
+| **[DIALOGS.md](./DIALOGS.md)**                   | Deep reference for the three dialog patterns: `<FormDialog>`, `<ControlledFormDialog>`, `<ConfirmDialog>`. Decision tree, props, examples, common mistakes. |
+| **[TABLES.md](./TABLES.md)**                     | `useServerTableState` hook reference. URL-synced pagination, sorting, search. Column definitions. Action callbacks.                                         |
+| **[ARCHITECTURE.md](./ARCHITECTURE.md)**         | Monorepo layout, library boundaries, dependencies.                                                                                                          |
+| **[CHEATSHEET.md](./CHEATSHEET.md)**             | Copy-paste snippets — quickest way to remember syntax.                                                                                                      |
+| **[IMPROVEMENT-PLAN.md](./IMPROVEMENT-PLAN.md)** | Phased plan + checklist to lift the codebase from B− to A. Pick a checkbox, ship a PR.                                                                      |
 
 ### Internal docs
 
