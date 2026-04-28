@@ -1,19 +1,19 @@
+import { type JobLevel } from '@erp/data-access';
 import { useServerTableState } from '@erp/ui';
-import { JobLevelDataType } from '../../schema/JobLevelData';
 import { getJobLevelColumn } from './get-job-level-column';
 
 interface JobLevelTableProps {
-  data: JobLevelDataType[];
+  data: JobLevel[];
 }
 
 export function useJobLevelTable({ data }: JobLevelTableProps) {
   const columns = getJobLevelColumn();
 
-  const table = useServerTableState<JobLevelDataType>({
+  const table = useServerTableState<JobLevel>({
     data,
     totalCount: data.length,
     columns,
-    getRowId: (row) => row.name,
+    getRowId: (row) => row.id,
   });
 
   return {

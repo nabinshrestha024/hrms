@@ -1,5 +1,5 @@
 import { useNotices, type Notice as NoticeType } from '@erp/data-access';
-import { Badge, Button, FormDialog } from '@erp/ui';
+import { Badge, Button, FormDialog, Skeleton } from '@erp/ui';
 import { CreateAnnouncementForm } from './create-announcement/create-announcement-form';
 import { getSortData } from '@erp/utils';
 
@@ -17,10 +17,17 @@ export const Notice = () => {
         <div className="text-[18px] text-foreground font-medium leading-7">
           Notice
         </div>
-        <div className="flex-1 flex items-center justify-center">
-          <span className="text-sm text-secondary-foreground animate-pulse">
-            Loading...
-          </span>
+        <div className="flex flex-col gap-3 pr-3">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="flex gap-3 p-2">
+              <Skeleton className="w-17.5 h-17.5 rounded-xl" />
+              <div className="flex-1 flex flex-col gap-2">
+                <Skeleton className="h-4 w-3/4" />
+                <Skeleton className="h-3 w-full" />
+                <Skeleton className="h-3 w-1/3" />
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     );

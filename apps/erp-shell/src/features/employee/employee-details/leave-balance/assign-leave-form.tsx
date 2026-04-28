@@ -36,12 +36,12 @@ export const AssignLeaveForm = ({ onSuccess }: AssignLeaveFormProps = {}) => {
     value: val.type,
     label: (
       <div className="relative flex justify-between items-center">
-        <span className="text-[14px] font-medium leading-5 text-[#18181B]">
+        <span className="text-[14px] font-medium leading-5 text-foreground">
           {val.type}
         </span>
         <Badge
           variant="default"
-          className="absolute -top-1 left-138 w-16 text-[#18181B] px-2 py-1 flex items-center justify-center"
+          className="absolute -top-1 left-138 w-16 text-foreground px-2 py-1 flex items-center justify-center"
         >
           {val.days} Days
         </Badge>
@@ -60,7 +60,7 @@ export const AssignLeaveForm = ({ onSuccess }: AssignLeaveFormProps = {}) => {
       <Form form={form} onSubmit={onsubmit}>
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-3">
-            <HRLabel labelClassName="text-[14px] font-medium leading-5 text-[#18181B]">
+            <HRLabel labelClassName="text-[14px] font-medium leading-5 text-foreground">
               Leave Category
             </HRLabel>
             <Controller
@@ -72,8 +72,8 @@ export const AssignLeaveForm = ({ onSuccess }: AssignLeaveFormProps = {}) => {
                   value={field.value}
                   onValueChange={field.onChange}
                   className="flex flex-col gap-3"
-                  optionClassName="border border-[#E4E4E7] rounded-[6px] px-3 py-2.5"
-                  itemClassName="border-[#A1A1AA] shadow-none"
+                  optionClassName="border border-border rounded-[6px] px-3 py-2.5"
+                  itemClassName="border-muted-foreground shadow-none"
                   error={errors.leaveCategory?.message}
                 />
               )}
@@ -81,7 +81,7 @@ export const AssignLeaveForm = ({ onSuccess }: AssignLeaveFormProps = {}) => {
           </div>
 
           <CustomAlert
-            icon={<Info className="text-[24px] text-[#A1A1AA]" />}
+            icon={<Info className="text-[24px] text-muted-foreground" />}
             description=" Entitlement days for these categories are fixed by company policy
               and will be credited to the employee's balance immediately upon
               assignment."

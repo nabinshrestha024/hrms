@@ -91,9 +91,10 @@ ui/src/
 
 - `useAuth()` — login state, user object, logout
 - `useAbility()` — check permissions
-- `<Can action="read" subject="hr:employees">` — declarative permission gates
-- `<RouteGuard>` — protect routes by permission
-- Mock users with role-based permissions (admin, hr_manager, employee)
+- `<Can action="create" subject={PERM_SUBJECTS.HR_EMPLOYEES}>` — declarative permission gates. The `subject` is one of the constants in `PERM_SUBJECTS` (`hr:employees`, `assets:items`, `documents:reviews`, `master:holiday-types`, …); `action` is from `PERM_ACTIONS` (`read`/`create`/`update`/`delete`/`approve`/`reject`/`assign`/`return`). Permission strings are joined as `${subject}:${action}` and checked against the user's `permissions[]`.
+- Permission constants live in `permissions.ts` (re-exported from the barrel). Three role bundles compose them: `ADMIN_PERMISSIONS` (full CRUD across every resource), `HR_MANAGER_PERMISSIONS` (read + manage employees + approve leave + manage assets), `EMPLOYEE_PERMISSIONS` (self-service only).
+- `<RouteGuard>` — defense-in-depth for direct URL navigation. Kept exported but applied opportunistically — button-level `<Can>` is the primary safety mechanism.
+- Mock users seeded from the role bundles (admin@gmail.com / hr@gmail.com / emp@gmail.com); see `mock-users.ts`.
 
 ### `@erp/tenant` — Multi-Tenancy
 
@@ -107,8 +108,9 @@ ui/src/
 - `ApiClient` — typed HTTP client with auth token injection
 - `QueryProvider` — React Query setup (5min stale, 1 retry)
 - `createTypedQuery/Mutation` — Zod-validated query factories
-- Schemas: Zod schemas for entities (employee, etc.)
-- Query hooks: `useEmployees()`, `useEmployee(id)`, etc.
+- **Schemas (canonical)** — every domain entity has a Zod schema in `src/schemas/*.schema.ts`: `employeeSchema`, `branchSchema`, `departmentSchema`, `holidayTypeSchema`, `currencySchema`, `jobLevelSchema`, `workTypeSchema`, `leavePayTypeSchema`, `holidaySchema`, `shiftSchema`, `workWeekConfigSchema` (singleton), `leaveTypeSchema`, `missingDocumentSchema`, `documentReviewSchema`, `employeeDocumentSchema`, `documentCategorySchema`, `documentTemplateSchema`, `assetSchema`, `assetCategorySchema`, `attendanceRecordSchema`, `leaveRequestSchema`, `directoryEntrySchema`. Each ships matching `create*Schema` (omit id/timestamps) and `update*Schema` (partial of create).
+- **Query hooks** — `useXxxList`, `useXxx(id)`, `useCreateXxx`, `useUpdateXxx`, `useDeleteXxx` per resource. Singletons (e.g. `work-week-config`) expose `useXxxConfig` + `useUpdateXxxConfig` only.
+- Filter schemas are kept as plain `z.object({...})` (not extending `listParamsSchema`) so default-bearing fields stay optional in `z.infer`. See the comment block at the top of `holiday-type.schema.ts` for the rationale.
 
 ### `@erp/config-engine` — Form Engine
 
@@ -142,32 +144,36 @@ TanStack Router uses **file-based routing**. The file path = the URL path.
 
 ```
 routes/
-├── __root.tsx                  → Root layout (always rendered)
-├── index.tsx                   → "/" redirects to /dashboard
-├── login.tsx                   → Public login page
-├── unauthorized.tsx            → 403 page
-├── _authenticated.tsx          → Layout: auth guard + shell (sidebar/topbar)
+├── __root.tsx                              → Root layout (always rendered)
+├── index.tsx                               → "/" redirects to /dashboard
+├── login.tsx                               → Public login page
+├── unauthorized.tsx                        → 403 page
+├── _authenticated.tsx                      → Layout: auth guard + shell (sidebar/topbar)
 └── _authenticated/
-    ├── dashboard.tsx           → Layout route (Outlet) for /dashboard/*
-    ├── dashboard/
-    │   ├── index.tsx           → /dashboard (main dashboard)
-    │   └── analytics.tsx       → /dashboard/analytics
-    ├── employees.tsx           → /employees (table page)
-    ├── employees.$id.tsx       → /employees/:id (detail page)
-    ├── leave/
-    │   ├── requests.tsx        → /leave/requests
-    │   ├── my-requests.tsx     → /leave/my-requests
-    │   └── balance.tsx         → /leave/balance
-    └── ...
+    ├── dashboard/index.tsx                 → /dashboard (main dashboard)
+    ├── employee/
+    │   ├── index.tsx                       → /employee (employee management)
+    │   ├── employee-details.$id.tsx        → /employee/employee-details/:id (detail)
+    │   ├── assign-approval.$id.tsx         → /employee/assign-approval/:id
+    │   └── document-view.$name.tsx         → /employee/document-view/:name
+    ├── leave-management/
+    │   ├── leave-request.tsx               → /leave-management/leave-request
+    │   └── my-request.tsx                  → /leave-management/my-request
+    ├── attendance/{my-attendance,work-record,attendance-record}.tsx
+    ├── assets-management/{all-assets,assignment-history,index}.tsx
+    ├── document-management/{assign-document,…}.tsx
+    ├── master-setup/{holiday,currency-type,job-level,work-type,leave-type}.tsx
+    ├── configuration/{holidays,shifts,work-week,leave-type,index}.tsx
+    └── policy-configuration/{leave-deduction,sandwich-rule,workflow,payroll}.tsx
 ```
 
 **Key rules:**
 
 - `_authenticated.tsx` = layout route (has `<Outlet />`, wraps children with sidebar)
 - `_authenticated/` = directory for child routes under that layout
-- `$id` = dynamic parameter (accessed via `useParams()`)
+- `$id` / `$name` = dynamic parameter (accessed via `useParams()`)
 - Files prefixed with `_` are layout routes (not directly navigable)
-- `beforeLoad: () => ({ breadcrumb: 'Label' })` sets breadcrumb automatically
+- `beforeLoad: () => ({ breadcrumb: 'Label' })` sets the top-level breadcrumb. A second-level segment can be supplied via `subbreadcrumb: 'Sub Label'` and is rendered by the topbar after the primary crumb (used by master-setup / configuration / policy-configuration sub-pages).
 
 ## Sidebar Navigation
 
@@ -234,24 +240,35 @@ Libraries never import from `apps/`. Libraries can import from other libraries. 
 
 ## Theming
 
-Colors are defined as CSS variables in `apps/erp-shell/src/styles/app.css` using oklch color space.
+Colors are defined as CSS variables in `apps/erp-shell/src/styles/app.css` using oklch / hex, exposed to Tailwind via the `@theme inline` block at the top of the same file.
 
 ```css
 :root {
-  --primary: oklch(0.318 0.157 264.2); /* Indigo #312C85 */
-  --sidebar: oklch(0.07 0 0); /* Near-black for icon bar */
-  /* ... */
+  --primary: #4f39f6;
+  --sidebar: oklch(0.07 0 0);
+  /* … */
 }
 
 .dark {
-  --primary: oklch(0.55 0.18 264); /* Lighter indigo for dark mode */
-  /* ... */
+  /* dark-mode overrides */
 }
 ```
 
-Tenant overrides are applied at runtime via `apply-theme.ts`. The tenant config can override any CSS variable.
+**Token list (the abstractions every feature uses):**
 
-Tailwind uses these variables: `bg-primary`, `text-foreground`, `border-border`, etc.
+| Group     | Tokens                                                                                                                                                            |
+| --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Surface   | `background`, `foreground`, `card`, `card-foreground`, `popover`, `popover-foreground`, `muted`, `muted-foreground`                                               |
+| Brand     | `primary`, `primary-foreground`, `secondary`, `secondary-foreground`, `accent`, `accent-foreground`, `outline`                                                    |
+| Status    | `destructive`, `destructive-foreground`, `info`, `info-foreground`, `success`, `success-foreground`, `warning`, `warning-foreground`                              |
+| Sidebar   | `sidebar`, `sidebar-foreground`, `sidebar-primary`, `sidebar-primary-foreground`, `sidebar-accent`, `sidebar-accent-foreground`, `sidebar-border`, `sidebar-ring` |
+| Charts    | `chart-1` … `chart-7`                                                                                                                                             |
+| Badges    | `badge-text-1` … `badge-text-8`                                                                                                                                   |
+| Card text | `card-text`, `alert-background`                                                                                                                                   |
+
+Use the Tailwind utility shorthand: `bg-primary`, `text-foreground`, `border-border`, `border-l-outline`, `bg-info`, `text-warning-foreground`, etc. **Literal hex / oklch in `className` is a build-error** (ESLint `no-restricted-syntax`); add a token instead.
+
+Tenant overrides are applied at runtime via `apply-theme.ts`. `COLOR_KEY_TO_CSS_VAR` maps camelCased keys (`primaryForeground`, `cardForeground`, `infoForeground`, …) to the underlying CSS custom property. `MOCK_TENANTS.acme` demonstrates three concrete overrides (teal primary, teal-50 card, sky info) so the demo and acme tenants render distinctly without any feature-code change.
 
 ## Bundle Optimization
 

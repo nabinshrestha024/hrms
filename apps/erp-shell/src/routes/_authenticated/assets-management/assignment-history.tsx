@@ -1,5 +1,12 @@
+import { ContentShell } from '@erp/ui';
+import { lazy, Suspense } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
-import { AssignmentHistory } from '../../../features/assets-management/assignment-history/assignment-history';
+
+const AssignmentHistory = lazy(() =>
+  import(
+    '../../../features/assets-management/assignment-history/assignment-history'
+  ).then((m) => ({ default: m.AssignmentHistory }))
+);
 
 export const Route = createFileRoute(
   '/_authenticated/assets-management/assignment-history'
@@ -13,8 +20,10 @@ export const Route = createFileRoute(
 
 function RouteComponent() {
   return (
-    <div className="w-full h-[calc(100vh-84px)] overflow-auto flex flex-col bg-[#F9FAFB] ">
-      <AssignmentHistory />
-    </div>
+    <ContentShell>
+      <Suspense fallback={null}>
+        <AssignmentHistory />
+      </Suspense>
+    </ContentShell>
   );
 }

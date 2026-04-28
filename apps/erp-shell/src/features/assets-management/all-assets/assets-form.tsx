@@ -1,4 +1,5 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
+import { useCreateAsset, type AssetCondition } from '@erp/data-access';
 import { toast } from '@erp/ui';
 
 export const assetsFormConfig: FormViewConfig = {
@@ -80,15 +81,34 @@ interface AssetsFormProps {
 }
 
 export function AssetsForm({ onSuccess }: AssetsFormProps = {}) {
+  const createAsset = useCreateAsset();
+
   const onsubmit = (data: Record<string, unknown>) => {
-    console.warn('Save Changes:', data);
+    const condition = String(
+      data.condition ?? ''
+    ).toLowerCase() as AssetCondition;
 
-    toast({
-      variant: 'success',
-      title: 'Assets added',
-    });
-
-    onSuccess?.();
+    createAsset.mutate(
+      {
+        name: String(data.assetsName ?? ''),
+        category: String(data.category ?? ''),
+        serialNumber: String(data.serialNumber ?? ''),
+        status: 'available',
+        assignedTo: null,
+        assignedDate: null,
+        condition,
+        value: Number(data.value ?? 0),
+      },
+      {
+        onSuccess: () => {
+          toast({ variant: 'success', title: 'Assets added' });
+          onSuccess?.();
+        },
+        onError: () => {
+          toast({ variant: 'destructive', title: 'Failed to add asset' });
+        },
+      }
+    );
   };
 
   return (

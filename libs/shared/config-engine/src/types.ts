@@ -19,7 +19,6 @@ export interface FieldDefinition {
   name: string;
   type: FieldType;
   label?: string;
-  Label?: string;
   subLabel?: string;
   icon?: LucideIcon;
   placeholder?: string;
@@ -80,6 +79,11 @@ export interface FormViewConfig {
   entity: string;
   fields: FieldDefinition[];
   layout: LayoutNode;
+  /**
+   * Optional initial values for the form. Keyed by field `name`. Useful
+   * for edit dialogs that hydrate from the entity being edited.
+   */
+  defaultValues?: Record<string, unknown>;
 }
 
 export interface WidgetProps {

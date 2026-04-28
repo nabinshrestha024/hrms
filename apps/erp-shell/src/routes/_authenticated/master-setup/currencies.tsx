@@ -1,5 +1,12 @@
+import { ContentShell } from '@erp/ui';
 import { createFileRoute } from '@tanstack/react-router';
-import { Currency } from '../../../features/master-setup/currency-type/currency';
+import { lazy, Suspense } from 'react';
+
+const Currency = lazy(() =>
+  import('../../../features/master-setup/currency-type/currency').then((m) => ({
+    default: m.Currency,
+  }))
+);
 
 export const Route = createFileRoute('/_authenticated/master-setup/currencies')(
   {
@@ -13,8 +20,10 @@ export const Route = createFileRoute('/_authenticated/master-setup/currencies')(
 
 function RouteComponent() {
   return (
-    <div className="w-full max-h-[calc(100vh-84px)] overflow-auto flex flex-col bg-background ">
-      <Currency />
-    </div>
+    <ContentShell className="bg-background">
+      <Suspense fallback={null}>
+        <Currency />
+      </Suspense>
+    </ContentShell>
   );
 }

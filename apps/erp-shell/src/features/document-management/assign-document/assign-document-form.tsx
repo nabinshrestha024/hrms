@@ -1,4 +1,5 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
+import { useCreateEmployeeDocument } from '@erp/data-access';
 import { Button, HRCard, toast } from '@erp/ui';
 
 export const addAssignDocumentFormConfig: FormViewConfig = {
@@ -48,9 +49,29 @@ export const addAssignDocumentFormConfig: FormViewConfig = {
 };
 
 export function AssignDocumentForm() {
+  const createEmployeeDocument = useCreateEmployeeDocument();
+
   const onsubmit = (data: Record<string, unknown>) => {
-    console.warn('Assign Document: ', data);
-    toast({ variant: 'success', title: 'Assign Document message send' });
+    createEmployeeDocument.mutate(
+      {
+        name: String(data.documentTemplate ?? ''),
+        employeeName: String(data.employeeName ?? ''),
+        category: 'Assigned',
+        uploadDate: new Date().toISOString().split('T')[0],
+        visible: true,
+      },
+      {
+        onSuccess: () => {
+          toast({ variant: 'success', title: 'Document assigned' });
+        },
+        onError: () => {
+          toast({
+            variant: 'destructive',
+            title: 'Failed to assign document',
+          });
+        },
+      }
+    );
   };
 
   return (

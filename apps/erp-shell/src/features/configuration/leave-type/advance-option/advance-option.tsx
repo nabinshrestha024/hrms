@@ -6,7 +6,7 @@ export const AdvanceOption = () => {
   return (
     <div className="flex flex-col gap-3">
       <CustomAlert
-        icon={<Info className="text-[24px] text-[#A1A1AA]" />}
+        icon={<Info className="text-[24px] text-muted-foreground" />}
         description={
           <div className="flex flex-col gap-1">
             <span>

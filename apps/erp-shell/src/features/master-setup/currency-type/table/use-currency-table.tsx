@@ -1,19 +1,19 @@
+import { type Currency } from '@erp/data-access';
 import { useServerTableState } from '@erp/ui';
-import { CurrencyDataType } from '../../schema/CurrencyData';
 import { getCurrencyColumn } from './get-currency';
 
 interface CurrencyTableProps {
-  data: CurrencyDataType[];
+  data: Currency[];
 }
 
 export function useCurrencyTable({ data }: CurrencyTableProps) {
   const columns = getCurrencyColumn();
 
-  const table = useServerTableState<CurrencyDataType>({
+  const table = useServerTableState<Currency>({
     data,
     totalCount: data.length,
     columns,
-    getRowId: (row) => row.currencyName,
+    getRowId: (row) => row.id,
   });
 
   return {

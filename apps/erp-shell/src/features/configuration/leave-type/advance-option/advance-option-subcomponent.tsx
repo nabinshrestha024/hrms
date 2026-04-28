@@ -10,7 +10,7 @@ export const AdvanceOptionSubcomponent = () => {
             <div className="w-16 h-9 border border-border rounded-l-[6px] bg-white px-2 text-secondary-foreground items-center flex justify-center">
               30
             </div>
-            <div className="w-16 h-9 border border-border rounded-r-[6px] bg-[#E5E7EB] px-2 items-center flex justify-center">
+            <div className="w-16 h-9 border border-border rounded-r-[6px] bg-border px-2 items-center flex justify-center">
               days
             </div>
           </div>
@@ -23,7 +23,7 @@ export const AdvanceOptionSubcomponent = () => {
             <div className="w-16 h-9 border border-border rounded-l-[6px] bg-white px-2 text-secondary-foreground items-center flex justify-center">
               30
             </div>
-            <div className="w-16 h-9 border border-border rounded-r-[6px] bg-[#E5E7EB] px-2 items-center flex justify-center">
+            <div className="w-16 h-9 border border-border rounded-r-[6px] bg-border px-2 items-center flex justify-center">
               days
             </div>
           </div>
@@ -42,7 +42,7 @@ export const AdvanceOptionSubcomponent = () => {
             <div className="w-16 h-9 border border-border rounded-l-[6px] bg-white px-2 text-secondary-foreground items-center flex justify-center">
               0.5
             </div>
-            <div className="w-16 h-9 border border-border rounded-r-[6px] bg-[#E5E7EB] px-2 items-center flex justify-center">
+            <div className="w-16 h-9 border border-border rounded-r-[6px] bg-border px-2 items-center flex justify-center">
               days
             </div>
           </div>
@@ -55,7 +55,7 @@ export const AdvanceOptionSubcomponent = () => {
             <div className="w-16 h-9 border border-border rounded-l-[6px] bg-white px-2 text-secondary-foreground items-center flex justify-center">
               18
             </div>
-            <div className="w-16 h-9 border border-border rounded-r-[6px] bg-[#E5E7EB] px-2 items-center flex justify-center">
+            <div className="w-16 h-9 border border-border rounded-r-[6px] bg-border px-2 items-center flex justify-center">
               days
             </div>
           </div>

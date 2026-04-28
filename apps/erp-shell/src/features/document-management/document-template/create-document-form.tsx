@@ -1,4 +1,5 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
+import { useCreateDocumentTemplate } from '@erp/data-access';
 import { toast } from '@erp/ui';
 
 export const createTemplateFormConfig: FormViewConfig = {
@@ -56,12 +57,30 @@ interface createTemplateFormProps {
 export function CreateTemplateForm({
   onSuccess,
 }: createTemplateFormProps = {}) {
-  const onsubmit = (_data: Record<string, unknown>) => {
-    toast({
-      variant: 'success',
-      title: 'Document uploaded successfully',
-    });
-    onSuccess?.();
+  const createTemplate = useCreateDocumentTemplate();
+
+  const onsubmit = (data: Record<string, unknown>) => {
+    createTemplate.mutate(
+      {
+        name: String(data.documentTitle ?? ''),
+        kind: 'template',
+      },
+      {
+        onSuccess: () => {
+          toast({
+            variant: 'success',
+            title: 'Document uploaded successfully',
+          });
+          onSuccess?.();
+        },
+        onError: () => {
+          toast({
+            variant: 'destructive',
+            title: 'Failed to create template',
+          });
+        },
+      }
+    );
   };
 
   return (

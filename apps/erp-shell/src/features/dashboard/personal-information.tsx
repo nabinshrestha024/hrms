@@ -54,7 +54,7 @@ export const PersonalInformation = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
             <HRCard
-              cardClassName="p-2 border-none bg-[#F9FAFB] rounded-xl shadow-none"
+              cardClassName="p-2 border-none bg-background rounded-xl shadow-none"
               cardContentClassName="flex items-center gap-2 p-0"
             >
               <Hash className="w-4 h-4 text-secondary-foreground" />
@@ -68,7 +68,7 @@ export const PersonalInformation = () => {
               </div>
             </HRCard>
             <HRCard
-              cardClassName="p-2 border-none bg-[#F9FAFB] rounded-xl shadow-none"
+              cardClassName="p-2 border-none bg-background rounded-xl shadow-none"
               cardContentClassName="flex items-center gap-2 p-0"
             >
               <Building2 className="w-4 h-4 text-secondary-foreground" />
@@ -82,7 +82,7 @@ export const PersonalInformation = () => {
               </div>
             </HRCard>
             <HRCard
-              cardClassName="p-2 border-none bg-[#F9FAFB] rounded-xl shadow-none"
+              cardClassName="p-2 border-none bg-background rounded-xl shadow-none"
               cardContentClassName="flex items-center gap-2 p-0"
             >
               <Mail className="w-4 h-4 text-secondary-foreground" />
@@ -98,7 +98,7 @@ export const PersonalInformation = () => {
               </div>
             </HRCard>
             <HRCard
-              cardClassName="p-2 border-none bg-[#F9FAFB] rounded-xl shadow-none"
+              cardClassName="p-2 border-none bg-background rounded-xl shadow-none"
               cardContentClassName="flex items-center gap-2 p-0"
             >
               <Phone className="w-4 h-4 text-secondary-foreground" />

@@ -1,41 +1,41 @@
-import { DocumentHeader } from '../../../components/document-management-header';
-import { AssetType } from '../schema/AllAssetsData';
+import { Can, PERM_SUBJECTS } from '@erp/auth';
+import { type Asset } from '@erp/data-access';
+import { Button, FormDialog, ListPage } from '@erp/ui';
 import { AssetsForm } from './assets-form';
 import { FilteredAssetsTable } from './table/filtered-assets-table';
-import { Button, FormDialog } from '@erp/ui';
 
 interface FilteredAssetsProps {
-  data: AssetType[];
+  data: Asset[];
   category: string;
 }
 export const FilteredAssets = ({ data, category }: FilteredAssetsProps) => {
   const filteredData = data.filter((item) => item.category === category);
   return (
-    <DocumentHeader
-      className="px-0 py-0"
-      data={filteredData}
+    <ListPage<Asset>
+      flat
       title="Asset List"
-      renderTable={(filteredData) => (
-        <FilteredAssetsTable data={filteredData} />
-      )}
+      data={filteredData}
+      renderTable={(rows) => <FilteredAssetsTable data={rows} />}
       actionComponent={
-        <FormDialog
-          trigger={
-            <Button variant="secondary" className="h-10">
-              <span>Add Assets</span>
-            </Button>
-          }
-          title="Assets  Details"
-          okText="Add"
-          size="lg"
-          cancelText="Cancel"
-          formId="assets-form"
-          componentClassName="py-4 pl-4 pr-2"
-        >
-          {({ close }: { close: () => void }) => (
-            <AssetsForm onSuccess={close} />
-          )}
-        </FormDialog>
+        <Can action="create" subject={PERM_SUBJECTS.ASSETS_ITEMS}>
+          <FormDialog
+            trigger={
+              <Button variant="secondary" className="h-10">
+                <span>Add Assets</span>
+              </Button>
+            }
+            title="Assets  Details"
+            okText="Add"
+            size="lg"
+            cancelText="Cancel"
+            formId="assets-form"
+            componentClassName="py-4 pl-4 pr-2"
+          >
+            {({ close }: { close: () => void }) => (
+              <AssetsForm onSuccess={close} />
+            )}
+          </FormDialog>
+        </Can>
       }
     />
   );

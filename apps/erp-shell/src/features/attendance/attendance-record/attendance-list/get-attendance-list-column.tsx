@@ -15,7 +15,7 @@ export function getAttendanceListColumn(): ColumnDef<AttendanceListRecord>[] {
       ),
       meta: {
         className: 'sticky left-0 z-20 bg-white',
-        headerClassName: 'sticky left-0  z-30 bg-[#FAFAFA]',
+        headerClassName: 'sticky left-0  z-30 bg-card',
       },
       cell: ({ row }) => <>{row.getValue('employeeId')}</>,
     },
@@ -26,7 +26,7 @@ export function getAttendanceListColumn(): ColumnDef<AttendanceListRecord>[] {
       ),
       meta: {
         className: 'sticky left-[143px] z-20 bg-white',
-        headerClassName: 'sticky left-[143px]  z-30 bg-[#FAFAFA]',
+        headerClassName: 'sticky left-[143px]  z-30 bg-card',
       },
       cell: ({ row }) => <>{row.getValue('employeeName')}</>,
     },

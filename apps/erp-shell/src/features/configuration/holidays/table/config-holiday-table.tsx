@@ -1,23 +1,19 @@
+import { type Holiday } from '@erp/data-access';
 import { DataTable } from '@erp/ui';
-import { HolidayTableType } from '../../schema/HolidayData';
 import { useConfigurationHolidayTable } from './use-config-holiday-table';
 
 interface HolidayTableProps {
-  data: HolidayTableType[];
+  data: Holiday[];
 }
 
 export const ConfigurationHolidayTable = ({ data }: HolidayTableProps) => {
-  const { columns, table } = useConfigurationHolidayTable({
-    data,
-  });
+  const { columns, table } = useConfigurationHolidayTable({ data });
 
   return (
-    <>
-      <DataTable
-        table={table.table}
-        columns={columns}
-        className="p-0 rounded-none"
-      />
-    </>
+    <DataTable
+      table={table.table}
+      columns={columns}
+      className="p-0 rounded-none"
+    />
   );
 };

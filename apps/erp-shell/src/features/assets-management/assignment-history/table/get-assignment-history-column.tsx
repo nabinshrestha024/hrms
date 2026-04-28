@@ -1,15 +1,16 @@
+import { type Asset } from '@erp/data-access';
 import { Badge, DataTableColumnHeader } from '@erp/ui';
 import type { ColumnDef } from '@tanstack/react-table';
-import { AssetType } from '../../schema/AllAssetsData';
 
-export function getAssignmentHistoryColumns(): ColumnDef<AssetType, unknown>[] {
+export function getAssignmentHistoryColumns(): ColumnDef<Asset, unknown>[] {
   return [
     {
-      accessorKey: 'assetName',
+      accessorKey: 'name',
       header: ({ column }) => (
+        // Header preserved per the original design (typo "Asssets" preserved).
         <DataTableColumnHeader column={column} title="Asssets Name" />
       ),
-      cell: ({ row }) => <>{row.getValue('assetName')}</>,
+      cell: ({ row }) => <>{row.getValue('name')}</>,
     },
     {
       accessorKey: 'assignedTo',
@@ -19,24 +20,22 @@ export function getAssignmentHistoryColumns(): ColumnDef<AssetType, unknown>[] {
       cell: ({ row }) => <>{row.getValue('assignedTo')}</>,
     },
     {
-      accessorKey: 'date',
+      // Schema renamed `date` -> `assignedDate`; column id kept stable.
+      id: 'date',
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Date" />
       ),
-      cell: ({ row }) => <>{row.getValue('date')}</>,
+      cell: ({ row }) => <>{row.original.assignedDate ?? '—'}</>,
     },
-
     {
       accessorKey: 'status',
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Status" />
       ),
-      cell: ({ row }) => {
-        const value = row.getValue('status');
-        return (
-          value === 'Assigned' && <Badge variant="primary">Assigned</Badge>
-        );
-      },
+      cell: ({ row }) =>
+        row.original.status === 'assigned' && (
+          <Badge variant="primary">Assigned</Badge>
+        ),
     },
   ];
 }

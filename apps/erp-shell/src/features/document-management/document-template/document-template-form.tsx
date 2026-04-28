@@ -1,4 +1,5 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
+import { useCreateDocumentTemplate } from '@erp/data-access';
 import { toast } from '@erp/ui';
 import { CloudUpload } from 'lucide-react';
 import { CreateTemplateField } from './create-template-field';
@@ -33,10 +34,10 @@ export const documentTemplateFormConfig = (
     {
       name: 'image',
       type: 'file',
-      Label: 'Upload File',
+      label: 'Upload File',
       icon: CloudUpload,
       validation: { required: false },
-      label: 'Drag and drop to upload a file',
+      placeholder: 'Drag and drop to upload a file',
       subLabel: 'Supported formats: PDF, DOC, DOCX, JPG, PNG (Max 10MB)',
     },
   ],
@@ -57,12 +58,30 @@ export function DocumentTemplateForm({
   onSuccess,
   onCreateTemplate,
 }: documentTemplateFormProps = {}) {
-  const onsubmit = (_data: Record<string, unknown>) => {
-    toast({
-      variant: 'success',
-      title: 'Document uploaded successfully',
-    });
-    onSuccess?.();
+  const createTemplate = useCreateDocumentTemplate();
+
+  const onsubmit = (data: Record<string, unknown>) => {
+    createTemplate.mutate(
+      {
+        name: String(data.documentTitle ?? ''),
+        kind: 'file',
+      },
+      {
+        onSuccess: () => {
+          toast({
+            variant: 'success',
+            title: 'Document uploaded successfully',
+          });
+          onSuccess?.();
+        },
+        onError: () => {
+          toast({
+            variant: 'destructive',
+            title: 'Failed to upload document',
+          });
+        },
+      }
+    );
   };
 
   return (

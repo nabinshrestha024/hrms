@@ -1,66 +1,73 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
+import { useCreateHolidayType } from '@erp/data-access';
 import { toast } from '@erp/ui';
 
 export const addHolidayFormConfig: FormViewConfig = {
-  entity: 'holiday',
+  entity: 'holiday-type',
 
   fields: [
     {
-      name: 'leaveType',
+      name: 'name',
       type: 'text',
-      label: 'Leave Type',
+      label: 'Name',
       placeholder: 'Company Holiday',
       isRequired: true,
-      validation: {
-        required: true,
-      },
+      validation: { required: true },
     },
     {
-      name: 'indicator',
+      name: 'color',
       type: 'colorRadio',
-      label: 'Leave Category',
+      label: 'Indicator',
       isRequired: true,
-      options: ['#EF4444', '#22C55E', '#3B82F6', '#EAB308'],
-      validation: {
-        required: true,
-      },
+      options: ['#EF4444', '#22C55E', '#3B82F6', '#EAB308', '#A855F7'],
+      validation: { required: true },
     },
     {
       name: 'description',
       type: 'textarea',
       label: 'Description',
-      isRequired: true,
-      subLabel: 'Less than 200 words',
-      validation: {
-        required: true,
-        max: 100,
-      },
+      subLabel: 'Less than 500 characters',
+      validation: { max: 500 },
     },
   ],
 
   layout: {
     type: 'section',
     children: [
-      { type: 'field', name: 'leaveType' },
-      { type: 'field', name: 'indicator' },
+      { type: 'field', name: 'name' },
+      { type: 'field', name: 'color' },
       { type: 'field', name: 'description' },
     ],
   },
 };
+
 interface AddHolidayFormProps {
   onSuccess?: () => void;
 }
 
 export function AddHolidayForm({ onSuccess }: AddHolidayFormProps) {
+  const createHolidayType = useCreateHolidayType();
+
   const onsubmit = (data: Record<string, unknown>) => {
-    console.warn('Save Changes:', data);
-
-    toast({
-      variant: 'success',
-      title: 'Holiday Added',
-    });
-
-    onSuccess?.();
+    createHolidayType.mutate(
+      {
+        name: String(data.name ?? ''),
+        color: String(data.color ?? ''),
+        description: data.description ? String(data.description) : undefined,
+      },
+      {
+        onSuccess: () => {
+          toast({ variant: 'success', title: 'Holiday type added' });
+          onSuccess?.();
+        },
+        onError: () => {
+          toast({
+            variant: 'destructive',
+            title: 'Failed to add holiday type',
+          });
+        },
+      }
+    );
   };
 
   return (
@@ -69,7 +76,7 @@ export function AddHolidayForm({ onSuccess }: AddHolidayFormProps) {
       onSubmit={onsubmit}
       submitLabel="Save Holiday"
       isDialogForm={true}
-      fieldsetClassName="max-h-161 overflow-auto "
+      fieldsetClassName="max-h-161 overflow-auto"
     />
   );
 }

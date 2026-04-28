@@ -1,5 +1,9 @@
 import {
-  Button,
+  useCreateShift,
+  type ShiftTypeKind,
+  type Weekday,
+} from '@erp/data-access';
+import {
   Form,
   HRCard,
   HRInput,
@@ -32,10 +36,35 @@ export const ShiftForm = () => {
   } = form;
 
   const close = useDialogClose();
+  const createShift = useCreateShift();
+
   const onsubmit = (data: ShiftTemplateFormValue) => {
-    console.warn('Save Changes: ', data);
-    close();
-    toast({ title: 'Shift Added', variant: 'success' });
+    createShift.mutate(
+      {
+        name: data.shift,
+        code: data.code.toUpperCase(),
+        shiftType: data.shiftType.trim() as ShiftTypeKind,
+        startTime: data.startTime,
+        endTime: data.endTime,
+        breakMinutes: Number(data.break),
+        gracePeriodMinutes: Number(data.grace),
+        overtimeAfterHours: Number(data.overTime),
+        lateInMinutes: Number(data.lateIn),
+        earlyOutMinutes: Number(data.earlyOut),
+        applicableDays: data.applicableDays as Weekday[],
+        isActive: true,
+        isDefault: !!data.defaultShift,
+      },
+      {
+        onSuccess: () => {
+          toast({ title: 'Shift Added', variant: 'success' });
+          close();
+        },
+        onError: () => {
+          toast({ variant: 'destructive', title: 'Failed to add shift' });
+        },
+      }
+    );
   };
   const timeOption = [
     {
@@ -111,7 +140,7 @@ export const ShiftForm = () => {
                 Label="Start Time"
                 isRequired
                 placeholder="9:00 AM"
-                className="py-2.5 rounded-[6px] border border-[#E4E4E7]"
+                className="py-2.5 rounded-[6px] border border-border"
                 error={errors.startTime?.message as string}
                 time={field.value}
                 onTimeChange={field.onChange}
@@ -126,7 +155,7 @@ export const ShiftForm = () => {
                 Label="End Time"
                 isRequired
                 placeholder="6:00 PM"
-                className="py-2.5 rounded-[6px] border border-[#E4E4E7]"
+                className="py-2.5 rounded-[6px] border border-border"
                 error={errors.endTime?.message as string}
                 time={field.value}
                 onTimeChange={field.onChange}

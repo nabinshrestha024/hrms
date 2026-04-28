@@ -1,9 +1,9 @@
+import { type Asset } from '@erp/data-access';
 import { useServerTableState } from '@erp/ui';
-import { AssetType } from '../../schema/AllAssetsData';
 import { getAssignmentHistoryColumns } from './get-assignment-history-column';
 
 interface AssignmentHistoryTableProps {
-  data: AssetType[];
+  data: Asset[];
 }
 
 export function useAssignmentHistoryTable({
@@ -11,11 +11,11 @@ export function useAssignmentHistoryTable({
 }: AssignmentHistoryTableProps) {
   const columns = getAssignmentHistoryColumns();
 
-  const table = useServerTableState<AssetType>({
+  const table = useServerTableState<Asset>({
     data,
     totalCount: data.length,
     columns,
-    getRowId: (row) => row.assetName,
+    getRowId: (row) => row.id,
   });
 
   return {

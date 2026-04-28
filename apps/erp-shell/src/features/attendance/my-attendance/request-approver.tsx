@@ -4,7 +4,7 @@ import { UserCard } from '../../../components/user-card';
 export const RequestApprover = () => {
   return (
     <div className="flex flex-col gap-4">
-      <HRLabel labelClassName="text-[14px] text-[#09090B] font-medium leading-5">
+      <HRLabel labelClassName="text-[14px] text-foreground font-medium leading-5">
         Request Workflow Approvers
       </HRLabel>
       <div className="grid grid-cols-2 gap-4">

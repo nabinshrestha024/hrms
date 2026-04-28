@@ -3,7 +3,11 @@
   "compilerOptions": {
     "allowJs": true,
     "outDir": "out-tsc/playwright",
-    "sourceMap": false
+    "sourceMap": false,
+    // Specs use page.evaluate(() => …) to inspect the DOM inside the
+    // browser context. Including `dom` lets TS type-check those
+    // callbacks against the real DOM globals.
+    "lib": ["ES2022", "DOM"]
   },
   "include": [
     "**/*.ts",

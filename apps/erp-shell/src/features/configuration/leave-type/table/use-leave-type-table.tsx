@@ -1,19 +1,19 @@
+import { type LeaveType } from '@erp/data-access';
 import { useServerTableState } from '@erp/ui';
-import { ConfigurationLeaveType } from '../../schema/LeaveTypeData';
 import { getConfigurationLeaveTypeColumn } from './get-leave-type-column';
 
 interface LeaveTypeTableProps {
-  data: ConfigurationLeaveType[];
+  data: LeaveType[];
 }
 
 export function useConfigurationLeaveTypeTable({ data }: LeaveTypeTableProps) {
   const columns = getConfigurationLeaveTypeColumn();
 
-  const table = useServerTableState<ConfigurationLeaveType>({
+  const table = useServerTableState<LeaveType>({
     data,
     totalCount: data.length,
     columns,
-    getRowId: (row) => row.leaveType,
+    getRowId: (row) => row.id,
   });
 
   return {

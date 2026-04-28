@@ -1,4 +1,5 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
+import { useCreateCurrency } from '@erp/data-access';
 import { toast } from '@erp/ui';
 
 export const addCurrencyFormConfig: FormViewConfig = {
@@ -6,59 +7,78 @@ export const addCurrencyFormConfig: FormViewConfig = {
 
   fields: [
     {
-      name: 'currencyName',
+      name: 'code',
       type: 'text',
-      label: 'Currency Name',
-      placeholder: 'Nepali Rupees',
+      label: 'Code',
+      placeholder: 'NPR',
+      subLabel: 'ISO 4217, three uppercase letters',
       isRequired: true,
       validation: {
         required: true,
+        pattern: '^[A-Z]{3}$',
       },
     },
     {
-      name: 'currencySymbol',
+      name: 'name',
       type: 'text',
-      label: 'Currency Symbol',
+      label: 'Name',
+      placeholder: 'Nepalese Rupee',
+      isRequired: true,
+      validation: { required: true, max: 100 },
+    },
+    {
+      name: 'symbol',
+      type: 'text',
+      label: 'Symbol',
       placeholder: 'e.g. $, €, रू',
       isRequired: true,
-      validation: {
-        required: true,
-      },
+      validation: { required: true, max: 10 },
     },
     {
       name: 'description',
       type: 'textarea',
       label: 'Description',
-      isRequired: true,
-      subLabel: 'Less than 200 words',
-      validation: {
-        required: true,
-        max: 200,
-      },
+      subLabel: 'Optional, less than 500 characters',
+      validation: { max: 500 },
     },
   ],
 
   layout: {
     type: 'section',
     children: [
-      { type: 'field', name: 'currencyName' },
-      { type: 'field', name: 'currencySymbol' },
+      { type: 'field', name: 'code' },
+      { type: 'field', name: 'name' },
+      { type: 'field', name: 'symbol' },
       { type: 'field', name: 'description' },
     ],
   },
 };
+
 interface AddCurrencyFormProps {
   onSuccess?: () => void;
 }
-export function AddCurrencyForm({ onSuccess }: AddCurrencyFormProps) {
-  const onsubmit = (data: Record<string, unknown>) => {
-    console.warn('Save Changes:', data);
-    toast({
-      variant: 'success',
-      title: 'Currency Added',
-    });
 
-    onSuccess?.();
+export function AddCurrencyForm({ onSuccess }: AddCurrencyFormProps) {
+  const createCurrency = useCreateCurrency();
+
+  const onsubmit = (data: Record<string, unknown>) => {
+    createCurrency.mutate(
+      {
+        code: String(data.code ?? ''),
+        name: String(data.name ?? ''),
+        symbol: String(data.symbol ?? ''),
+        description: data.description ? String(data.description) : undefined,
+      },
+      {
+        onSuccess: () => {
+          toast({ variant: 'success', title: 'Currency added' });
+          onSuccess?.();
+        },
+        onError: () => {
+          toast({ variant: 'destructive', title: 'Failed to add currency' });
+        },
+      }
+    );
   };
 
   return (

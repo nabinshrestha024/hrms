@@ -1,18 +1,20 @@
+import { type DocumentCategory } from '@erp/data-access';
 import { useServerTableState } from '@erp/ui';
-import { CategoryType } from '../../schema/CategoryData';
 import { getCategoryColumns } from './get-category-column';
 
 interface CategoryTableProps {
-  data: CategoryType[];
+  data: DocumentCategory[];
 }
 
 export function useCategoryTable({ data }: CategoryTableProps) {
   const columns = getCategoryColumns();
 
-  return useServerTableState<CategoryType>({
+  const tableState = useServerTableState<DocumentCategory>({
     data,
     totalCount: data.length,
     columns,
-    getRowId: (row: CategoryType) => row.documentCategory,
+    getRowId: (row) => row.id,
   });
+
+  return { ...tableState, columns };
 }

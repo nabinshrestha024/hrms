@@ -1,9 +1,9 @@
+import { type Asset } from '@erp/data-access';
 import { DataTable } from '@erp/ui';
-import { AssetType } from '../../schema/AllAssetsData';
 import { useAssetsTable } from './use-all-assets-table';
 
 interface AssetsTableProps {
-  data: AssetType[];
+  data: Asset[];
 }
 
 export const FilteredAssetsTable = ({ data }: AssetsTableProps) => {

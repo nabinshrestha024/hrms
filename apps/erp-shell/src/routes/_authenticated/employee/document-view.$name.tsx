@@ -1,9 +1,19 @@
 import { HRCard } from '@erp/ui';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { ArrowLeft, Dot } from 'lucide-react';
-import { FileView } from '../../../features/employee/employee-details/document/file-view';
-import { TemplateView } from '../../../features/employee/employee-details/document/templete-view';
+import { lazy, Suspense } from 'react';
 import { personalDocumentData } from '../../../features/employee/schema/document-data';
+
+const FileView = lazy(() =>
+  import('../../../features/employee/employee-details/document/file-view').then(
+    (m) => ({ default: m.FileView })
+  )
+);
+const TemplateView = lazy(() =>
+  import(
+    '../../../features/employee/employee-details/document/templete-view'
+  ).then((m) => ({ default: m.TemplateView }))
+);
 
 export const Route = createFileRoute(
   '/_authenticated/employee/document-view/$name'
@@ -50,11 +60,13 @@ function RouteComponent() {
             cardClassName="p-6 rounded-[8px] shadow-none border-none bg-white"
             cardContentClassName="p-0 flex flex-col gap-8"
           >
-            {document.templateName === 'Template' ? (
-              <TemplateView />
-            ) : (
-              <FileView />
-            )}
+            <Suspense fallback={null}>
+              {document.templateName === 'Template' ? (
+                <TemplateView />
+              ) : (
+                <FileView />
+              )}
+            </Suspense>
             <div className="flex flex-col gap-1">
               <span className="text-[14px] text-foreground leading-5 font-medium">
                 Note for Employee

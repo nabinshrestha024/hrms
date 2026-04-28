@@ -12,42 +12,42 @@ export const UserFinancialDetail = () => {
         </div>
         <div className="grid grid-cols-5 gap-4">
           <div className="flex flex-col gap-3">
-            <span className="text-[12px] font-medium leading-4 text-[#71717A]">
+            <span className="text-[12px] font-medium leading-4 text-secondary-foreground">
               Gross Salary
             </span>
-            <span className="text-[14px] font-medium leading-5 text-[#09090B]">
+            <span className="text-[14px] font-medium leading-5 text-foreground">
               600000
             </span>
           </div>
           <div className="flex flex-col gap-3">
-            <span className="text-[12px] font-medium leading-4 text-[#71717A]">
+            <span className="text-[12px] font-medium leading-4 text-secondary-foreground">
               Basic Salary
             </span>
-            <span className="text-[14px] font-medium leading-5 text-[#09090B]">
+            <span className="text-[14px] font-medium leading-5 text-foreground">
               30000
             </span>
           </div>
           <div className="flex flex-col gap-3">
-            <span className="text-[12px] font-medium leading-4 text-[#71717A]">
+            <span className="text-[12px] font-medium leading-4 text-secondary-foreground">
               Bank Name
             </span>
-            <span className="text-[14px] font-medium leading-5 text-[#09090B]">
+            <span className="text-[14px] font-medium leading-5 text-foreground">
               Citizens Bank
             </span>
           </div>
           <div className="flex flex-col gap-3">
-            <span className="text-[12px] font-medium leading-4 text-[#71717A]">
+            <span className="text-[12px] font-medium leading-4 text-secondary-foreground">
               Bank Account Number
             </span>
-            <span className="text-[14px] font-medium leading-5 text-[#09090B]">
+            <span className="text-[14px] font-medium leading-5 text-foreground">
               01010101010101010
             </span>
           </div>
           <div className="flex flex-col gap-3">
-            <span className="text-[12px] font-medium leading-4 text-[#71717A]">
+            <span className="text-[12px] font-medium leading-4 text-secondary-foreground">
               Bank Account Name
             </span>
-            <span className="text-[14px] font-medium leading-5 text-[#09090B]">
+            <span className="text-[14px] font-medium leading-5 text-foreground">
               John Doe
             </span>
           </div>

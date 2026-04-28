@@ -6,7 +6,7 @@ export const BalanceDetails = () => {
       </span>
       <div className="flex gap-6">
         <div className="flex flex-col gap-2">
-          <span className="text-[14px] text-[#18181B] font-medium leading-5">
+          <span className="text-[14px] text-foreground font-medium leading-5">
             20
           </span>
           <span className="text-[12px] text-secondary-foreground font-medium leading-4">
@@ -14,7 +14,7 @@ export const BalanceDetails = () => {
           </span>
         </div>
         <div className="flex flex-col gap-2">
-          <span className="text-[14px] text-[#18181B] font-medium leading-5">
+          <span className="text-[14px] text-foreground font-medium leading-5">
             2
           </span>
           <span className="text-[12px] text-secondary-foreground font-medium leading-4">

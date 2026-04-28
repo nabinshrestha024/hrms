@@ -1,41 +1,55 @@
-import { Button, FormDialog } from '@erp/ui';
-import { DocumentHeader } from '../../../components/document-management-header';
+import { Can, PERM_SUBJECTS } from '@erp/auth';
+import { useLeavePayTypes, type LeavePayType } from '@erp/data-access';
+import { Button, FormDialog, ListPage } from '@erp/ui';
 import { MasterSetupBody } from '../body';
-import { leaveTypeData } from '../schema/LeaveTypeData';
 import { LeaveTypeTable } from './table/leave-type-table';
 import { AddLeaveTypeForm } from './add-leave-type-form';
 
 export const LeaveType = () => {
+  const { data: response } = useLeavePayTypes({ pageSize: 100 });
+  const data: LeavePayType[] = response?.data ?? [];
+
   return (
-    <DocumentHeader
-      title="Currencies"
-      isSearch={true}
-      data={leaveTypeData}
-      actionComponent={
-        <FormDialog
-          trigger={
-            <Button
-              type="button"
-              variant="secondary"
-              size="lg"
-              className="text-[14px] font-medium leading-5 text-white"
-            >
-              Add LeaveType Type
-            </Button>
-          }
-          title="Add New Leave"
-          size="lg"
-          formId="Leave-type-form"
-          okText="Add"
-          cancelText="Cancel"
-        >
-          {({ close }: { close: () => void }) => (
-            <AddLeaveTypeForm onSuccess={close} />
-          )}
-        </FormDialog>
+    <ListPage<LeavePayType>
+      title="Leave Type"
+      search
+      data={data}
+      filterFn={(rows, { search }) =>
+        rows.filter((row) => {
+          const q = search.toLowerCase();
+          return (
+            row.name.toLowerCase().includes(q) ||
+            row.code.toLowerCase().includes(q)
+          );
+        })
       }
-      renderTable={(filteredData) => (
-        <MasterSetupBody component={<LeaveTypeTable data={filteredData} />} />
+      actionComponent={
+        <Can action="create" subject={PERM_SUBJECTS.MASTER_LEAVE_PAY_TYPES}>
+          <FormDialog
+            trigger={
+              <Button
+                type="button"
+                variant="secondary"
+                size="lg"
+                className="text-[14px] font-medium leading-5 text-white"
+              >
+                Add Leave Type
+              </Button>
+            }
+            title="Add New Leave Type"
+            size="lg"
+            formId="leave-pay-type-form"
+            okText="Add"
+            cancelText="Cancel"
+          >
+            {({ close }: { close: () => void }) => (
+              <AddLeaveTypeForm onSuccess={close} />
+            )}
+          </FormDialog>
+        </Can>
+      }
+      renderTable={(rows) => (
+        <MasterSetupBody component={<LeaveTypeTable data={rows} />} />
       )}
     />
   );

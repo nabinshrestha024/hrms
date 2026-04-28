@@ -1,5 +1,5 @@
 import { useEvents, type Event as EventType } from '@erp/data-access';
-import { Badge, HRCard } from '@erp/ui';
+import { Badge, HRCard, Skeleton } from '@erp/ui';
 import { Flag, Gift, PartyPopper, Sparkles } from 'lucide-react';
 import { IconButton } from '../../components/icon-button';
 import { getSortData } from '@erp/utils';
@@ -22,10 +22,17 @@ export const Event = () => {
         <div className="text-[18px] text-foreground font-medium leading-7">
           Events & Celebrations
         </div>
-        <div className="flex-1 flex items-center justify-center">
-          <span className="text-sm text-secondary-foreground animate-pulse">
-            Loading...
-          </span>
+        <div className="flex flex-col gap-3">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="flex gap-3 p-2">
+              <Skeleton className="h-6 w-6 rounded-sm" />
+              <div className="flex-1 flex flex-col gap-2">
+                <Skeleton className="h-4 w-2/3" />
+                <Skeleton className="h-3 w-full" />
+              </div>
+              <Skeleton className="h-6 w-20 rounded-full" />
+            </div>
+          ))}
         </div>
       </HRCard>
     );

@@ -1,12 +1,12 @@
+import { type MissingDocument } from '@erp/data-access';
 import { Badge, Button, DataTableColumnHeader, FormDialog } from '@erp/ui';
 import type { ColumnDef } from '@tanstack/react-table';
 import { Eye } from 'lucide-react';
-import { MissingDocumentType } from '../../schema/MissingDocumnetData';
 import { MissingDocumentCard } from '../missing-document-card';
 import { UserCard } from '../../../../components/user-card';
 
 export function getMissingDocumentColumns(): ColumnDef<
-  MissingDocumentType,
+  MissingDocument,
   unknown
 >[] {
   return [
@@ -38,26 +38,25 @@ export function getMissingDocumentColumns(): ColumnDef<
       ),
       cell: ({ row }) => <>{row.getValue('branch')}</>,
     },
-
     {
-      accessorKey: 'missingDocument',
+      // Count column — derived from the array length rather than a stored field.
+      id: 'missingDocument',
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Missing Document" />
       ),
-      cell: ({ row }) => <>{row.getValue('missingDocument')}</>,
+      cell: ({ row }) => <>{row.original.missingDocs.length}</>,
     },
-
     {
       accessorKey: 'priority',
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Priority" />
       ),
       cell: ({ row }) => {
-        const value = row.getValue('priority');
+        const value = row.original.priority;
 
-        if (value === 'Low') return <Badge variant="default">Low</Badge>;
-        if (value === 'High') return <Badge variant="destructive">High</Badge>;
-        if (value === 'Medium') return <Badge variant="warning">Medium</Badge>;
+        if (value === 'low') return <Badge variant="default">Low</Badge>;
+        if (value === 'high') return <Badge variant="destructive">High</Badge>;
+        if (value === 'medium') return <Badge variant="warning">Medium</Badge>;
 
         return null;
       },

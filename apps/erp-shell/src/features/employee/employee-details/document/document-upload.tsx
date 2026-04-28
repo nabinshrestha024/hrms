@@ -76,7 +76,7 @@ export const DocumentUpload = ({
                 <Button
                   type="button"
                   variant="secondary"
-                  className="text-[#FAFAFA] text-[14px] font-medium leading-5 cursor-pointer"
+                  className="text-card text-[14px] font-medium leading-5 cursor-pointer"
                 >
                   {secondaryButton}
                 </Button>
@@ -101,10 +101,10 @@ export const DocumentUpload = ({
             <FileUpload
               key={val.title}
               isRequired={true}
-              className="relative border border-[#E4E4E7] rounded-[12px] p-4 cursor-pointer flex justify-between"
+              className="relative border border-border rounded-[12px] p-4 cursor-pointer flex justify-between"
               cardClassName="flex gap-2 items-center"
               titleClassName="flex flex-col gap-1"
-              iconClassName=" w-8 h-8 flex items-center justify-center bg-[#F4F4F5] rounded-sm"
+              iconClassName=" w-8 h-8 flex items-center justify-center bg-muted rounded-sm"
               iconClass="w-4 h-4"
               icon={val.icon}
               label={val.title}
@@ -124,7 +124,7 @@ export const DocumentUpload = ({
             return (
               <HRCard
                 key={val.title}
-                cardClassName="relative border border-[#E4E4E7] rounded-[12px] p-4 cursor-pointer flex justify-between"
+                cardClassName="relative border border-border rounded-[12px] p-4 cursor-pointer flex justify-between"
                 cardContentClassName="flex justify-between p-0"
               >
                 <div className="flex gap-2 items-center p-0">

@@ -1,43 +1,44 @@
-import { DocumentHeader } from '../../../components/document-management-header';
-import { Button, FormDialog } from '@erp/ui';
+import { Can, PERM_SUBJECTS } from '@erp/auth';
+import { useAssets, type Asset } from '@erp/data-access';
+import { Button, FormDialog, ListPage } from '@erp/ui';
 import { AssetsTable } from './table/all-assets-table';
-import { assetsData } from '../schema/AllAssetsData';
 import { AssetsForm } from './assets-form';
 
 export const Assets = () => {
-  return (
-    <DocumentHeader
-      data={assetsData}
-      title="All Assets"
-      isSearch={true}
-      renderTable={(filteredData) => <AssetsTable data={filteredData} />}
-      filterFn={(data, search) => {
-        return data.filter((item) => {
-          const matchesSearch = item.assetName
-            .toLowerCase()
-            .includes(search.toLowerCase());
+  const { data: response } = useAssets({ pageSize: 100 });
+  const data: Asset[] = response?.data ?? [];
 
-          return matchesSearch;
-        });
-      }}
+  return (
+    <ListPage<Asset>
+      title="All Assets"
+      search
+      data={data}
+      renderTable={(rows) => <AssetsTable data={rows} />}
+      filterFn={(rows, { search }) =>
+        rows.filter((item) =>
+          item.name.toLowerCase().includes(search.toLowerCase())
+        )
+      }
       actionComponent={
-        <FormDialog
-          trigger={
-            <Button variant="secondary" className="h-10">
-              <span>Add Assets</span>
-            </Button>
-          }
-          title="Assets  Details"
-          okText="Add"
-          size="lg"
-          cancelText="Cancel"
-          formId="assets-form"
-          componentClassName="py-4 pl-4 pr-2"
-        >
-          {({ close }: { close: () => void }) => (
-            <AssetsForm onSuccess={close} />
-          )}
-        </FormDialog>
+        <Can action="create" subject={PERM_SUBJECTS.ASSETS_ITEMS}>
+          <FormDialog
+            trigger={
+              <Button variant="secondary" className="h-10">
+                <span>Add Assets</span>
+              </Button>
+            }
+            title="Assets  Details"
+            okText="Add"
+            size="lg"
+            cancelText="Cancel"
+            formId="assets-form"
+            componentClassName="py-4 pl-4 pr-2"
+          >
+            {({ close }: { close: () => void }) => (
+              <AssetsForm onSuccess={close} />
+            )}
+          </FormDialog>
+        </Can>
       }
     />
   );

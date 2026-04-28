@@ -13,24 +13,24 @@ export const LeaveDetails = ({ leaveData }: LeaveDetailsProps) => {
     <>
       <div className="flex flex-col">
         <HRCard
-          cardClassName="py-3 px-0 border-none shadow-none rounded-none bg-[#FFF]"
+          cardClassName="py-3 px-0 border-none shadow-none rounded-none bg-white"
           cardContentClassName="p-0 flex justify-between items-end"
         >
           <div className="flex gap-2 ">
             <InitialsCard name="John Doe" />
             <div className="flex flex-col gap-0.5">
-              <span className="text-[16px] font-medium leading-6 text-[#09090B]">
+              <span className="text-[16px] font-medium leading-6 text-foreground">
                 John Doe
               </span>
               <div className="flex items-center gap-2">
-                <span className="text-[14px] font-medium leading-5 text-[#09090B]">
+                <span className="text-[14px] font-medium leading-5 text-foreground">
                   {leaveData.leave}
                 </span>
                 <Badge variant="default">Monthly</Badge>
               </div>
             </div>
           </div>
-          <span className="text-[14px] font-medium leading-4 text-[#09090B]">
+          <span className="text-[14px] font-medium leading-4 text-foreground">
             Current: {remaining}
           </span>
         </HRCard>

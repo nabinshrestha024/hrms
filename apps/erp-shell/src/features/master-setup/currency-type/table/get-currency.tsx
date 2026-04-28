@@ -1,33 +1,32 @@
+import { type Currency } from '@erp/data-access';
+import { DataTableColumnHeader } from '@erp/ui';
 import type { ColumnDef } from '@tanstack/react-table';
 import { Edit, Trash2 } from 'lucide-react';
-import type { CurrencyDataType } from '../../schema/CurrencyData';
 import { IconButton } from '../../../../components/icon-button';
-import { DataTableColumnHeader } from '@erp/ui';
 
-export function getCurrencyColumn(): ColumnDef<CurrencyDataType>[] {
+export function getCurrencyColumn(): ColumnDef<Currency>[] {
   return [
     {
-      accessorKey: 'currencyName',
+      accessorKey: 'code',
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Currency Name" />
+        <DataTableColumnHeader column={column} title="Code" />
       ),
-      cell: ({ row }) => <>{row.getValue('currencyName')}</>,
+      cell: ({ row }) => <>{row.getValue('code')}</>,
     },
     {
-      accessorKey: 'currencySymbol',
+      accessorKey: 'symbol',
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Currency Symbol" />
+        <DataTableColumnHeader column={column} title="Symbol" />
       ),
-      cell: ({ row }) => <>{row.getValue('currencySymbol')}</>,
+      cell: ({ row }) => <>{row.getValue('symbol')}</>,
     },
     {
-      accessorKey: 'details',
+      accessorKey: 'name',
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Details" />
+        <DataTableColumnHeader column={column} title="Name" />
       ),
-      cell: ({ row }) => <>{row.getValue('details')}</>,
+      cell: ({ row }) => <>{row.getValue('name')}</>,
     },
-
     {
       id: 'actions',
       header: 'Action',

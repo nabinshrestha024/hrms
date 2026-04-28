@@ -26,10 +26,10 @@ export const uploadDocumentFormConfig: FormViewConfig = {
     {
       name: 'image',
       type: 'file',
-      Label: 'Upload File',
+      label: 'Upload File',
       icon: CloudUpload,
       validation: { required: false },
-      label: 'Drag and drop to upload a file',
+      placeholder: 'Drag and drop to upload a file',
       subLabel: 'Supported formats: PDF, DOC, DOCX, JPG, PNG (Max 10MB)',
     },
     {

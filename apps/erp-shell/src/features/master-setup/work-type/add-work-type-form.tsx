@@ -1,4 +1,5 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
+import { useCreateWorkType } from '@erp/data-access';
 import { toast } from '@erp/ui';
 
 export const addWorkTypeFormConfig: FormViewConfig = {
@@ -6,50 +7,54 @@ export const addWorkTypeFormConfig: FormViewConfig = {
 
   fields: [
     {
-      name: 'workType',
+      name: 'name',
       type: 'text',
       label: 'Work Type Name',
-      placeholder: 'Intern',
+      placeholder: 'Hybrid',
       isRequired: true,
-      validation: {
-        required: true,
-      },
+      validation: { required: true, max: 100 },
     },
     {
       name: 'description',
       type: 'textarea',
       label: 'Description',
-      isRequired: true,
-      subLabel: 'Less than 200 words',
-      validation: {
-        required: true,
-        max: 200,
-      },
+      subLabel: 'Optional, less than 500 characters',
+      validation: { max: 500 },
     },
   ],
 
   layout: {
     type: 'section',
     children: [
-      { type: 'field', name: 'workType' },
+      { type: 'field', name: 'name' },
       { type: 'field', name: 'description' },
     ],
   },
 };
+
 interface AddWorkTypeFormProps {
   onSuccess?: () => void;
 }
 
 export function AddWorkTypeForm({ onSuccess }: AddWorkTypeFormProps) {
+  const createWorkType = useCreateWorkType();
+
   const onsubmit = (data: Record<string, unknown>) => {
-    console.warn('Save Changes:', data);
-
-    toast({
-      variant: 'success',
-      title: 'Work Type Added',
-    });
-
-    onSuccess?.();
+    createWorkType.mutate(
+      {
+        name: String(data.name ?? ''),
+        description: data.description ? String(data.description) : undefined,
+      },
+      {
+        onSuccess: () => {
+          toast({ variant: 'success', title: 'Work type added' });
+          onSuccess?.();
+        },
+        onError: () => {
+          toast({ variant: 'destructive', title: 'Failed to add work type' });
+        },
+      }
+    );
   };
 
   return (

@@ -28,18 +28,18 @@ export const LeaveBalanceCard = () => {
           return (
             <HRCard
               key={items.leave}
-              cardClassName="p-6 border-l-4 border-r border-b border-t border-[#615FFF] rounded-xl shadow-sm bg-[#FFF]"
+              cardClassName="p-6 border-l-4 border-r border-b border-t border-outline rounded-xl shadow-sm bg-white"
               cardContentClassName=" p-0"
             >
               <div className="flex flex-col gap-3">
                 <div className="flex justify-between">
                   <div className="flex flex-col gap-1">
-                    <div className="text-[12px] font-medium leading-4 text-[#71717A]">
+                    <div className="text-[12px] font-medium leading-4 text-secondary-foreground">
                       {items.leave}
                     </div>
-                    <div className="text-[24px] font-normal text-[#312C85] flex gap-2 items-end">
+                    <div className="text-[24px] font-normal text-secondary flex gap-2 items-end">
                       {items.day}.0
-                      <span className="text-[12px] leading-4 font-normal text-[#71717A]">
+                      <span className="text-[12px] leading-4 font-normal text-secondary-foreground">
                         Days Left
                       </span>
                     </div>
@@ -49,7 +49,7 @@ export const LeaveBalanceCard = () => {
                     aria-label="View leave history"
                     onClick={() => setDetailsTarget(items)}
                   >
-                    <History className="text-[16px] text-[#615FFF]" />
+                    <History className="text-[16px] text-outline" />
                   </button>
                 </div>
 

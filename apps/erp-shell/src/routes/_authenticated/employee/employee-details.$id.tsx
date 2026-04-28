@@ -1,8 +1,14 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import { lazy, Suspense } from 'react';
 import { useEmployee } from '@erp/data-access';
 import { ArrowLeft } from 'lucide-react';
 import { HRCard, Skeleton } from '@erp/ui';
-import { EmployeeDetail } from '../../../features/employee/employee-detail';
+
+const EmployeeDetail = lazy(() =>
+  import('../../../features/employee/employee-detail').then((m) => ({
+    default: m.EmployeeDetail,
+  }))
+);
 
 export const Route = createFileRoute(
   '/_authenticated/employee/employee-details/$id'
@@ -50,7 +56,7 @@ function RouteComponent() {
         cardContentClassName="p-0 flex flex-col gap-8"
       >
         <HRCard
-          cardClassName="w-full p-6 bg-white border border-[#E4E4E7] rounded-xl shadow-sm"
+          cardClassName="w-full p-6 bg-white border border-border rounded-xl shadow-sm"
           cardContentClassName="p-0 flex flex-col gap-4"
         >
           <div className="flex gap-3">
@@ -95,7 +101,9 @@ function RouteComponent() {
           </div>
         </HRCard>
 
-        <EmployeeDetail employee={employee} />
+        <Suspense fallback={null}>
+          <EmployeeDetail employee={employee} />
+        </Suspense>
       </HRCard>
     </div>
   );

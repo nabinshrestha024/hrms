@@ -1,4 +1,8 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
+import {
+  useCreateAssetCategory,
+  type AssetCategoryIconKey,
+} from '@erp/data-access';
 import { toast } from '@erp/ui';
 
 export const assetsCategoryFormConfig: FormViewConfig = {
@@ -30,7 +34,13 @@ export const assetsCategoryFormConfig: FormViewConfig = {
       type: 'select',
       label: 'Icon',
       isRequired: true,
-      options: ['General'],
+      options: [
+        'electronics',
+        'furniture',
+        'vehicle',
+        'it-equipment',
+        'cleanliness',
+      ],
       validation: { required: true },
     },
   ],
@@ -49,15 +59,26 @@ interface CategoryFormProps {
 }
 
 export function AssetsCategoryForm({ onSuccess }: CategoryFormProps = {}) {
+  const createCategory = useCreateAssetCategory();
+
   const onsubmit = (data: Record<string, unknown>) => {
-    console.warn('Save Changes:', data);
-
-    toast({
-      variant: 'success',
-      title: 'Category added',
-    });
-
-    onSuccess?.();
+    createCategory.mutate(
+      {
+        name: String(data.categoryName ?? ''),
+        iconKey: String(data.icons ?? 'electronics') as AssetCategoryIconKey,
+        assetCount: 0,
+        exampleAssets: [],
+      },
+      {
+        onSuccess: () => {
+          toast({ variant: 'success', title: 'Category added' });
+          onSuccess?.();
+        },
+        onError: () => {
+          toast({ variant: 'destructive', title: 'Failed to add category' });
+        },
+      }
+    );
   };
 
   return (

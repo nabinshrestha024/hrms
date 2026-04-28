@@ -10,10 +10,10 @@ export const OverTimeWorkFlow = () => {
       >
         <CircleCheckBig className="text-[20px]" />
         <div className="flex flex-col gap-1 items-center">
-          <span className="text-[16px] font-medium text-[#71717A] leading-6">
+          <span className="text-[16px] font-medium text-secondary-foreground leading-6">
             No Custom Pipeline Defined
           </span>
-          <span className="text-[14px] font-normal text-[#71717A] leading-5">
+          <span className="text-[14px] font-normal text-secondary-foreground leading-5">
             Requests will follow the company's global default rules.
           </span>
         </div>

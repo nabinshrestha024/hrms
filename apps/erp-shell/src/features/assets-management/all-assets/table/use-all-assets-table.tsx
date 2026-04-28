@@ -1,19 +1,19 @@
+import { type Asset } from '@erp/data-access';
 import { useServerTableState } from '@erp/ui';
-import { AssetType } from '../../schema/AllAssetsData';
 import { getAssetsColumns } from './get-all-assets-column';
 
 interface AssetsTableProps {
-  data: AssetType[];
+  data: Asset[];
 }
 
 export function useAssetsTable({ data }: AssetsTableProps) {
   const columns = getAssetsColumns();
 
-  const table = useServerTableState<AssetType>({
+  const table = useServerTableState<Asset>({
     data,
     totalCount: data.length,
     columns,
-    getRowId: (row) => row.assetName,
+    getRowId: (row) => row.id,
   });
 
   return {

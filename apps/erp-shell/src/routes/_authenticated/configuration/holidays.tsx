@@ -1,5 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { ConfigHolidayHeader } from '../../../features/configuration/holidays/holidays-header';
+import { lazy, Suspense } from 'react';
+
+const ConfigHolidayHeader = lazy(() =>
+  import('../../../features/configuration/holidays/holidays-header').then(
+    (m) => ({ default: m.ConfigHolidayHeader })
+  )
+);
 
 export const Route = createFileRoute('/_authenticated/configuration/holidays')({
   component: RouteComponent,
@@ -12,7 +18,9 @@ export const Route = createFileRoute('/_authenticated/configuration/holidays')({
 function RouteComponent() {
   return (
     <div className="w-full max-h-[calc(100vh-120px)] overflow-auto bg-background">
-      <ConfigHolidayHeader />
+      <Suspense fallback={null}>
+        <ConfigHolidayHeader />
+      </Suspense>
     </div>
   );
 }

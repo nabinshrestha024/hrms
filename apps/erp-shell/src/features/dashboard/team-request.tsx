@@ -1,4 +1,4 @@
-import { HRCard, HRTabs } from '@erp/ui';
+import { HRCard, HRTabs, Skeleton } from '@erp/ui';
 import {
   useTeamRequests,
   type TeamRequest as TeamRequestType,
@@ -20,10 +20,21 @@ export const TeamRequest = () => {
         <div className="text-[18px] text-foreground font-medium leading-7">
           Team Request
         </div>
-        <div className="flex-1 flex items-center justify-center">
-          <span className="text-sm text-secondary-foreground animate-pulse">
-            Loading...
-          </span>
+        <div className="flex gap-4 border-b border-border pb-2">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <Skeleton key={i} className="h-6 w-16" />
+          ))}
+        </div>
+        <div className="flex flex-col gap-3 pr-3">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} className="flex justify-between items-center p-2">
+              <div className="flex flex-col gap-2">
+                <Skeleton className="h-4 w-32" />
+                <Skeleton className="h-3 w-48" />
+              </div>
+              <Skeleton className="h-6 w-20 rounded-full" />
+            </div>
+          ))}
         </div>
       </HRCard>
     );

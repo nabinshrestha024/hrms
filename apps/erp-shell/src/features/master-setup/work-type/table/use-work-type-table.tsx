@@ -1,19 +1,19 @@
+import { type WorkType } from '@erp/data-access';
 import { useServerTableState } from '@erp/ui';
-import { WorkTypeDataType } from '../../schema/WorkTypeData';
 import { getWorkTypeColumn } from './get-work-type';
 
 interface WorkTableProps {
-  data: WorkTypeDataType[];
+  data: WorkType[];
 }
 
 export function useWorkTable({ data }: WorkTableProps) {
   const columns = getWorkTypeColumn();
 
-  const table = useServerTableState<WorkTypeDataType>({
+  const table = useServerTableState<WorkType>({
     data,
     totalCount: data.length,
     columns,
-    getRowId: (row) => row.worktype,
+    getRowId: (row) => row.id,
   });
 
   return {

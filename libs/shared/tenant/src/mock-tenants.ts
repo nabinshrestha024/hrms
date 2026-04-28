@@ -67,8 +67,14 @@ export const MOCK_TENANTS: Record<string, TenantConfig> = {
     },
     theme: {
       colors: {
-        primary: '#4f39f6',
-        primaryForeground: '#e0e7ff',
+        // Acme overrides three core tokens (primary brand, card surface,
+        // info accent) to demonstrate the tenant theming pipeline. Demo
+        // tenant uses defaults from app.css :root.
+        primary: '#0F766E', // teal/700 — Acme brand
+        primaryForeground: '#CCFBF1', // teal/100
+        card: '#F0FDFA', // teal/50 — surface tint
+        info: '#0EA5E9', // sky/500
+        infoForeground: '#F0F9FF',
         background: '#f9fafb',
         foreground: 'oklch(0.145 0.004 286)',
         muted: '#f4f4f5',
