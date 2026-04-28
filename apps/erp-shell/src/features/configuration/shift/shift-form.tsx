@@ -140,7 +140,7 @@ export const ShiftForm = () => {
                 Label="Start Time"
                 isRequired
                 placeholder="9:00 AM"
-                className="py-2.5 rounded-[6px] border border-[#E4E4E7]"
+                className="py-2.5 rounded-[6px] border border-border"
                 error={errors.startTime?.message as string}
                 time={field.value}
                 onTimeChange={field.onChange}
@@ -155,7 +155,7 @@ export const ShiftForm = () => {
                 Label="End Time"
                 isRequired
                 placeholder="6:00 PM"
-                className="py-2.5 rounded-[6px] border border-[#E4E4E7]"
+                className="py-2.5 rounded-[6px] border border-border"
                 error={errors.endTime?.message as string}
                 time={field.value}
                 onTimeChange={field.onChange}

@@ -19,12 +19,12 @@ export const ConfigHolidayCard = () => {
       {configHolidayData.map((items, index) => (
         <HRCard
           key={index}
-          cardClassName="p-4 border-l-4 border-r border-b border-t border-[#615FFF] rounded-xl shadow-sm bg-[#FFF]"
+          cardClassName="p-4 border-l-4 border-r border-b border-t border-outline rounded-xl shadow-sm bg-white"
           cardContentClassName=" p-0"
         >
           <div className="flex flex-col gap-3">
             <div className="flex justify-between">
-              <div className="text-[12px] font-medium leading-4 text-[#3F3F46]">
+              <div className="text-[12px] font-medium leading-4 text-foreground">
                 {items.holidayType}
               </div>
 
@@ -34,7 +34,7 @@ export const ConfigHolidayCard = () => {
               ></div>
             </div>
 
-            <div className="text-[32px] text-[#010178] font-normal">
+            <div className="text-[32px] text-badge-text-8 font-normal">
               {items.days}
             </div>
           </div>

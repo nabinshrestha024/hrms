@@ -29,7 +29,7 @@ export const ApprovalWorkflow = () => {
       <div className="flex flex-col gap-4">
         <HRCard
           cardContentClassName="p-0 flex flex-col gap-1 "
-          cardClassName="px-3 py-2.5 border border-[#F1F5F9] rounded-[6px] shadow-none bg-[#F8FAFC]"
+          cardClassName="px-3 py-2.5 border border-border rounded-[6px] shadow-none bg-card"
         >
           <span className="text-[14px] leading-5 font-medium text-foreground">
             Leave Approval Flow:
@@ -39,7 +39,7 @@ export const ApprovalWorkflow = () => {
               Employee Apply
             </Badge>
             <ArrowRight className="w-3 h-3 text-secondary-foreground" />
-            <Badge variant="primary" className="text-white bg-[#155DFC]">
+            <Badge variant="primary" className="text-white bg-badge-text-5">
               Manager Review
             </Badge>
             <ArrowRight className="w-3 h-3 text-secondary-foreground" />

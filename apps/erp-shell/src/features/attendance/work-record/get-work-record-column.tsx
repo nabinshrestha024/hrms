@@ -7,10 +7,10 @@ const statusConfig: Record<
   AttendanceStatus,
   { label: string; className: string }
 > = {
-  P: { label: 'P', className: 'text-green-600 bg-[#DCFCE7]' },
-  A: { label: 'A', className: 'text-red-600 bg-[#FFE2E2]' },
-  L: { label: 'L', className: 'text-blue-600 bg-[#DBEAFE]' },
-  H: { label: '-', className: 'text-gray-400 bg-[#F4F4F5]' },
+  P: { label: 'P', className: 'text-green-600 bg-chart-2' },
+  A: { label: 'A', className: 'text-red-600 bg-chart-3' },
+  L: { label: 'L', className: 'text-blue-600 bg-chart-5' },
+  H: { label: '-', className: 'text-gray-400 bg-muted' },
 };
 
 export function getWorkRecordColumn(): ColumnDef<WorkRecord>[] {
@@ -30,14 +30,14 @@ export function getWorkRecordColumn(): ColumnDef<WorkRecord>[] {
         <div className="text-center text-[12px] flex flex-col">
           <span
             className={`font-medium leading-4 ${
-              isWeekend ? 'text-[#FF6467]' : 'text-secondary-foreground'
+              isWeekend ? 'text-destructive' : 'text-secondary-foreground'
             }`}
           >
             {format(day, 'MMM')}
           </span>
           <span
             className={`font-semibold leading-5 ${
-              isWeekend ? 'text-[#E7000B]' : 'text-foreground'
+              isWeekend ? 'text-destructive' : 'text-foreground'
             }`}
           >
             {format(day, 'd')}
@@ -72,7 +72,7 @@ export function getWorkRecordColumn(): ColumnDef<WorkRecord>[] {
       ),
       meta: {
         className: 'sticky left-0 z-20 bg-white',
-        headerClassName: 'sticky left-0  z-30 bg-[#FAFAFA]',
+        headerClassName: 'sticky left-0  z-30 bg-card',
       },
       cell: ({ row }) => <>{row.getValue('employeeName')}</>,
     },
@@ -83,7 +83,7 @@ export function getWorkRecordColumn(): ColumnDef<WorkRecord>[] {
       ),
       meta: {
         className: 'sticky left-[168px] z-20 bg-white',
-        headerClassName: 'sticky left-[168px]  z-30 bg-[#FAFAFA]',
+        headerClassName: 'sticky left-[168px]  z-30 bg-card',
       },
       cell: ({ row }) => <>{row.getValue('branch')}</>,
     },

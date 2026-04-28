@@ -165,7 +165,7 @@ export const CommonOptionForm = () => {
                   value={field.value}
                   onValueChange={field.onChange}
                   className="flex gap-3"
-                  itemClassName="border-[#A1A1AA]"
+                  itemClassName="border-muted-foreground"
                   error={errors.accrualFrequency?.message as string}
                 />
               )}
@@ -190,7 +190,7 @@ export const CommonOptionForm = () => {
                   value={field.value}
                   onValueChange={field.onChange}
                   className="flex gap-3"
-                  itemClassName="border-[#A1A1AA]"
+                  itemClassName="border-muted-foreground"
                   disabled={!isGenderBased}
                 />
               )}

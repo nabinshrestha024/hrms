@@ -27,7 +27,7 @@ export const CategoryCard = ({ data }: CategoryProps) => {
               cardClassName={`p-4  rounded-xl bg-white shadow-[0_1px_2px_0_rgba(0,0,0,0.05)] cursor-pointer ${
                 category === items.name
                   ? 'border-2 border-primary'
-                  : 'border border-[#E4E4E7]'
+                  : 'border border-border'
               }`}
               cardContentClassName="flex flex-col gap-4 p-0"
               onClick={() => {

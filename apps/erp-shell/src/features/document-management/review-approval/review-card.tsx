@@ -61,7 +61,7 @@ export const ReviewApprovalCard = ({ data }: ReviewApprovalCardProps) => {
                   </div>
                 </div>
 
-                <div className="flex gap-2 text-[#71717A] text-[12px] font-normal items-center">
+                <div className="flex gap-2 text-secondary-foreground text-[12px] font-normal items-center">
                   <div className="flex gap-1 items-center">
                     <FileInput className="w-4 h-4 " /> {items.type}
                   </div>
@@ -73,7 +73,7 @@ export const ReviewApprovalCard = ({ data }: ReviewApprovalCardProps) => {
                   </div>
                 </div>
                 {items.status === 'rejected' && (
-                  <div className="text-[12px] text-[#E7000B] mt-3">
+                  <div className="text-[12px] text-destructive mt-3">
                     <span className="font-semibold mr-0.5">
                       Rejection Reason:
                     </span>
@@ -137,7 +137,7 @@ const ReviewActions = ({ document }: { document: DocumentReview }) => {
             <Button
               type="button"
               variant="destructive"
-              className="flex items-center gap-2 bg-[#E7000B]"
+              className="flex items-center gap-2 bg-destructive"
             >
               <X /> Reject
             </Button>

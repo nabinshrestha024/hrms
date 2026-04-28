@@ -23,35 +23,35 @@ export const LeaveRequestDetail = ({ employeeId }: LeaveRequestDetailProps) => {
   return (
     <>
       <div className="flex flex-col gap-3">
-        <div className="flex flex-col border p-3 rounded-xl bg-[#F4F4F5] border-[#E4E4E7] shadow-sm gap-3">
-          <span className="text-[12px] text-[#71717A] font-medium leading-4">
+        <div className="flex flex-col border p-3 rounded-xl bg-muted border-border shadow-sm gap-3">
+          <span className="text-[12px] text-secondary-foreground font-medium leading-4">
             Available Balance
           </span>
           <div className="flex justify-between items-center">
             <div className="flex gap-6">
               <div className="flex flex-col gap-2">
-                <span className="text-[12px] text-[#18181B] font-medium leading-5">
+                <span className="text-[12px] text-foreground font-medium leading-5">
                   20
                 </span>
-                <span className="text-[12px] text-[#71717A] font-medium leading-4">
+                <span className="text-[12px] text-secondary-foreground font-medium leading-4">
                   Annual Leave
                 </span>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="text-[12px] text-[#18181B] font-medium leading-5">
+                <span className="text-[12px] text-foreground font-medium leading-5">
                   2
                 </span>
-                <span className="text-[12px] text-[#71717A] font-medium leading-4">
+                <span className="text-[12px] text-secondary-foreground font-medium leading-4">
                   Sick Leave
                 </span>
               </div>
             </div>
             <div
               className={`px-3 py-0.5 rounded-[400px] text-[14px] font-semibold leading-4 text-center ${
-                isPending ? 'bg-[#FEF9C2] text-yellow-600' : ''
+                isPending ? 'bg-chart-4 text-yellow-600' : ''
               }
-             ${isApproved ? 'bg-[#DCFCE7] text-green-600' : ''}
-            ${isRejected ? 'bg-[#FFE2E2] text-red-600' : ''}
+             ${isApproved ? 'bg-chart-2 text-green-600' : ''}
+            ${isRejected ? 'bg-chart-3 text-red-600' : ''}
             `}
             >
               {isPending && 'Pending'}
@@ -63,43 +63,43 @@ export const LeaveRequestDetail = ({ employeeId }: LeaveRequestDetailProps) => {
         <div className="flex flex-col gap-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col gap-1">
-              <span className="text-[14px] text-[#71717A] font-medium leading-5">
+              <span className="text-[14px] text-secondary-foreground font-medium leading-5">
                 Date Duration
               </span>
-              <span className="text-[14px] text-[#18181B] font-medium leading-5 py-2.5">
+              <span className="text-[14px] text-foreground font-medium leading-5 py-2.5">
                 {employee?.duration}
               </span>
             </div>
             <div className="flex flex-col gap-1">
-              <span className="text-[14px] text-[#71717A] font-medium leading-5">
+              <span className="text-[14px] text-secondary-foreground font-medium leading-5">
                 Type/ Duration
               </span>
-              <span className="text-[14px] text-[#18181B] font-medium leading-5 py-2.5 flex items-center">
+              <span className="text-[14px] text-foreground font-medium leading-5 py-2.5 flex items-center">
                 {employee?.type}
                 <Dot className="w-4 h-4" />
                 {employee?.totalDays}
               </span>
             </div>
             <div className="flex flex-col gap-1">
-              <span className="text-[14px] text-[#71717A] font-medium leading-5">
+              <span className="text-[14px] text-secondary-foreground font-medium leading-5">
                 Substitution
               </span>
-              <span className="text-[14px] text-[#18181B] font-medium leading-5 py-2.5">
+              <span className="text-[14px] text-foreground font-medium leading-5 py-2.5">
                 Roniya Maharjan
               </span>
             </div>
             <div className="flex flex-col gap-1">
-              <span className="text-[14px] text-[#71717A] font-medium leading-5">
+              <span className="text-[14px] text-secondary-foreground font-medium leading-5">
                 Attachment
               </span>
-              <span className="text-[14px] text-[#18181B] font-medium leading-5 py-2.5"></span>
+              <span className="text-[14px] text-foreground font-medium leading-5 py-2.5"></span>
             </div>
           </div>
-          <div className="flex flex-col border p-3 rounded-xl bg-[#F4F4F5] border-[#E4E4E7] gap-2">
-            <span className="text-[12px] text-[#71717A] font-medium leading-4">
+          <div className="flex flex-col border p-3 rounded-xl bg-muted border-border gap-2">
+            <span className="text-[12px] text-secondary-foreground font-medium leading-4">
               Reason
             </span>
-            <span className="text-[12px] text-[#71717A] font-normal leading-4">
+            <span className="text-[12px] text-secondary-foreground font-normal leading-4">
               {employee?.reason}
             </span>
           </div>

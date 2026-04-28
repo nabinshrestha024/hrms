@@ -22,7 +22,7 @@ export const EmployeeCard = ({ data }: EmployeeCardProps) => {
               return (
                 <HRCard
                   key={items.id}
-                  cardClassName="relative p-4 border border-[#E4E4E7] rounded-xl bg-white shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]"
+                  cardClassName="relative p-4 border border-border rounded-xl bg-white shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]"
                   cardContentClassName="flex flex-col gap-4 p-0"
                 >
                   <div className="flex gap-2 items-center">

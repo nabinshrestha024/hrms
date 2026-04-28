@@ -38,7 +38,7 @@ export const Time = ({ data }: TimeProps) => {
             {val.status === 'Pending' && (
               <Badge
                 variant="warning"
-                className="border border-chart-4 bg-[#FEFCE8]"
+                className="border border-chart-4 bg-chart-6"
               >
                 Pending
               </Badge>

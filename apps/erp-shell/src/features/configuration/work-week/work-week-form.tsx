@@ -319,11 +319,11 @@ export const WorkWeekForm = () => {
             </HRCard>
           </HRCard>
         </div>
-        <div className="h-22 sticky bottom-5 top-0 z-10 bg-white  p-6 rounded-b-xl border-t border-[#E4E4E7] flex justify-end gap-6">
+        <div className="h-22 sticky bottom-5 top-0 z-10 bg-white  p-6 rounded-b-xl border-t border-border flex justify-end gap-6">
           <Button
             type="button"
             variant="outline"
-            className="text-[14px] font-medium leading-5 text-[#A6A6A6] "
+            className="text-[14px] font-medium leading-5 text-muted-foreground "
           >
             Cancel
           </Button>

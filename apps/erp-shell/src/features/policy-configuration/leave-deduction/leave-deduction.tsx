@@ -61,7 +61,7 @@ export const LeaveDeduction = () => {
               </div>
               {leaveDeduction.example && (
                 <HRCard
-                  cardClassName="px-3 py-2.5 border border-border rounded-[6px] bg-[#EFF6FF] shadow-none"
+                  cardClassName="px-3 py-2.5 border border-border rounded-[6px] bg-alert-background shadow-none"
                   cardContentClassName="p-0 flex flex-col gap-1"
                 >
                   <span className="text-[12px] font-medium leading-4 text-foreground">

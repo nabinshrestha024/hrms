@@ -19,13 +19,13 @@ export const MyAttendanceDetails = () => {
         {cardData.map((items) => (
           <HRCard
             key={items.event}
-            cardClassName="p-6 border-l-4 border-l-[#615FFF] border-b-none border-r-none border-t-none rounded-xl shadow-none bg-[#EEF2FF]"
+            cardClassName="p-6 border-l-4 border-l-outline border-b-none border-r-none border-t-none rounded-xl shadow-none bg-primary-foreground"
             cardContentClassName="flex flex-col gap-2 p-0"
           >
             <div className="text-[12px] font-medium leading-4">
               {items.event}
             </div>
-            <div className="text-[32px] font-normal text-[#312C85]">
+            <div className="text-[32px] font-normal text-secondary">
               {items.days}
             </div>
           </HRCard>

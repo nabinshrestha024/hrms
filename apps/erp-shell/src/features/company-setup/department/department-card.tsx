@@ -16,7 +16,7 @@ export const DepartmentCard = ({
 }: DepartmentCardProps) => {
   return (
     <>
-      <div className="px-6 pb-19.5 bg-[#F9FAFB]">
+      <div className="px-6 pb-19.5 bg-background">
         <HRCard
           cardClassName="p-6 border-none rounded-xl bg-white shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]"
           cardContentClassName="grid grid-cols-4 gap-4 p-0"
@@ -24,7 +24,7 @@ export const DepartmentCard = ({
           {data.map((items) => (
             <HRCard
               key={items.id}
-              cardClassName="p-4 border border-[#E4E4E7] rounded-xl bg-white shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]"
+              cardClassName="p-4 border border-border rounded-xl bg-white shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]"
               cardContentClassName="flex flex-col gap-4 p-0"
             >
               <div className="flex justify-between items-center">

@@ -283,8 +283,11 @@ export default [
         },
       ],
       'no-console': ['warn', { allow: ['error'] }],
+      // Phase 6.1 acceptance gate met (2026-04-28): codemod migrated all
+      // 168 baseline hex/oklch literals to design tokens. Escalate to
+      // 'error' so any new literal blocks the build.
       'no-restricted-syntax': [
-        'warn',
+        'error',
         {
           selector:
             'JSXAttribute[name.name="className"] Literal[value=/#[0-9a-fA-F]{3,8}|oklch\\(/]',

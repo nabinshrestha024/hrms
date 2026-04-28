@@ -16,7 +16,7 @@ export const DirectoriesCard = ({ data }: { data: DirectoriesType[] }) => {
               <div className="flex gap-3 items-center">
                 <InitialsCard
                   name={item.employeeName}
-                  className="bg-[#18181B]"
+                  className="bg-foreground"
                 />
                 <div className="flex flex-col">
                   <span className="text-[16px] font-medium text-foreground">

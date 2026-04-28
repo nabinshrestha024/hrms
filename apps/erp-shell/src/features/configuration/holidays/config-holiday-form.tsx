@@ -99,7 +99,7 @@ export const ConfigHolidayForm = () => {
                 Label="Start Date"
                 isRequired
                 placeholder="2026-03-10"
-                className="py-2.5 rounded-[6px] border border-[#E4E4E7]"
+                className="py-2.5 rounded-[6px] border border-border"
                 error={errors.date?.message as string}
                 date={field.value}
                 onDateChange={field.onChange}

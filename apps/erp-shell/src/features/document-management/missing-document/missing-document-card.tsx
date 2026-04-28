@@ -24,7 +24,7 @@ export const MissingDocumentCard = ({ id }: MissingDocumentCardProps) => {
             {val.missingDocs.map((doc, i) => (
               <div
                 key={i}
-                className="p-3 bg-chart-6 border border-[#FFF085] rounded-xl text-[14px] font-medium leading-5"
+                className="p-3 bg-chart-6 border border-chart-4 rounded-xl text-[14px] font-medium leading-5"
               >
                 {doc}
               </div>

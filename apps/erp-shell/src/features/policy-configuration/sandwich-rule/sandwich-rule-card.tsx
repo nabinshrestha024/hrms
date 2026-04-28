@@ -25,7 +25,7 @@ const sandwichRuleCardData = [
 export const SandwichRuleCard = () => {
   return (
     <HRCard
-      cardClassName="px-3 py-2.5 border border-border rounded-[6px] bg-[#FFF7ED] shadow-none"
+      cardClassName="px-3 py-2.5 border border-border rounded-[6px] bg-chart-4 shadow-none"
       cardContentClassName="p-0 flex flex-col gap-3"
     >
       <span className="text-[14px] font-medium leading-5 text-foreground">

@@ -52,7 +52,7 @@ export const EmployeeManagement = () => {
       />
 
       <Dialog open={addOpen} onOpenChange={setAddOpen}>
-        <DialogContent className="max-w-screen p-4 bg-[#F9FAFB] sm:max-w-186.75">
+        <DialogContent className="max-w-screen p-4 bg-background sm:max-w-186.75">
           <EmployeeForm setOpen={setAddOpen} />
         </DialogContent>
       </Dialog>

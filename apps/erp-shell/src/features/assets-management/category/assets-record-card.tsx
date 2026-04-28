@@ -32,7 +32,7 @@ export const AssetsRecordCard = () => {
         return (
           <HRCard
             key={val.reportName}
-            cardClassName="p-6 border-l-4 border-r border-b border-t border-[#615FFF] rounded-xl shadow-sm bg-[#FFF]"
+            cardClassName="p-6 border-l-4 border-r border-b border-t border-outline rounded-xl shadow-sm bg-white"
             cardContentClassName=" p-0 flex justify-betweem"
           >
             <div className="flex-1">

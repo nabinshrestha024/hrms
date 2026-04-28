@@ -13,26 +13,26 @@ export const UserEmergencyDetail = () => {
 
         <div className="grid grid-cols-5 gap-4">
           <div className="flex flex-col gap-3">
-            <span className="text-[12px] font-medium leading-4 text-[#71717A]">
+            <span className="text-[12px] font-medium leading-4 text-secondary-foreground">
               Emergency Contact
             </span>
-            <span className="text-[14px] font-medium leading-5 text-[#09090B]">
+            <span className="text-[14px] font-medium leading-5 text-foreground">
               9800000000
             </span>
           </div>
           <div className="flex flex-col gap-3">
-            <span className="text-[12px] font-medium leading-4 text-[#71717A]">
+            <span className="text-[12px] font-medium leading-4 text-secondary-foreground">
               Emergency Contact Name
             </span>
-            <span className="text-[14px] font-medium leading-5 text-[#09090B]">
+            <span className="text-[14px] font-medium leading-5 text-foreground">
               Sita Thapa
             </span>
           </div>
           <div className="flex flex-col gap-3">
-            <span className="text-[12px] font-medium leading-4 text-[#71717A]">
+            <span className="text-[12px] font-medium leading-4 text-secondary-foreground">
               Emergency Contact Relation
             </span>
-            <span className="text-[14px] font-medium leading-5 text-[#09090B]">
+            <span className="text-[14px] font-medium leading-5 text-foreground">
               Relative
             </span>
           </div>

@@ -16,7 +16,7 @@ export const MasterSetupBody = ({ component }: BodyProps) => {
         >
           {component}
           <CustomAlert
-            icon={<Info className="text-[24px] text-[#A1A1AA]" />}
+            icon={<Info className="text-[24px] text-muted-foreground" />}
             title="Administration Tip:"
             titleClassName="text-[12px] leading-4 text-foreground font-medium"
             description="These categories define the baseline for employee profiles and payroll calculations. Modifying Job Levels or Currencies may affect existing records."
