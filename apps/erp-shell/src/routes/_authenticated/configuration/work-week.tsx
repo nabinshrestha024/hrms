@@ -1,6 +1,12 @@
 import { ContentShell } from '@erp/ui';
+import { lazy, Suspense } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
-import { WorkWeekForm } from '../../../features/configuration/work-week/work-week-form';
+
+const WorkWeekForm = lazy(() =>
+  import('../../../features/configuration/work-week/work-week-form').then(
+    (m) => ({ default: m.WorkWeekForm })
+  )
+);
 
 export const Route = createFileRoute('/_authenticated/configuration/work-week')(
   {
@@ -15,7 +21,9 @@ export const Route = createFileRoute('/_authenticated/configuration/work-week')(
 function RouteComponent() {
   return (
     <ContentShell title="Company Profile">
-      <WorkWeekForm />
+      <Suspense fallback={null}>
+        <WorkWeekForm />
+      </Suspense>
     </ContentShell>
   );
 }

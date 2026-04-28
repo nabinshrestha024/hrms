@@ -1,6 +1,12 @@
 import { ContentShell } from '@erp/ui';
+import { lazy, Suspense } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
-import { Assets } from '../../../features/assets-management/all-assets/assets';
+
+const Assets = lazy(() =>
+  import('../../../features/assets-management/all-assets/assets').then((m) => ({
+    default: m.Assets,
+  }))
+);
 
 export const Route = createFileRoute(
   '/_authenticated/assets-management/all-assets'
@@ -15,7 +21,9 @@ export const Route = createFileRoute(
 function RouteComponent() {
   return (
     <ContentShell>
-      <Assets />
+      <Suspense fallback={null}>
+        <Assets />
+      </Suspense>
     </ContentShell>
   );
 }

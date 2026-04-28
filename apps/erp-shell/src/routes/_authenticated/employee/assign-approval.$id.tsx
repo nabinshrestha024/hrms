@@ -1,8 +1,14 @@
 import { useEmployee } from '@erp/data-access';
+import { lazy, Suspense } from 'react';
 import { HRCard } from '@erp/ui';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { ArrowLeft, Dot } from 'lucide-react';
-import { AssignApproval } from '../../../features/employee/assign-approval/assign-approval-tab';
+
+const AssignApproval = lazy(() =>
+  import('../../../features/employee/assign-approval/assign-approval-tab').then(
+    (m) => ({ default: m.AssignApproval })
+  )
+);
 
 export const Route = createFileRoute(
   '/_authenticated/employee/assign-approval/$id'
@@ -65,7 +71,9 @@ function RouteComponent() {
             cardClassName="w-full p-6 bg-white border-none rounded-xl shadow-none"
             cardContentClassName="p-0 flex flex-col gap-8"
           >
-            <AssignApproval employeeId={id} />
+            <Suspense fallback={null}>
+              <AssignApproval employeeId={id} />
+            </Suspense>
           </HRCard>
         </div>
       </div>

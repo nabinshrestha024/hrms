@@ -1,6 +1,12 @@
 import { ContentShell } from '@erp/ui';
+import { lazy, Suspense } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
-import { AttendanceDetail } from '../../../features/attendance/attendance-record/attendance-detail';
+
+const AttendanceDetail = lazy(() =>
+  import(
+    '../../../features/attendance/attendance-record/attendance-detail'
+  ).then((m) => ({ default: m.AttendanceDetail }))
+);
 
 export const Route = createFileRoute('/_authenticated/attendance/')({
   component: RouteComponent,
@@ -13,7 +19,9 @@ export const Route = createFileRoute('/_authenticated/attendance/')({
 function RouteComponent() {
   return (
     <ContentShell title="Attendance Record" padded>
-      <AttendanceDetail />
+      <Suspense fallback={null}>
+        <AttendanceDetail />
+      </Suspense>
     </ContentShell>
   );
 }

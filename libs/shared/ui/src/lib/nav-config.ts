@@ -1,7 +1,6 @@
 import type { LucideIcon } from 'lucide-react';
 import {
   ChartPie,
-  UserCog,
   Calendar,
   Building2,
   Users,
@@ -66,13 +65,6 @@ export const navModules: NavModule[] = [
     label: 'Dashboard',
     icon: ChartPie,
     href: '/dashboard',
-  },
-  {
-    id: '',
-    label: '',
-    icon: UserCog,
-    href: '',
-    modules: ['hr'],
   },
   {
     id: 'calendar',

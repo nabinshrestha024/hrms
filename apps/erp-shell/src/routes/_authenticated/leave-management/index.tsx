@@ -1,6 +1,12 @@
 import { ContentShell } from '@erp/ui';
+import { lazy, Suspense } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
-import { LeaveRequest } from '../../../features/leave-management/leave-request/leave-request';
+
+const LeaveRequest = lazy(() =>
+  import('../../../features/leave-management/leave-request/leave-request').then(
+    (m) => ({ default: m.LeaveRequest })
+  )
+);
 
 export const Route = createFileRoute('/_authenticated/leave-management/')({
   component: RouteComponent,
@@ -10,7 +16,9 @@ export const Route = createFileRoute('/_authenticated/leave-management/')({
 function RouteComponent() {
   return (
     <ContentShell title="Leave Request" padded>
-      <LeaveRequest />
+      <Suspense fallback={null}>
+        <LeaveRequest />
+      </Suspense>
     </ContentShell>
   );
 }

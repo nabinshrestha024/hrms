@@ -1,5 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { BranchManagement } from '../../../features/company-setup/branch/branch-management';
+import { lazy, Suspense } from 'react';
+
+const BranchManagement = lazy(() =>
+  import('../../../features/company-setup/branch/branch-management').then(
+    (m) => ({ default: m.BranchManagement })
+  )
+);
 
 export const Route = createFileRoute('/_authenticated/company-setup/branch')({
   component: RouteComponent,
@@ -12,7 +18,9 @@ export const Route = createFileRoute('/_authenticated/company-setup/branch')({
 function RouteComponent() {
   return (
     <div className="w-full max-h-[calc(100vh-120px)] overflow-auto bg-background">
-      <BranchManagement />
+      <Suspense fallback={null}>
+        <BranchManagement />
+      </Suspense>
     </div>
   );
 }

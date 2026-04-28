@@ -1,6 +1,12 @@
 import { ContentShell } from '@erp/ui';
+import { lazy, Suspense } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
-import { JobLevel } from '../../../features/master-setup/job-level/job-level';
+
+const JobLevel = lazy(() =>
+  import('../../../features/master-setup/job-level/job-level').then((m) => ({
+    default: m.JobLevel,
+  }))
+);
 
 export const Route = createFileRoute('/_authenticated/master-setup/job-level')({
   component: RouteComponent,
@@ -13,7 +19,9 @@ export const Route = createFileRoute('/_authenticated/master-setup/job-level')({
 function RouteComponent() {
   return (
     <ContentShell className="bg-background">
-      <JobLevel />
+      <Suspense fallback={null}>
+        <JobLevel />
+      </Suspense>
     </ContentShell>
   );
 }

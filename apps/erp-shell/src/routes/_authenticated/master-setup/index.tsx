@@ -1,6 +1,12 @@
 import { ContentShell } from '@erp/ui';
+import { lazy, Suspense } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
-import { Holiday } from '../../../features/master-setup/holiday/holiday';
+
+const Holiday = lazy(() =>
+  import('../../../features/master-setup/holiday/holiday').then((m) => ({
+    default: m.Holiday,
+  }))
+);
 
 export const Route = createFileRoute('/_authenticated/master-setup/')({
   component: RouteComponent,
@@ -13,7 +19,9 @@ export const Route = createFileRoute('/_authenticated/master-setup/')({
 function RouteComponent() {
   return (
     <ContentShell className="bg-background">
-      <Holiday />
+      <Suspense fallback={null}>
+        <Holiday />
+      </Suspense>
     </ContentShell>
   );
 }

@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import {
   personalInformationSchema,
   type PersonalInfromationFormValue,
-} from './PersonalInfromationZod';
+} from './PersonalInformationZod';
 import { useUpdateEmployee, type Employee } from '@erp/data-access';
 import { HRDateField, HRInput, toast } from '@erp/ui';
 

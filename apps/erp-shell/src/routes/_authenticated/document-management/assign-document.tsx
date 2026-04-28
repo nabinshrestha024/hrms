@@ -1,5 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { AssignDocumentForm } from '../../../features/document-management/assign-document/assign-document-form';
+import { lazy, Suspense } from 'react';
+
+const AssignDocumentForm = lazy(() =>
+  import(
+    '../../../features/document-management/assign-document/assign-document-form'
+  ).then((m) => ({ default: m.AssignDocumentForm }))
+);
 
 export const Route = createFileRoute(
   '/_authenticated/document-management/assign-document'
@@ -18,7 +24,9 @@ function RouteComponent() {
         Assign Document
       </div>
       <div className="px-6">
-        <AssignDocumentForm />
+        <Suspense fallback={null}>
+          <AssignDocumentForm />
+        </Suspense>
       </div>
     </div>
   );

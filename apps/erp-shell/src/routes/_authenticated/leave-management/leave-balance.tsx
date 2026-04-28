@@ -1,6 +1,12 @@
 import { ContentShell } from '@erp/ui';
+import { lazy, Suspense } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
-import { LeaveBalanceCard } from '../../../features/employee/employee-details/leave-balance/leave-balance-card';
+
+const LeaveBalanceCard = lazy(() =>
+  import(
+    '../../../features/employee/employee-details/leave-balance/leave-balance-card'
+  ).then((m) => ({ default: m.LeaveBalanceCard }))
+);
 
 export const Route = createFileRoute(
   '/_authenticated/leave-management/leave-balance'
@@ -12,7 +18,9 @@ export const Route = createFileRoute(
 function RouteComponent() {
   return (
     <ContentShell title="Leave Balance" padded>
-      <LeaveBalanceCard />
+      <Suspense fallback={null}>
+        <LeaveBalanceCard />
+      </Suspense>
     </ContentShell>
   );
 }

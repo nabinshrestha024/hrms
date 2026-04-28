@@ -241,6 +241,7 @@ export type {
 } from './components/list-page';
 export { ContentShell } from './components/content-shell';
 export type { ContentShellProps } from './components/content-shell';
+export { QueryBoundary } from './components/query-boundary';
 
 // Data table components
 export {

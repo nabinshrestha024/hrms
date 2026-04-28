@@ -2,7 +2,7 @@ import type { Employee } from '@erp/data-access';
 import { useServerTableState } from '@erp/ui';
 import { useNavigate } from '@tanstack/react-router';
 import { useMemo } from 'react';
-import { getEmployeeColumns } from './getEmployeeColumn';
+import { getEmployeeColumns } from './get-employee-column';
 
 interface EmployeeTableProps {
   data: Employee[];

@@ -1,5 +1,5 @@
 import { useMyAttendance, type Attendance } from '@erp/data-access';
-import { HRCard } from '@erp/ui';
+import { HRCard, Skeleton } from '@erp/ui';
 import { CalendarClock, CircleX, Clock4, ClockAlert } from 'lucide-react';
 import { IconButton } from '../../components/icon-button';
 import { getSortData } from '@erp/utils';
@@ -21,10 +21,17 @@ export const MyAttendance = () => {
         <div className="text-[18px] text-foreground font-medium leading-7">
           My Attendance
         </div>
-        <div className="flex-1 flex items-center justify-center">
-          <span className="text-sm text-secondary-foreground animate-pulse">
-            Loading...
-          </span>
+        <div className="flex flex-col gap-3">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="flex gap-3 p-2">
+              <Skeleton className="h-6 w-6 rounded-sm" />
+              <div className="flex-1 flex flex-col gap-2">
+                <Skeleton className="h-3 w-1/4" />
+                <Skeleton className="h-3 w-2/3" />
+              </div>
+              <Skeleton className="h-8 w-12" />
+            </div>
+          ))}
         </div>
       </HRCard>
     );

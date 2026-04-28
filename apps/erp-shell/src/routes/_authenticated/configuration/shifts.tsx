@@ -1,5 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { ShiftHeader } from '../../../features/configuration/shift/shift-header';
+import { lazy, Suspense } from 'react';
+
+const ShiftHeader = lazy(() =>
+  import('../../../features/configuration/shift/shift-header').then((m) => ({
+    default: m.ShiftHeader,
+  }))
+);
 
 export const Route = createFileRoute('/_authenticated/configuration/shifts')({
   component: RouteComponent,
@@ -12,7 +18,9 @@ export const Route = createFileRoute('/_authenticated/configuration/shifts')({
 function RouteComponent() {
   return (
     <div className="w-full max-h-[calc(100vh-120px)] overflow-auto bg-background">
-      <ShiftHeader />
+      <Suspense fallback={null}>
+        <ShiftHeader />
+      </Suspense>
     </div>
   );
 }

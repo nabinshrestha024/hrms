@@ -1,5 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { DepartmentManagement } from '../../../features/company-setup/department/department-management';
+import { lazy, Suspense } from 'react';
+
+const DepartmentManagement = lazy(() =>
+  import(
+    '../../../features/company-setup/department/department-management'
+  ).then((m) => ({ default: m.DepartmentManagement }))
+);
 
 export const Route = createFileRoute(
   '/_authenticated/company-setup/department'
@@ -14,7 +20,9 @@ export const Route = createFileRoute(
 function RouteComponent() {
   return (
     <div className="w-full max-h-[calc(100vh-120px)] overflow-auto bg-background">
-      <DepartmentManagement />
+      <Suspense fallback={null}>
+        <DepartmentManagement />
+      </Suspense>
     </div>
   );
 }

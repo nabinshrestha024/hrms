@@ -1,5 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { ReviewApprovalManagement } from '../../../features/document-management/review-approval/review-approval-management';
+import { lazy, Suspense } from 'react';
+
+const ReviewApprovalManagement = lazy(() =>
+  import(
+    '../../../features/document-management/review-approval/review-approval-management'
+  ).then((m) => ({ default: m.ReviewApprovalManagement }))
+);
 
 export const Route = createFileRoute(
   '/_authenticated/document-management/review-approval'
@@ -14,7 +20,9 @@ export const Route = createFileRoute(
 function RouteComponent() {
   return (
     <div className="w-full max-h-[calc(100vh-120px)] overflow-auto bg-background">
-      <ReviewApprovalManagement />
+      <Suspense fallback={null}>
+        <ReviewApprovalManagement />
+      </Suspense>
     </div>
   );
 }
