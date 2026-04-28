@@ -39,9 +39,16 @@ export function FormRenderer({
 
   const schema = useMemo(() => buildZodSchema(config.fields), [config.fields]);
 
+  // Prop-level `defaultValues` takes precedence over the config-level one,
+  // so callers can override per call without rewriting the config.
+  const mergedDefaults = useMemo(
+    () => ({ ...config.defaultValues, ...defaultValues }),
+    [config.defaultValues, defaultValues]
+  );
+
   const form = useForm({
     resolver: zodResolver(schema),
-    defaultValues: defaultValues as Record<string, unknown>,
+    defaultValues: mergedDefaults as Record<string, unknown>,
     mode: 'all',
   });
 
