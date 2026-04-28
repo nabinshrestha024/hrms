@@ -1,15 +1,21 @@
 import { useState } from 'react';
+import { Can, PERM_SUBJECTS } from '@erp/auth';
+import {
+  useDocumentTemplates,
+  type DocumentTemplate as DocumentTemplateRecord,
+} from '@erp/data-access';
 import { Button, ControlledFormDialog } from '@erp/ui';
 import { PageHeader } from '../../../components/page-header';
 import { DocumentTemplateCard } from './document-template-card';
 import { DocumentTemplateForm } from './document-template-form';
 import { CreateTemplateForm } from './create-document-form';
-import { documentTemplateData } from '../schema/DocumentTemplateData';
 import { ChevronLeft } from 'lucide-react';
 
 export const DocumentTemplate = () => {
   const [openUpload, setOpenUpload] = useState(false);
   const [openCreate, setOpenCreate] = useState(false);
+  const { data: response } = useDocumentTemplates({ pageSize: 100 });
+  const data: DocumentTemplateRecord[] = response?.data ?? [];
 
   return (
     <>
@@ -17,17 +23,19 @@ export const DocumentTemplate = () => {
         title="Document Template"
         isSearch={true}
         isTabs={false}
-        data={documentTemplateData}
+        data={data}
         actionComponent={
-          <Button
-            type="button"
-            variant="secondary"
-            size="lg"
-            className="text-[14px] font-medium leading-5 text-white"
-            onClick={() => setOpenUpload(true)}
-          >
-            Create Document
-          </Button>
+          <Can action="create" subject={PERM_SUBJECTS.DOCUMENTS_TEMPLATES}>
+            <Button
+              type="button"
+              variant="secondary"
+              size="lg"
+              className="text-[14px] font-medium leading-5 text-white"
+              onClick={() => setOpenUpload(true)}
+            >
+              Create Document
+            </Button>
+          </Can>
         }
         renderCard={(filtered) => <DocumentTemplateCard data={filtered} />}
         renderTable={(filtered) => <></>}

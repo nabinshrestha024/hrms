@@ -1,26 +1,27 @@
+import { type WorkType } from '@erp/data-access';
+import { DataTableColumnHeader } from '@erp/ui';
 import type { ColumnDef } from '@tanstack/react-table';
 import { Edit, Trash2 } from 'lucide-react';
-import { WorkTypeDataType } from '../../schema/WorkTypeData';
 import { IconButton } from '../../../../components/icon-button';
-import { DataTableColumnHeader } from '@erp/ui';
 
-export function getWorkTypeColumn(): ColumnDef<WorkTypeDataType>[] {
+export function getWorkTypeColumn(): ColumnDef<WorkType>[] {
   return [
     {
-      accessorKey: 'worktype',
+      accessorKey: 'name',
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Work Type" />
       ),
-      cell: ({ row }) => <>{row.getValue('worktype')}</>,
+      cell: ({ row }) => <>{row.getValue('name')}</>,
     },
     {
-      accessorKey: 'details',
+      // Schema field is `description`; column label kept as "Details"
+      // to preserve the original design.
+      accessorKey: 'description',
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Details" />
       ),
-      cell: ({ row }) => <>{row.getValue('details')}</>,
+      cell: ({ row }) => <>{row.getValue('description') ?? '—'}</>,
     },
-
     {
       id: 'actions',
       header: 'Action',

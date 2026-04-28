@@ -1,5 +1,28 @@
 import { Badge, HRCard, Switch } from '@erp/ui';
-import { leaveDeductionData } from '../schema/LeaveDeductionData';
+
+const leaveDeductionData = [
+  {
+    leaveTitle: 'Exclude Public Holidays from Leave Count',
+    leaveSubTitle:
+      'Holidays from the Mater Holiday Calendar will be automatically excluded',
+    example: [
+      'Dashain holidays:  Tuesday to Friday (4 days)',
+      'Employee applies:   Monday to Saturday (6 days)',
+      'System deducts: 2 days only (Monday + Saturday)',
+    ],
+  },
+  {
+    leaveTitle: 'Exlude Weekly Offs Working Days',
+    leaveSubTitle:
+      'Weekly off days (Saturday/Sunday) within leave period won’t be deducted unless Sandwich Rule applies',
+    badge: 'Subject to Sandwich Rule',
+  },
+  {
+    leaveTitle: 'Auto-Calculate Working Days',
+    leaveSubTitle:
+      'Automatically calculate actual working days when processing leave requests',
+  },
+];
 
 export const LeaveDeduction = () => {
   return (
@@ -38,7 +61,7 @@ export const LeaveDeduction = () => {
               </div>
               {leaveDeduction.example && (
                 <HRCard
-                  cardClassName="px-3 py-2.5 border border-border rounded-[6px] bg-[#EFF6FF] shadow-none"
+                  cardClassName="px-3 py-2.5 border border-border rounded-[6px] bg-alert-background shadow-none"
                   cardContentClassName="p-0 flex flex-col gap-1"
                 >
                   <span className="text-[12px] font-medium leading-4 text-foreground">

@@ -50,6 +50,12 @@
 
   --color-card-text: var(--card-text);
   --color-outline: var(--outline);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
   --color-sidebar: var(--sidebar);
   --color-alert-background: var(--alert-background);
   --color-sidebar-foreground: var(--sidebar-foreground);
@@ -124,6 +130,14 @@
   --badge-text-7: #00a63e;
   --badge-text-8: #010178;
 
+  /* Semantic status tokens — used by toasts, badges, alerts. */
+  --info: #2563eb; /* blue/600 */
+  --info-foreground: #eff6ff; /* blue/50 */
+  --success: #00a63e; /* green/600 */
+  --success-foreground: #dcfce7; /* green/100 */
+  --warning: #ca8a04; /* amber/600 */
+  --warning-foreground: #fef9c2; /* amber/100 */
+
   --radius: 0.5rem;
   --sidebar: oklch(0.07 0 0); /* #0D0E0F near-black */
   --sidebar-foreground: #ececec1a;
@@ -157,6 +171,12 @@
   --border: oklch(0.269 0.005 286); /* #27272A */
   --input: oklch(0.269 0.005 286);
   --ring: oklch(0.54 0.26 277);
+  --info: oklch(0.55 0.22 256);
+  --info-foreground: oklch(0.985 0 0);
+  --success: oklch(0.6 0.18 145);
+  --success-foreground: oklch(0.985 0 0);
+  --warning: oklch(0.75 0.18 86);
+  --warning-foreground: oklch(0.145 0.004 286);
   --chart-1: oklch(0.54 0.26 277);
   --chart-2: oklch(0.65 0.2 145);
   --chart-3: oklch(0.65 0.22 27);

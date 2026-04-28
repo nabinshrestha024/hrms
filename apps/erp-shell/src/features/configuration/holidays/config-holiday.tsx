@@ -1,10 +1,12 @@
+import { type Holiday } from '@erp/data-access';
 import { HRCard } from '@erp/ui';
 import { ConfigHolidayCard } from './holiday-card';
 import { ConfigurationHolidayTable } from './table/config-holiday-table';
-import { HolidayTableType } from '../schema/HolidayData';
+
 interface HolidayTableProps {
-  data: HolidayTableType[];
+  data: Holiday[];
 }
+
 export const ConfigHoliday = ({ data }: HolidayTableProps) => {
   return (
     <div className="px-6 pt-0 pb-32.5">

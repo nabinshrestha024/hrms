@@ -1,4 +1,5 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
+import { useCreateDocumentCategory } from '@erp/data-access';
 import { toast } from '@erp/ui';
 
 export const addCategoryFormConfig: FormViewConfig = {
@@ -22,10 +23,24 @@ interface categoryFormProps {
   onSuccess?: () => void;
 }
 export function CategoryForm({ onSuccess }: categoryFormProps = {}) {
+  const createCategory = useCreateDocumentCategory();
+
   const onsubmit = (data: Record<string, unknown>) => {
-    console.warn('Category: ', data);
-    toast({ variant: 'success', title: 'Category created' });
-    onSuccess?.();
+    createCategory.mutate(
+      {
+        name: String(data.categoryName ?? ''),
+        documentCount: 0,
+      },
+      {
+        onSuccess: () => {
+          toast({ variant: 'success', title: 'Category created' });
+          onSuccess?.();
+        },
+        onError: () => {
+          toast({ variant: 'destructive', title: 'Failed to create category' });
+        },
+      }
+    );
   };
 
   return (

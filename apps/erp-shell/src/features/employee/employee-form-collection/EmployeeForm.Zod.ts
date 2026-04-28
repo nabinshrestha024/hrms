@@ -1,5 +1,30 @@
 import z from 'zod';
 
+// ---------------------------------------------------------------------------
+// Form-level validation for the multi-step "Add Employee" wizard.
+//
+// This schema is *not* the canonical entity schema — that lives in
+// `@erp/data-access` as `employeeSchema` / `createEmployeeSchema`. The
+// form schema enforces UX-only constraints (regex, age ≥ 16, file
+// instance for the avatar upload, all-fields-required because the
+// wizard is the create path) that don't belong on the API entity.
+//
+// Field-name mapping applied at submit time in `employee-form.tsx`:
+//
+//   form (UX-friendly)        canonical (`CreateEmployeeInput`)
+//   ─────────────────────     ────────────────────────────────────
+//   phoneNumber               phone
+//   workPhoneNumber           workPhone
+//   joiningDate (Date)        startDate (ISO YYYY-MM-DD)
+//   dateOfBirth (Date)        dateOfBirth (ISO YYYY-MM-DD)
+//   contractStartDate (Date)  contractStartDate (ISO YYYY-MM-DD)
+//   contractEndDate (Date)    contractEndDate (ISO YYYY-MM-DD)
+//   reportingManager          managerId
+//   grossSalary (string)      salary (number)
+//   basicSalary (string)      basicSalary (number)
+//   image (File)              avatar (URL — uploaded separately, future)
+// ---------------------------------------------------------------------------
+
 export const employeeSchema = z.object({
   firstName: z.string().min(1, 'First name is required'),
   middleName: z.string().optional(),

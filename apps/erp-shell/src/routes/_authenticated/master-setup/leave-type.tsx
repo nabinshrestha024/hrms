@@ -1,5 +1,12 @@
+import { ContentShell } from '@erp/ui';
+import { lazy, Suspense } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
-import { LeaveType } from '../../../features/master-setup/leave-type/leave-type';
+
+const LeaveType = lazy(() =>
+  import('../../../features/master-setup/leave-type/leave-type').then((m) => ({
+    default: m.LeaveType,
+  }))
+);
 
 export const Route = createFileRoute('/_authenticated/master-setup/leave-type')(
   {
@@ -13,8 +20,10 @@ export const Route = createFileRoute('/_authenticated/master-setup/leave-type')(
 
 function RouteComponent() {
   return (
-    <div className="w-full max-h-[calc(100vh-84px)] overflow-auto flex flex-col bg-background ">
-      <LeaveType />
-    </div>
+    <ContentShell className="bg-background">
+      <Suspense fallback={null}>
+        <LeaveType />
+      </Suspense>
+    </ContentShell>
   );
 }

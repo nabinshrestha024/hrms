@@ -1,18 +1,20 @@
+import { type MissingDocument } from '@erp/data-access';
 import { useServerTableState } from '@erp/ui';
-import { MissingDocumentType } from '../../schema/MissingDocumnetData';
 import { getMissingDocumentColumns } from './get-missing-document-column';
 
 interface MissingDocumentTableProps {
-  data: MissingDocumentType[];
+  data: MissingDocument[];
 }
 
 export function useMissingDocumentTable({ data }: MissingDocumentTableProps) {
   const columns = getMissingDocumentColumns();
 
-  return useServerTableState<MissingDocumentType>({
+  const tableState = useServerTableState<MissingDocument>({
     data,
     totalCount: data.length,
     columns,
-    getRowId: (row: MissingDocumentType) => row.employeeId,
+    getRowId: (row) => row.id,
   });
+
+  return { ...tableState, columns };
 }

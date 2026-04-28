@@ -1,5 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { LeaveDeduction } from '../../../features/policy-configuration/leave-deduction/leave-deduction';
+import { lazy, Suspense } from 'react';
+
+const LeaveDeduction = lazy(() =>
+  import(
+    '../../../features/policy-configuration/leave-deduction/leave-deduction'
+  ).then((m) => ({ default: m.LeaveDeduction }))
+);
 
 export const Route = createFileRoute('/_authenticated/policy-configuration/')({
   component: RouteComponent,
@@ -15,7 +21,9 @@ function RouteComponent() {
       <div className="text-[20px] font-semibold px-12 py-6">
         Leave Deduction
       </div>
-      <LeaveDeduction />
+      <Suspense fallback={null}>
+        <LeaveDeduction />
+      </Suspense>
     </div>
   );
 }

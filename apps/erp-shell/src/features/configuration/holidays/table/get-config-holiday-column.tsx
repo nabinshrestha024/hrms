@@ -1,14 +1,24 @@
+import { type Holiday } from '@erp/data-access';
 import { DataTableColumnHeader } from '@erp/ui';
 import { ColumnDef } from '@tanstack/react-table';
-import { IconButton } from '../../../../components/icon-button';
 import { Edit, Trash2 } from 'lucide-react';
-import { HolidayTableType } from '../../schema/HolidayData';
+import { IconButton } from '../../../../components/icon-button';
 
-export function getConfigurationHolidayColumn(): ColumnDef<HolidayTableType>[] {
+/**
+ * Day-of-week derived from a YYYY-MM-DD date string. Defensive against
+ * malformed dates — returns "—" rather than throwing.
+ */
+function dayOfWeek(date: string): string {
+  const parsed = new Date(date);
+  if (isNaN(parsed.getTime())) return '—';
+  return parsed.toLocaleDateString('en-US', { weekday: 'long' });
+}
+
+export function getConfigurationHolidayColumn(): ColumnDef<Holiday>[] {
   return [
     {
       id: 'name',
-      accessorFn: (row) => `${row.name} ${row.description}`,
+      accessorFn: (row) => `${row.name} ${row.description ?? ''}`,
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Holiday" />
       ),
@@ -29,13 +39,14 @@ export function getConfigurationHolidayColumn(): ColumnDef<HolidayTableType>[] {
       cell: ({ row }) => <>{row.getValue('date')}</>,
     },
     {
-      accessorKey: 'day',
+      // Day-of-week is derived from `date` rather than stored — keeping
+      // the column id `day` so downstream filters/sorts stay stable.
+      id: 'day',
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Days" />
       ),
-      cell: ({ row }) => <>{row.getValue('day')}</>,
+      cell: ({ row }) => <>{dayOfWeek(row.original.date)}</>,
     },
-
     {
       accessorKey: 'type',
       header: ({ column }) => (
@@ -43,7 +54,6 @@ export function getConfigurationHolidayColumn(): ColumnDef<HolidayTableType>[] {
       ),
       cell: ({ row }) => <>{row.getValue('type')}</>,
     },
-
     {
       id: 'actions',
       header: 'Action',

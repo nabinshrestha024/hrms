@@ -1,9 +1,19 @@
 import { useForm, type Resolver } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { financialSchema, type FinancialFormValue } from './FinancialDetailZod';
-import { HRInput } from '@erp/ui';
+import { useUpdateEmployee, type Employee } from '@erp/data-access';
+import { HRInput, toast } from '@erp/ui';
 
-export const FinancialDetailEditForm = () => {
+interface FinancialDetailEditFormProps {
+  employee: Employee;
+  onSuccess: () => void;
+}
+
+export const FinancialDetailEditForm = ({
+  employee,
+  onSuccess,
+}: FinancialDetailEditFormProps) => {
+  const updateEmployee = useUpdateEmployee(employee.id);
   const {
     register,
     handleSubmit,
@@ -11,9 +21,37 @@ export const FinancialDetailEditForm = () => {
   } = useForm<FinancialFormValue>({
     resolver: zodResolver(financialSchema) as Resolver<FinancialFormValue>,
     mode: 'onChange',
+    defaultValues: {
+      grossSalary: employee.salary != null ? String(employee.salary) : '',
+      basicSalary:
+        employee.basicSalary != null ? String(employee.basicSalary) : '',
+      bankName: employee.bankName ?? '',
+      bankAccountNumber: employee.bankAccountNumber ?? '',
+      bankAccountName: employee.bankAccountName ?? '',
+    },
   });
   const onsubmit = (data: FinancialFormValue) => {
-    console.warn('Submitted Form Data: ', data);
+    updateEmployee.mutate(
+      {
+        salary: Number(data.grossSalary),
+        basicSalary: Number(data.basicSalary),
+        bankName: data.bankName,
+        bankAccountNumber: data.bankAccountNumber,
+        bankAccountName: data.bankAccountName,
+      },
+      {
+        onSuccess: () => {
+          toast({ variant: 'success', title: 'Financial details updated' });
+          onSuccess();
+        },
+        onError: () => {
+          toast({
+            variant: 'destructive',
+            title: 'Failed to update financial details',
+          });
+        },
+      }
+    );
   };
   return (
     <>

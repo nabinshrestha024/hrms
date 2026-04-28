@@ -1,3 +1,4 @@
+import { Can, PERM_SUBJECTS } from '@erp/auth';
 import { Badge, DataTableColumnHeader } from '@erp/ui';
 import type { ColumnDef } from '@tanstack/react-table';
 import { Edit, Trash2 } from 'lucide-react';
@@ -68,22 +69,26 @@ export function getBranchColumns(
       ),
       cell: ({ row }) => (
         <div className="flex gap-2 items-center justify-center">
-          <button
-            type="button"
-            aria-label="Edit branch"
-            className="w-6 h-6 flex items-center justify-center rounded-sm bg-muted p-1 cursor-pointer hover:bg-muted/80"
-            onClick={() => actions?.onEdit?.(row.original)}
-          >
-            <Edit className="w-4 h-4 text-black font-bold" />
-          </button>
-          <button
-            type="button"
-            aria-label="Delete branch"
-            className="w-6 h-6 flex items-center justify-center rounded-sm bg-chart-3 p-1 cursor-pointer hover:bg-chart-3/80"
-            onClick={() => actions?.onDelete?.(row.original.id)}
-          >
-            <Trash2 className="w-4 h-4 text-badge-text-3 font-bold" />
-          </button>
+          <Can action="update" subject={PERM_SUBJECTS.HR_BRANCHES}>
+            <button
+              type="button"
+              aria-label="Edit branch"
+              className="w-6 h-6 flex items-center justify-center rounded-sm bg-muted p-1 cursor-pointer hover:bg-muted/80"
+              onClick={() => actions?.onEdit?.(row.original)}
+            >
+              <Edit className="w-4 h-4 text-black font-bold" />
+            </button>
+          </Can>
+          <Can action="delete" subject={PERM_SUBJECTS.HR_BRANCHES}>
+            <button
+              type="button"
+              aria-label="Delete branch"
+              className="w-6 h-6 flex items-center justify-center rounded-sm bg-chart-3 p-1 cursor-pointer hover:bg-chart-3/80"
+              onClick={() => actions?.onDelete?.(row.original.id)}
+            >
+              <Trash2 className="w-4 h-4 text-badge-text-3 font-bold" />
+            </button>
+          </Can>
         </div>
       ),
     },

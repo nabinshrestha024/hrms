@@ -5,12 +5,12 @@ export const UserEducation = () => {
   return (
     <>
       <div className="flex flex-col gap-6 max-h-115 overflow-auto pr-3">
-        <div className="text-[18px] font-medium leading-7 text-[#09090B]">
+        <div className="text-[18px] font-medium leading-7 text-foreground">
           Education
         </div>
         {educationData.map((val, index) => (
           <HRCard
-            cardClassName="p-6 border border-[#E4E4E7] rounded-xl shadow-sm"
+            cardClassName="p-6 border border-border rounded-xl shadow-sm"
             cardContentClassName="p-0 "
             key={index}
           >
@@ -19,10 +19,10 @@ export const UserEducation = () => {
                 {val.qualification}
               </span>
               <div className="flex flex-col gap-1">
-                <span className="text-[12px] leading-4 font-normal text-[#09090B]">
+                <span className="text-[12px] leading-4 font-normal text-foreground">
                   {val.university}
                 </span>
-                <span className="text-[12px] leading-4 font-normal text-[#71717A]">
+                <span className="text-[12px] leading-4 font-normal text-secondary-foreground">
                   {val.endYear} - Completed
                 </span>
               </div>

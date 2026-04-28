@@ -1,8 +1,14 @@
 import { useEmployee } from '@erp/data-access';
+import { lazy, Suspense } from 'react';
 import { HRCard } from '@erp/ui';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { ArrowLeft, Dot } from 'lucide-react';
-import { AssignApproval } from '../../../features/employee/assign-approval/assign-approval-tab';
+
+const AssignApproval = lazy(() =>
+  import('../../../features/employee/assign-approval/assign-approval-tab').then(
+    (m) => ({ default: m.AssignApproval })
+  )
+);
 
 export const Route = createFileRoute(
   '/_authenticated/employee/assign-approval/$id'
@@ -22,7 +28,7 @@ function RouteComponent() {
 
   return (
     <>
-      <div className="w-full  max-h-[calc(100vh-84px)] overflow-auto flex flex-col  bg-[#F9FAFB] ">
+      <div className="w-full  max-h-[calc(100vh-84px)] overflow-auto flex flex-col  bg-background ">
         <div
           className="flex gap-1 cursor-pointer px-12 pt-6 items-center"
           onClick={() => navigate({ to: '/employee' })}
@@ -34,7 +40,7 @@ function RouteComponent() {
         </div>
 
         <HRCard
-          cardClassName="w-full  py-6 px-12 bg-[#F9FAFB] border-none  rounded-none shadow-none"
+          cardClassName="w-full  py-6 px-12 bg-background border-none  rounded-none shadow-none"
           cardContentClassName="p-0"
         >
           <div className="flex gap-3">
@@ -65,7 +71,9 @@ function RouteComponent() {
             cardClassName="w-full p-6 bg-white border-none rounded-xl shadow-none"
             cardContentClassName="p-0 flex flex-col gap-8"
           >
-            <AssignApproval employeeId={id} />
+            <Suspense fallback={null}>
+              <AssignApproval employeeId={id} />
+            </Suspense>
           </HRCard>
         </div>
       </div>

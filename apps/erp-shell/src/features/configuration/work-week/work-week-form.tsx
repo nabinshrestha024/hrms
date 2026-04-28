@@ -1,3 +1,4 @@
+import { useUpdateWorkWeekConfig } from '@erp/data-access';
 import {
   Button,
   HRCard,
@@ -14,11 +15,32 @@ import {
   workWeekTemplateSchema,
 } from '../zod/WorkWeek.Zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  weekendPolicyOptions,
-  weekStartsOptions,
-} from '../schema/WorkWeekData';
 import { useState } from 'react';
+
+// Form-only UI dropdown options. Previously lived in
+// `configuration/schema/WorkWeekData.ts`; moved inline because they're
+// fixed UI choices (chrome), not entity data persisted by the backend.
+// Phase 3.2 will reconcile these against the canonical `weekendPolicyEnum`
+// ('full-weekend-off' | 'public-holiday-off') in `@erp/data-access` and
+// fix the legacy "Pulbic" typo at the same time.
+const weekStartsOptions = [
+  { id: 0, value: 'Sunday', content: 'Sunday' },
+  { id: 1, value: 'Monday', content: 'Monday' },
+  { id: 2, value: 'Tuesday', content: 'Tuesday' },
+  { id: 3, value: 'Wednesday', content: 'Wednesday' },
+  { id: 4, value: 'Thursday', content: 'Thursday' },
+  { id: 5, value: 'Friday', content: 'Friday' },
+  { id: 6, value: 'Saturday', content: 'Saturday' },
+];
+
+const weekendPolicyOptions = [
+  { id: 0, value: 'Full Weekend Off', content: 'Full Weekend Off' },
+  {
+    id: 1,
+    value: 'Full Pulbic holiday Off',
+    content: 'Full Pulbic holiday Off',
+  },
+];
 
 export const WorkWeekForm = () => {
   const {
@@ -33,13 +55,58 @@ export const WorkWeekForm = () => {
     mode: 'onChange',
   });
 
-  console.warn(errors);
-  const onsubmit = (data: WorkWeekTemplateFormValue) => {
-    console.warn('Submitted Form Data: ', data);
-    reset();
-    toast({ title: 'Work Week added', variant: 'success' });
-  };
+  const updateWorkWeekConfig = useUpdateWorkWeekConfig();
   const [enabled, setEnabled] = useState(false);
+
+  const onsubmit = (data: WorkWeekTemplateFormValue) => {
+    // Map legacy form values onto the canonical work-week-config singleton.
+    const weekendPolicy =
+      data.weekendPolicy === 'Full Weekend Off'
+        ? 'full-weekend-off'
+        : 'public-holiday-off';
+    const weekStartsMap: Record<
+      string,
+      'sun' | 'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat'
+    > = {
+      Sunday: 'sun',
+      Monday: 'mon',
+      Tuesday: 'tue',
+      Wednesday: 'wed',
+      Thursday: 'thu',
+      Friday: 'fri',
+      Saturday: 'sat',
+    };
+
+    updateWorkWeekConfig.mutate(
+      {
+        weekStarts: weekStartsMap[data.weekStarts] ?? 'mon',
+        weekendPolicy,
+        payrollCycleStartDay: Number(data.payrollCycleStarts),
+        payrollCycleEndDay: Number(data.payrollCycleEnds),
+        minHoursPerDay: Number(data.minHours),
+        maxHoursPerDay: Number(data.maxHours),
+        overtimeEnabled: enabled,
+        overtime: {
+          regular: Number(data.regularOT) || 1,
+          weekend: Number(data.weekendOT) || 1,
+          holiday: Number(data.holidayOT) || 1,
+        },
+        workingDays: data.workingDays as Array<{
+          day: 'sun' | 'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat';
+          type: 'full' | 'half';
+        }>,
+      },
+      {
+        onSuccess: () => {
+          toast({ title: 'Work week saved', variant: 'success' });
+          reset();
+        },
+        onError: () => {
+          toast({ variant: 'destructive', title: 'Failed to save work week' });
+        },
+      }
+    );
+  };
   const workingDays = watch('workingDays') || [];
   const halfDayCount = workingDays.filter((d) => d.type === 'half').length;
   const payrollCycleStarts = watch('payrollCycleStarts');
@@ -252,11 +319,11 @@ export const WorkWeekForm = () => {
             </HRCard>
           </HRCard>
         </div>
-        <div className="h-22 sticky bottom-5 top-0 z-10 bg-white  p-6 rounded-b-xl border-t border-[#E4E4E7] flex justify-end gap-6">
+        <div className="h-22 sticky bottom-5 top-0 z-10 bg-white  p-6 rounded-b-xl border-t border-border flex justify-end gap-6">
           <Button
             type="button"
             variant="outline"
-            className="text-[14px] font-medium leading-5 text-[#A6A6A6] "
+            className="text-[14px] font-medium leading-5 text-muted-foreground "
           >
             Cancel
           </Button>

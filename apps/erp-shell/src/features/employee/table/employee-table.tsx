@@ -1,6 +1,6 @@
 import type { Employee } from '@erp/data-access';
 import { DataTable } from '@erp/ui';
-import { useEmployeeTable } from './use-employee-form';
+import { useEmployeeTable } from './use-employee-table';
 
 interface EmployeeTableProps {
   data: Employee[];

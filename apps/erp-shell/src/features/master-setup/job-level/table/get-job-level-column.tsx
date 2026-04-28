@@ -1,10 +1,10 @@
+import { type JobLevel } from '@erp/data-access';
+import { DataTableColumnHeader } from '@erp/ui';
 import type { ColumnDef } from '@tanstack/react-table';
 import { Edit, Trash2 } from 'lucide-react';
-import { JobLevelDataType } from '../../schema/JobLevelData';
 import { IconButton } from '../../../../components/icon-button';
-import { DataTableColumnHeader } from '@erp/ui';
 
-export function getJobLevelColumn(): ColumnDef<JobLevelDataType>[] {
+export function getJobLevelColumn(): ColumnDef<JobLevel>[] {
   return [
     {
       accessorKey: 'name',
@@ -14,11 +14,13 @@ export function getJobLevelColumn(): ColumnDef<JobLevelDataType>[] {
       cell: ({ row }) => <>{row.getValue('name')}</>,
     },
     {
-      accessorKey: 'details',
+      // Schema field is `description`; column label kept as "Details"
+      // to preserve the original design.
+      accessorKey: 'description',
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Details" />
       ),
-      cell: ({ row }) => <>{row.getValue('details')}</>,
+      cell: ({ row }) => <>{row.getValue('description') ?? '—'}</>,
     },
     {
       id: 'actions',

@@ -1,5 +1,12 @@
+import { ContentShell } from '@erp/ui';
+import { lazy, Suspense } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
-import { CategoryManagement } from '../../../features/assets-management/category/category-management';
+
+const CategoryManagement = lazy(() =>
+  import(
+    '../../../features/assets-management/category/category-management'
+  ).then((m) => ({ default: m.CategoryManagement }))
+);
 
 export const Route = createFileRoute('/_authenticated/assets-management/')({
   component: RouteComponent,
@@ -11,13 +18,12 @@ export const Route = createFileRoute('/_authenticated/assets-management/')({
 
 function RouteComponent() {
   return (
-    <div className="w-full h-[calc(100vh-84px)] overflow-auto flex flex-col bg-[#F9FAFB]">
-      <div className="px-12 py-6 text-[20px] font-semibold leading-12 text-[#09090B] ">
-        Category
+    <ContentShell title="Category">
+      <div className="px-6 pt-0 pb-32.5">
+        <Suspense fallback={null}>
+          <CategoryManagement />
+        </Suspense>
       </div>
-      <div className="px-6 pt-0 pb-32.5 ">
-        <CategoryManagement />
-      </div>
-    </div>
+    </ContentShell>
   );
 }

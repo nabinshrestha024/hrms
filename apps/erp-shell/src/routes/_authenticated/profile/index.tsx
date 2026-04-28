@@ -1,5 +1,12 @@
+import { ContentShell } from '@erp/ui';
+import { lazy, Suspense } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
-import { ProfileHeader } from '../../../features/profile/profile-header';
+
+const ProfileHeader = lazy(() =>
+  import('../../../features/profile/profile-header').then((m) => ({
+    default: m.ProfileHeader,
+  }))
+);
 
 export const Route = createFileRoute('/_authenticated/profile/')({
   component: RouteComponent,
@@ -8,11 +15,10 @@ export const Route = createFileRoute('/_authenticated/profile/')({
 
 function RouteComponent() {
   return (
-    <div className="w-full max-h-[calc(100vh-84px)] overflow-auto flex flex-col bg-background ">
-      <div className="text-[20px] leading-7 font-semibold text-foreground px-12 py-6">
-        Profile
-      </div>
-      <ProfileHeader />
-    </div>
+    <ContentShell title="Profile" className="bg-background">
+      <Suspense fallback={null}>
+        <ProfileHeader />
+      </Suspense>
+    </ContentShell>
   );
 }

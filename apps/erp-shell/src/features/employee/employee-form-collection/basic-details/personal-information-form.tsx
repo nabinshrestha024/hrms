@@ -107,7 +107,7 @@ export const PersonalInformationForm = () => {
                     value={field.value}
                     onValueChange={field.onChange}
                     className="flex gap-3"
-                    itemClassName="border-[#A1A1AA]"
+                    itemClassName="border-muted-foreground"
                     error={errors.gender?.message as string}
                   />
                 )}
@@ -123,7 +123,7 @@ export const PersonalInformationForm = () => {
                     value={field.value}
                     onValueChange={field.onChange}
                     className="flex gap-3"
-                    itemClassName="border-[#A1A1AA]"
+                    itemClassName="border-muted-foreground"
                     error={errors.maritalStatus?.message as string}
                   />
                 )}

@@ -8,7 +8,7 @@ export const Education = () => {
   return (
     <div className="flex flex-col gap-6 max-h-115 overflow-auto pr-3">
       <div className="flex justify-between items-center">
-        <div className="text-[18px] font-medium leading-7 text-[#09090B]">
+        <div className="text-[18px] font-medium leading-7 text-foreground">
           Education
         </div>
 
@@ -34,7 +34,7 @@ export const Education = () => {
       </div>
       {educationData.map((val, index) => (
         <HRCard
-          cardClassName="p-6 border border-[#E4E4E7] rounded-xl shadow-sm bg-white"
+          cardClassName="p-6 border border-border rounded-xl shadow-sm bg-white"
           cardContentClassName="p-0 "
           key={index}
         >

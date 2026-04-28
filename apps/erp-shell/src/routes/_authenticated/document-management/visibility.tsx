@@ -1,5 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { VisibilityManagement } from '../../../features/document-management/visibility/visibility-management';
+import { lazy, Suspense } from 'react';
+
+const VisibilityManagement = lazy(() =>
+  import(
+    '../../../features/document-management/visibility/visibility-management'
+  ).then((m) => ({ default: m.VisibilityManagement }))
+);
 
 export const Route = createFileRoute(
   '/_authenticated/document-management/visibility'
@@ -14,7 +20,9 @@ export const Route = createFileRoute(
 function RouteComponent() {
   return (
     <div className="w-full max-h-[calc(100vh-120px)] overflow-auto bg-background">
-      <VisibilityManagement />
+      <Suspense fallback={null}>
+        <VisibilityManagement />
+      </Suspense>
     </div>
   );
 }

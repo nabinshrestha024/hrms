@@ -1,3 +1,4 @@
+import { useCreateLeaveType } from '@erp/data-access';
 import {
   Button,
   HRCard,
@@ -11,16 +12,35 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import {
-  accrualFrequencyOption,
-  applicableToOption,
-  genderOption,
-  leaveTypeOption,
-} from '../../schema/CommonOptionData';
-import {
   CommonOptionTemplateFormValue,
   commonOptionTemplateSchema,
 } from '../../zod/CommonOptionForm.Zod';
 import { ManualAccrual, MonthlyAccrual } from './common-option-subcomponent';
+
+// Form-only UI dropdown options. Previously lived in
+// `configuration/schema/CommonOptionData.ts`; moved inline because they
+// are fixed UI choices (chrome), not entity data persisted by the
+// backend. Phase 3.2 will reconcile any of these that should be
+// resource-backed (e.g. `leaveTypeOption` should ultimately come from
+// `useLeaveTypes()` rather than be hardcoded here).
+const leaveTypeOption = [
+  { id: 0, content: 'Annual Leave', value: 'Annual Leave' },
+  { id: 1, content: 'Sick Leave', value: 'Sick Leave' },
+  { id: 2, content: 'Unpaid Leave', value: 'Unpaid Leave' },
+];
+const applicableToOption = [
+  { id: 0, content: 'All Employee', value: 'All Employee' },
+  { id: 1, content: 'Manager', value: 'Manager' },
+  { id: 2, content: 'Supervisor', value: 'Supervisor' },
+];
+const accrualFrequencyOption = [
+  { label: 'Monthly', value: 'Monthly' },
+  { label: 'Manually', value: 'Manually' },
+];
+const genderOption = [
+  { label: 'Male', value: 'Male' },
+  { label: 'Female', value: 'Female' },
+];
 
 export const CommonOptionForm = () => {
   const {
@@ -38,10 +58,40 @@ export const CommonOptionForm = () => {
   const accrualFrequency = watch('accrualFrequency');
   const isGenderBased = watch('gender');
   const close = useDialogClose();
+  const createLeaveType = useCreateLeaveType();
+
   const onsubmit = (data: CommonOptionTemplateFormValue) => {
-    console.warn('Save Changes: ', data);
-    close();
-    toast({ title: 'Leave Type Added', variant: 'success' });
+    // Form's `applicableTo` ("All Employee"/"Manager"/"Supervisor") is a
+    // role concept; the canonical schema's `applicableTo` is gender. We
+    // derive the gender-based applicability from the gender switch.
+    const applicableTo: 'all' | 'female' | 'male' =
+      data.gender === 'Female'
+        ? 'female'
+        : data.gender === 'Male'
+        ? 'male'
+        : 'all';
+
+    createLeaveType.mutate(
+      {
+        name: data.leaveName,
+        // daysPerYear is configured via the advance-option flow; default
+        // to 0 here and let the user edit it after creation.
+        daysPerYear: 0,
+        applicableTo,
+        paid: true,
+        carryOver: { enabled: false },
+        encashable: { enabled: false },
+      },
+      {
+        onSuccess: () => {
+          toast({ title: 'Leave Type Added', variant: 'success' });
+          close();
+        },
+        onError: () => {
+          toast({ variant: 'destructive', title: 'Failed to add leave type' });
+        },
+      }
+    );
   };
 
   return (
@@ -115,7 +165,7 @@ export const CommonOptionForm = () => {
                   value={field.value}
                   onValueChange={field.onChange}
                   className="flex gap-3"
-                  itemClassName="border-[#A1A1AA]"
+                  itemClassName="border-muted-foreground"
                   error={errors.accrualFrequency?.message as string}
                 />
               )}
@@ -140,7 +190,7 @@ export const CommonOptionForm = () => {
                   value={field.value}
                   onValueChange={field.onChange}
                   className="flex gap-3"
-                  itemClassName="border-[#A1A1AA]"
+                  itemClassName="border-muted-foreground"
                   disabled={!isGenderBased}
                 />
               )}

@@ -1,3 +1,4 @@
+import { Can, PERM_SUBJECTS } from '@erp/auth';
 import { useBranches, useDeleteBranch, type Branch } from '@erp/data-access';
 import {
   Button,
@@ -44,29 +45,29 @@ export const BranchManagement = () => {
     <>
       <ListPage<Branch>
         title="Branch Management"
-        isSearch={true}
-        isTabs={true}
+        search
         data={data}
-        dropdownKey="branch"
-        dropdownLabel="Branch"
+        dropdowns={[{ key: 'branch', label: 'Branch' }]}
         actionComponent={
-          <FormDialog
-            trigger={
-              <Button
-                type="button"
-                variant="secondary"
-                size="lg"
-                className="text-[14px] font-medium leading-5 text-white"
-              >
-                Add Branch
-              </Button>
-            }
-            title="Branch Details"
-            size="lg"
-            okText="Add"
-          >
-            <BranchForm />
-          </FormDialog>
+          <Can action="create" subject={PERM_SUBJECTS.HR_BRANCHES}>
+            <FormDialog
+              trigger={
+                <Button
+                  type="button"
+                  variant="secondary"
+                  size="lg"
+                  className="text-[14px] font-medium leading-5 text-white"
+                >
+                  Add Branch
+                </Button>
+              }
+              title="Branch Details"
+              size="lg"
+              okText="Add"
+            >
+              <BranchForm />
+            </FormDialog>
+          </Can>
         }
         renderCard={(filtered: Branch[]) => (
           <BranchCard
@@ -82,7 +83,8 @@ export const BranchManagement = () => {
             onDelete={handleDelete}
           />
         )}
-        filterFn={(data: Branch[], search: string, dropdown?: string) => {
+        filterFn={(data, { search, dropdowns }) => {
+          const dropdown = dropdowns.branch;
           return data.filter((item: Branch) => {
             const matchesSearch = item.branch
               ?.toLowerCase()

@@ -1,5 +1,12 @@
+import { ContentShell } from '@erp/ui';
+import { lazy, Suspense } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
-import { WorkType } from '../../../features/master-setup/work-type/work-type';
+
+const WorkType = lazy(() =>
+  import('../../../features/master-setup/work-type/work-type').then((m) => ({
+    default: m.WorkType,
+  }))
+);
 
 export const Route = createFileRoute('/_authenticated/master-setup/work-type')({
   component: RouteComponent,
@@ -11,8 +18,10 @@ export const Route = createFileRoute('/_authenticated/master-setup/work-type')({
 
 function RouteComponent() {
   return (
-    <div className="w-full max-h-[calc(100vh-84px)] overflow-auto flex flex-col bg-background ">
-      <WorkType />
-    </div>
+    <ContentShell className="bg-background">
+      <Suspense fallback={null}>
+        <WorkType />
+      </Suspense>
+    </ContentShell>
   );
 }

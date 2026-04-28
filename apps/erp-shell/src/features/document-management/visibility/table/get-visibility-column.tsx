@@ -1,15 +1,16 @@
+import { type EmployeeDocument } from '@erp/data-access';
 import { Badge, DataTableColumnHeader, Switch } from '@erp/ui';
-import { VisibilityType } from '../../schema/VisibilityData';
 import { ColumnDef } from '@tanstack/react-table';
 
-export function getVisibilityColumns(): ColumnDef<VisibilityType, unknown>[] {
+export function getVisibilityColumns(): ColumnDef<EmployeeDocument, unknown>[] {
   return [
     {
-      accessorKey: 'document',
+      // Schema field is `name`; column header preserved as "Document".
+      accessorKey: 'name',
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Document" />
       ),
-      cell: ({ row }) => <>{row.getValue('document')}</>,
+      cell: ({ row }) => <>{row.getValue('name')}</>,
     },
     {
       accessorKey: 'category',
@@ -28,19 +29,16 @@ export function getVisibilityColumns(): ColumnDef<VisibilityType, unknown>[] {
       cell: ({ row }) => <>{row.getValue('uploadDate')}</>,
     },
     {
-      accessorKey: 'visibility',
+      // Schema field is `visible`; header preserved as "Visibility".
+      accessorKey: 'visible',
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Visibility" />
       ),
-      cell: ({ row }) => {
-        const value = Boolean(row.getValue('visibility'));
-
-        return (
-          <div className="cursor-pointer">
-            <Switch checked={value} />
-          </div>
-        );
-      },
+      cell: ({ row }) => (
+        <div className="cursor-pointer">
+          <Switch checked={row.original.visible} />
+        </div>
+      ),
     },
   ];
 }

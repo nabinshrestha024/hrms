@@ -1,13 +1,13 @@
+import { Form, HRCard, toast, useDialogClose } from '@erp/ui';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
 import {
   SalaryStructureTemplateFormValue,
   salaryStructureTemplateSchema,
-} from './zod/SalaryStructure.zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Form, HRCard, toast, useDialogClose } from '@erp/ui';
-import { SalaryPreview } from './form/salary-preview';
-import { BasicSalaryCard } from './form/basic-salary';
+} from '../zod/SalaryStructure.zod';
 import { AllowanceCard } from './form/allowance';
+import { BasicSalaryCard } from './form/basic-salary';
+import { SalaryPreview } from './form/salary-preview';
 import { StatutaryDeductionCard } from './form/statutary-deductions';
 
 export const SalaryStructureForm = () => {

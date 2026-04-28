@@ -1,5 +1,15 @@
 import { HRCard, Switch } from '@erp/ui';
-import { balanceValidationData } from '../schema/WorkflowData';
+
+const balanceValidationData = [
+  {
+    balanceTitle: 'Check Balance Before Apply',
+    balanceSubTitle: 'Prevent applications exceeding available balance',
+  },
+  {
+    balanceTitle: 'Allow Negative Balance',
+    balanceSubTitle: 'Allow employees to apply for leave beyond their balance',
+  },
+];
 
 export const BalanceValidation = () => {
   return (

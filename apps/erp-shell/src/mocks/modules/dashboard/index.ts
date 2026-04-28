@@ -73,8 +73,12 @@ export function initDashboardModule() {
         if (p.search) {
           const q = p.search.toLowerCase();
           return (
-            item.title.toLowerCase().includes(q) ||
-            item.description.toLowerCase().includes(q)
+            String(item.title ?? '')
+              .toLowerCase()
+              .includes(q) ||
+            String(item.description ?? '')
+              .toLowerCase()
+              .includes(q)
           );
         }
         return true;
@@ -118,8 +122,10 @@ export function initDashboardModule() {
     http.get(`${API_BASE}/dashboard/events`, async ({ request }) => {
       await delay(150);
       const p = parseParams(request.url);
-      const filter = (item: Record<string, unknown>) => {
-        if (p.eventType && item.eventType !== p.eventType) return false;
+      const filter = (item: unknown): boolean => {
+        if (typeof item !== 'object' || item === null) return false;
+        const rec = item as Record<string, unknown>;
+        if (p.eventType && rec.eventType !== p.eventType) return false;
         return true;
       };
       const data = db.getAll('dashboard-events').filter(filter);

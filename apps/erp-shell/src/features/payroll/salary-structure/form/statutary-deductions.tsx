@@ -1,7 +1,7 @@
 import { HRAccordionCard, HRCard, HRInput, HRSelect, Switch } from '@erp/ui';
-import { Controller, useFormContext } from 'react-hook-form';
-import { SalaryStructureTemplateFormValue } from '../zod/SalaryStructure.zod';
 import { useState } from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
+import { SalaryStructureTemplateFormValue } from '../../zod/SalaryStructure.zod';
 export const StatutaryDeductionCard = () => {
   const {
     register,

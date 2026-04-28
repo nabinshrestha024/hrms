@@ -1,4 +1,5 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
+import { useUpdateAsset } from '@erp/data-access';
 import { toast } from '@erp/ui';
 
 export const assignAssetsFormConfig: FormViewConfig = {
@@ -31,19 +32,39 @@ export const assignAssetsFormConfig: FormViewConfig = {
   },
 };
 interface AssignAssetsFormProps {
+  assetId?: string;
+  assetName?: string;
   onSuccess?: () => void;
 }
 
-export function AssignAssetsForm({ onSuccess }: AssignAssetsFormProps = {}) {
+export function AssignAssetsForm({
+  assetId,
+  assetName,
+  onSuccess,
+}: AssignAssetsFormProps = {}) {
+  const updateAsset = useUpdateAsset(assetId ?? '');
+
   const onsubmit = (data: Record<string, unknown>) => {
-    console.warn('Save Changes:', data);
-
-    toast({
-      variant: 'success',
-      title: 'Assign Assets ',
-    });
-
-    onSuccess?.();
+    if (!assetId) {
+      toast({ variant: 'destructive', title: 'Missing asset context' });
+      return;
+    }
+    updateAsset.mutate(
+      {
+        status: 'assigned',
+        assignedTo: String(data.employeeName ?? ''),
+        assignedDate: new Date().toISOString().split('T')[0],
+      },
+      {
+        onSuccess: () => {
+          toast({ variant: 'success', title: 'Asset assigned' });
+          onSuccess?.();
+        },
+        onError: () => {
+          toast({ variant: 'destructive', title: 'Failed to assign asset' });
+        },
+      }
+    );
   };
 
   return (
@@ -53,6 +74,7 @@ export function AssignAssetsForm({ onSuccess }: AssignAssetsFormProps = {}) {
       submitLabel="Submit Request"
       fieldsetClassName="max-h-[538px] overflow-auto pr-2"
       isDialogForm={true}
+      defaultValues={assetName ? { assetsName: assetName } : undefined}
     />
   );
 }

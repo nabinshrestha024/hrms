@@ -25,6 +25,21 @@ pnpm dev         # http://localhost:4200
 7. Commit and push
 8. Open a PR against `main`
 
+## Code-Review Checklist
+
+Reviewers should walk through this list before approving any PR. Most items are also enforced by lint at the `error` level — they're listed here so authors can self-check before pushing:
+
+- [ ] Submit handlers call a real mutation (`useCreate*` / `useUpdate*` from `@erp/data-access`); no `console.warn(data)` placeholders. (Enforced by `no-console` in `features/`.)
+- [ ] Forms use `<FormRenderer>` (config-engine) unless they're multi-step or have heavy custom UI.
+- [ ] Lists use `<ListPage>` from `@erp/ui`, not custom shells.
+- [ ] No literal hex / oklch colors in `className` — use design tokens (`bg-primary`, `text-foreground`, `border-border`, …). (Enforced by `no-restricted-syntax`.)
+- [ ] Mutation buttons are wrapped in `<Can action="…" subject={PERM_SUBJECTS.X}>` and the corresponding action is part of one of the role bundles (`ADMIN_PERMISSIONS` / `HR_MANAGER_PERMISSIONS` / `EMPLOYEE_PERMISSIONS`).
+- [ ] Entity schemas live in `libs/shared/data-access/src/schemas/`, never under `apps/erp-shell/src/features/**/schema/`.
+- [ ] No new `*Data.ts` files in features; mock data goes through the canonical seed → `createCrudHandlers` → `useXxxList` flow.
+- [ ] No imports from deleted shells (`document-management-header`, `table-header`). (Enforced by `no-restricted-imports`.)
+- [ ] Permission constants come from `PERM_SUBJECTS` / `PERM_ACTIONS`, never hand-typed (a typo silently grants no access).
+- [ ] Async data consumers wrap in `<QueryBoundary>` for loading + error UI when the data fetch is on the critical path.
+
 ## Adding a New Module (Step by Step)
 
 ### 1. Generate the route

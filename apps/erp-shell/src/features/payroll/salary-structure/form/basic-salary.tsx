@@ -1,6 +1,6 @@
 import { HRAccordionCard, HRCard, HRDateField, HRInput } from '@erp/ui';
 import { Controller, useFormContext } from 'react-hook-form';
-import { SalaryStructureTemplateFormValue } from '../zod/SalaryStructure.zod';
+import { SalaryStructureTemplateFormValue } from '../../zod/SalaryStructure.zod';
 export const BasicSalaryCard = () => {
   const {
     register,

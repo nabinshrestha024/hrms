@@ -6,7 +6,6 @@ export const EmergencyForm = () => {
     register,
     formState: { errors },
   } = useFormContext();
-  console.warn(errors);
 
   return (
     <>

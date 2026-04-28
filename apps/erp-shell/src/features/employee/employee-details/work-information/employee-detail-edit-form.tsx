@@ -4,9 +4,24 @@ import {
   employeeDetailsSchema,
   type EmployeeDetailsFormValue,
 } from './EmployeeDetailsZod';
-import { HRDateField, HRInput } from '@erp/ui';
+import { useUpdateEmployee, type Employee } from '@erp/data-access';
+import { HRDateField, HRInput, toast } from '@erp/ui';
 
-export const EmployeeDetailEditForm = () => {
+const toIso = (d: Date | string | undefined): string | undefined => {
+  if (!d) return undefined;
+  return d instanceof Date ? d.toISOString().split('T')[0] : String(d);
+};
+
+interface EmployeeDetailEditFormProps {
+  employee: Employee;
+  onSuccess: () => void;
+}
+
+export const EmployeeDetailEditForm = ({
+  employee,
+  onSuccess,
+}: EmployeeDetailEditFormProps) => {
+  const updateEmployee = useUpdateEmployee(employee.id);
   const {
     register,
     control,
@@ -17,9 +32,62 @@ export const EmployeeDetailEditForm = () => {
       employeeDetailsSchema
     ) as Resolver<EmployeeDetailsFormValue>,
     mode: 'onChange',
+    defaultValues: {
+      // Form schema coerces employeeId to a number; keep that for now —
+      // schema cleanup belongs in a separate change.
+      employeeId: Number(employee.employeeId) || 0,
+      branch: employee.branch ?? '',
+      department: employee.department,
+      jobLevel: employee.jobLevel ?? '',
+      designation: employee.designation,
+      reportingManager: employee.managerId ?? '',
+      shift: employee.shift ?? '',
+      workType: employee.workType ?? '',
+      employeeType: employee.employeeType ?? '',
+      workEmail: employee.workEmail ?? '',
+      workPhoneNumber: employee.workPhone ?? '',
+      joiningDate: employee.startDate
+        ? new Date(employee.startDate)
+        : undefined,
+      contractStartDate: employee.contractStartDate
+        ? new Date(employee.contractStartDate)
+        : undefined,
+      contractEndDate: employee.contractEndDate
+        ? new Date(employee.contractEndDate)
+        : undefined,
+    },
   });
   const onsubmit = (data: EmployeeDetailsFormValue) => {
-    console.warn('Submitted Form Data: ', data);
+    updateEmployee.mutate(
+      {
+        employeeId: String(data.employeeId),
+        branch: data.branch,
+        department: data.department,
+        jobLevel: data.jobLevel,
+        designation: data.designation,
+        managerId: data.reportingManager,
+        shift: data.shift,
+        workType: data.workType,
+        employeeType: data.employeeType,
+        workEmail: data.workEmail,
+        workPhone: data.workPhoneNumber,
+        startDate: toIso(data.joiningDate),
+        contractStartDate: toIso(data.contractStartDate),
+        contractEndDate: toIso(data.contractEndDate),
+      },
+      {
+        onSuccess: () => {
+          toast({ variant: 'success', title: 'Work details updated' });
+          onSuccess();
+        },
+        onError: () => {
+          toast({
+            variant: 'destructive',
+            title: 'Failed to update work details',
+          });
+        },
+      }
+    );
   };
   return (
     <>

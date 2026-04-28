@@ -38,16 +38,16 @@ export const ArrearManagementCard = () => {
           </span>
         </div>
         <CustomAlert
-          className="bg-[#FEFCE8] border border-[#FEF9C2]"
+          className="bg-chart-6 border border-chart-4"
           title="Admin Correction Flow"
-          titleClassName="text-[#894B00]"
-          icon={<TriangleAlert className="w-4 h-4 text-[#894B00]" />}
+          titleClassName="text-badge-text-4"
+          icon={<TriangleAlert className="w-4 h-4 text-badge-text-4" />}
           description={
-            <div className="flex gap-1 items-center  text-[#894B00]">
+            <div className="flex gap-1 items-center  text-badge-text-4">
               <span> If admin cancels unpaid leave after salary is paid</span>
-              <ArrowRight className="w-4 h-4 text-[#894B00]" />
+              <ArrowRight className="w-4 h-4 text-badge-text-4" />
               <span>System auto create arrear</span>
-              <ArrowRight className="w-4 h-4 text-[#894B00]" />
+              <ArrowRight className="w-4 h-4 text-badge-text-4" />
               <span>Employee receives reimbursement in next month</span>
             </div>
           }

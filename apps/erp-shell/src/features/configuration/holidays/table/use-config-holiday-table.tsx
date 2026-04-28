@@ -1,19 +1,19 @@
+import { type Holiday } from '@erp/data-access';
 import { useServerTableState } from '@erp/ui';
 import { getConfigurationHolidayColumn } from './get-config-holiday-column';
-import { HolidayTableType } from '../../schema/HolidayData';
 
 interface HolidayTableProps {
-  data: HolidayTableType[];
+  data: Holiday[];
 }
 
 export function useConfigurationHolidayTable({ data }: HolidayTableProps) {
   const columns = getConfigurationHolidayColumn();
 
-  const table = useServerTableState<HolidayTableType>({
+  const table = useServerTableState<Holiday>({
     data,
     totalCount: data.length,
     columns,
-    getRowId: (row) => row.name,
+    getRowId: (row) => row.id,
   });
 
   return {

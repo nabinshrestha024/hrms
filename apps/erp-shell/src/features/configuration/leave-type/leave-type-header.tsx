@@ -1,38 +1,40 @@
-import { Button, FormDialog } from '@erp/ui';
-import { DocumentHeader } from '../../../components/document-management-header';
-import { configurationleaveTypeData } from '../schema/LeaveTypeData';
+import { Can, PERM_SUBJECTS } from '@erp/auth';
+import { useLeaveTypes, type LeaveType } from '@erp/data-access';
+import { Button, FormDialog, ListPage } from '@erp/ui';
 import { ConfigurationLeaveTypeTable } from './table/leave-types-table';
 import { ConfigurationLeaveTypeTabs } from './leave-type-form-tabs';
 
 export const ConfigurationLeaveTypes = () => {
+  const { data: response } = useLeaveTypes({ pageSize: 100 });
+  const data: LeaveType[] = response?.data ?? [];
+
   return (
-    <DocumentHeader
+    <ListPage<LeaveType>
       title="Leave Type"
-      isSearch={false}
-      data={configurationleaveTypeData}
+      data={data}
       actionComponent={
-        <FormDialog
-          trigger={
-            <Button
-              type="button"
-              variant="secondary"
-              size="lg"
-              className="text-[14px] font-medium leading-5 text-white"
-            >
-              Add Leave Type
-            </Button>
-          }
-          title="Add Leave Type"
-          size="lg"
-          componentClassName="border-none rounded-none shadow-none p-0"
-          dialogClassName="sm:max-w-[717px]"
-        >
-          <ConfigurationLeaveTypeTabs />
-        </FormDialog>
+        <Can action="create" subject={PERM_SUBJECTS.LEAVE_TYPES}>
+          <FormDialog
+            trigger={
+              <Button
+                type="button"
+                variant="secondary"
+                size="lg"
+                className="text-[14px] font-medium leading-5 text-white"
+              >
+                Add Leave Type
+              </Button>
+            }
+            title="Add Leave Type"
+            size="lg"
+            componentClassName="border-none rounded-none shadow-none p-0"
+            dialogClassName="sm:max-w-[717px]"
+          >
+            <ConfigurationLeaveTypeTabs />
+          </FormDialog>
+        </Can>
       }
-      renderTable={(filteredData) => (
-        <ConfigurationLeaveTypeTable data={filteredData} />
-      )}
+      renderTable={(rows) => <ConfigurationLeaveTypeTable data={rows} />}
     />
   );
 };

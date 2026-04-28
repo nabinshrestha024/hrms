@@ -1,19 +1,19 @@
+import { type Shift } from '@erp/data-access';
 import { useServerTableState } from '@erp/ui';
 import { getShiftColumn } from './get-shift-column';
-import { ShiftDataType } from '../../schema/ShiftData';
 
 interface ShiftProps {
-  data: ShiftDataType[];
+  data: Shift[];
 }
 
 export function useShiftTable({ data }: ShiftProps) {
   const columns = getShiftColumn();
 
-  const table = useServerTableState<ShiftDataType>({
+  const table = useServerTableState<Shift>({
     data,
     totalCount: data.length,
     columns,
-    getRowId: (row) => row.title,
+    getRowId: (row) => row.id,
   });
 
   return {

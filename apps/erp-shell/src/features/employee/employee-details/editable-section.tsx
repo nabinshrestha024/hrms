@@ -8,7 +8,10 @@ export interface EditableSectionProps {
   setEdit: (edit: boolean) => void;
   formId: string;
   DisplayComponent: React.ComponentType<{ employee: Employee }>;
-  EditComponent: React.ComponentType;
+  EditComponent: React.ComponentType<{
+    employee: Employee;
+    onSuccess: () => void;
+  }>;
   employee: Employee;
 }
 
@@ -46,7 +49,11 @@ export const EditableSection = ({
         )}
       </div>
 
-      {edit ? <EditComponent /> : <DisplayComponent employee={employee} />}
+      {edit ? (
+        <EditComponent employee={employee} onSuccess={() => setEdit(false)} />
+      ) : (
+        <DisplayComponent employee={employee} />
+      )}
     </div>
   );
 };

@@ -1,3 +1,4 @@
+import { Can, PERM_SUBJECTS } from '@erp/auth';
 import { useEmployees, type Employee } from '@erp/data-access';
 import { Button, Dialog, DialogContent, ListPage } from '@erp/ui';
 import { useState } from 'react';
@@ -15,27 +16,28 @@ export const EmployeeManagement = () => {
     <>
       <ListPage<Employee>
         title="Employee Management"
-        isSearch={true}
-        isTabs={true}
+        search
         data={data}
-        dropdownKey="branch"
-        dropdownLabel="Branch"
+        dropdowns={[{ key: 'branch', label: 'Branch' }]}
         actionComponent={
-          <Button
-            type="button"
-            variant="secondary"
-            size="lg"
-            className="text-[14px] font-medium leading-5 text-white"
-            onClick={() => setAddOpen(true)}
-          >
-            Add Employee
-          </Button>
+          <Can action="create" subject={PERM_SUBJECTS.HR_EMPLOYEES}>
+            <Button
+              type="button"
+              variant="secondary"
+              size="lg"
+              className="text-[14px] font-medium leading-5 text-white"
+              onClick={() => setAddOpen(true)}
+            >
+              Add Employee
+            </Button>
+          </Can>
         }
         renderCard={(filtered: Employee[]) => <EmployeeCard data={filtered} />}
         renderTable={(filtered: Employee[]) => (
           <EmployeeTable data={filtered} />
         )}
-        filterFn={(data: Employee[], search: string, dropdown?: string) => {
+        filterFn={(data, { search, dropdowns }) => {
+          const dropdown = dropdowns.branch;
           return data.filter((item: Employee) => {
             const matchesSearch =
               item.branch?.toLowerCase().includes(search.toLowerCase()) ||
@@ -50,7 +52,7 @@ export const EmployeeManagement = () => {
       />
 
       <Dialog open={addOpen} onOpenChange={setAddOpen}>
-        <DialogContent className="max-w-screen p-4 bg-[#F9FAFB] sm:max-w-186.75">
+        <DialogContent className="max-w-screen p-4 bg-background sm:max-w-186.75">
           <EmployeeForm setOpen={setAddOpen} />
         </DialogContent>
       </Dialog>

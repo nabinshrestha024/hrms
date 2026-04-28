@@ -13,7 +13,7 @@ export const WorkInformation = ({ employee }: { employee: Employee }) => {
   return (
     <>
       <div className="flex flex-col gap-6 max-h-115 overflow-auto pr-3">
-        <div className="text-[18px] font-medium leading-7 text-[#09090B]">
+        <div className="text-[18px] font-medium leading-7 text-foreground">
           Work Information
         </div>
         <EditableSection

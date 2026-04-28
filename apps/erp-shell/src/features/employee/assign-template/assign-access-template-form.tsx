@@ -100,7 +100,7 @@ export const AssignAccessTemplateForm = ({
                       key={index}
                       className={`border rounded-[6px] p-2 cursor-pointer transition-all ${
                         isSelected
-                          ? 'border-primary bg-[#EEF2FF]'
+                          ? 'border-primary bg-primary-foreground'
                           : 'border-border'
                       }`}
                       onClick={() => {
@@ -141,7 +141,7 @@ export const AssignAccessTemplateForm = ({
               <RadioTab
                 defaultValue="global"
                 tabClassName=" flex flex-col  gap-2"
-                tabListClassName="flex justify-center py-2 px-0 bg-[#F4F4F5] rounded-[6px]"
+                tabListClassName="flex justify-center py-2 px-0 bg-muted rounded-[6px]"
                 tabList={dataScope}
                 tabTriggerClassName="h-8 px-[44.83px] py-[6px] text-[14px] font-medium leading-5 text-secondary-foreground "
                 selectedDataScope={selectedDataScope}

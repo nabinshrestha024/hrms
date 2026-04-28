@@ -1,3 +1,4 @@
+import { useCreateHoliday } from '@erp/data-access';
 import { Button, HRCard, HRTextarea, toast, useDialogClose } from '@erp/ui';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -5,6 +6,14 @@ import {
   ConfigBulkUploadTemplateFormValue,
   configBulkUploadTemplateSchema,
 } from '../zod/ConfigBulkUpload.Zod';
+
+// MM/DD/YYYY -> YYYY-MM-DD (canonical schema format).
+const toIsoDate = (s: string): string | null => {
+  const m = s.trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if (!m) return null;
+  const [, mm, dd, yyyy] = m;
+  return `${yyyy}-${mm.padStart(2, '0')}-${dd.padStart(2, '0')}`;
+};
 
 export const ConfigBulkUploadForm = () => {
   const {
@@ -17,10 +26,39 @@ export const ConfigBulkUploadForm = () => {
   });
 
   const close = useDialogClose();
-  const onsubmit = (data: ConfigBulkUploadTemplateFormValue) => {
-    console.warn('Save Changes: ', data);
-    close();
-    toast({ title: 'Leave Type Added', variant: 'success' });
+  const createHoliday = useCreateHoliday();
+
+  const onsubmit = async (data: ConfigBulkUploadTemplateFormValue) => {
+    const rows = data.bulkData
+      .split(/\r?\n/)
+      .map((row) => row.split(',').map((cell) => cell.trim()))
+      .filter((cells) => cells.length >= 3 && cells[0]);
+
+    const parsed = rows
+      .map(([name, date, type]) => {
+        const iso = toIsoDate(date ?? '');
+        return iso ? { name, date: iso, type } : null;
+      })
+      .filter((r): r is { name: string; date: string; type: string } => !!r);
+
+    if (parsed.length === 0) {
+      toast({
+        variant: 'destructive',
+        title: 'No valid rows. Format: Name, MM/DD/YYYY, Type (one per line).',
+      });
+      return;
+    }
+
+    try {
+      await Promise.all(parsed.map((row) => createHoliday.mutateAsync(row)));
+      toast({
+        title: `${parsed.length} holidays added`,
+        variant: 'success',
+      });
+      close();
+    } catch {
+      toast({ variant: 'destructive', title: 'Bulk upload failed' });
+    }
   };
 
   return (

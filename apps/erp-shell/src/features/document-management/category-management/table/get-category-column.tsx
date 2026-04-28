@@ -1,32 +1,37 @@
+import { type DocumentCategory } from '@erp/data-access';
 import { DataTableColumnHeader } from '@erp/ui';
 import { ColumnDef } from '@tanstack/react-table';
-import { CategoryType } from '../../schema/CategoryData';
-import { IconButton } from '../../../../components/icon-button';
 import { Edit, Trash2 } from 'lucide-react';
+import { IconButton } from '../../../../components/icon-button';
 
-export function getCategoryColumns(): ColumnDef<CategoryType, unknown>[] {
+function formatCreatedDate(iso: string): string {
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return '—';
+  return d.toISOString().slice(0, 10);
+}
+
+export function getCategoryColumns(): ColumnDef<DocumentCategory, unknown>[] {
   return [
     {
-      accessorKey: 'documentCategory',
+      accessorKey: 'name',
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Category" />
       ),
-      cell: ({ row }) => <>{row.getValue('documentCategory')}</>,
+      cell: ({ row }) => <>{row.getValue('name')}</>,
     },
     {
-      accessorKey: 'numOfDocs',
+      accessorKey: 'documentCount',
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Document" />
       ),
-      cell: ({ row }) => <>{row.getValue('numOfDocs')}</>,
+      cell: ({ row }) => <>{row.getValue('documentCount')}</>,
     },
-
     {
-      accessorKey: 'createdDate',
+      accessorKey: 'createdAt',
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Created Date" />
       ),
-      cell: ({ row }) => <>{row.getValue('createdDate')}</>,
+      cell: ({ row }) => <>{formatCreatedDate(row.original.createdAt)}</>,
     },
     {
       accessorKey: 'actions',

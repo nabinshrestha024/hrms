@@ -6,11 +6,11 @@ import {
   HRSelect,
   Switch,
 } from '@erp/ui';
-import { Controller, useFormContext } from 'react-hook-form';
-import { SalaryStructureTemplateFormValue } from '../zod/SalaryStructure.zod';
-import { IconButton } from '../../../../components/icon-button';
 import { Plus, Trash2 } from 'lucide-react';
 import { useState } from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
+import { IconButton } from '../../../../components/icon-button';
+import { SalaryStructureTemplateFormValue } from '../../zod/SalaryStructure.zod';
 export const AllowanceCard = () => {
   const {
     register,

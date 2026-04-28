@@ -46,7 +46,14 @@ export default [
     },
   },
   {
+    // Excludes features so the base config's Phase 0.1 features rules
+    // (no-restricted-syntax for hex / oklch in className) survive
+    // unshadowed. Features have zero default exports today, so dropping
+    // the App-permissive selector here is safe — they fall through to
+    // the base apps override which turns no-restricted-syntax off, then
+    // the features-scoped block in the base re-enables it for hex/oklch.
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
+    ignores: ['**/features/**'],
     rules: {
       // Allow default export only for app.tsx
       'no-restricted-syntax': [
@@ -65,6 +72,25 @@ export default [
     files: ['src/routes/**/*.tsx'],
     rules: {
       'no-restricted-syntax': 'off',
+    },
+  },
+
+  // Phase 0.1 — features hex/oklch ban (re-applied here so it survives
+  // the nx flat/typescript config's `no-restricted-syntax: WithStatement`
+  // which is loaded AFTER baseConfig and would otherwise override.)
+  // ESCALATE 'warn' → 'error' after Phase 6.1 in IMPROVEMENT-PLAN.md.
+  {
+    files: ['**/features/**/*.ts', '**/features/**/*.tsx'],
+    rules: {
+      'no-restricted-syntax': [
+        'warn',
+        {
+          selector:
+            'JSXAttribute[name.name="className"] Literal[value=/#[0-9a-fA-F]{3,8}|oklch\\(/]',
+          message:
+            'Use design tokens (bg-muted, text-foreground, text-primary, border-border, etc.) instead of literal hex / oklch colors. See docs/IMPROVEMENT-PLAN.md Phase 6.',
+        },
+      ],
     },
   },
 ];

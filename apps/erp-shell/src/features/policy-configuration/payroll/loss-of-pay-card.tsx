@@ -53,7 +53,7 @@ export const LossOfPayCard = () => {
         </HRCard>
         <HRCard
           cardContentClassName="p-0 flex flex-col gap-1 "
-          cardClassName="px-3 py-2.5 border border-border rounded-[6px] shadow-none bg-[#EFF6FF]"
+          cardClassName="px-3 py-2.5 border border-border rounded-[6px] shadow-none bg-alert-background"
         >
           <span className="text-[14px] font-medium leading-5 text-foreground">
             LOP Deduction Formula:

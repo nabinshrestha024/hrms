@@ -1,4 +1,4 @@
-import { Badge, HRCard } from '@erp/ui';
+import { Badge, HRCard, Skeleton } from '@erp/ui';
 import {
   useMyRequests,
   type MyRequest as MyRequestType,
@@ -17,10 +17,16 @@ export const MyRequest = () => {
         <div className="text-[18px] text-foreground font-medium leading-7">
           My Request
         </div>
-        <div className="flex-1 flex items-center justify-center">
-          <span className="text-sm text-secondary-foreground animate-pulse">
-            Loading...
-          </span>
+        <div className="flex flex-col gap-3 pr-3">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} className="flex justify-between items-center p-2">
+              <div className="flex flex-col gap-2">
+                <Skeleton className="h-4 w-32" />
+                <Skeleton className="h-3 w-48" />
+              </div>
+              <Skeleton className="h-6 w-20 rounded-full" />
+            </div>
+          ))}
         </div>
       </HRCard>
     );
@@ -61,7 +67,7 @@ export const MyRequest = () => {
                 {val.status === 'Pending' && (
                   <Badge
                     variant="warning"
-                    className="border border-chart-4 bg-[#FEFCE8]"
+                    className="border border-chart-4 bg-chart-6"
                   >
                     Pending
                   </Badge>

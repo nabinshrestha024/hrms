@@ -1,5 +1,22 @@
 import { HRCard, Switch } from '@erp/ui';
-import { adminOverridePermissionData } from '../schema/WorkflowData';
+
+const adminOverridePermissionData = [
+  {
+    adminOverrideTitle: 'Cancel Approved Leave',
+    adminOverrideSubTitle:
+      'Admin can cancel any approved leave requests at any time  If payroll is processed, arrear adjustment will be created',
+  },
+  {
+    adminOverrideTitle: 'Modify Leave Type',
+    adminOverrideSubTitle:
+      'Admin can change leave type (e.g., Sick leave ->Casual Leave)',
+  },
+  {
+    adminOverrideTitle: 'Force Entry Leave',
+    adminOverrideSubTitle:
+      'Admin can create leave entries for employees who forgot to apply  If payroll is processed, arrear adjustment will be created',
+  },
+];
 
 export const AdminOverridePermission = () => {
   return (

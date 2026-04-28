@@ -249,95 +249,77 @@ export const createLeaveSchema = z.object({
 export type CreateLeaveInput = z.infer<typeof createLeaveSchema>;
 ```
 
-**Step 2: Create mutation hook** (in `data-access/queries/`)
-
-```typescript
-// libs/shared/data-access/src/queries/leave.queries.ts
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import type { ApiClient } from '../api-client';
-import type { CreateLeaveInput } from '../schemas/leave.schema';
-
-export function useCreateLeave(client: ApiClient) {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: async (input: CreateLeaveInput) => {
-      const { data } = await client.post('/leaves', input);
-      return data;
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['leaves'] });
-    },
-  });
-}
-```
-
-**Step 3: Build form with RHF + Zod**
+**Step 2: Use the existing mutation hook** (every resource has `useCreate*` / `useUpdate*` / `useDelete*` exported from `@erp/data-access`).
 
 ```tsx
+import { useCreateLeaveRequest } from '@erp/data-access';
+```
+
+The hook resolves its `ApiClient` from `useApiClient()` internally, so consumers don't pass it. On success the matching list query is invalidated automatically (see `leave-request.queries.ts` for the canonical structure).
+
+**Step 3: Build the dialog form**
+
+```tsx
+import { useCreateLeaveRequest } from '@erp/data-access';
+import { Button, Input, FormField, toast } from '@erp/ui';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  useApiClient,
-  useCreateLeave,
-  createLeaveSchema,
-  type CreateLeaveInput,
-} from '@erp/data-access';
-import { Button, Input, FormField } from '@erp/ui';
+import { createLeaveRequestSchema } from '@erp/data-access';
 
-function LeaveRequestForm({ onClose }: { onClose: () => void }) {
-  const api = useApiClient();
-  const mutation = useCreateLeave(api);
+function LeaveRequestForm({ onSuccess }: { onSuccess: () => void }) {
+  const createLeaveRequest = useCreateLeaveRequest();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<CreateLeaveInput>({
-    resolver: zodResolver(createLeaveSchema),
+  } = useForm({
+    resolver: zodResolver(createLeaveRequestSchema),
   });
 
   const onSubmit = handleSubmit((data) => {
-    mutation.mutate(data, { onSuccess: onClose });
+    createLeaveRequest.mutate(data, {
+      onSuccess: () => {
+        toast({ variant: 'success', title: 'Leave request created' });
+        onSuccess();
+      },
+      onError: () => {
+        toast({
+          variant: 'destructive',
+          title: 'Failed to create leave request',
+        });
+      },
+    });
   });
 
   return (
-    <form onSubmit={onSubmit} className="space-y-4">
-      <FormField
-        label="Leave Type"
-        htmlFor="type"
-        error={errors.type?.message}
-        required
-      >
-        <Input id="type" {...register('type')} />
+    <form onSubmit={onSubmit} id="leave-request-form" className="space-y-4">
+      <FormField label="Type" error={errors.type?.message} required>
+        <Input {...register('type')} />
       </FormField>
-
-      <FormField
-        label="Reason"
-        htmlFor="reason"
-        error={errors.reason?.message}
-        required
-      >
-        <Input id="reason" {...register('reason')} />
+      <FormField label="Reason" error={errors.reason?.message} required>
+        <Input {...register('reason')} />
       </FormField>
-
-      {mutation.error && (
-        <p className="text-sm text-destructive">{mutation.error.message}</p>
-      )}
-
-      <Button type="submit" disabled={mutation.isPending}>
-        {mutation.isPending ? 'Submitting...' : 'Submit'}
-      </Button>
     </form>
   );
 }
 ```
 
+**Submit pipeline to mirror in every form:**
+
+1. Map form fields onto the canonical `Create*Input` / `Update*Input` shape inside `onSubmit` (rename / coerce types — e.g. `phoneNumber → phone`, `joiningDate (Date) → startDate (ISO string)`, `grossSalary (string) → salary (number)`). The `EmployeeForm.Zod.ts` header doc-comment is the canonical example.
+2. Call `mutation.mutate(payload, { onSuccess, onError })`.
+3. On success: `toast({ variant: 'success', … })` then call the parent's `onSuccess` (`<FormDialog>` passes a `close` callback; wire it up so the dialog closes on save).
+4. On error: `toast({ variant: 'destructive', … })`.
+5. **Never** `console.warn(data)` as a placeholder — the ESLint `no-console` rule is escalated to an error in `features/`.
+
 **Why this pattern:**
 
-- Validation runs client-side before API call (instant feedback)
-- `useMutation` handles loading, error, success states automatically
-- `onSuccess` invalidates related queries (table refreshes automatically)
-- Types flow from Zod schema → form → API (zero duplication)
+- Validation runs client-side before the API call (instant feedback).
+- `useMutation` handles loading / error / success states automatically.
+- The hook's `onSuccess` invalidates the matching list query so any open list refreshes.
+- Types flow Zod schema → mutation input → form (zero duplication).
+- The form schema (UX validation: regex, age ≥ 16, file instances) can stay distinct from the canonical entity schema (storage shape) — see `EmployeeForm.Zod.ts` for the rationale + the field-name map between them.
 
 ### Which form pattern to use?
 
@@ -721,22 +703,28 @@ function MyComponent() {
 ### Permission-Based UI
 
 ```tsx
-import { Can } from '@erp/auth';
+import { Can, PERM_SUBJECTS } from '@erp/auth';
 
-<Can action="create" subject="hr:employees">
+<Can action="create" subject={PERM_SUBJECTS.HR_EMPLOYEES}>
   <Button>Add Employee</Button>
 </Can>
 
-<Can action="delete" subject="hr:employees" fallback={<span>No access</span>}>
+<Can
+  action="delete"
+  subject={PERM_SUBJECTS.HR_EMPLOYEES}
+  fallback={<span>No access</span>}
+>
   <Button variant="destructive">Delete</Button>
 </Can>
 ```
 
 ### Permission Format
 
-Permissions follow the pattern: `module:entity:action`
+Permissions follow the pattern: `module:entity:action`. The literal strings live in `PERM_SUBJECTS` (subject = `module:entity`) and `PERM_ACTIONS` (action verb) — always import the constants instead of hand-typing the string. A typo in a free-form permission string silently grants no access; using the constants makes it a build error.
 
-Examples: `hr:employees:read`, `payroll:runs:approve`, `leave:requests:create`
+Subjects shipped today: `HR_EMPLOYEES`, `HR_DEPARTMENTS`, `HR_BRANCHES`, `HR_DIRECTORIES`, `ATTENDANCE_RECORDS`, `LEAVE_REQUESTS`, `LEAVE_TYPES`, `DOCUMENTS_REVIEWS`, `DOCUMENTS_TEMPLATES`, `DOCUMENTS_CATEGORIES`, `DOCUMENTS_ASSIGNMENTS`, `DOCUMENTS_VISIBILITY`, `ASSETS_ITEMS`, `ASSETS_CATEGORIES`, `MASTER_HOLIDAY_TYPES`, `MASTER_CURRENCIES`, `MASTER_JOB_LEVELS`, `MASTER_WORK_TYPES`, `MASTER_LEAVE_PAY_TYPES`, `CONFIG_HOLIDAYS`, `CONFIG_SHIFTS`, `CONFIG_WORK_WEEK`, `POLICY_*`, `SETTINGS_*`. Actions: `read` / `create` / `update` / `delete` / `approve` / `reject` / `assign` / `return`.
+
+Three role bundles drive `mock-users.ts`: `ADMIN_PERMISSIONS` (full CRUD), `HR_MANAGER_PERMISSIONS` (read + manage employees + approve leave + manage assets), `EMPLOYEE_PERMISSIONS` (self-service only).
 
 ### Protected Routes
 
@@ -762,102 +750,55 @@ Component → useApiClient() → fetch('/api/employees') → MSW intercepts → 
 
 MSW starts automatically in dev mode via `main.tsx`. No setup needed.
 
-**Adding a new mock endpoint:**
+**Adding a new mock resource (current canonical pattern):**
 
-1. Create mock data in `apps/erp-shell/src/mocks/your-entity.mock.ts`
-2. Add HTTP handlers in `apps/erp-shell/src/mocks/handlers.ts`:
-
-```typescript
-// In handlers.ts, add:
-http.get(`${API_BASE}/your-entities`, async ({ request }) => {
-  await delay(150);
-  const params = parseSearchParams(request.url);
-  const result = await mockGetYourEntities(params);
-  return HttpResponse.json(result);
-}),
-```
-
-3. Use `useApiClient()` in your component to make requests:
-
-```tsx
-import { useApiClient } from '@erp/data-access';
-
-function MyPage() {
-  const api = useApiClient();
-  // api.get('/your-entities') → MSW intercepts → mock response
-}
-```
+1. Add the Zod schema in `libs/shared/data-access/src/schemas/<resource>.schema.ts` (id + entity fields + `...timestampsSchema.shape`, plus `create*Schema` and `update*Schema`).
+2. Add the React Query hooks in `libs/shared/data-access/src/queries/<resource>.queries.ts` (`useXxxList` / `useXxx(id)` / `useCreateXxx` / `useUpdateXxx` / `useDeleteXxx`). Look at `employee.queries.ts` for a reference implementation; mutations end with a `queryClient.invalidateQueries` so any open list refreshes automatically.
+3. Re-export from `libs/shared/data-access/src/index.ts` so consumers can import from `@erp/data-access`.
+4. Drop a seed file at `apps/erp-shell/src/mocks/modules/<resource>/seed.ts` and an `index.ts` that registers the collection (`db.registerCollection('your-resource', seed)`) plus calls `createCrudHandlers` for the standard REST shape.
+5. Register the module in `apps/erp-shell/src/mocks/handlers.ts` (`init<Resource>Module()`).
+6. Singletons (e.g. `work-week-config`) skip step 4's `createCrudHandlers` and ship custom GET + PATCH handlers.
 
 **Disabling MSW:** Set `VITE_ENABLE_MOCK_API=false` in `.env` to skip MSW and hit a real backend.
 
-### With Mock Data (Direct — legacy)
+### Loading & error states with `<QueryBoundary>`
 
-For simple pages or `<TablePage>`, you can still use mock functions directly:
+Wrap query consumers in `<QueryBoundary>` (from `@erp/ui`) so each call site doesn't hand-roll loading + error UI. It composes `Suspense`, an internal error boundary, and a default Skeleton fallback. Custom UI plugs in via `fallback` and `errorFallback={(error, retry) => …}`. The "Try again" button resets both the error boundary and the underlying React Query cache via `useQueryErrorResetBoundary`.
 
-```typescript
-import type { FetchParams, FetchResult } from '@erp/ui';
+```tsx
+import { QueryBoundary } from '@erp/ui';
 
-export interface YourEntity {
-  id: string;
-  name: string;
-}
-
-const MOCK_DATA: YourEntity[] = [
-  /* ... */
-];
-
-export async function mockGetEntities(
-  params: FetchParams
-): Promise<FetchResult<YourEntity>> {
-  await new Promise((r) => setTimeout(r, 100));
-
-  let filtered = [...MOCK_DATA];
-  if (params.search) {
-    filtered = filtered.filter((item) =>
-      item.name.toLowerCase().includes(params.search!.toLowerCase())
-    );
-  }
-
-  const total = filtered.length;
-  const start = (params.page - 1) * params.pageSize;
-  return { data: filtered.slice(start, start + params.pageSize), total };
-}
+<QueryBoundary>
+  <EmployeeList /> {/* uses useEmployees() */}
+</QueryBoundary>;
 ```
 
-### With Real API (Production)
+### Consuming the hooks in a component
 
-Create a Zod schema in `libs/shared/data-access/src/schemas/`:
+```tsx
+import { useLeaveRequests, type LeaveRequest } from '@erp/data-access';
+import { ListPage } from '@erp/ui';
 
-```typescript
-import { z } from 'zod';
+function LeaveRequestPage() {
+  const { data: response } = useLeaveRequests({ pageSize: 100 });
+  const data: LeaveRequest[] = response?.data ?? [];
 
-export const leaveRequestSchema = z.object({
-  id: z.string(),
-  employeeName: z.string(),
-  type: z.string(),
-  status: z.enum(['pending', 'approved', 'rejected']),
-});
-
-export type LeaveRequest = z.infer<typeof leaveRequestSchema>;
-```
-
-Create query hooks in `libs/shared/data-access/src/queries/`:
-
-```typescript
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-
-export const leaveRequestKeys = {
-  all: ['leave-requests'] as const,
-  lists: () => [...leaveRequestKeys.all, 'list'] as const,
-};
-
-export function useLeaveRequests(client: ApiClient, params?: ListParams) {
-  return useQuery({
-    queryKey: leaveRequestKeys.lists(),
-    queryFn: () => client.get('/leave-requests', { params }),
-  });
+  return (
+    <ListPage<LeaveRequest>
+      search
+      data={data}
+      filterFn={(rows, { search }) =>
+        rows.filter((r) =>
+          r.employeeName.toLowerCase().includes(search.toLowerCase())
+        )
+      }
+      renderTable={(filtered) => <LeaveRequestTable data={filtered} />}
+    />
+  );
 }
 ```
+
+The hook resolves its `ApiClient` from `useApiClient()` internally, so consumers don't pass it. Filter / sort / pagination params come from the typed `*Filters` schema co-located with the entity schema.
 
 ---
 

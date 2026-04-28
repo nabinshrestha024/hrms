@@ -1,6 +1,12 @@
-import { HRCard } from '@erp/ui';
+import { ContentShell } from '@erp/ui';
+import { lazy, Suspense } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
-import { AttendanceDetail } from '../../../features/attendance/attendance-record/attendance-detail';
+
+const AttendanceDetail = lazy(() =>
+  import(
+    '../../../features/attendance/attendance-record/attendance-detail'
+  ).then((m) => ({ default: m.AttendanceDetail }))
+);
 
 export const Route = createFileRoute('/_authenticated/attendance/')({
   component: RouteComponent,
@@ -12,18 +18,10 @@ export const Route = createFileRoute('/_authenticated/attendance/')({
 
 function RouteComponent() {
   return (
-    <div className="w-full h-[calc(100vh-84px)] overflow-auto flex flex-col bg-[#F9FAFB]">
-      <div className="px-12 py-6 text-[20px] font-semibold leading-12 text-[#09090B] ">
-        Attendance Record
-      </div>
-      <div className="px-6 pt-0 pb-32.5 ">
-        <HRCard
-          cardClassName="bg-white border-none p-6 shadow-none rounded-xl"
-          cardContentClassName="p-0"
-        >
-          <AttendanceDetail />
-        </HRCard>
-      </div>
-    </div>
+    <ContentShell title="Attendance Record" padded>
+      <Suspense fallback={null}>
+        <AttendanceDetail />
+      </Suspense>
+    </ContentShell>
   );
 }

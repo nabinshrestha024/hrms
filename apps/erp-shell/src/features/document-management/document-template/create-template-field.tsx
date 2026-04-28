@@ -7,7 +7,10 @@ export const CreateTemplateField = ({ onClick }: { onClick?: () => void }) => {
       onClick={onClick}
       className="flex gap-4 border-2 border-dashed border-muted-foreground p-4 cursor-pointer"
     >
-      <IconButton variant="primary" className="p-3 bg-[#C6D2FF] w-12 h-12">
+      <IconButton
+        variant="primary"
+        className="p-3 bg-primary-foreground w-12 h-12"
+      >
         <Plus className="w-8 h-8 text-indigo-600" />
       </IconButton>
 

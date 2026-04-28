@@ -1,3 +1,4 @@
+import { useCreateEmployee } from '@erp/data-access';
 import { Button, HRCard, toast } from '@erp/ui';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
@@ -6,6 +7,11 @@ import { BasicDetailForm } from './basic-detail-form';
 import { employeeSchema, type EmployeeFormValue } from './EmployeeForm.Zod';
 import { FinancialDetailForm } from './financial-detail-form';
 import { WorkInformationForm } from './work-information-form';
+
+const toIso = (d: Date | string | undefined): string => {
+  if (!d) return '';
+  return d instanceof Date ? d.toISOString().split('T')[0] : String(d);
+};
 
 type Props = {
   setOpen: (open: boolean) => void;
@@ -16,15 +22,68 @@ export const EmployeeForm = ({ setOpen }: Props) => {
     resolver: zodResolver(employeeSchema),
   });
   const { handleSubmit } = methods;
+  const createEmployee = useCreateEmployee();
 
   const [step, setStep] = useState(1);
   const nextStep = () => setStep(step + 1);
   const prevStep = () => setStep(step - 1);
 
   const onsubmit = (data: EmployeeFormValue) => {
-    console.warn('Employee Details: ', data);
-    setOpen(false);
-    toast({ variant: 'success', title: 'New employee added' });
+    // Form values use UI-friendly names (phoneNumber, joiningDate,
+    // workPhoneNumber, reportingManager, grossSalary as string). The
+    // canonical `CreateEmployeeInput` (`@erp/data-access`) uses
+    // (phone, startDate, workPhone, managerId, salary as number). Map
+    // the form output onto the canonical shape here.
+    createEmployee.mutate(
+      {
+        employeeId: data.employeeId,
+        firstName: data.firstName,
+        middleName: data.middleName,
+        lastName: data.lastName,
+        email: data.email,
+        phone: data.phoneNumber,
+        dateOfBirth: toIso(data.dateOfBirth),
+        gender: data.gender,
+        maritalStatus: data.maritalStatus,
+        country: data.country,
+        province: data.province,
+        city: data.city,
+        municipality: data.municipality,
+        ward: data.ward,
+        address: data.address,
+        emergencyContact: data.emergencyContact,
+        emergencyContactName: data.emergencyContactName,
+        emergencyContactRelation: data.emergencyContactRelation,
+        branch: data.branch,
+        department: data.department,
+        designation: data.designation,
+        jobLevel: data.jobLevel,
+        managerId: data.reportingManager,
+        shift: data.shift,
+        workType: data.workType,
+        employeeType: data.employeeType,
+        workEmail: data.workEmail,
+        workPhone: data.workPhoneNumber,
+        startDate: toIso(data.joiningDate),
+        contractStartDate: toIso(data.contractStartDate),
+        contractEndDate: toIso(data.contractEndDate),
+        salary: Number(data.grossSalary),
+        basicSalary: Number(data.basicSalary),
+        bankName: data.bankName,
+        bankAccountNumber: data.bankAccountNumber,
+        bankAccountName: data.bankAccountName,
+        status: 'active',
+      },
+      {
+        onSuccess: () => {
+          toast({ variant: 'success', title: 'New employee added' });
+          setOpen(false);
+        },
+        onError: () => {
+          toast({ variant: 'destructive', title: 'Failed to add employee' });
+        },
+      }
+    );
   };
 
   return (

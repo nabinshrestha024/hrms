@@ -151,7 +151,8 @@ export function buildZodSchema(
         break;
       }
 
-      case 'select': {
+      case 'select':
+      case 'colorRadio': {
         schema = z.preprocess(
           normalizeString,
           z.any().superRefine((val, ctx) => {
@@ -169,6 +170,156 @@ export function buildZodSchema(
               ctx.addIssue({
                 code: z.ZodIssueCode.custom,
                 message: requiredMsg,
+              });
+              return;
+            }
+
+            // For both `select` and `colorRadio`, when an `options` list is
+            // provided, ensure the value is one of them.
+            if (Array.isArray(field.options) && field.options.length > 0) {
+              const allowed = field.options.map((o) =>
+                typeof o === 'string' ? o : o.value
+              );
+              if (!allowed.includes(val)) {
+                ctx.addIssue({
+                  code: z.ZodIssueCode.custom,
+                  message: 'Invalid selection',
+                });
+              }
+            }
+          })
+        );
+        break;
+      }
+
+      case 'time': {
+        // HH:MM 24-hour. Accepts the same trim/empty rules as text.
+        schema = z.preprocess(
+          normalizeString,
+          z.any().superRefine((val, ctx) => {
+            if (val === undefined) {
+              if (isRequired) {
+                ctx.addIssue({
+                  code: z.ZodIssueCode.custom,
+                  message: requiredMsg,
+                });
+              }
+              return;
+            }
+
+            if (
+              typeof val !== 'string' ||
+              !/^([01]\d|2[0-3]):[0-5]\d$/.test(val)
+            ) {
+              ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: 'Time must be HH:MM (24-hour)',
+              });
+            }
+          })
+        );
+        break;
+      }
+
+      case 'file': {
+        // Accepts a `File` instance or null/undefined when not required.
+        schema = z.any().superRefine((val, ctx) => {
+          if (val === undefined || val === null) {
+            if (isRequired) {
+              ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: requiredMsg,
+              });
+            }
+            return;
+          }
+
+          // `File` may not exist in non-DOM test environments — guard.
+          if (typeof File !== 'undefined' && !(val instanceof File)) {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: 'Must be a file',
+            });
+            return;
+          }
+
+          if (typeof File !== 'undefined' && val instanceof File) {
+            if (validation.max != null && val.size > validation.max) {
+              ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: `File must be smaller than ${validation.max} bytes`,
+              });
+            }
+          }
+        });
+        break;
+      }
+
+      case 'relation': {
+        // String id (single) or string[] (multiple). Validation against the
+        // referenced entity is the form consumer's responsibility — schema
+        // only enforces shape + presence.
+        const isMulti = field.relation?.multiple === true;
+
+        schema = z.any().superRefine((val, ctx) => {
+          if (val === undefined || val === null || val === '') {
+            if (isRequired) {
+              ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: requiredMsg,
+              });
+            }
+            return;
+          }
+
+          if (isMulti) {
+            if (
+              !Array.isArray(val) ||
+              !val.every((v) => typeof v === 'string')
+            ) {
+              ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: 'Must be a list of ids',
+              });
+              return;
+            }
+            if (isRequired && val.length === 0) {
+              ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: requiredMsg,
+              });
+            }
+          } else if (typeof val !== 'string') {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: 'Must be an id string',
+            });
+          }
+        });
+        break;
+      }
+
+      case 'richtext': {
+        // Plain string container; validation matches `text`/`textarea` so
+        // max-length applies to the rendered HTML/markdown body.
+        schema = z.preprocess(
+          normalizeString,
+          z.any().superRefine((val, ctx) => {
+            if (val === undefined) {
+              if (isRequired) {
+                ctx.addIssue({
+                  code: z.ZodIssueCode.custom,
+                  message: requiredMsg,
+                });
+              }
+              return;
+            }
+
+            const str = String(val);
+            if (validation.max != null && str.length > validation.max) {
+              ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: `Maximum ${validation.max} characters`,
               });
             }
           })
