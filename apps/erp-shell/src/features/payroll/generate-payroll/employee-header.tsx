@@ -1,17 +1,20 @@
-import { Button } from '@erp/ui';
-import { TableHeader } from '../../../components/table-header';
-import { employeesDetailData } from '../schema/TableData';
+import { Button, ListPage } from '@erp/ui';
 import { EmployeeDetailTable } from './table/employee-detail-table';
+import { GeneratePayroll, useGeneratePayroll } from '@erp/data-access';
+import { generatePayrollSeed } from '../../../mocks/modules/generate-payroll/seed';
 
 export const EmployeeDetailHeader = () => {
+  const { data: response } = useGeneratePayroll({ pageSize: 100 });
+  const data: GeneratePayroll[] = response?.data ?? generatePayrollSeed;
+  console.warn(data, 'Generate Payroll');
+
   return (
     <>
-      <TableHeader
-        data={employeesDetailData}
-        className="gap-0 justify-between items-center"
-        searchClassName="w-[260px]"
-        isSearch={true}
-        renderTable={(filtered) => <EmployeeDetailTable data={filtered} />}
+      <ListPage
+        data={data}
+        search
+        controlClassName="mb-0"
+        renderTable={(rows) => <EmployeeDetailTable data={rows} />}
         actionComponent={
           <div className="flex gap-4">
             <Button
@@ -35,9 +38,9 @@ export const EmployeeDetailHeader = () => {
           </div>
         }
         dropdowns={[{ key: 'department', label: 'Department' }]}
-        filterFn={(data, search, dropdowns) => {
+        filterFn={(data, { search, dropdowns }) => {
           return data.filter((item) => {
-            const matchesSearch = item.department
+            const matchesSearch = item.name
               ?.toLowerCase()
               .includes(search.toLowerCase());
             const matchesDropdowns = Object.entries(dropdowns || {}).every(

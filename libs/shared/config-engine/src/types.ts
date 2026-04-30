@@ -49,7 +49,7 @@ export type LayoutNode = SectionNode | ColumnsNode | FieldRef | DividerNode;
 
 export interface SectionNode {
   type: 'section';
-  title?: string;
+  title?: ReactNode;
   header?: ReactNode;
   footer?: ReactNode;
   collapsible?: boolean;

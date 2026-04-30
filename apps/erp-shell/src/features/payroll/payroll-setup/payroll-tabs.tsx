@@ -1,6 +1,9 @@
 import { HRTabs } from '@erp/ui';
-import { Deductions } from './deductions';
-import { TaxSlabs } from './tax-slabs';
+import { TaxSlabs } from './payroll-setup-tab/tax-slabs';
+import { Deductions } from './payroll-setup-tab/deductions';
+import { Allowance } from './payroll-setup-tab/allowances';
+import { FestivalBonus } from './payroll-setup-tab/festival-bonus';
+import { LeaveEncashment } from './payroll-setup-tab/leave-encashment';
 
 export const PayrollSetupDetail = () => {
   const tabsData = [
@@ -20,19 +23,19 @@ export const PayrollSetupDetail = () => {
       id: 3,
       value: 'Allowances',
       triggerText: 'Allowances',
-      content: <></>,
+      content: <Allowance />,
     },
     {
       id: 4,
       value: 'Festival Bonus',
       triggerText: 'Festival Bonus',
-      content: <></>,
+      content: <FestivalBonus />,
     },
     {
       id: 5,
       value: 'Leave Encashment',
       triggerText: 'Leave Encashment',
-      content: '',
+      content: <LeaveEncashment />,
     },
   ];
   return (

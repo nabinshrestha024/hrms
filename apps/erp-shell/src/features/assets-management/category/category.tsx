@@ -11,7 +11,7 @@ export const Category = () => {
   return (
     <HRCard
       cardClassName="p-6 border border-border bg-white shadow-none rounded-xl"
-      cardContentClassName="p-0 flex flex-col gap-8"
+      cardContentClassName="p-0 flex flex-col"
     >
       <ListPage<AssetCategory>
         flat

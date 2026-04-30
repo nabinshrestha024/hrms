@@ -1,6 +1,8 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
 import { useUpdateDocumentReview } from '@erp/data-access';
 import { toast } from '@erp/ui';
+import { InitialsCard } from '../../../components/initial-avatar';
+import { UserCard } from '../../../components/user-card';
 
 export const addRejectionFormConfig: FormViewConfig = {
   entity: 'rejection',
@@ -25,7 +27,15 @@ export const addRejectionFormConfig: FormViewConfig = {
   ],
   layout: {
     type: 'section',
-    title: 'Send Rejection Reason To:',
+    header: 'Send Rejection Reason To:',
+    title: (
+      <UserCard
+        employeeName="Sarah Johnson
+"
+        employeeId="EID 012"
+        department="Technical"
+      />
+    ),
     children: [
       { type: 'field', name: 'documentName' },
       { type: 'field', name: 'rejectionReason' },

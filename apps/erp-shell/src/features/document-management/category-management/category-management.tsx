@@ -1,7 +1,6 @@
 import { Can, PERM_SUBJECTS } from '@erp/auth';
 import { useDocumentCategories, type DocumentCategory } from '@erp/data-access';
-import { Button, FormDialog } from '@erp/ui';
-import { PageHeader } from '../../../components/page-header';
+import { Button, FormDialog, ListPage } from '@erp/ui';
 import { CategoryManagementCard } from './category-card';
 import { CategoryTable } from './table/category-table';
 import { CategoryForm } from './category-form';
@@ -12,9 +11,8 @@ export const CategoryManagement = () => {
 
   return (
     <>
-      <PageHeader
+      <ListPage
         title="Category Management"
-        isTabs={true}
         data={data}
         actionComponent={
           <Can action="create" subject={PERM_SUBJECTS.DOCUMENTS_CATEGORIES}>

@@ -29,7 +29,7 @@ export const DeductionForm = () => {
       <form id="deduction-form" onSubmit={form.handleSubmit(onsubmit)}>
         <HRCard
           cardClassName="p-0 border-none rounded-none shadow-none"
-          cardContentClassName="p-0 flex flex-col gap-4"
+          cardContentClassName="p-0 flex flex-col gap-8"
         >
           <ProvidentFund />
           <SocialSecurityFund />
@@ -42,7 +42,9 @@ export const DeductionForm = () => {
                 <span className="text-[14px] font-medium leading-5 text-foreground">
                   Citizen Investment Trust (CIT)
                 </span>
-                <span>Optional tax-saving investment scheme</span>
+                <span className="text-[14px] font-normal leading-5 text-secondary-foreground">
+                  Optional tax-saving investment scheme
+                </span>
               </div>
 
               <Controller

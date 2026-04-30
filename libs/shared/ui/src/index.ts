@@ -275,3 +275,7 @@ export {
 } from './primitives/accordion';
 export { HRAccordionCard } from './components/accordion/accordion';
 export { HRFileUpload } from './components/form/hr-form-upload';
+
+//slider
+
+export { Slider } from './primitives/slider';

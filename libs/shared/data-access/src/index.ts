@@ -574,3 +574,30 @@ export type {
   DirectoryEntryFilters,
   UpdateDirectoryEntryInput,
 } from './schemas/directory.schema';
+
+// payroll
+// generate payroll
+export { useGeneratePayroll } from './queries/generate-payroll.queries';
+
+export type {
+  CreateGeneratePayrollInput,
+  GeneratePayroll,
+  GeneratePayrollFilters,
+} from './schemas/generate-payroll.schema';
+
+export { createGeneratePayrollSchema } from './schemas/generate-payroll.schema';
+
+// payroll setup allowance
+
+export {
+  useAllowance,
+  useCreateAllowance,
+} from './queries/payroll-setup-allowance.queries';
+
+export type {
+  Allowance,
+  AllowanceFilters,
+  CreateAllowanceInput,
+} from './schemas/payroll-setup-allowance.schema';
+
+export { createAllowanceSchema } from './schemas/payroll-setup-allowance.schema';

@@ -29,7 +29,7 @@ export const ActionDropdown = ({
       onOpenChange={onOpenChange}
       trigger={trigger}
       align={align}
-      className="pt-1 pb-0 px-0"
+      className="px-2"
     >
       <div
         className="w-full flex flex-col"

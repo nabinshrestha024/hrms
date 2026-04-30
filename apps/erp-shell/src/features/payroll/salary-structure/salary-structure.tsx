@@ -1,5 +1,4 @@
-import { HRCard } from '@erp/ui';
-import { DocumentHeader } from '../../../components/document-management-header';
+import { HRCard, ListPage } from '@erp/ui';
 import { salaryStructureData } from '../schema/SalaryStructureData';
 import { SalaryStructureTable } from './table/salary-structure-table';
 
@@ -14,25 +13,24 @@ export const SalaryStructure = () => {
           cardClassName="p-6 border border-border rounded-xl shadow-none"
           cardContentClassName="p-0"
         >
-          <DocumentHeader
+          <ListPage
             data={salaryStructureData}
-            className="px-0 py-0 mb-6"
-            titleClassName="text-[18px] font-medium leading-7"
+            flat
+            titleClassName="text-[18px] font-medium"
             title="Employee Salary Structure"
-            isSearch={true}
+            search
             renderTable={(filtered) => <SalaryStructureTable data={filtered} />}
             dropdowns={[{ key: 'branch', label: 'Branch' }]}
-            filterFn={(data, search, dropdowns) => {
+            filterFn={(data, { search, dropdowns }) => {
+              const dropdown = dropdowns.branch;
               return data.filter((item) => {
-                const matchesSearch = item.branch
+                const matchesSearch = item.employeeName
                   ?.toLowerCase()
                   .includes(search.toLowerCase());
-                const matchesDropdowns = Object.entries(dropdowns || {}).every(
-                  ([key, value]) =>
-                    !value || String(item[key as keyof typeof item]) === value
-                );
-
-                return matchesSearch && matchesDropdowns;
+                const matchesDropdown = dropdown
+                  ? item.branch === dropdown
+                  : true;
+                return matchesSearch && matchesDropdown;
               });
             }}
           />

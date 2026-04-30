@@ -35,7 +35,7 @@ export const TaxSlabForm = () => {
       <form id="tax-slabs-form" onSubmit={form.handleSubmit(onsubmit)}>
         <HRCard
           cardClassName="p-0 border-none rounded-none shadow-none"
-          cardContentClassName="p-0 flex flex-col gap-4"
+          cardContentClassName="p-0 flex flex-col gap-8"
         >
           <TaxConfiguration />
           <TaxRebatesExemption />

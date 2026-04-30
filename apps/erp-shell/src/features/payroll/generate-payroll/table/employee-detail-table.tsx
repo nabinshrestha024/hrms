@@ -1,9 +1,9 @@
 import { DataTable } from '@erp/ui';
 import { useEmployeeDetailTable } from './use-employee-detail-table';
-import { EmployeeDetailType } from '../../schema/TableData';
+import { GeneratePayroll } from '@erp/data-access';
 
 interface EmployeeTableProps {
-  data: EmployeeDetailType[];
+  data: GeneratePayroll[];
 }
 
 export const EmployeeDetailTable = ({ data }: EmployeeTableProps) => {

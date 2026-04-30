@@ -1,7 +1,6 @@
 import { Button, CustomAlert } from '@erp/ui';
 import { Info } from 'lucide-react';
 import { TaxSlabForm } from './tax-slabs/tax-slabs-form';
-//
 export const TaxSlabs = () => {
   return (
     <div className="flex flex-col gap-1">

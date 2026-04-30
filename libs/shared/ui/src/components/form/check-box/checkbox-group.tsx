@@ -16,6 +16,7 @@ type CheckboxGroupProps = {
   className?: string;
   optionClassName?: string;
   labelClassName?: string;
+  checkboxClassName?: string;
   error?: string;
   Label?: string;
   subLabel?: string;
@@ -29,6 +30,7 @@ function CheckboxGroup({
   className,
   optionClassName,
   labelClassName,
+  checkboxClassName,
   error,
   Label,
   subLabel,
@@ -63,14 +65,23 @@ function CheckboxGroup({
             <label
               key={opt.value}
               htmlFor={`${generatedId}-${opt.value}`}
-              className={cn(' transition-all select', optionClassName)}
+              className={cn(
+                `transition-all select ${
+                  isChecked
+                    ? 'border border-primary bg-[#EEF2FF]'
+                    : 'border border-border bg-white'
+                } ${optionClassName}`
+              )}
             >
+              <span className="text-[14px] font-normal leading-5 text-foreground">
+                {opt.label}
+              </span>
               <Checkbox
                 id={`${generatedId}-${opt.value}`}
                 checked={isChecked}
                 disabled={isDisabled}
                 onCheckedChange={() => toggleValue(opt.value)}
-                className={`border border-primary`}
+                className={`border border-primary rounded-none ${checkboxClassName}`}
               />
             </label>
           );

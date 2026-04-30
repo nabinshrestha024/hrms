@@ -38,6 +38,7 @@
   --color-chart-5: var(--chart-5);
   --color-chart-6: var(--chart-6);
   --color-chart-7: var(--chart-7);
+  --color-chart-8: var(--chart-8);
 
   --color-badge-text-1: var(--badge-text-1);
   --color-badge-text-2: var(--badge-text-2);
@@ -47,6 +48,9 @@
   --color-badge-text-6: var(--badge-text-6);
   --color-badge-text-7: var(--badge-text-7);
   --color-badge-text-8: var(--badge-text-8);
+  --color-badge-text-9: var(--badge-text-9);
+
+  --color-text-1: var(--text-1);
 
   --color-card-text: var(--card-text);
   --color-outline: var(--outline);
@@ -120,6 +124,7 @@
   --chart-5: #dbeafe; /* blue */
   --chart-6: #fefce8;
   --chart-7: #f3f3fe;
+  --chart-8: #ffedd4;
 
   --badge-text-1: #4f46e5; /*indigo 600*/
   --badge-text-2: #16a34a;
@@ -129,6 +134,9 @@
   --badge-text-6: #4b5563;
   --badge-text-7: #00a63e;
   --badge-text-8: #010178;
+  --badge-text-9: #f54900;
+
+  --text-1: #3f3f46;
 
   /* Semantic status tokens — used by toasts, badges, alerts. */
   --info: #2563eb; /* blue/600 */

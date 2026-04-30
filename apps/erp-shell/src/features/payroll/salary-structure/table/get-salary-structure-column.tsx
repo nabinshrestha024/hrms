@@ -68,7 +68,7 @@ export function getSalaryStructureColumns(): ColumnDef<SalaryStructureType>[] {
                 <Settings2 className="w-4 h-4 text-foreground" />{' '}
               </IconButton>
             }
-            title="Salary Structure - "
+            title={`Salary Structure - ${name ?? ''}`}
             size="lg"
             okText="Save Structure"
             cancelText="Cancel"

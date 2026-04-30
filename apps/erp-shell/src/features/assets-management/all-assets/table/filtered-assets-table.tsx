@@ -13,7 +13,7 @@ export const FilteredAssetsTable = ({ data }: AssetsTableProps) => {
 
   return (
     <>
-      <DataTable table={table.table} columns={columns} className="p-0 mt-6" />
+      <DataTable table={table.table} columns={columns} className="p-0" />
     </>
   );
 };

@@ -23,12 +23,18 @@ export const TaxRebatesExemption = () => {
             cardContentClassName="p-0 flex justify-between items-center"
           >
             <div className="flex flex-col gap-1">
-              <span>Female Taxpayer Rebate</span>
-              <span>10% rebate on calculated tax for female employees</span>
+              <span className="text-[14px] font-medium leading-5 text-foreground">
+                Female Taxpayer Rebate
+              </span>
+              <span className="text-[14px] font-normal leading-5 text-secondary-foreground">
+                10% rebate on calculated tax for female employees
+              </span>
             </div>
             <div className="flex gap-3 items-center">
               <div className="flex gap-3 items-center border border-border rounded-lg px-3 py-2.5">
-                <span>10 </span>
+                <span className="text-[14px] font-normal leading-5 text-secondary-foreground">
+                  10{' '}
+                </span>
                 <Percent className="w-4 h-4 text-secondary-foreground" />
               </div>
               <Controller
@@ -48,12 +54,18 @@ export const TaxRebatesExemption = () => {
             cardContentClassName="p-0 flex justify-between items-center"
           >
             <div className="flex flex-col gap-1">
-              <span>Social Security Fund Rebate</span>
-              <span>SSF contribution is deductible from taxable income</span>
+              <span className="text-[14px] font-medium leading-5 text-foreground">
+                Social Security Fund Rebate
+              </span>
+              <span className="text-[14px] font-normal leading-5 text-secondary-foreground">
+                SSF contribution is deductible from taxable income
+              </span>
             </div>
             <div className="flex gap-3 items-center">
               <div className="flex gap-3 items-center border border-border rounded-lg px-3 py-2.5">
-                <span>100 </span>
+                <span className="text-[14px] font-normal leading-5 text-secondary-foreground">
+                  100{' '}
+                </span>
                 <Percent className="w-4 h-4 text-secondary-foreground" />
               </div>
               <Controller
@@ -73,13 +85,21 @@ export const TaxRebatesExemption = () => {
             cardContentClassName="p-0 flex justify-between items-center"
           >
             <div className="flex flex-col gap-1">
-              <span>Life Insurance Premium Rebate</span>
-              <span>Deduction on life insurance premium (up to limit)</span>
+              <span className="text-[14px] font-medium leading-5 text-foreground">
+                Life Insurance Premium Rebate
+              </span>
+              <span className="text-[14px] font-normal leading-5 text-secondary-foreground">
+                Deduction on life insurance premium (up to limit)
+              </span>
             </div>
             <div className="flex gap-3 items-center">
-              <span>Max Rs.</span>
+              <span className="text-[14px] font-normal leading-5 text-secondary-foreground">
+                Max Rs.
+              </span>
               <div className="flex justify-between border border-border rounded-lg px-3 py-2.5">
-                <span>4000 </span>{' '}
+                <span className="text-[14px] font-normal leading-5 text-secondary-foreground">
+                  4000{' '}
+                </span>
               </div>
               <Controller
                 control={control}
@@ -98,13 +118,21 @@ export const TaxRebatesExemption = () => {
             cardContentClassName="p-0 flex justify-between items-center"
           >
             <div className="flex flex-col gap-1">
-              <span>Medical Insurance Rebate</span>
-              <span>Deduction on medical insurance premium</span>
+              <span className="text-[14px] font-medium leading-5 text-foreground">
+                Medical Insurance Rebate
+              </span>
+              <span className="text-[14px] font-normal leading-5 text-secondary-foreground">
+                Deduction on medical insurance premium
+              </span>
             </div>
             <div className="flex gap-3 items-center">
-              <span>Max Rs.</span>
+              <span className="text-[14px] font-normal leading-5 text-secondary-foreground">
+                Max Rs.
+              </span>
               <div className="flex justify-between border border-border rounded-lg px-3 py-2.5">
-                <span>200000 </span>{' '}
+                <span className="text-[14px] font-normal leading-5 text-secondary-foreground">
+                  200000{' '}
+                </span>
               </div>
               <Controller
                 control={control}

@@ -1,11 +1,11 @@
 import { Badge, DataTableColumnHeader, HRInput } from '@erp/ui';
 import type { ColumnDef } from '@tanstack/react-table';
 import { Settings2 } from 'lucide-react';
-import { EmployeeDetailType } from '../../schema/TableData';
 import { InitialsCard } from '../../../../components/initial-avatar';
 import { IconButton } from '../../../../components/icon-button';
+import { GeneratePayroll } from '@erp/data-access';
 
-export function getEmployeeDetailColumns(): ColumnDef<EmployeeDetailType>[] {
+export function getEmployeeDetailColumns(): ColumnDef<GeneratePayroll>[] {
   return [
     {
       id: 'select',

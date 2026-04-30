@@ -16,10 +16,10 @@ export const GeneratePayrollCard = () => {
             <div className="flex-1">
               <div className="flex flex-col gap-2">
                 <div className="flex flex-col gap-2">
-                  <span className="text-[12px] font-medium leading-4 text-[#3F3F46]">
+                  <span className="text-[12px] font-medium leading-4 text-text-1">
                     {val.name}
                   </span>
-                  <span className="text-[24px] font-normal leading-normal text-[#010178]">
+                  <span className="text-[24px] font-normal leading-normal text-badge-text-8">
                     {val.amount}
                   </span>
                 </div>
@@ -30,7 +30,7 @@ export const GeneratePayrollCard = () => {
             </div>
             <IconButton
               variant="request"
-              className="text-[#010178] bg-[#F3F3FE]"
+              className="text-badge-text-8 bg-chart-7"
             >
               <Icon className="w-4 h-4 font-bold" />
             </IconButton>
