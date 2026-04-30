@@ -5,11 +5,18 @@ import {
   RadioGroupItem as BaseRadioGroupItem,
 } from '../../../primitives/radio-group';
 import { FormField } from '../form-field';
+import type { ComponentProps } from 'react';
+import { Badge } from '../../../primitives/badge';
+
+type BadgeVariant = ComponentProps<typeof Badge>['variant'];
 
 type RadioOption = {
   value: string;
   label: React.ReactNode;
   disabled?: boolean;
+  description?: string;
+  badgeName?: string;
+  badgeVariant?: BadgeVariant;
 };
 
 type OptionRadioGroupProps = Omit<
@@ -88,14 +95,24 @@ function OptionRadioGroup({
                   itemClassName
                 )}
               />
-              <span
-                className={cn(
-                  'text-[14px] text-foreground font-normal leading-5',
-                  labelClassName
+              <div className="flex flex-col gap-1 items-start">
+                <span
+                  className={cn(
+                    'text-[14px] text-foreground font-normal leading-5',
+                    labelClassName
+                  )}
+                >
+                  {opt.label}
+                </span>
+                {opt.description && (
+                  <span className="text-[14px] text-foreground font-normal leading-5">
+                    {opt.description}
+                  </span>
                 )}
-              >
-                {opt.label}
-              </span>
+                {opt.badgeName && (
+                  <Badge variant={opt.badgeVariant}>{opt.badgeName}</Badge>
+                )}
+              </div>
             </label>
           );
         })}

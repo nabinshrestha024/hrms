@@ -7,6 +7,7 @@ import { Tabs, TabsContent } from '../primitives/tabs';
 import { TabsFlex } from './tabs/tabs-flex';
 import { DatePicker } from './form/date-picker';
 import { Button } from '../primitives/button';
+import { cn } from '@erp/utils';
 
 export type ListPageView = 'card' | 'table';
 
@@ -92,6 +93,8 @@ export interface ListPageProps<T> {
    * embedded layout already runs without horizontal padding.
    */
   flat?: boolean;
+  titleClassName?: string;
+  controlClassName?: string;
 }
 
 function inferViews<T>(props: ListPageProps<T>): ListPageView[] {
@@ -137,6 +140,7 @@ function inferViews<T>(props: ListPageProps<T>): ListPageView[] {
  * />
  * ```
  */
+
 export function ListPage<T>(props: ListPageProps<T>) {
   const {
     title,
@@ -146,6 +150,8 @@ export function ListPage<T>(props: ListPageProps<T>) {
     dropdowns,
     actionComponent,
     buttonName,
+    controlClassName,
+    titleClassName,
     onAdd,
     renderCard,
     renderTable,
@@ -199,7 +205,7 @@ export function ListPage<T>(props: ListPageProps<T>) {
   };
 
   const controls = (
-    <div className="flex gap-4 items-center">
+    <div className="flex justify-between items-center">
       {search && (
         <SearchBar
           value={searchValue}
@@ -208,51 +214,54 @@ export function ListPage<T>(props: ListPageProps<T>) {
           className="w-58 h-10"
         />
       )}
+      <div className="ml-4 flex gap-4 items-center">
+        {dropdowns?.map((d) => {
+          const stringKey = String(d.key);
+          const selected = dropdownValues[stringKey] ?? '';
+          return (
+            <ActionDropdown
+              key={stringKey}
+              open={openDropdownKey === stringKey}
+              onOpenChange={(open) =>
+                setOpenDropdownKey(open ? stringKey : null)
+              }
+              trigger={
+                <div className="flex gap-2 items-center border rounded-[6px] px-4 py-2 border-border bg-white text-[14px] font-normal cursor-pointer">
+                  <span className="text-foreground text-[14px] font-normal leading-5">
+                    {selected || d.label}
+                  </span>
+                  <ChevronDown className="w-5 h-5 text-secondary-foreground" />
+                </div>
+              }
+              actions={dropdownActionsFor(d.key)}
+            />
+          );
+        })}
 
-      {dropdowns?.map((d) => {
-        const stringKey = String(d.key);
-        const selected = dropdownValues[stringKey] ?? '';
-        return (
-          <ActionDropdown
-            key={stringKey}
-            open={openDropdownKey === stringKey}
-            onOpenChange={(open) => setOpenDropdownKey(open ? stringKey : null)}
-            trigger={
-              <div className="flex gap-2 items-center border rounded-[6px] px-4 py-2 border-border bg-white text-[14px] font-normal cursor-pointer">
-                <span className="text-foreground text-[14px] font-normal leading-5">
-                  {selected || d.label}
-                </span>
-                <ChevronDown className="w-5 h-5 text-secondary-foreground" />
-              </div>
-            }
-            actions={dropdownActionsFor(d.key)}
+        {dateRange && (
+          <DatePicker
+            value={dateRangeValue}
+            onChange={setDateRangeValue}
+            placeholder="Pick date range"
+            className="px-4 py-2.5 border-border"
           />
-        );
-      })}
+        )}
 
-      {dateRange && (
-        <DatePicker
-          value={dateRangeValue}
-          onChange={setDateRangeValue}
-          placeholder="Pick date range"
-          className="px-4 py-2.5 border-border"
-        />
-      )}
+        {showToggle && <TabsFlex />}
 
-      {showToggle && <TabsFlex />}
-
-      {actionComponent ??
-        (buttonName ? (
-          <Button
-            type="button"
-            variant="secondary"
-            size="lg"
-            className="text-[14px] font-medium leading-5 text-white"
-            onClick={onAdd}
-          >
-            {buttonName}
-          </Button>
-        ) : null)}
+        {actionComponent ??
+          (buttonName ? (
+            <Button
+              type="button"
+              variant="secondary"
+              size="lg"
+              className="text-[14px] font-medium leading-5 text-white"
+              onClick={onAdd}
+            >
+              {buttonName}
+            </Button>
+          ) : null)}
+      </div>
     </div>
   );
 
@@ -261,19 +270,22 @@ export function ListPage<T>(props: ListPageProps<T>) {
     // Default: standard `px-12 py-6` padding that owns the page chrome.
     // `flat` strips the padding for use inside a parent that already pads.
     <div
-      className={
-        flat
-          ? 'flex justify-between items-center mb-6'
-          : 'flex justify-between items-center px-12 py-6'
-      }
+      className={`flex justify-between items-center
+        ${flat ? 'mb-6' : 'px-12 py-6'}`}
     >
-      <div className="text-[20px] font-semibold">{title}</div>
+      <div
+        className={cn(
+          `text-[20px] font-semibold leading-7 text-foreground ${titleClassName}`
+        )}
+      >
+        {title}
+      </div>
       {controls}
     </div>
   ) : (
     // Embedded header: parent supplies horizontal padding. Right-align
     // the controls and add bottom spacing so content below isn't flush.
-    <div className="flex justify-end items-center mb-6">{controls}</div>
+    <div className={cn(`mb-6 ${controlClassName}`)}>{controls}</div>
   );
 
   // No view toggle: render the only available view directly, no Tabs wrapper.

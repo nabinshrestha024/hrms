@@ -13,12 +13,11 @@ import { Route as UnauthorizedRouteImport } from './routes/unauthorized'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthenticatedTasksRouteImport } from './routes/_authenticated/tasks'
-import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
-import { Route as AuthenticatedRecruitmentRouteImport } from './routes/_authenticated/recruitment'
 import { Route as AuthenticatedDemoFormRouteImport } from './routes/_authenticated/demo-form'
 import { Route as AuthenticatedProfileIndexRouteImport } from './routes/_authenticated/profile/index'
 import { Route as AuthenticatedPolicyConfigurationIndexRouteImport } from './routes/_authenticated/policy-configuration/index'
+import { Route as AuthenticatedPayrollIndexRouteImport } from './routes/_authenticated/payroll/index'
+import { Route as AuthenticatedOnboardingOffboardingIndexRouteImport } from './routes/_authenticated/onboarding-offboarding/index'
 import { Route as AuthenticatedMasterSetupIndexRouteImport } from './routes/_authenticated/master-setup/index'
 import { Route as AuthenticatedLeaveManagementIndexRouteImport } from './routes/_authenticated/leave-management/index'
 import { Route as AuthenticatedEmployeeIndexRouteImport } from './routes/_authenticated/employee/index'
@@ -32,6 +31,13 @@ import { Route as AuthenticatedAssetsManagementIndexRouteImport } from './routes
 import { Route as AuthenticatedPolicyConfigurationWorkflowRouteImport } from './routes/_authenticated/policy-configuration/workflow'
 import { Route as AuthenticatedPolicyConfigurationSandwichRuleRouteImport } from './routes/_authenticated/policy-configuration/sandwich-rule'
 import { Route as AuthenticatedPolicyConfigurationPayrollRouteImport } from './routes/_authenticated/policy-configuration/payroll'
+import { Route as AuthenticatedPayrollSalaryStructureRouteImport } from './routes/_authenticated/payroll/salary-structure'
+import { Route as AuthenticatedPayrollPayrollSetupRouteImport } from './routes/_authenticated/payroll/payroll-setup'
+import { Route as AuthenticatedPayrollPayTaxesRouteImport } from './routes/_authenticated/payroll/pay-taxes'
+import { Route as AuthenticatedOnboardingOffboardingOnboardRouteImport } from './routes/_authenticated/onboarding-offboarding/onboard'
+import { Route as AuthenticatedOnboardingOffboardingOffboardRouteImport } from './routes/_authenticated/onboarding-offboarding/offboard'
+import { Route as AuthenticatedOnboardingOffboardingInterviewPipelineRouteImport } from './routes/_authenticated/onboarding-offboarding/interview-pipeline'
+import { Route as AuthenticatedOnboardingOffboardingApplicantListRouteImport } from './routes/_authenticated/onboarding-offboarding/applicant-list'
 import { Route as AuthenticatedMasterSetupWorkTypeRouteImport } from './routes/_authenticated/master-setup/work-type'
 import { Route as AuthenticatedMasterSetupLeaveTypeRouteImport } from './routes/_authenticated/master-setup/leave-type'
 import { Route as AuthenticatedMasterSetupJobLevelRouteImport } from './routes/_authenticated/master-setup/job-level'
@@ -75,22 +81,6 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedTasksRoute = AuthenticatedTasksRouteImport.update({
-  id: '/tasks',
-  path: '/tasks',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
-const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
-const AuthenticatedRecruitmentRoute =
-  AuthenticatedRecruitmentRouteImport.update({
-    id: '/recruitment',
-    path: '/recruitment',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
 const AuthenticatedDemoFormRoute = AuthenticatedDemoFormRouteImport.update({
   id: '/demo-form',
   path: '/demo-form',
@@ -106,6 +96,18 @@ const AuthenticatedPolicyConfigurationIndexRoute =
   AuthenticatedPolicyConfigurationIndexRouteImport.update({
     id: '/policy-configuration/',
     path: '/policy-configuration/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedPayrollIndexRoute =
+  AuthenticatedPayrollIndexRouteImport.update({
+    id: '/payroll/',
+    path: '/payroll/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedOnboardingOffboardingIndexRoute =
+  AuthenticatedOnboardingOffboardingIndexRouteImport.update({
+    id: '/onboarding-offboarding/',
+    path: '/onboarding-offboarding/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedMasterSetupIndexRoute =
@@ -184,6 +186,48 @@ const AuthenticatedPolicyConfigurationPayrollRoute =
   AuthenticatedPolicyConfigurationPayrollRouteImport.update({
     id: '/policy-configuration/payroll',
     path: '/policy-configuration/payroll',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedPayrollSalaryStructureRoute =
+  AuthenticatedPayrollSalaryStructureRouteImport.update({
+    id: '/payroll/salary-structure',
+    path: '/payroll/salary-structure',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedPayrollPayrollSetupRoute =
+  AuthenticatedPayrollPayrollSetupRouteImport.update({
+    id: '/payroll/payroll-setup',
+    path: '/payroll/payroll-setup',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedPayrollPayTaxesRoute =
+  AuthenticatedPayrollPayTaxesRouteImport.update({
+    id: '/payroll/pay-taxes',
+    path: '/payroll/pay-taxes',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedOnboardingOffboardingOnboardRoute =
+  AuthenticatedOnboardingOffboardingOnboardRouteImport.update({
+    id: '/onboarding-offboarding/onboard',
+    path: '/onboarding-offboarding/onboard',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedOnboardingOffboardingOffboardRoute =
+  AuthenticatedOnboardingOffboardingOffboardRouteImport.update({
+    id: '/onboarding-offboarding/offboard',
+    path: '/onboarding-offboarding/offboard',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedOnboardingOffboardingInterviewPipelineRoute =
+  AuthenticatedOnboardingOffboardingInterviewPipelineRouteImport.update({
+    id: '/onboarding-offboarding/interview-pipeline',
+    path: '/onboarding-offboarding/interview-pipeline',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedOnboardingOffboardingApplicantListRoute =
+  AuthenticatedOnboardingOffboardingApplicantListRouteImport.update({
+    id: '/onboarding-offboarding/applicant-list',
+    path: '/onboarding-offboarding/applicant-list',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedMasterSetupWorkTypeRoute =
@@ -330,9 +374,6 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/unauthorized': typeof UnauthorizedRoute
   '/demo-form': typeof AuthenticatedDemoFormRoute
-  '/recruitment': typeof AuthenticatedRecruitmentRoute
-  '/settings': typeof AuthenticatedSettingsRoute
-  '/tasks': typeof AuthenticatedTasksRoute
   '/assets-management/all-assets': typeof AuthenticatedAssetsManagementAllAssetsRoute
   '/assets-management/assignment-history': typeof AuthenticatedAssetsManagementAssignmentHistoryRoute
   '/attendance/my-attendance': typeof AuthenticatedAttendanceMyAttendanceRoute
@@ -353,6 +394,13 @@ export interface FileRoutesByFullPath {
   '/master-setup/job-level': typeof AuthenticatedMasterSetupJobLevelRoute
   '/master-setup/leave-type': typeof AuthenticatedMasterSetupLeaveTypeRoute
   '/master-setup/work-type': typeof AuthenticatedMasterSetupWorkTypeRoute
+  '/onboarding-offboarding/applicant-list': typeof AuthenticatedOnboardingOffboardingApplicantListRoute
+  '/onboarding-offboarding/interview-pipeline': typeof AuthenticatedOnboardingOffboardingInterviewPipelineRoute
+  '/onboarding-offboarding/offboard': typeof AuthenticatedOnboardingOffboardingOffboardRoute
+  '/onboarding-offboarding/onboard': typeof AuthenticatedOnboardingOffboardingOnboardRoute
+  '/payroll/pay-taxes': typeof AuthenticatedPayrollPayTaxesRoute
+  '/payroll/payroll-setup': typeof AuthenticatedPayrollPayrollSetupRoute
+  '/payroll/salary-structure': typeof AuthenticatedPayrollSalaryStructureRoute
   '/policy-configuration/payroll': typeof AuthenticatedPolicyConfigurationPayrollRoute
   '/policy-configuration/sandwich-rule': typeof AuthenticatedPolicyConfigurationSandwichRuleRoute
   '/policy-configuration/workflow': typeof AuthenticatedPolicyConfigurationWorkflowRoute
@@ -366,6 +414,8 @@ export interface FileRoutesByFullPath {
   '/employee/': typeof AuthenticatedEmployeeIndexRoute
   '/leave-management/': typeof AuthenticatedLeaveManagementIndexRoute
   '/master-setup/': typeof AuthenticatedMasterSetupIndexRoute
+  '/onboarding-offboarding/': typeof AuthenticatedOnboardingOffboardingIndexRoute
+  '/payroll/': typeof AuthenticatedPayrollIndexRoute
   '/policy-configuration/': typeof AuthenticatedPolicyConfigurationIndexRoute
   '/profile/': typeof AuthenticatedProfileIndexRoute
   '/employee/assign-approval/$id': typeof AuthenticatedEmployeeAssignApprovalIdRoute
@@ -377,9 +427,6 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/unauthorized': typeof UnauthorizedRoute
   '/demo-form': typeof AuthenticatedDemoFormRoute
-  '/recruitment': typeof AuthenticatedRecruitmentRoute
-  '/settings': typeof AuthenticatedSettingsRoute
-  '/tasks': typeof AuthenticatedTasksRoute
   '/assets-management/all-assets': typeof AuthenticatedAssetsManagementAllAssetsRoute
   '/assets-management/assignment-history': typeof AuthenticatedAssetsManagementAssignmentHistoryRoute
   '/attendance/my-attendance': typeof AuthenticatedAttendanceMyAttendanceRoute
@@ -400,6 +447,13 @@ export interface FileRoutesByTo {
   '/master-setup/job-level': typeof AuthenticatedMasterSetupJobLevelRoute
   '/master-setup/leave-type': typeof AuthenticatedMasterSetupLeaveTypeRoute
   '/master-setup/work-type': typeof AuthenticatedMasterSetupWorkTypeRoute
+  '/onboarding-offboarding/applicant-list': typeof AuthenticatedOnboardingOffboardingApplicantListRoute
+  '/onboarding-offboarding/interview-pipeline': typeof AuthenticatedOnboardingOffboardingInterviewPipelineRoute
+  '/onboarding-offboarding/offboard': typeof AuthenticatedOnboardingOffboardingOffboardRoute
+  '/onboarding-offboarding/onboard': typeof AuthenticatedOnboardingOffboardingOnboardRoute
+  '/payroll/pay-taxes': typeof AuthenticatedPayrollPayTaxesRoute
+  '/payroll/payroll-setup': typeof AuthenticatedPayrollPayrollSetupRoute
+  '/payroll/salary-structure': typeof AuthenticatedPayrollSalaryStructureRoute
   '/policy-configuration/payroll': typeof AuthenticatedPolicyConfigurationPayrollRoute
   '/policy-configuration/sandwich-rule': typeof AuthenticatedPolicyConfigurationSandwichRuleRoute
   '/policy-configuration/workflow': typeof AuthenticatedPolicyConfigurationWorkflowRoute
@@ -413,6 +467,8 @@ export interface FileRoutesByTo {
   '/employee': typeof AuthenticatedEmployeeIndexRoute
   '/leave-management': typeof AuthenticatedLeaveManagementIndexRoute
   '/master-setup': typeof AuthenticatedMasterSetupIndexRoute
+  '/onboarding-offboarding': typeof AuthenticatedOnboardingOffboardingIndexRoute
+  '/payroll': typeof AuthenticatedPayrollIndexRoute
   '/policy-configuration': typeof AuthenticatedPolicyConfigurationIndexRoute
   '/profile': typeof AuthenticatedProfileIndexRoute
   '/employee/assign-approval/$id': typeof AuthenticatedEmployeeAssignApprovalIdRoute
@@ -426,9 +482,6 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/unauthorized': typeof UnauthorizedRoute
   '/_authenticated/demo-form': typeof AuthenticatedDemoFormRoute
-  '/_authenticated/recruitment': typeof AuthenticatedRecruitmentRoute
-  '/_authenticated/settings': typeof AuthenticatedSettingsRoute
-  '/_authenticated/tasks': typeof AuthenticatedTasksRoute
   '/_authenticated/assets-management/all-assets': typeof AuthenticatedAssetsManagementAllAssetsRoute
   '/_authenticated/assets-management/assignment-history': typeof AuthenticatedAssetsManagementAssignmentHistoryRoute
   '/_authenticated/attendance/my-attendance': typeof AuthenticatedAttendanceMyAttendanceRoute
@@ -449,6 +502,13 @@ export interface FileRoutesById {
   '/_authenticated/master-setup/job-level': typeof AuthenticatedMasterSetupJobLevelRoute
   '/_authenticated/master-setup/leave-type': typeof AuthenticatedMasterSetupLeaveTypeRoute
   '/_authenticated/master-setup/work-type': typeof AuthenticatedMasterSetupWorkTypeRoute
+  '/_authenticated/onboarding-offboarding/applicant-list': typeof AuthenticatedOnboardingOffboardingApplicantListRoute
+  '/_authenticated/onboarding-offboarding/interview-pipeline': typeof AuthenticatedOnboardingOffboardingInterviewPipelineRoute
+  '/_authenticated/onboarding-offboarding/offboard': typeof AuthenticatedOnboardingOffboardingOffboardRoute
+  '/_authenticated/onboarding-offboarding/onboard': typeof AuthenticatedOnboardingOffboardingOnboardRoute
+  '/_authenticated/payroll/pay-taxes': typeof AuthenticatedPayrollPayTaxesRoute
+  '/_authenticated/payroll/payroll-setup': typeof AuthenticatedPayrollPayrollSetupRoute
+  '/_authenticated/payroll/salary-structure': typeof AuthenticatedPayrollSalaryStructureRoute
   '/_authenticated/policy-configuration/payroll': typeof AuthenticatedPolicyConfigurationPayrollRoute
   '/_authenticated/policy-configuration/sandwich-rule': typeof AuthenticatedPolicyConfigurationSandwichRuleRoute
   '/_authenticated/policy-configuration/workflow': typeof AuthenticatedPolicyConfigurationWorkflowRoute
@@ -462,6 +522,8 @@ export interface FileRoutesById {
   '/_authenticated/employee/': typeof AuthenticatedEmployeeIndexRoute
   '/_authenticated/leave-management/': typeof AuthenticatedLeaveManagementIndexRoute
   '/_authenticated/master-setup/': typeof AuthenticatedMasterSetupIndexRoute
+  '/_authenticated/onboarding-offboarding/': typeof AuthenticatedOnboardingOffboardingIndexRoute
+  '/_authenticated/payroll/': typeof AuthenticatedPayrollIndexRoute
   '/_authenticated/policy-configuration/': typeof AuthenticatedPolicyConfigurationIndexRoute
   '/_authenticated/profile/': typeof AuthenticatedProfileIndexRoute
   '/_authenticated/employee/assign-approval/$id': typeof AuthenticatedEmployeeAssignApprovalIdRoute
@@ -475,9 +537,6 @@ export interface FileRouteTypes {
     | '/login'
     | '/unauthorized'
     | '/demo-form'
-    | '/recruitment'
-    | '/settings'
-    | '/tasks'
     | '/assets-management/all-assets'
     | '/assets-management/assignment-history'
     | '/attendance/my-attendance'
@@ -498,6 +557,13 @@ export interface FileRouteTypes {
     | '/master-setup/job-level'
     | '/master-setup/leave-type'
     | '/master-setup/work-type'
+    | '/onboarding-offboarding/applicant-list'
+    | '/onboarding-offboarding/interview-pipeline'
+    | '/onboarding-offboarding/offboard'
+    | '/onboarding-offboarding/onboard'
+    | '/payroll/pay-taxes'
+    | '/payroll/payroll-setup'
+    | '/payroll/salary-structure'
     | '/policy-configuration/payroll'
     | '/policy-configuration/sandwich-rule'
     | '/policy-configuration/workflow'
@@ -511,6 +577,8 @@ export interface FileRouteTypes {
     | '/employee/'
     | '/leave-management/'
     | '/master-setup/'
+    | '/onboarding-offboarding/'
+    | '/payroll/'
     | '/policy-configuration/'
     | '/profile/'
     | '/employee/assign-approval/$id'
@@ -522,9 +590,6 @@ export interface FileRouteTypes {
     | '/login'
     | '/unauthorized'
     | '/demo-form'
-    | '/recruitment'
-    | '/settings'
-    | '/tasks'
     | '/assets-management/all-assets'
     | '/assets-management/assignment-history'
     | '/attendance/my-attendance'
@@ -545,6 +610,13 @@ export interface FileRouteTypes {
     | '/master-setup/job-level'
     | '/master-setup/leave-type'
     | '/master-setup/work-type'
+    | '/onboarding-offboarding/applicant-list'
+    | '/onboarding-offboarding/interview-pipeline'
+    | '/onboarding-offboarding/offboard'
+    | '/onboarding-offboarding/onboard'
+    | '/payroll/pay-taxes'
+    | '/payroll/payroll-setup'
+    | '/payroll/salary-structure'
     | '/policy-configuration/payroll'
     | '/policy-configuration/sandwich-rule'
     | '/policy-configuration/workflow'
@@ -558,6 +630,8 @@ export interface FileRouteTypes {
     | '/employee'
     | '/leave-management'
     | '/master-setup'
+    | '/onboarding-offboarding'
+    | '/payroll'
     | '/policy-configuration'
     | '/profile'
     | '/employee/assign-approval/$id'
@@ -570,9 +644,6 @@ export interface FileRouteTypes {
     | '/login'
     | '/unauthorized'
     | '/_authenticated/demo-form'
-    | '/_authenticated/recruitment'
-    | '/_authenticated/settings'
-    | '/_authenticated/tasks'
     | '/_authenticated/assets-management/all-assets'
     | '/_authenticated/assets-management/assignment-history'
     | '/_authenticated/attendance/my-attendance'
@@ -593,6 +664,13 @@ export interface FileRouteTypes {
     | '/_authenticated/master-setup/job-level'
     | '/_authenticated/master-setup/leave-type'
     | '/_authenticated/master-setup/work-type'
+    | '/_authenticated/onboarding-offboarding/applicant-list'
+    | '/_authenticated/onboarding-offboarding/interview-pipeline'
+    | '/_authenticated/onboarding-offboarding/offboard'
+    | '/_authenticated/onboarding-offboarding/onboard'
+    | '/_authenticated/payroll/pay-taxes'
+    | '/_authenticated/payroll/payroll-setup'
+    | '/_authenticated/payroll/salary-structure'
     | '/_authenticated/policy-configuration/payroll'
     | '/_authenticated/policy-configuration/sandwich-rule'
     | '/_authenticated/policy-configuration/workflow'
@@ -606,6 +684,8 @@ export interface FileRouteTypes {
     | '/_authenticated/employee/'
     | '/_authenticated/leave-management/'
     | '/_authenticated/master-setup/'
+    | '/_authenticated/onboarding-offboarding/'
+    | '/_authenticated/payroll/'
     | '/_authenticated/policy-configuration/'
     | '/_authenticated/profile/'
     | '/_authenticated/employee/assign-approval/$id'
@@ -650,27 +730,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/tasks': {
-      id: '/_authenticated/tasks'
-      path: '/tasks'
-      fullPath: '/tasks'
-      preLoaderRoute: typeof AuthenticatedTasksRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/settings': {
-      id: '/_authenticated/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/recruitment': {
-      id: '/_authenticated/recruitment'
-      path: '/recruitment'
-      fullPath: '/recruitment'
-      preLoaderRoute: typeof AuthenticatedRecruitmentRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
     '/_authenticated/demo-form': {
       id: '/_authenticated/demo-form'
       path: '/demo-form'
@@ -690,6 +749,20 @@ declare module '@tanstack/react-router' {
       path: '/policy-configuration'
       fullPath: '/policy-configuration/'
       preLoaderRoute: typeof AuthenticatedPolicyConfigurationIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/payroll/': {
+      id: '/_authenticated/payroll/'
+      path: '/payroll'
+      fullPath: '/payroll/'
+      preLoaderRoute: typeof AuthenticatedPayrollIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/onboarding-offboarding/': {
+      id: '/_authenticated/onboarding-offboarding/'
+      path: '/onboarding-offboarding'
+      fullPath: '/onboarding-offboarding/'
+      preLoaderRoute: typeof AuthenticatedOnboardingOffboardingIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/master-setup/': {
@@ -781,6 +854,55 @@ declare module '@tanstack/react-router' {
       path: '/policy-configuration/payroll'
       fullPath: '/policy-configuration/payroll'
       preLoaderRoute: typeof AuthenticatedPolicyConfigurationPayrollRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/payroll/salary-structure': {
+      id: '/_authenticated/payroll/salary-structure'
+      path: '/payroll/salary-structure'
+      fullPath: '/payroll/salary-structure'
+      preLoaderRoute: typeof AuthenticatedPayrollSalaryStructureRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/payroll/payroll-setup': {
+      id: '/_authenticated/payroll/payroll-setup'
+      path: '/payroll/payroll-setup'
+      fullPath: '/payroll/payroll-setup'
+      preLoaderRoute: typeof AuthenticatedPayrollPayrollSetupRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/payroll/pay-taxes': {
+      id: '/_authenticated/payroll/pay-taxes'
+      path: '/payroll/pay-taxes'
+      fullPath: '/payroll/pay-taxes'
+      preLoaderRoute: typeof AuthenticatedPayrollPayTaxesRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/onboarding-offboarding/onboard': {
+      id: '/_authenticated/onboarding-offboarding/onboard'
+      path: '/onboarding-offboarding/onboard'
+      fullPath: '/onboarding-offboarding/onboard'
+      preLoaderRoute: typeof AuthenticatedOnboardingOffboardingOnboardRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/onboarding-offboarding/offboard': {
+      id: '/_authenticated/onboarding-offboarding/offboard'
+      path: '/onboarding-offboarding/offboard'
+      fullPath: '/onboarding-offboarding/offboard'
+      preLoaderRoute: typeof AuthenticatedOnboardingOffboardingOffboardRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/onboarding-offboarding/interview-pipeline': {
+      id: '/_authenticated/onboarding-offboarding/interview-pipeline'
+      path: '/onboarding-offboarding/interview-pipeline'
+      fullPath: '/onboarding-offboarding/interview-pipeline'
+      preLoaderRoute: typeof AuthenticatedOnboardingOffboardingInterviewPipelineRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/onboarding-offboarding/applicant-list': {
+      id: '/_authenticated/onboarding-offboarding/applicant-list'
+      path: '/onboarding-offboarding/applicant-list'
+      fullPath: '/onboarding-offboarding/applicant-list'
+      preLoaderRoute: typeof AuthenticatedOnboardingOffboardingApplicantListRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/master-setup/work-type': {
@@ -949,9 +1071,6 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteChildren {
   AuthenticatedDemoFormRoute: typeof AuthenticatedDemoFormRoute
-  AuthenticatedRecruitmentRoute: typeof AuthenticatedRecruitmentRoute
-  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
-  AuthenticatedTasksRoute: typeof AuthenticatedTasksRoute
   AuthenticatedAssetsManagementAllAssetsRoute: typeof AuthenticatedAssetsManagementAllAssetsRoute
   AuthenticatedAssetsManagementAssignmentHistoryRoute: typeof AuthenticatedAssetsManagementAssignmentHistoryRoute
   AuthenticatedAttendanceMyAttendanceRoute: typeof AuthenticatedAttendanceMyAttendanceRoute
@@ -972,6 +1091,13 @@ interface AuthenticatedRouteChildren {
   AuthenticatedMasterSetupJobLevelRoute: typeof AuthenticatedMasterSetupJobLevelRoute
   AuthenticatedMasterSetupLeaveTypeRoute: typeof AuthenticatedMasterSetupLeaveTypeRoute
   AuthenticatedMasterSetupWorkTypeRoute: typeof AuthenticatedMasterSetupWorkTypeRoute
+  AuthenticatedOnboardingOffboardingApplicantListRoute: typeof AuthenticatedOnboardingOffboardingApplicantListRoute
+  AuthenticatedOnboardingOffboardingInterviewPipelineRoute: typeof AuthenticatedOnboardingOffboardingInterviewPipelineRoute
+  AuthenticatedOnboardingOffboardingOffboardRoute: typeof AuthenticatedOnboardingOffboardingOffboardRoute
+  AuthenticatedOnboardingOffboardingOnboardRoute: typeof AuthenticatedOnboardingOffboardingOnboardRoute
+  AuthenticatedPayrollPayTaxesRoute: typeof AuthenticatedPayrollPayTaxesRoute
+  AuthenticatedPayrollPayrollSetupRoute: typeof AuthenticatedPayrollPayrollSetupRoute
+  AuthenticatedPayrollSalaryStructureRoute: typeof AuthenticatedPayrollSalaryStructureRoute
   AuthenticatedPolicyConfigurationPayrollRoute: typeof AuthenticatedPolicyConfigurationPayrollRoute
   AuthenticatedPolicyConfigurationSandwichRuleRoute: typeof AuthenticatedPolicyConfigurationSandwichRuleRoute
   AuthenticatedPolicyConfigurationWorkflowRoute: typeof AuthenticatedPolicyConfigurationWorkflowRoute
@@ -985,6 +1111,8 @@ interface AuthenticatedRouteChildren {
   AuthenticatedEmployeeIndexRoute: typeof AuthenticatedEmployeeIndexRoute
   AuthenticatedLeaveManagementIndexRoute: typeof AuthenticatedLeaveManagementIndexRoute
   AuthenticatedMasterSetupIndexRoute: typeof AuthenticatedMasterSetupIndexRoute
+  AuthenticatedOnboardingOffboardingIndexRoute: typeof AuthenticatedOnboardingOffboardingIndexRoute
+  AuthenticatedPayrollIndexRoute: typeof AuthenticatedPayrollIndexRoute
   AuthenticatedPolicyConfigurationIndexRoute: typeof AuthenticatedPolicyConfigurationIndexRoute
   AuthenticatedProfileIndexRoute: typeof AuthenticatedProfileIndexRoute
   AuthenticatedEmployeeAssignApprovalIdRoute: typeof AuthenticatedEmployeeAssignApprovalIdRoute
@@ -994,9 +1122,6 @@ interface AuthenticatedRouteChildren {
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedDemoFormRoute: AuthenticatedDemoFormRoute,
-  AuthenticatedRecruitmentRoute: AuthenticatedRecruitmentRoute,
-  AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
-  AuthenticatedTasksRoute: AuthenticatedTasksRoute,
   AuthenticatedAssetsManagementAllAssetsRoute:
     AuthenticatedAssetsManagementAllAssetsRoute,
   AuthenticatedAssetsManagementAssignmentHistoryRoute:
@@ -1033,6 +1158,18 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedMasterSetupLeaveTypeRoute:
     AuthenticatedMasterSetupLeaveTypeRoute,
   AuthenticatedMasterSetupWorkTypeRoute: AuthenticatedMasterSetupWorkTypeRoute,
+  AuthenticatedOnboardingOffboardingApplicantListRoute:
+    AuthenticatedOnboardingOffboardingApplicantListRoute,
+  AuthenticatedOnboardingOffboardingInterviewPipelineRoute:
+    AuthenticatedOnboardingOffboardingInterviewPipelineRoute,
+  AuthenticatedOnboardingOffboardingOffboardRoute:
+    AuthenticatedOnboardingOffboardingOffboardRoute,
+  AuthenticatedOnboardingOffboardingOnboardRoute:
+    AuthenticatedOnboardingOffboardingOnboardRoute,
+  AuthenticatedPayrollPayTaxesRoute: AuthenticatedPayrollPayTaxesRoute,
+  AuthenticatedPayrollPayrollSetupRoute: AuthenticatedPayrollPayrollSetupRoute,
+  AuthenticatedPayrollSalaryStructureRoute:
+    AuthenticatedPayrollSalaryStructureRoute,
   AuthenticatedPolicyConfigurationPayrollRoute:
     AuthenticatedPolicyConfigurationPayrollRoute,
   AuthenticatedPolicyConfigurationSandwichRuleRoute:
@@ -1052,6 +1189,9 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedLeaveManagementIndexRoute:
     AuthenticatedLeaveManagementIndexRoute,
   AuthenticatedMasterSetupIndexRoute: AuthenticatedMasterSetupIndexRoute,
+  AuthenticatedOnboardingOffboardingIndexRoute:
+    AuthenticatedOnboardingOffboardingIndexRoute,
+  AuthenticatedPayrollIndexRoute: AuthenticatedPayrollIndexRoute,
   AuthenticatedPolicyConfigurationIndexRoute:
     AuthenticatedPolicyConfigurationIndexRoute,
   AuthenticatedProfileIndexRoute: AuthenticatedProfileIndexRoute,

@@ -12,6 +12,8 @@ const badgeVariants = cva(
         primary: 'text-badge-text-5 bg-chart-5',
         secondary: 'text-badge-text-2 bg-chart-2',
         destructive: 'text-badge-text-3 bg-chart-3',
+        orange: 'text-badge-text-9 bg-chart-8',
+
         outline:
           'border border-border text-secondary [a&]:hover:text-accent-foreground',
         ghost: '[a&]:hover:bg-accent [a&]:hover:text-accent-foreground',

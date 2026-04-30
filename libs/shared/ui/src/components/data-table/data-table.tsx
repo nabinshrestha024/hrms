@@ -17,6 +17,7 @@ import { Skeleton } from '../../primitives/skeleton';
 import { DataTablePagination } from './data-table-pagination';
 import { DataTableRowActions, type RowAction } from './data-table-row-actions';
 import { HRCard } from '../../components/card/card';
+import { Pagination } from '../../primitives/pagination';
 
 declare module '@tanstack/react-table' {
   interface ColumnMeta<TData, TValue> {
@@ -44,6 +45,7 @@ interface DataTableProps<TData> {
   pageSizeOptions?: number[];
 
   className?: string;
+  isPagination?: boolean;
 }
 
 // interface ColumnMeta<TData, TValue> {
@@ -63,6 +65,7 @@ function DataTable<TData>({
   pageSizeOptions,
   cardClassName,
   className,
+  isPagination,
 }: DataTableProps<TData>) {
   const hasSelectedRows = table.getFilteredSelectedRowModel().rows.length > 0;
 
@@ -170,8 +173,9 @@ function DataTable<TData>({
           </TableBody>
         </Table>
       </div>
-
-      <DataTablePagination table={table} pageSizeOptions={pageSizeOptions} />
+      {!isPagination && (
+        <DataTablePagination table={table} pageSizeOptions={pageSizeOptions} />
+      )}
     </HRCard>
   );
 }

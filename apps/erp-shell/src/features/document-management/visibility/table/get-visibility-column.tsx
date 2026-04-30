@@ -29,7 +29,6 @@ export function getVisibilityColumns(): ColumnDef<EmployeeDocument, unknown>[] {
       cell: ({ row }) => <>{row.getValue('uploadDate')}</>,
     },
     {
-      // Schema field is `visible`; header preserved as "Visibility".
       accessorKey: 'visible',
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Visibility" />

@@ -3,6 +3,7 @@ import { Badge, DataTableColumnHeader } from '@erp/ui';
 import type { ColumnDef } from '@tanstack/react-table';
 import { Edit, Trash2 } from 'lucide-react';
 import type { Branch } from '@erp/data-access';
+import { IconButton } from '../../../../components/icon-button';
 
 interface ColumnActions {
   onEdit?: (branch: Branch) => void;
@@ -70,24 +71,26 @@ export function getBranchColumns(
       cell: ({ row }) => (
         <div className="flex gap-2 items-center justify-center">
           <Can action="update" subject={PERM_SUBJECTS.HR_BRANCHES}>
-            <button
+            <IconButton
               type="button"
               aria-label="Edit branch"
+              variant="default"
               className="w-6 h-6 flex items-center justify-center rounded-sm bg-muted p-1 cursor-pointer hover:bg-muted/80"
               onClick={() => actions?.onEdit?.(row.original)}
             >
               <Edit className="w-4 h-4 text-black font-bold" />
-            </button>
+            </IconButton>
           </Can>
           <Can action="delete" subject={PERM_SUBJECTS.HR_BRANCHES}>
-            <button
+            <IconButton
               type="button"
+              variant="destructive"
               aria-label="Delete branch"
               className="w-6 h-6 flex items-center justify-center rounded-sm bg-chart-3 p-1 cursor-pointer hover:bg-chart-3/80"
               onClick={() => actions?.onDelete?.(row.original.id)}
             >
               <Trash2 className="w-4 h-4 text-badge-text-3 font-bold" />
-            </button>
+            </IconButton>
           </Can>
         </div>
       ),

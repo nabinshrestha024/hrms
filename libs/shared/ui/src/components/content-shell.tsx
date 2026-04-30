@@ -69,7 +69,7 @@ export function ContentShell({
       className={cn(
         // `max-h-` (not `h-`) so short pages collapse to content size
         // instead of leaving an awkward viewport-height empty area below.
-        'w-full max-h-[calc(100vh-84px)] overflow-auto flex flex-col bg-muted',
+        'w-full max-h-[calc(100vh-84px)] overflow-auto flex flex-col ',
         className
       )}
     >

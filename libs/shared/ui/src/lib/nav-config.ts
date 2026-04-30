@@ -13,14 +13,11 @@ import {
   CreditCard,
   // Sub-item icons
   Play,
-  Cog,
   GitBranch,
   Clock,
   History,
   CalendarDays,
   Briefcase,
-  LogIn,
-  LogOut,
   Layers,
   Computer,
   Coins,
@@ -41,6 +38,8 @@ import {
   CalendarMinus2,
   Wallet,
   Layers3,
+  BriefcaseMedical,
+  UserMinus,
 } from 'lucide-react';
 
 export interface NavSubItem {
@@ -276,49 +275,59 @@ export const navModules: NavModule[] = [
     id: 'payroll',
     label: 'Payroll',
     icon: CreditCard,
-    href: '/payroll/generate',
+    href: '/payroll/',
     modules: ['payroll'],
     subItems: [
-      { label: 'Generate Payroll', href: '/payroll/generate', icon: Play },
+      { label: 'Generate Payroll', href: '/payroll/', icon: Play },
       {
         label: 'Salary Structure',
         href: '/payroll/salary-structure',
         icon: Users,
       },
-      { label: 'Payroll Setup', href: '/payroll/setup', icon: Cog },
+      {
+        label: 'Payroll Setup',
+        href: '/payroll/payroll-setup',
+        icon: Settings,
+      },
       { label: 'Pay & Taxes', href: '/payroll/pay-taxes', icon: CreditCard },
     ],
   },
 
   {
     id: 'onboarding',
-    label: 'On & Offboarding',
-    icon: FileCheck2,
-    href: '/onboarding/job-openings',
+    label: 'Onboarding & Offboarding',
+    icon: UserPlus,
+    href: '/onboarding-offboarding/',
     modules: ['onboarding'],
     subItems: [
       {
         label: 'Job Openings',
-        href: '/onboarding/job-openings',
-        icon: Briefcase,
+        href: '/onboarding-offboarding/',
+        icon: BriefcaseMedical,
       },
-      { label: 'Applicant List', href: '/onboarding/applicants', icon: Users },
+      {
+        label: 'Applicant List',
+        href: '/onboarding-offboarding/applicant-list',
+        icon: Users,
+      },
       {
         label: 'Interview Pipeline',
-        href: '/onboarding/pipeline',
-        icon: GitBranch,
+        href: '/onboarding-offboarding/interview-pipeline',
+        icon: UserSearch,
       },
-      { label: 'Onboarding', href: '/onboarding/onboard', icon: LogIn },
-      { label: 'Offboarding', href: '/onboarding/offboard', icon: LogOut },
+      {
+        label: 'Onboarding',
+        href: '/onboarding-offboarding/onboard',
+        icon: UserPlus,
+      },
+      {
+        label: 'Offboarding',
+        href: '/onboarding-offboarding/offboard',
+        icon: UserMinus,
+      },
     ],
   },
-  {
-    id: 'profile',
-    label: 'Profile',
-    icon: UserPlus,
-    href: '/profile',
-    modules: ['hr'],
-  },
+
   {
     id: 'master-setup',
     label: 'Master Setup',

@@ -68,6 +68,7 @@ export function useServerTableState<TData>({
     columns,
     pageCount: Math.ceil(totalCount / pageSize) || 1,
     getRowId,
+    enableRowSelection: true,
     manualPagination: true,
     manualSorting: true,
     manualFiltering: true,

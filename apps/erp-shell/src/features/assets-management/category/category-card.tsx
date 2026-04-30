@@ -18,13 +18,13 @@ export const CategoryCard = ({ data }: CategoryProps) => {
 
   return (
     <div className="flex flex-col gap-8">
-      <div className="grid grid-cols-3 gap-6 mt-8">
+      <div className="grid grid-cols-3 gap-6">
         {data.map((items) => {
           const Icon = getAssetCategoryIcon(items.iconKey);
           return (
             <HRCard
               key={items.id}
-              cardClassName={`p-4  rounded-xl bg-white shadow-[0_1px_2px_0_rgba(0,0,0,0.05)] cursor-pointer ${
+              cardClassName={`p-4 rounded-xl bg-white shadow-[0_1px_2px_0_rgba(0,0,0,0.05)] cursor-pointer ${
                 category === items.name
                   ? 'border-2 border-primary'
                   : 'border border-border'

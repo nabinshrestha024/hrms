@@ -4,8 +4,7 @@ import {
   useDocumentTemplates,
   type DocumentTemplate as DocumentTemplateRecord,
 } from '@erp/data-access';
-import { Button, ControlledFormDialog } from '@erp/ui';
-import { PageHeader } from '../../../components/page-header';
+import { Button, ControlledFormDialog, ListPage } from '@erp/ui';
 import { DocumentTemplateCard } from './document-template-card';
 import { DocumentTemplateForm } from './document-template-form';
 import { CreateTemplateForm } from './create-document-form';
@@ -19,10 +18,17 @@ export const DocumentTemplate = () => {
 
   return (
     <>
-      <PageHeader
+      <ListPage
         title="Document Template"
-        isSearch={true}
-        isTabs={false}
+        search
+        filterFn={(data, { search }) => {
+          return data.filter((item: DocumentTemplateRecord) => {
+            const matchesSearch = item.name
+              ?.toLowerCase()
+              .includes(search.toLowerCase());
+            return matchesSearch;
+          });
+        }}
         data={data}
         actionComponent={
           <Can action="create" subject={PERM_SUBJECTS.DOCUMENTS_TEMPLATES}>
