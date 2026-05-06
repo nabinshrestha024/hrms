@@ -1,94 +1,59 @@
-import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
-import { useCreateDocumentTemplate } from '@erp/data-access';
+import { Button, Form, HRCard, HRInput, useDialogClose } from '@erp/ui';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 import { toast } from '@erp/ui';
+import {
+  CreateTemplateFormValue,
+  createTemplateSchema,
+} from './zod/CreateDocumentForm.zod';
 
-export const createTemplateFormConfig: FormViewConfig = {
-  entity: 'create-template',
+export const CreateTemplateForm = () => {
+  const form = useForm<CreateTemplateFormValue>({
+    resolver: zodResolver(createTemplateSchema),
+    mode: 'onChange',
+  });
+  const {
+    register,
+    formState: { errors },
+  } = form;
 
-  fields: [
-    {
-      name: 'documentTitle',
-      type: 'text',
-      label: 'Document Title',
-      placeholder: 'e.g., Remote Work Policy',
-      isRequired: true,
-      validation: { required: true },
-    },
-    {
-      name: 'documentCategory',
-      type: 'select',
-      label: 'Category',
-      placeholder: 'Select',
-      isRequired: true,
-      options: ['Legal', 'Identity', 'Tax', 'Certification', 'Performance'],
-      validation: { required: true },
-    },
-    {
-      name: 'documentBody',
-      type: 'textarea',
-      label: 'Document Body (HTML)',
-      placeholder: '<h1> Header <h1> <p> Rules go here..... <p>',
-      textAreaClassName: 'h-[437px] overflow-auto',
-      validation: { required: false },
-    },
-  ],
+  const close = useDialogClose();
 
-  layout: {
-    type: 'section',
-    title: 'Create Internal Policy',
-    children: [
-      {
-        type: 'columns',
-        columns: 2,
-        children: [
-          { type: 'field', name: 'documentTitle' },
-          { type: 'field', name: 'documentCategory' },
-        ],
-      },
-      { type: 'field', name: 'documentBody' },
-    ],
-  },
-};
-
-interface createTemplateFormProps {
-  onSuccess?: () => void;
-}
-
-export function CreateTemplateForm({
-  onSuccess,
-}: createTemplateFormProps = {}) {
-  const createTemplate = useCreateDocumentTemplate();
-
-  const onsubmit = (data: Record<string, unknown>) => {
-    createTemplate.mutate(
-      {
-        name: String(data.documentTitle ?? ''),
-        kind: 'template',
-      },
-      {
-        onSuccess: () => {
-          toast({
-            variant: 'success',
-            title: 'Document uploaded successfully',
-          });
-          onSuccess?.();
-        },
-        onError: () => {
-          toast({
-            variant: 'destructive',
-            title: 'Failed to create template',
-          });
-        },
-      }
-    );
+  const onsubmit = (data: CreateTemplateFormValue) => {
+    console.warn('Template Data:', data);
+    toast({ title: 'Template Created Successfully.', variant: 'success' });
+    close();
   };
 
   return (
-    <FormRenderer
-      config={createTemplateFormConfig}
-      onSubmit={onsubmit}
-      submitLabel="Create Template"
-      isDialogForm={true}
-    />
+    <Form form={form} onSubmit={onsubmit}>
+      <HRCard
+        cardClassName="max-h-[600px] overflow-auto p-0 border-none rounded-none shadow-none"
+        cardContentClassName="p-0 flex flex-col gap-5"
+      >
+        <div className="text-[16px] font-medium leading-6 text-foreground ">
+          Create Internal Policy
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          <HRInput
+            Label="Document Title"
+            isRequired
+            type="text"
+            placeholder="e.g., Remote Work Policy"
+            error={errors.documentTitle?.message as string}
+            {...register('documentTitle')}
+          />
+
+          <HRInput
+            Label="Category"
+            isRequired
+            type="text"
+            placeholder="Others"
+            error={errors.category?.message as string}
+            {...register('category')}
+          />
+        </div>
+      </HRCard>
+    </Form>
   );
-}
+};

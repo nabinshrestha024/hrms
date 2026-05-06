@@ -64,6 +64,7 @@ export const BranchManagement = () => {
               title="Branch Details"
               size="lg"
               okText="Add"
+              cancelText="Cancel"
             >
               <BranchForm />
             </FormDialog>

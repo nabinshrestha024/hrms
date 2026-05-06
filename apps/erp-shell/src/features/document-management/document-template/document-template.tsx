@@ -44,7 +44,6 @@ export const DocumentTemplate = () => {
           </Can>
         }
         renderCard={(filtered) => <DocumentTemplateCard data={filtered} />}
-        renderTable={(filtered) => <></>}
       />
 
       <ControlledFormDialog

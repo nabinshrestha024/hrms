@@ -38,7 +38,9 @@ function DataTableColumnHeader<TData, TValue>({
             size="sm"
             className="h-8 data-[state=open]:bg-accent has-[>svg]:px-0 hover:bg-transparent"
           >
-            <span>{title}</span>
+            <span className="text-[14px] leading-5 font-semibold whitespace-nowrap">
+              {title}
+            </span>
             {column.getCanSort() && (
               <>
                 {column.getIsSorted() === 'desc' ? (

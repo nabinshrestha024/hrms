@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
+import { JobOpening } from '../../../features/onboarding-offboarding/job-opening/job-opening';
 
 export const Route = createFileRoute('/_authenticated/onboarding-offboarding/')(
   {
@@ -13,7 +14,7 @@ export const Route = createFileRoute('/_authenticated/onboarding-offboarding/')(
 function RouteComponent() {
   return (
     <div className="w-full max-h-[calc(100vh-120px)] overflow-auto bg-background">
-      <div className="text-[20px] font-semibold px-12 py-6">Job Openings</div>
+      <JobOpening />
     </div>
   );
 }

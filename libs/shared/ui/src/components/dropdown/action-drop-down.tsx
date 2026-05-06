@@ -14,6 +14,7 @@ type ActionDropdownProps = {
   trigger: React.ReactNode;
   actions: ActionItem[];
   align?: 'start' | 'end';
+  dropdownClassName?: string;
 };
 
 export const ActionDropdown = ({
@@ -21,6 +22,7 @@ export const ActionDropdown = ({
   onOpenChange,
   trigger,
   actions,
+  dropdownClassName,
   align = 'end',
 }: ActionDropdownProps) => {
   return (
@@ -29,7 +31,7 @@ export const ActionDropdown = ({
       onOpenChange={onOpenChange}
       trigger={trigger}
       align={align}
-      className="px-2"
+      className={`px-2 ${dropdownClassName}`}
     >
       <div
         className="w-full flex flex-col"
@@ -44,7 +46,7 @@ export const ActionDropdown = ({
               action.onClick?.();
               onOpenChange(false);
             }}
-            className={`text-[14px] font-normal leading-5 cursor-pointer text-foreground`}
+            className={`text-[14px] font-normal leading-5 cursor-pointer text-foreground ${action.className}`}
           >
             {action.label}
           </Button>

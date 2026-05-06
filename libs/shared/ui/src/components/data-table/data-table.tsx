@@ -17,7 +17,6 @@ import { Skeleton } from '../../primitives/skeleton';
 import { DataTablePagination } from './data-table-pagination';
 import { DataTableRowActions, type RowAction } from './data-table-row-actions';
 import { HRCard } from '../../components/card/card';
-import { Pagination } from '../../primitives/pagination';
 
 declare module '@tanstack/react-table' {
   interface ColumnMeta<TData, TValue> {

@@ -1,13 +1,16 @@
 import type { Employee } from '@erp/data-access';
-import { Button, DropDown, HRCard } from '@erp/ui';
+import { ActionDropdown, HRCard } from '@erp/ui';
 import { Dot, EllipsisVertical } from 'lucide-react';
 import { InitialsCard } from '../../components/initial-avatar';
+import { useState } from 'react';
 
 interface EmployeeCardProps {
   data: Employee[];
 }
 
 export const EmployeeCard = ({ data }: EmployeeCardProps) => {
+  const [open, setOpen] = useState<number | null>(null);
+
   return (
     <>
       <div>
@@ -16,7 +19,7 @@ export const EmployeeCard = ({ data }: EmployeeCardProps) => {
             cardClassName="border-none p-6 rounded-xl bg-white shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]"
             cardContentClassName="grid grid-cols-3 gap-4 p-0"
           >
-            {data.map((items) => {
+            {data.map((items, index) => {
               const fullName = `${items.firstName} ${items.lastName}`;
               const isActive = items.status === 'active';
               return (
@@ -30,42 +33,30 @@ export const EmployeeCard = ({ data }: EmployeeCardProps) => {
                     <div className="flex-1 flex-col gap-2 text-[16px] leading-6 font-medium">
                       <div className="flex justify-between items-center">
                         <span className="text-foreground">{fullName}</span>
-                        <DropDown
-                          trigger={
-                            <button>
-                              <EllipsisVertical className="text-secondary-foreground" />
-                            </button>
+                        <ActionDropdown
+                          open={open === index}
+                          onOpenChange={(isOpen) =>
+                            setOpen(isOpen ? index : null)
                           }
-                          align="end"
-                          className="pt-1 pb-0 px-0"
-                        >
-                          <div
-                            className="w-full flex flex-col transition-colors"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <Button
-                              type="button"
-                              variant="default"
-                              className="bg-white rounded-none text-foreground cursor-pointer text-[14px] font-normal leading-5"
-                            >
-                              Edit
-                            </Button>
-                            <Button
-                              type="button"
-                              variant="default"
-                              className="bg-white rounded-none text-foreground cursor-pointer text-[14px] font-normal leading-5"
-                            >
-                              Block
-                            </Button>
-                            <Button
-                              type="button"
-                              variant="outline"
-                              className="rounded-none border-t border-t-border text-badge-text-3 cursor-pointer text-[14px] font-normal leading-5"
-                            >
-                              Delete
-                            </Button>
-                          </div>
-                        </DropDown>
+                          trigger={
+                            <div className="flex  items-center   text-[14px] font-normal">
+                              <EllipsisVertical className="w-4 h-4 text-secondary-foreground" />
+                            </div>
+                          }
+                          actions={[
+                            {
+                              label: 'Edit',
+                            },
+                            {
+                              label: 'Block',
+                            },
+                            {
+                              label: 'Delete',
+                              className:
+                                'text-red-500 border-t border-t-secondary-foreground rounded-none',
+                            },
+                          ]}
+                        />
                       </div>
                       <div className="flex flex-col gap-1">
                         <span className="text-secondary-foreground">

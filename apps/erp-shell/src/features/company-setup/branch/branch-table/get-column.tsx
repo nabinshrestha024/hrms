@@ -75,7 +75,6 @@ export function getBranchColumns(
               type="button"
               aria-label="Edit branch"
               variant="default"
-              className="w-6 h-6 flex items-center justify-center rounded-sm bg-muted p-1 cursor-pointer hover:bg-muted/80"
               onClick={() => actions?.onEdit?.(row.original)}
             >
               <Edit className="w-4 h-4 text-black font-bold" />
@@ -86,7 +85,6 @@ export function getBranchColumns(
               type="button"
               variant="destructive"
               aria-label="Delete branch"
-              className="w-6 h-6 flex items-center justify-center rounded-sm bg-chart-3 p-1 cursor-pointer hover:bg-chart-3/80"
               onClick={() => actions?.onDelete?.(row.original.id)}
             >
               <Trash2 className="w-4 h-4 text-badge-text-3 font-bold" />
