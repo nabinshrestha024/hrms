@@ -279,3 +279,12 @@ export { HRFileUpload } from './components/form/hr-form-upload';
 //slider
 
 export { Slider } from './primitives/slider';
+
+//rich editor
+
+export { RichEditor } from './components/rich-editor/rich-editor';
+export { Alignment } from './components/rich-editor/alignment-dropdown';
+export { MarkDown } from './components/rich-editor/markdown';
+export { TextSize } from './components/rich-editor/text-size-dropdown';
+export { UndoRedo } from './components/rich-editor/undo-redo';
+export { HeadingDropdown } from './components/rich-editor/heading-dropdown';

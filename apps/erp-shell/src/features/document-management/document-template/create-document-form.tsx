@@ -1,6 +1,13 @@
-import { Button, Form, HRCard, HRInput, useDialogClose } from '@erp/ui';
+import {
+  Form,
+  HRCard,
+  HRInput,
+  HRLabel,
+  RichEditor,
+  useDialogClose,
+} from '@erp/ui';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { toast } from '@erp/ui';
 import {
   CreateTemplateFormValue,
@@ -14,11 +21,13 @@ export const CreateTemplateForm = () => {
   });
   const {
     register,
+    control,
     formState: { errors },
   } = form;
 
   const close = useDialogClose();
 
+  console.warn('Errors:', errors);
   const onsubmit = (data: CreateTemplateFormValue) => {
     console.warn('Template Data:', data);
     toast({ title: 'Template Created Successfully.', variant: 'success' });
@@ -51,6 +60,16 @@ export const CreateTemplateForm = () => {
             placeholder="Others"
             error={errors.category?.message as string}
             {...register('category')}
+          />
+        </div>
+        <div className="flex flex-col gap-1">
+          <HRLabel>Document Body (HTML)</HRLabel>
+          <Controller
+            name="documentBody"
+            control={control}
+            render={({ field }) => (
+              <RichEditor value={field.value} onChange={field.onChange} />
+            )}
           />
         </div>
       </HRCard>
