@@ -84,6 +84,7 @@ export const DocumentTemplate = () => {
         formId="create-template-form"
         okText="Save to Library"
         cancelText="Cancel"
+        dialogClassName="sm:max-w-[630px]"
       >
         <CreateTemplateForm />
       </ControlledFormDialog>

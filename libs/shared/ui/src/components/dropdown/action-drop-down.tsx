@@ -1,11 +1,13 @@
+import { ReactNode } from 'react';
 import { Button } from '../../primitives/button';
 import { DropDown } from './drop-down';
 
 type ActionItem = {
-  label: string;
+  label: ReactNode;
   onClick?: () => void;
   variant?: 'default' | 'destructive';
   className?: string;
+  isActive?: boolean;
 };
 
 type ActionDropdownProps = {
@@ -15,6 +17,7 @@ type ActionDropdownProps = {
   actions: ActionItem[];
   align?: 'start' | 'end';
   dropdownClassName?: string;
+  displayClassName?: string;
 };
 
 export const ActionDropdown = ({
@@ -23,6 +26,7 @@ export const ActionDropdown = ({
   trigger,
   actions,
   dropdownClassName,
+  displayClassName,
   align = 'end',
 }: ActionDropdownProps) => {
   return (
@@ -34,7 +38,7 @@ export const ActionDropdown = ({
       className={`px-2 ${dropdownClassName}`}
     >
       <div
-        className="w-full flex flex-col"
+        className={`w-full flex flex-col ${displayClassName}`}
         onClick={(e) => e.stopPropagation()}
       >
         {actions.map((action, index) => (
@@ -46,7 +50,9 @@ export const ActionDropdown = ({
               action.onClick?.();
               onOpenChange(false);
             }}
-            className={`text-[14px] font-normal leading-5 cursor-pointer text-foreground ${action.className}`}
+            className={`text-[14px] font-normal leading-5 cursor-pointer text-foreground ${
+              action.className
+            } ${action.isActive ? 'bg-muted' : ''}`}
           >
             {action.label}
           </Button>
