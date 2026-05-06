@@ -1,6 +1,5 @@
 import { useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import { useState } from 'react';
 import TextAlign from '@tiptap/extension-text-align';
 import Heading from '@tiptap/extension-heading';
 import Blockquote from '@tiptap/extension-blockquote';
@@ -20,9 +19,7 @@ type RichEditorProps = {
   onChange?: (value: string) => void;
 };
 
-export const RichEditor = ({ value = '', onChange }: RichEditorProps) => {
-  const [, forceUpdate] = useState(0);
-
+export const RichEditor = ({ onChange }: RichEditorProps) => {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -42,13 +39,11 @@ export const RichEditor = ({ value = '', onChange }: RichEditorProps) => {
       FontSize,
       TextStyle,
     ],
-    content: '<p>Hello world 👋</p>',
+    content: '<p>Write Something....</p>',
 
     onUpdate: ({ editor }) => {
       onChange?.(editor.getHTML());
-      forceUpdate((n) => n + 1);
     },
-    onSelectionUpdate: () => forceUpdate((n) => n + 1),
   });
 
   if (!editor) return null;
@@ -68,7 +63,7 @@ export const RichEditor = ({ value = '', onChange }: RichEditorProps) => {
             onClick={() => {
               const url = prompt('Enter URL');
               if (url) {
-                editor.chain().focus().setLink({ href: url }).run();
+                editor.chain().focus().toggleLink().run();
               }
             }}
             className={`flex items-center rounded-[6px] cursor-pointer ${
