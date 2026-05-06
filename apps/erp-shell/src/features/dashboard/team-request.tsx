@@ -14,7 +14,7 @@ export const TeamRequest = () => {
   if (isLoading) {
     return (
       <HRCard
-        cardClassName="w-full h-99 py-6 pl-6 pr-3 bg-white rounded-xl shadow-sm border-none"
+        cardClassName="w-full max-h-99 py-6 pl-6 pr-3 bg-white rounded-xl shadow-sm border-none"
         cardContentClassName="flex flex-col gap-4 p-0"
       >
         <div className="text-[18px] text-foreground font-medium leading-7">

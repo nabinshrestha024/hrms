@@ -21,9 +21,13 @@ function RouteComponent() {
   });
 
   return (
-    <ContentShell title="Dashboard" subtitle={today} className="pb-21.5">
-      <div className="w-full px-12 flex flex-col gap-4">
-        <div className="flex gap-4">
+    <ContentShell
+      title="Dashboard"
+      subtitle={today}
+      className="pb-21.5 px-6 lg:px-12"
+    >
+      <div className="w-full px-0 xl:px-12 flex flex-col gap-4">
+        <div className="flex flex-col lg:flex-row gap-4">
           <PersonalInformation />
           <QuickAction />
         </div>

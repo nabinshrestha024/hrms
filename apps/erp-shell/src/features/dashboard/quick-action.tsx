@@ -6,7 +6,7 @@ export const QuickAction = () => {
   return (
     <>
       <HRCard
-        cardClassName="w-full h-87.5 p-6 bg-white border-none rounded-xl shadow-sm  "
+        cardClassName="w-full max-h-87.5 p-6 bg-white border-none rounded-xl shadow-sm  "
         cardContentClassName="p-0 flex flex-col gap-4"
       >
         <div className="text-[18px] text-foreground font-medium leading-7">

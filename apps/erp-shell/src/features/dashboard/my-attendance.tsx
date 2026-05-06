@@ -3,8 +3,10 @@ import { HRCard, Skeleton } from '@erp/ui';
 import { CalendarClock, CircleX, Clock4, ClockAlert } from 'lucide-react';
 import { IconButton } from '../../components/icon-button';
 import { getSortData } from '@erp/utils';
+import { useNavigate } from '@tanstack/react-router';
 
 export const MyAttendance = () => {
+  const navigate = useNavigate();
   const { data: myAttendance, isLoading } = useMyAttendance();
   const attendanceList: Attendance[] = myAttendance ?? [];
   const sortedAttendance: Attendance[] = getSortData({
@@ -40,7 +42,7 @@ export const MyAttendance = () => {
   return (
     <>
       <HRCard
-        cardClassName="w-full h-153 p-6 bg-white rounded-xl shadow-sm border-none"
+        cardClassName="w-full max-h-153 p-6 bg-white rounded-xl shadow-sm border-none"
         cardContentClassName="p-0 flex flex-col gap-4"
       >
         <div className="text-[18px] text-foreground font-medium leading-7">
@@ -108,7 +110,10 @@ export const MyAttendance = () => {
             </HRCard>
           ))}
         </div>
-        <div className="flex gap-3 items-center">
+        <div
+          className="flex gap-3 items-center"
+          onClick={() => navigate({ to: '/attendance' })}
+        >
           <IconButton variant="request">
             <CalendarClock className="w-4 h-4" />
           </IconButton>
