@@ -1,7 +1,8 @@
 import { FormRenderer, FormViewConfig } from '@erp/config-engine';
-import { useUpdateCompanyProfile } from '@erp/data-access';
-import { Button, ContentShell, HRCard, toast } from '@erp/ui';
+import { CompanyProfile, useUpdateCompanyProfile } from '@erp/data-access';
+import { Button, ConfirmDialog, ContentShell, HRCard, toast } from '@erp/ui';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import { useState } from 'react';
 
 export const Route = createFileRoute('/_authenticated/company-setup/')({
   component: BasicInformationForm,
@@ -199,6 +200,10 @@ export const BasicInformationFormSchema: FormViewConfig = {
 };
 
 export function BasicInformationForm() {
+  const [discardTarget, setDiscardTarget] = useState<CompanyProfile | null>(
+    null
+  );
+
   const navigate = useNavigate();
   const updateProfile = useUpdateCompanyProfile();
   const onSubmit = (data: Record<string, unknown>) => {
@@ -221,6 +226,9 @@ export function BasicInformationForm() {
         },
       }
     );
+  };
+  const confirmDiscard = async () => {
+    navigate({ to: '/company-setup', reloadDocument: true });
   };
 
   return (
@@ -249,7 +257,7 @@ export function BasicInformationForm() {
             variant="outline"
             className="text-[14px] font-medium leading-5 text-muted-foreground "
             onClick={() => {
-              navigate({ to: '/company-setup', reloadDocument: true });
+              setDiscardTarget({} as CompanyProfile);
             }}
           >
             Cancel
@@ -264,6 +272,14 @@ export function BasicInformationForm() {
           </Button>
         </div>
       </div>
+      <ConfirmDialog
+        open={discardTarget !== null}
+        onOpenChange={(open: boolean) => !open && setDiscardTarget(null)}
+        description="Are you sure you want to discard the changes?"
+        confirmText="Delete"
+        destructive
+        onConfirm={confirmDiscard}
+      />
     </ContentShell>
   );
 }

@@ -112,7 +112,7 @@ export const MyAttendance = () => {
         </div>
         <div
           className="flex gap-3 items-center"
-          onClick={() => navigate({ to: '/attendance' })}
+          onClick={() => navigate({ to: '/attendance/my-attendance' })}
         >
           <IconButton variant="request">
             <CalendarClock className="w-4 h-4" />
