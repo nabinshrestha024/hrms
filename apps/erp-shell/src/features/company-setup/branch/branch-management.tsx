@@ -113,11 +113,7 @@ export const BranchManagement = () => {
 
       <ConfirmDialog
         open={deleteTarget !== null}
-        onOpenChange={(open: boolean) => {
-          if (!open) {
-            setDeleteTarget(null);
-          }
-        }}
+        onOpenChange={(open: boolean) => !open && setDeleteTarget(null)}
         description="Are you sure you want to delete the branch?"
         confirmText="Delete"
         destructive
