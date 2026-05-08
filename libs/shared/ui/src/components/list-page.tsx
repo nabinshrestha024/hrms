@@ -205,16 +205,16 @@ export function ListPage<T>(props: ListPageProps<T>) {
   };
 
   const controls = (
-    <div className="flex justify-between items-center">
+    <div className="hidden md:flex md:justify-between md:items-center">
       {search && (
         <SearchBar
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
           placeholder="Search..."
-          className="w-58 h-10"
+          className="w-50 xl:w-58 h-10"
         />
       )}
-      <div className="ml-4 flex gap-4 items-center">
+      <div className="ml-2 xl:ml-4 flex gap-2 xl:gap-4 items-center">
         {dropdowns?.map((d) => {
           const stringKey = String(d.key);
           const selected = dropdownValues[stringKey] ?? '';
@@ -271,7 +271,7 @@ export function ListPage<T>(props: ListPageProps<T>) {
     // `flat` strips the padding for use inside a parent that already pads.
     <div
       className={`flex justify-between items-center
-        ${flat ? 'mb-6' : 'px-12 py-6'}`}
+        ${flat ? 'mb-6' : 'px-6 xl:px-12 py-6'}`}
     >
       <div
         className={cn(

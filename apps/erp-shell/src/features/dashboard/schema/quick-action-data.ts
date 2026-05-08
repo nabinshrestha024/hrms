@@ -1,4 +1,6 @@
 import { ChartColumn, Clock4, FileText, TentTree } from 'lucide-react';
+import { AddLeaveRequestForm } from '../../attendance/my-attendance/add-leave-request-form';
+import { AddTimeRequestForm } from '../../attendance/my-attendance/add-time-request-form';
 
 export const quickAccessData = [
   {
@@ -6,7 +8,13 @@ export const quickAccessData = [
     icon: TentTree,
     action: 'Leave Request',
     description: 'Request for leave',
-    path: '/leave-management',
+    type: 'dialog',
+    dialog: {
+      title: 'Add Leave Request',
+      formId: 'add-leave-request-form',
+      component: AddLeaveRequestForm,
+      componentClassName: 'py-4 pl-4 pr-2',
+    },
   },
   {
     id: 1,
@@ -20,7 +28,14 @@ export const quickAccessData = [
     icon: Clock4,
     action: 'Time Request',
     description: 'Time Correction',
-    path: '/attendance/my-attendance',
+    type: 'dialog',
+    dialog: {
+      title: 'Add Time Request',
+      component: AddTimeRequestForm,
+      formId: 'add-time-request-form',
+      dialogClassName: 'sm:max-w-[709px]',
+      componentClassName: 'py-4 pl-4 pr-2',
+    },
   },
   {
     id: 3,

@@ -16,10 +16,10 @@ export const DepartmentCard = ({
 }: DepartmentCardProps) => {
   return (
     <>
-      <div className="px-6 pb-19.5 bg-background">
+      <div className="px-3 lg:px-6 pb-19.5 bg-background">
         <HRCard
-          cardClassName="p-6 border-none rounded-xl bg-white shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]"
-          cardContentClassName="grid grid-cols-4 gap-4 p-0"
+          cardClassName="p-3 lg:p-6 border-none rounded-xl bg-white shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]"
+          cardContentClassName="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-0"
         >
           {data.map((items) => (
             <HRCard

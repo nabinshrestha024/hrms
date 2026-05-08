@@ -1,7 +1,7 @@
 import { FormRenderer, FormViewConfig } from '@erp/config-engine';
 import { useUpdateCompanyProfile } from '@erp/data-access';
-import { Button, HRCard, toast } from '@erp/ui';
-import { createFileRoute } from '@tanstack/react-router';
+import { Button, ContentShell, HRCard, toast } from '@erp/ui';
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_authenticated/company-setup/')({
   component: BasicInformationForm,
@@ -199,8 +199,8 @@ export const BasicInformationFormSchema: FormViewConfig = {
 };
 
 export function BasicInformationForm() {
+  const navigate = useNavigate();
   const updateProfile = useUpdateCompanyProfile();
-
   const onSubmit = (data: Record<string, unknown>) => {
     updateProfile.mutate(
       {
@@ -224,14 +224,15 @@ export function BasicInformationForm() {
   };
 
   return (
-    <div className="w-full h-[calc(100vh-120px)] overflow-auto  bg-background">
-      <div className="px-12 py-6 text-[20px] font-semibold leading-12 text-foreground ">
-        Company Profile
-      </div>
+    <ContentShell
+      title="Company Profile"
+      className="max-h-[calc(100vh-120px)]"
+      titleClassName="px-6 lg:px-12"
+    >
       <div className="flex flex-col gap-1">
-        <div className="flex-1 overflow-auto px-6 ">
+        <div className="flex-1 p-3 lg:px-6 ">
           <HRCard
-            cardClassName="p-6 border-none rounded-t-xl bg-white shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]"
+            cardClassName="p-3 lg:p-6 border-none rounded-t-xl bg-white shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]"
             cardContentClassName="p-0"
           >
             <FormRenderer
@@ -247,6 +248,9 @@ export function BasicInformationForm() {
             type="button"
             variant="outline"
             className="text-[14px] font-medium leading-5 text-muted-foreground "
+            onClick={() => {
+              navigate({ to: '/company-setup', reloadDocument: true });
+            }}
           >
             Cancel
           </Button>
@@ -260,6 +264,6 @@ export function BasicInformationForm() {
           </Button>
         </div>
       </div>
-    </div>
+    </ContentShell>
   );
 }

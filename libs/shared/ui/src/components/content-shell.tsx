@@ -23,6 +23,7 @@ export interface ContentShellProps {
   padded?: boolean;
   /** Extra classes for the outer scroll container. */
   className?: string;
+  titleClassName?: string;
   children: ReactNode;
 }
 
@@ -62,6 +63,7 @@ export function ContentShell({
   action,
   padded = false,
   className,
+  titleClassName,
   children,
 }: ContentShellProps) {
   return (
@@ -69,12 +71,14 @@ export function ContentShell({
       className={cn(
         // `max-h-` (not `h-`) so short pages collapse to content size
         // instead of leaving an awkward viewport-height empty area below.
-        'w-full max-h-[calc(100vh-84px)] overflow-auto flex flex-col ',
+        'w-full max-h-[calc(100vh-84px)] overflow-auto  ',
         className
       )}
     >
       {title && (
-        <div className="flex justify-between items-start gap-4 px-0 lg:px-12 py-6">
+        <div
+          className={`flex justify-between items-start gap-4 px-0 py-6 ${titleClassName}`}
+        >
           <div className="flex flex-col">
             <span className="text-[24px] font-semibold leading-8 text-foreground">
               {title}
@@ -91,7 +95,9 @@ export function ContentShell({
 
       {padded ? (
         <div className="px-6 pt-0 pb-32.5 ">
-          <div className="bg-background rounded-xl p-6">{children}</div>
+          <div className="bg-white rounded-xl p-6 border border-border">
+            {children}
+          </div>
         </div>
       ) : (
         children

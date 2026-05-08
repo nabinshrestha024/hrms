@@ -72,9 +72,9 @@ export const TeamRequest = () => {
         <HRTabs
           defaultValue="Leave"
           tabClassName=" flex flex-col gap-3"
-          tabListClassName="flex gap-6 py-2 px-0 bg-white rounded-none "
+          tabListClassName="flex gap-1 md:gap-6 py-2 px-0 bg-white rounded-none "
           tabList={tabsData}
-          tabTriggerClassName="w-full h-9 rounded-none data-[state=active]:text-primary data-[state=active]:bg-white data-[state=active]:rounded-none data-[state=active]:shadow-none px-[44.83px] py-[6px] text-[14px] font-medium leading-5 text-secondary-foreground  data-[state=active]:border-b-2 data-[state=active]:border-b-primary"
+          tabTriggerClassName="w-full h-9 rounded-none data-[state=active]:text-primary data-[state=active]:bg-white data-[state=active]:rounded-none data-[state=active]:shadow-none px-5 lg:px-[44.83px] py-[6px] text-[14px] font-medium leading-5 text-secondary-foreground  data-[state=active]:border-b-2 data-[state=active]:border-b-primary"
           tabsContentClassName="rounded-[8px] bg-white "
         />
       </HRCard>

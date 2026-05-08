@@ -25,8 +25,9 @@ function RouteComponent() {
       title="Dashboard"
       subtitle={today}
       className="pb-21.5 px-6 lg:px-12"
+      titleClassName="lg:px-0"
     >
-      <div className="w-full px-0 xl:px-12 flex flex-col gap-4">
+      <div className="w-full  flex flex-col gap-4">
         <div className="flex flex-col lg:flex-row gap-4">
           <PersonalInformation />
           <QuickAction />
