@@ -84,6 +84,7 @@ export function getBranchColumns(
               aria-label="Edit branch"
               variant="default"
               onClick={() => actions?.onEdit?.(row.original)}
+              tooltip="Edit"
             >
               <Edit className="w-4 h-4 text-black font-bold" />
             </IconButton>
@@ -94,6 +95,7 @@ export function getBranchColumns(
               variant="destructive"
               aria-label="Delete branch"
               onClick={() => actions?.onDelete?.(row.original.id)}
+              tooltip="Delete"
             >
               <Trash2 className="w-4 h-4 text-badge-text-3 font-bold" />
             </IconButton>
