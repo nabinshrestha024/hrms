@@ -8,11 +8,12 @@ import {
   ListPage,
   toast,
 } from '@erp/ui';
-import { useState } from 'react';
 
 import { BranchCard } from './branch-card';
 import { BranchForm } from './branch-form';
 import { BranchTable } from './branch-table/branch-table';
+import { useState } from 'react';
+import { EditBranchForm } from './edit-branch-form';
 
 export const BranchManagement = () => {
   const { data: branchResponse } = useBranches({ page: 1, pageSize: 100 });
@@ -22,7 +23,6 @@ export const BranchManagement = () => {
   // Edit & delete need parent-owned state because they target a specific row.
   const [editTarget, setEditTarget] = useState<Branch | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<Branch | null>(null);
-
   const handleEdit = (branch: Branch) => setEditTarget(branch);
   const handleDelete = (id: string) => {
     const branch = data.find((b) => b.id === id);
@@ -98,23 +98,23 @@ export const BranchManagement = () => {
 
       <ControlledFormDialog
         open={editTarget !== null}
-        onOpenChange={(open: boolean) => !open && setEditTarget(null)}
-        title="Edit Branch"
+        onOpenChange={(open: boolean) => {
+          if (!open) {
+            setEditTarget(null);
+          }
+        }}
+        title="Edit Branch Details"
         size="lg"
-        okText="Save"
+        okText="Save Changes"
+        cancelText="Cancel"
       >
-        <BranchForm />
+        <EditBranchForm selectedBranch={editTarget ?? undefined} />
       </ControlledFormDialog>
 
       <ConfirmDialog
         open={deleteTarget !== null}
         onOpenChange={(open: boolean) => !open && setDeleteTarget(null)}
-        title="Delete branch?"
-        description={
-          deleteTarget
-            ? `"${deleteTarget.branch}" will be permanently deleted. This action cannot be undone.`
-            : undefined
-        }
+        description="Are you sure you want to delete the branch?"
         confirmText="Delete"
         destructive
         onConfirm={confirmDelete}

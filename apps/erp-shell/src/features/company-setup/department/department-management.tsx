@@ -16,6 +16,7 @@ import { useState } from 'react';
 
 import { DepartmentCard } from './department-card';
 import { DepartmentForm } from './department-form';
+import { EditDepartmentForm } from './edit-department-form';
 
 export const DepartmentManagement = () => {
   const { data: deptResponse } = useDepartments({ pageSize: 100 });
@@ -72,6 +73,7 @@ export const DepartmentManagement = () => {
               title="Department Details"
               size="lg"
               okText="Add"
+              cancelText="Cancel"
             >
               <DepartmentForm />
             </FormDialog>
@@ -103,20 +105,16 @@ export const DepartmentManagement = () => {
         onOpenChange={(open: boolean) => !open && setEditTarget(null)}
         title="Edit Department"
         size="lg"
-        okText="Save"
+        okText="Save Change"
+        cancelText="Cancel"
       >
-        <DepartmentForm />
+        {editTarget && <EditDepartmentForm selectedDepartment={editTarget} />}
       </ControlledFormDialog>
 
       <ConfirmDialog
         open={deleteTarget !== null}
         onOpenChange={(open: boolean) => !open && setDeleteTarget(null)}
-        title="Delete department?"
-        description={
-          deleteTarget
-            ? `"${deleteTarget.department}" will be permanently deleted. This action cannot be undone.`
-            : undefined
-        }
+        description="Are you sure you want to delete this department"
         confirmText="Delete"
         destructive
         onConfirm={confirmDelete}

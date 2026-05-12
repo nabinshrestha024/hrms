@@ -16,7 +16,7 @@ export const Event = () => {
   if (isLoading) {
     return (
       <HRCard
-        cardClassName="w-full h-153 p-6 bg-white rounded-xl shadow-sm border-none"
+        cardClassName="w-full max-h-153 p-6 bg-white rounded-xl shadow-sm border-none"
         cardContentClassName="p-0 flex flex-col gap-4"
       >
         <div className="text-[18px] text-foreground font-medium leading-7">

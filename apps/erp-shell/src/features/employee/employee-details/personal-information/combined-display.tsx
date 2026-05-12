@@ -11,7 +11,6 @@ export const CombinedDisplay = ({ employee }: CombinedDisplayProps) => {
   return (
     <div className="flex flex-col gap-6">
       <PersonalDetailDisplay employee={employee} />
-
       <EmergencyDetailDisplay employee={employee} />
     </div>
   );

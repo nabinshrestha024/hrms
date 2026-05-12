@@ -18,7 +18,13 @@ export const BranchTable = ({ data, onEdit, onDelete }: BranchTableProps) => {
   return (
     <>
       <div className="px-6 pb-19.5 bg-background">
-        <DataTable table={table} columns={columns} />
+        {data.length > 0 ? (
+          <DataTable table={table} columns={columns} />
+        ) : (
+          <div className="rounded-xl bg-white text-center font-medium text-[20px] text-foreground p-6">
+            Data Not found
+          </div>
+        )}
       </div>
     </>
   );

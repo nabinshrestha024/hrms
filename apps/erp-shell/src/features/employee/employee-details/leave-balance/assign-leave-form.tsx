@@ -5,6 +5,7 @@ import { Badge, CustomAlert, Form, HRLabel, OptionRadioGroup } from '@erp/ui';
 import { UserCard } from '../../../../components/user-card';
 import { Info } from 'lucide-react';
 import { Employee } from '@erp/data-access';
+import { leave } from '../../schema/leave-balance-data';
 
 interface AssignLeaveFormProps {
   onSuccess?: () => void;
@@ -27,15 +28,6 @@ export const AssignLeaveForm = ({
   const onsubmit = (_data: AssignLeaveFormValue) => {
     onSuccess?.();
   };
-
-  const leave = [
-    { type: 'Mourning Leave', days: 5 },
-    { type: 'Maternity Leave', days: 98 },
-    { type: 'Paternity Leave', days: 15 },
-    { type: 'Marriage Leave', days: 7 },
-    { type: 'Study Leave', days: 14 },
-    { type: 'Bereavement Leave', days: 3 },
-  ];
 
   const leaveOptions = leave.map((val) => ({
     value: val.type,

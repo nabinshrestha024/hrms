@@ -4,6 +4,7 @@ import {
   FileBadge,
   FileText,
   GraduationCap,
+  LucideIcon,
 } from 'lucide-react';
 
 export const personalDocumentData = [
@@ -43,3 +44,10 @@ export const personalDocumentData = [
     templateName: 'File',
   },
 ];
+export type Document = {
+  id: number;
+  title: string;
+  subTitle: string;
+  icon: LucideIcon;
+  templateName: string;
+};

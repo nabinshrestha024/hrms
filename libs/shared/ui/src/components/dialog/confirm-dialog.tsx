@@ -1,14 +1,13 @@
 import { useState, type ReactNode } from 'react';
-import { AlertTriangle } from 'lucide-react';
 import { Button } from '../../primitives/button';
 import {
   Dialog,
+  DialogClose,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from '../../primitives/dialog';
+import { Asterisk, X } from 'lucide-react';
 
 export interface ConfirmDialogProps {
   open: boolean;
@@ -50,7 +49,7 @@ export interface ConfirmDialogProps {
 export function ConfirmDialog({
   open,
   onOpenChange,
-  title = 'Are you sure?',
+  title = 'Confirmation',
   description,
   confirmText = 'Confirm',
   cancelText = 'Cancel',
@@ -74,40 +73,45 @@ export function ConfirmDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="max-h[149px] p-0 gap-0" showCloseButton={false}>
         <DialogHeader>
-          <div className="flex items-start gap-3">
-            {destructive && (
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-destructive/10">
-                <AlertTriangle className="h-5 w-5 text-destructive" />
-              </div>
-            )}
-            <div className="flex flex-col gap-1">
-              <DialogTitle>{title}</DialogTitle>
-              {description && (
-                <DialogDescription>{description}</DialogDescription>
-              )}
+          <div className="flex justify-between items-center px-6 py-3 border-b border-b-border">
+            <DialogTitle className="text-[17px] font-bold text-[#1C1F22]">
+              {title}
+            </DialogTitle>
+            <div className="flex gap-3">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => onOpenChange(false)}
+                disabled={isPending}
+              >
+                {cancelText}
+              </Button>
+              <Button
+                type="button"
+                variant="default"
+                className="bg-foreground text-white"
+                onClick={handleConfirm}
+                disabled={isPending}
+              >
+                {isPending ? 'Working…' : confirmText}
+              </Button>
             </div>
           </div>
+          <DialogClose className="absolute -top-3 -right-2 w-6 h-6 rounded-full bg-black flex items-center justify-center">
+            <X className="w-4 h-4 text-white" />
+          </DialogClose>
         </DialogHeader>
-        <DialogFooter className="gap-2 sm:gap-2">
-          <Button
-            type="button"
-            variant="outline"
-            onClick={() => onOpenChange(false)}
-            disabled={isPending}
-          >
-            {cancelText}
-          </Button>
-          <Button
-            type="button"
-            variant={destructive ? 'destructive' : 'secondary'}
-            onClick={handleConfirm}
-            disabled={isPending}
-          >
-            {isPending ? 'Working…' : confirmText}
-          </Button>
-        </DialogFooter>
+
+        {description && (
+          <div className="px-6 py-3 bg-[#F25768] mb-5.5 mt-4.5 flex gap-1 items-center">
+            <Asterisk className="w-4 h-4 text-white" />
+            <span className="text-white text-[13px] font-medium">
+              {description}
+            </span>
+          </div>
+        )}
       </DialogContent>
     </Dialog>
   );

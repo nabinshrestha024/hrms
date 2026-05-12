@@ -19,6 +19,10 @@ export function getBranchColumns(
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Branch Id" />
       ),
+      meta: {
+        className: 'sticky left-0 z-20 bg-white',
+        headerClassName: 'sticky left-0  z-30 bg-card',
+      },
       cell: ({ row }) => <>{row.getValue('branchId')}</>,
     },
     {
@@ -26,6 +30,10 @@ export function getBranchColumns(
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Branch" />
       ),
+      meta: {
+        className: 'sticky left-[125px] z-20 bg-white',
+        headerClassName: 'sticky left-[125px]  z-30 bg-card',
+      },
       cell: ({ row }) => <>{row.getValue('branch')}</>,
     },
     {
@@ -76,6 +84,7 @@ export function getBranchColumns(
               aria-label="Edit branch"
               variant="default"
               onClick={() => actions?.onEdit?.(row.original)}
+              tooltip="Edit"
             >
               <Edit className="w-4 h-4 text-black font-bold" />
             </IconButton>
@@ -86,6 +95,7 @@ export function getBranchColumns(
               variant="destructive"
               aria-label="Delete branch"
               onClick={() => actions?.onDelete?.(row.original.id)}
+              tooltip="Delete"
             >
               <Trash2 className="w-4 h-4 text-badge-text-3 font-bold" />
             </IconButton>

@@ -1,18 +1,11 @@
 import { Button, FormDialog, HRCard } from '@erp/ui';
 import { useNavigate } from '@tanstack/react-router';
-import { Dot, Eye, LucideIcon, Trash2, Upload } from 'lucide-react';
+import { Dot, Eye, Trash2, Upload } from 'lucide-react';
 import { FileUpload } from '../../../../components/file-upload';
 import { IconButton } from '../../../../components/icon-button';
 import { AssignDocumentForm } from './assign-document-form';
 import { UploadDocumentForm } from './upload-document-form';
-
-export interface Document {
-  id: number;
-  title: string;
-  subTitle: string;
-  icon: LucideIcon;
-  templateName: string;
-}
+import { Document } from '../../schema/document-data';
 
 interface DocumentUploadProps {
   title: string;

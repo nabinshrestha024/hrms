@@ -34,7 +34,6 @@ export const PersonalDetailEditForm = () => {
             error={errors.lastName?.message as string}
             {...register('lastName')}
           />
-
           <HRInput
             Label="Personal Email"
             labelClassName="text-[12px] font-medium leading-4 text-secondary-foreground"

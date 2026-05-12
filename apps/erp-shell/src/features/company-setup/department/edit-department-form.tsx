@@ -1,9 +1,9 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
-import { useCreateDepartment } from '@erp/data-access';
+import { Department, useUpdateDepartment } from '@erp/data-access';
 import { toast, useDialogClose } from '@erp/ui';
 
-export const addDepartmentFormConfig: FormViewConfig = {
-  entity: 'department',
+export const editDepartmentFormConfig: FormViewConfig = {
+  entity: 'edit-department',
   fields: [
     {
       name: 'departmentName',
@@ -40,13 +40,17 @@ export const addDepartmentFormConfig: FormViewConfig = {
     ],
   },
 };
-
-export function DepartmentForm() {
-  const createDepartment = useCreateDepartment();
+type DepartmentFormProps = {
+  selectedDepartment?: Department;
+};
+export function EditDepartmentForm({
+  selectedDepartment,
+}: DepartmentFormProps) {
+  const editDepartment = useUpdateDepartment(selectedDepartment?.id ?? '');
   const close = useDialogClose();
 
   const onsubmit = (data: Record<string, unknown>) => {
-    createDepartment.mutate(
+    editDepartment.mutate(
       {
         department: String(data.departmentName ?? ''),
         location: '',
@@ -55,11 +59,14 @@ export function DepartmentForm() {
       },
       {
         onSuccess: () => {
-          toast({ variant: 'success', title: 'Department added successfully' });
+          toast({
+            variant: 'success',
+            title: 'Department edited successfully',
+          });
           close();
         },
         onError: () => {
-          toast({ variant: 'destructive', title: 'Failed to add department' });
+          toast({ variant: 'destructive', title: 'Failed to edit department' });
         },
       }
     );
@@ -67,10 +74,16 @@ export function DepartmentForm() {
 
   return (
     <FormRenderer
-      config={addDepartmentFormConfig}
+      config={editDepartmentFormConfig}
       onSubmit={onsubmit}
-      submitLabel="Add Department"
+      submitLabel="Edit Department"
       isDialogForm={true}
+      defaultValues={{
+        departmentName: selectedDepartment?.department ?? '',
+        departmentId: selectedDepartment?.code ?? '',
+        address: selectedDepartment?.location ?? '',
+        status: selectedDepartment?.status ?? 'Active',
+      }}
     />
   );
 }

@@ -34,12 +34,14 @@ export type BranchFilters = z.infer<typeof branchFiltersSchema>;
 // ---------------------------------------------------------------------------
 // Department
 // ---------------------------------------------------------------------------
-
+export const departmentStatusEnum = z.enum(['Active', 'Inactive']);
+export type DepartmentStatus = z.infer<typeof departmentStatusEnum>;
 export const departmentSchema = z.object({
   id: z.string(),
   department: z.string(),
   location: z.string(),
   code: z.string(),
+  status: departmentStatusEnum,
 });
 
 export type Department = z.infer<typeof departmentSchema>;
