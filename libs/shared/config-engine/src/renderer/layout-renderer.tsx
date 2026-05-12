@@ -46,7 +46,7 @@ export function LayoutRenderer({
       );
 
     case 'columns': {
-      const cols = node.columns;
+      // const cols = node.columns;
       return (
         <div className="flex flex-col gap-4">
           {node.title && (
@@ -55,8 +55,8 @@ export function LayoutRenderer({
             </div>
           )}
           <div
-            className="grid gap-4"
-            style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
+            className="grid gap-4 grid-cols-1 lg:grid-cols-2"
+            // style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
           >
             {node.children.map((child, i) => (
               <LayoutRenderer

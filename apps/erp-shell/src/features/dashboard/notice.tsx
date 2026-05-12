@@ -8,7 +8,7 @@ export const Notice = () => {
   const noticeData: NoticeType[] = data ?? [];
   const sortedNotice: NoticeType[] = getSortData({
     events: noticeData,
-    limit: 7,
+    limit: 5,
     dateKey: 'createdAt',
   });
   if (isLoading) {
@@ -18,7 +18,7 @@ export const Notice = () => {
           Notice
         </div>
         <div className="flex flex-col gap-3 pr-3">
-          {Array.from({ length: 4 }).map((_, i) => (
+          {Array.from({ length: 5 }).map((_, i) => (
             <div key={i} className="flex gap-3 p-2">
               <Skeleton className="w-17.5 h-17.5 rounded-xl" />
               <div className="flex-1 flex flex-col gap-2">
@@ -35,7 +35,7 @@ export const Notice = () => {
 
   return (
     <>
-      <div className="w-full h-153 py-6 pl-6 pr-3 bg-white rounded-xl shadow-sm flex flex-col gap-4">
+      <div className="w-full max-h-153 py-6 pl-6 pr-3 bg-white rounded-xl shadow-sm flex flex-col gap-4">
         <div className="text-[18px] text-foreground font-medium leading-7">
           Notice
         </div>
@@ -96,6 +96,7 @@ export const Notice = () => {
             title="Create Announcement"
             size="lg"
             okText="Add"
+            cancelText="Cancel"
             dialogClassName="max-h-[150vh]"
             componentClassName="py-4 pl-4 pr-2"
           >

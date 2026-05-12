@@ -1,9 +1,9 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
-import { useCreateBranch } from '@erp/data-access';
+import { Branch, useUpdateBranch } from '@erp/data-access';
 import { toast, useDialogClose } from '@erp/ui';
 
-export const addBranchFormConfig: FormViewConfig = {
-  entity: 'branch',
+export const editBranchFormConfig: FormViewConfig = {
+  entity: 'edit-branch',
   fields: [
     {
       name: 'branchName',
@@ -57,13 +57,15 @@ export const addBranchFormConfig: FormViewConfig = {
     ],
   },
 };
-
-export function BranchForm() {
-  const createBranch = useCreateBranch();
+type BranchFormProps = {
+  selectedBranch?: Branch;
+};
+export function EditBranchForm({ selectedBranch }: BranchFormProps) {
+  const editBranch = useUpdateBranch(selectedBranch?.id ?? '');
   const close = useDialogClose();
 
   const onsubmit = (data: Record<string, unknown>) => {
-    createBranch.mutate(
+    editBranch.mutate(
       {
         branchId: String(data.branchId ?? ''),
         branch: String(data.branchName ?? ''),
@@ -74,11 +76,11 @@ export function BranchForm() {
       },
       {
         onSuccess: () => {
-          toast({ variant: 'success', title: 'Branch added successfully' });
+          toast({ variant: 'success', title: 'Branch edit successfully' });
           close();
         },
         onError: () => {
-          toast({ variant: 'destructive', title: 'Failed to add branch' });
+          toast({ variant: 'destructive', title: 'Failed to edit branch' });
         },
       }
     );
@@ -86,10 +88,17 @@ export function BranchForm() {
 
   return (
     <FormRenderer
-      config={addBranchFormConfig}
+      config={editBranchFormConfig}
       onSubmit={onsubmit}
-      submitLabel="Add Branch"
+      submitLabel="Edit Branch"
       isDialogForm={true}
+      defaultValues={{
+        branchName: selectedBranch?.branch ?? '',
+        branchId: selectedBranch?.branchId ?? '',
+        address: selectedBranch?.location ?? '',
+        contact: selectedBranch?.contact ?? '',
+        status: selectedBranch?.status ?? 'Active',
+      }}
     />
   );
 }

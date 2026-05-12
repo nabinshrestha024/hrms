@@ -133,7 +133,7 @@ export function ShellLayout({
       </div>
 
       {/* Mobile bottom nav */}
-      <MobileNav currentPath={currentPath} linkComponent={linkComponent} />
+      {/* <MobileNav currentPath={currentPath} linkComponent={linkComponent} /> */}
     </div>
   );
 }

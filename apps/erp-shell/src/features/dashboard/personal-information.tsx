@@ -22,7 +22,7 @@ export const PersonalInformation = () => {
       {personalData?.map((items) => (
         <HRCard
           key={items.id}
-          cardClassName="w-full h-87.5 p-6 bg-white border-none rounded-xl shadow-sm "
+          cardClassName="w-full lg:max-h-87.5 p-6 bg-white border-none rounded-xl shadow-sm "
           cardContentClassName="p-0 flex flex-col gap-4 "
         >
           <div className="flex gap-3">

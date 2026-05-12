@@ -2,6 +2,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { Slot } from 'radix-ui';
 import { cn } from '@erp/utils';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@erp/ui';
 
 const iconVariants = cva(
   'inline-flex w-fit shrink-0 items-center justify-center gap-1 overflow-hidden rounded-full border border-transparent px-2 py-0.5 text-xs font-medium whitespace-nowrap transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:size-3',
@@ -39,12 +40,20 @@ function IconButton({
   className,
   variant = 'default',
   asChild = false,
+  tooltip,
+  showTooltip = true,
+  shortcutKeys,
   ...props
 }: React.ComponentProps<'button'> &
-  VariantProps<typeof iconVariants> & { asChild?: boolean }) {
+  VariantProps<typeof iconVariants> & {
+    asChild?: boolean;
+    tooltip?: React.ReactNode;
+    showTooltip?: boolean;
+    shortcutKeys?: string;
+  }) {
   const Comp = asChild ? Slot.Root : 'button';
 
-  return (
+  const button = (
     <Comp
       type="button"
       data-slot="icon-button"
@@ -52,6 +61,18 @@ function IconButton({
       className={cn(iconVariants({ variant }), className)}
       {...props}
     />
+  );
+
+  if (!tooltip || !showTooltip) return button;
+
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>{button}</TooltipTrigger>
+
+      <TooltipContent className="mb-1">
+        <div className="flex items-center gap-2">{tooltip}</div>
+      </TooltipContent>
+    </Tooltip>
   );
 }
 
