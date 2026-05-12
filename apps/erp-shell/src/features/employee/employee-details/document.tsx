@@ -1,7 +1,7 @@
 import { ConfirmDialog } from '@erp/ui';
 import { useState } from 'react';
-import { personalDocumentData } from '../schema/document-data';
-import { Document, DocumentUpload } from './document/document-upload';
+import { Document, personalDocumentData } from '../schema/document-data';
+import { DocumentUpload } from './document/document-upload';
 
 export const Documents = () => {
   // const deleteDocument = useDeleteEmployee();

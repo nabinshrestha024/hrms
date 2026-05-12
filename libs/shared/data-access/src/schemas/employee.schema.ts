@@ -54,6 +54,7 @@ export const employeeSchema = z.object({
   // Compensation
   status: employeeStatusEnum,
   salary: z.number().min(0),
+  grossSalary: z.number().optional(),
   basicSalary: z.number().optional(),
   bankName: z.string().optional(),
   bankAccountNumber: z.string().optional(),
