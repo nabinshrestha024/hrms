@@ -6,7 +6,8 @@ import { IconButton } from '../../../../components/icon-button';
 import { AssignDocumentForm } from './assign-document-form';
 import { UploadDocumentForm } from './upload-document-form';
 
-interface Document {
+export interface Document {
+  id: number;
   title: string;
   subTitle: string;
   icon: LucideIcon;
@@ -23,6 +24,7 @@ interface DocumentUploadProps {
   viewComponent: boolean;
   isDelete?: boolean;
   documents: Document[];
+  onDelete?: (id: number) => void;
 }
 
 export const DocumentUpload = ({
@@ -35,12 +37,13 @@ export const DocumentUpload = ({
   documents,
   viewComponent,
   uploadComponent,
+  onDelete,
 }: DocumentUploadProps) => {
   const navigate = useNavigate();
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex justify-between items-center">
-        <div className="flex flex-col gap-2 items-center">
+      <div className="flex flex-col gap-1 md:gap-0 md:flex-row md:justify-between md:items-center">
+        <div className="flex flex-col gap-2 ">
           <span className="text-[16px] text-foreground font-medium leading-6">
             {title}
           </span>
@@ -50,7 +53,7 @@ export const DocumentUpload = ({
         </div>
 
         {activeButton && (
-          <div className="flex gap-4">
+          <div className="flex gap-2 md:gap-4 ">
             <FormDialog
               trigger={
                 <Button
@@ -96,7 +99,7 @@ export const DocumentUpload = ({
       </div>
 
       {uploadComponent && (
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
           {documents.map((val) => (
             <FileUpload
               key={val.title}
@@ -117,10 +120,10 @@ export const DocumentUpload = ({
         </div>
       )}
       {viewComponent && (
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
           {documents.map((val) => {
             const Icon = val.icon;
-
+            const id = val.id;
             return (
               <HRCard
                 key={val.title}
@@ -132,18 +135,23 @@ export const DocumentUpload = ({
                     <Icon className="w-4 h-4" />
                   </IconButton>
                   <div className="flex flex-col gap-1">
-                    <span className="text-[16px] text-foreground leading-6 font-medium">
+                    <span className="text-[16px] text-foreground leading-6 font-medium line-clamp-1">
                       {val.title}
                     </span>
                     <span className="flex gap-0.5 text-[14px] text-secondary-foreground leading-5 font-medium">
-                      {val.subTitle}{' '}
-                      <Dot className="w-4 h-4 text-secondary-foreground" />{' '}
+                      {val.subTitle}
+                      <Dot className="w-4 h-4 text-secondary-foreground" />
                       {val.templateName}
                     </span>
                   </div>
                 </div>
                 <div className="flex gap-1">
-                  {isDelete && <Trash2 className="w-4 h-4 text-badge-text-3" />}
+                  {isDelete && (
+                    <Trash2
+                      className="w-4 h-4 text-badge-text-3"
+                      onClick={() => onDelete?.(id)}
+                    />
+                  )}
                   <Eye
                     className="w-4 h-4 text-secondary-foreground"
                     onClick={() =>

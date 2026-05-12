@@ -13,7 +13,7 @@ export const ContactInformationForm = () => {
         CONTACT INFORMATION
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <HRInput
           Label="Work Phone Number"
           type="text"

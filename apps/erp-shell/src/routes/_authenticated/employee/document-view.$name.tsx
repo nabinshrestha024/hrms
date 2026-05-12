@@ -36,7 +36,7 @@ function RouteComponent() {
     <>
       <div className="w-full max-h-[calc(100vh-84px)] overflow-auto flex flex-col bg-background">
         <div
-          className="flex gap-1 cursor-pointer px-12 pt-6 items-center"
+          className="flex gap-1 cursor-pointer px-6 lg:px-12 pt-6 items-center"
           onClick={() => navigate({ to: `/employee` })}
         >
           <ArrowLeft className="w-4 h-4 text-secondary-foreground" />
@@ -44,7 +44,7 @@ function RouteComponent() {
             Back
           </span>
         </div>
-        <div className="flex flex-col gap-1 px-12 py-6">
+        <div className="flex flex-col gap-1 px-6 lg:px-12 py-6">
           <span className="flex items-center text-[16px] text-secondary-foreground leading-6 font-medium">
             Category{''}
             <Dot className="w-4 h-4 text-secondary-foreground" />
@@ -55,9 +55,9 @@ function RouteComponent() {
             Document Name
           </span>
         </div>
-        <div className="px-6 pt-0 pb-8">
+        <div className="px-3 lg:px-6 pt-0 pb-8">
           <HRCard
-            cardClassName="p-6 rounded-[8px] shadow-none border-none bg-white"
+            cardClassName="p-3 lg:p-6 rounded-[8px] shadow-none border-none bg-white"
             cardContentClassName="p-0 flex flex-col gap-8"
           >
             <Suspense fallback={null}>

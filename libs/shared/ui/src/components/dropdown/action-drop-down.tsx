@@ -35,10 +35,10 @@ export const ActionDropdown = ({
       onOpenChange={onOpenChange}
       trigger={trigger}
       align={align}
-      className={`px-2 ${dropdownClassName}`}
+      className={`px-0 ${dropdownClassName}`}
     >
       <div
-        className={`w-full flex flex-col ${displayClassName}`}
+        className={`w-full flex flex-col  ${displayClassName}`}
         onClick={(e) => e.stopPropagation()}
       >
         {actions.map((action, index) => (
@@ -50,7 +50,7 @@ export const ActionDropdown = ({
               action.onClick?.();
               onOpenChange(false);
             }}
-            className={`text-[14px] font-normal leading-5 cursor-pointer text-foreground ${
+            className={`text-[14px] font-normal leading-5 cursor-pointer text-foreground justify-start rounded-none px-2  ${
               action.className
             } ${action.isActive ? 'bg-muted' : ''}`}
           >

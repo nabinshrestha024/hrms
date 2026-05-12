@@ -1,5 +1,6 @@
 export const educationData = [
   {
+    id: '1',
     qualification: 'Bachelor of Science',
     studyField: 'Computer Science',
     university: 'Tribhuvan University',
@@ -9,3 +10,14 @@ export const educationData = [
     status: 'Completed',
   },
 ];
+
+export type EducationType = {
+  id: string;
+  qualification: string;
+  studyField: string;
+  university: string;
+  startYear: string;
+  endYear: string;
+  grade: number;
+  status: string;
+};

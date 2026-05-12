@@ -4,7 +4,7 @@ import { OverTimeWorkFlow } from './over-time-work-flow';
 
 export const OverTimeRequest = () => {
   return (
-    <div className="flex flex-col gap-6 max-h-115 overflow-auto pr-3">
+    <div className="flex flex-col gap-6 max-h-100 md:max-h-115 overflow-auto pr-3">
       <div className="flex justify-between">
         <div className="text-[18px] font-medium leading-7 text-foreground">
           Approval Workflow

@@ -93,7 +93,7 @@ export const EmployeeDetailEditForm = ({
     <>
       <div className="flex flex-col gap-6">
         <form onSubmit={handleSubmit(onsubmit)} id="employee">
-          <div className="grid grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-2 lg:gap-4">
             <HRInput
               Label="Employee ID"
               labelClassName="text-[12px] font-medium leading-4 text-secondary-foreground"

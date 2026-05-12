@@ -9,6 +9,10 @@ export function getAttendanceColumns(): ColumnDef<Attendance>[] {
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Date" />
       ),
+      meta: {
+        className: 'sticky left-0 z-20 bg-white',
+        headerClassName: 'sticky left-0  z-30 bg-card',
+      },
       cell: ({ row }) => (
         <div className="cursor-pointer ">{row.getValue('date')}</div>
       ),
@@ -19,6 +23,10 @@ export function getAttendanceColumns(): ColumnDef<Attendance>[] {
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Day" />
       ),
+      meta: {
+        className: 'sticky left-[115px] z-20 bg-white',
+        headerClassName: 'sticky left-[115px]  z-30 bg-card',
+      },
       cell: ({ row }) => (
         <div className="cursor-pointer">{row.getValue('day')}</div>
       ),

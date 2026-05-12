@@ -212,6 +212,8 @@ export { HRTimeField } from './components/form/time-field';
 export { HRTabs } from './components/tabs/tabs';
 export { TabsFlex } from './components/tabs/tabs-flex';
 export { OptionCheckboxGroup } from './components/form/check-box/custom-checkbox';
+export { LimitedOptionCheckboxGroup } from './components/form/check-box/assign-template-checkbox';
+
 export { CheckboxGroup } from './components/form/check-box/checkbox-group';
 
 export { OptionSwitchCheckboxGroup } from './components/form/check-box/switch-checkbox';

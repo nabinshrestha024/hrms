@@ -12,7 +12,7 @@ export const FinancialDetailDisplay = ({
         cardClassName="bg-white border-none p-0 rounded-none shadow-none"
         cardContentClassName="p-0"
       >
-        <div className="grid grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 lg:gap-4">
           <div className="flex flex-col gap-3">
             <span className="text-[12px] font-medium leading-4 text-secondary-foreground">
               Gross Salary

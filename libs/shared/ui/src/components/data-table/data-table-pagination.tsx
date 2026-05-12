@@ -44,7 +44,7 @@ function DataTablePagination<TData>({
   return (
     <div
       data-slot="data-table-pagination"
-      className="flex flex-col-reverse items-center justify-between px-2 py-4 sm:flex-row"
+      className="flex flex-col-reverse gap-2 items-center justify-between px-2 py-4 sm:flex-row"
     >
       <div className="flex gap-6 items-center">
         <div className="flex items-center gap-2">

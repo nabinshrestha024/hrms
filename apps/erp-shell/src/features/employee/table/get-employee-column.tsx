@@ -1,15 +1,21 @@
 import type { Employee } from '@erp/data-access';
-import { Badge, Button, DataTableColumnHeader, FormDialog } from '@erp/ui';
+import { Badge, DataTableColumnHeader, FormDialog } from '@erp/ui';
 import { useNavigate } from '@tanstack/react-router';
 import type { ColumnDef } from '@tanstack/react-table';
 import { Ban, Eye, GitBranch, Settings2, Trash2 } from 'lucide-react';
 import { AssignAccessTemplateForm } from '../assign-template/assign-access-template-form';
-
+import { IconButton } from '../../../components/icon-button';
+interface ColumnActions {
+  onBlock?: (id: string) => void;
+  onDelete?: (id: string) => void;
+}
 interface ColumnsProps {
   navigate: ReturnType<typeof useNavigate>;
+  actions?: ColumnActions;
 }
 
 export function getEmployeeColumns({
+  actions,
   navigate,
 }: ColumnsProps): ColumnDef<Employee>[] {
   return [
@@ -18,6 +24,10 @@ export function getEmployeeColumns({
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Employee Id" />
       ),
+      meta: {
+        className: 'sticky left-0 z-20 bg-white',
+        headerClassName: 'sticky left-0  z-30 bg-card',
+      },
       cell: ({ row }) => <>{row.original.employeeId ?? row.original.id}</>,
     },
     {
@@ -26,6 +36,10 @@ export function getEmployeeColumns({
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Employee Name" />
       ),
+      meta: {
+        className: 'md:sticky left-[143px] z-20 bg-white',
+        headerClassName: 'md:sticky left-[143px]  z-30 bg-card',
+      },
       cell: ({ row }) => {
         const id = row.original.id;
         return (
@@ -119,11 +133,12 @@ export function getEmployeeColumns({
       ),
       cell: ({ row }) => {
         const id = row.original.id;
+        const branch = row.original.branch;
         return (
           <div className="flex gap-3 items-center">
-            <Button
+            <IconButton
               type="button"
-              className="rounded-sm p-1 w-6 h-6"
+              variant="default"
               onClick={() =>
                 navigate({
                   to: '/employee/employee-details/$id',
@@ -132,12 +147,12 @@ export function getEmployeeColumns({
               }
             >
               <Eye className="text-[16px]" />
-            </Button>
+            </IconButton>
             <FormDialog
               trigger={
-                <Button type="button" className="rounded-sm p-1 w-6 h-6">
+                <IconButton type="button" variant="default">
                   <Settings2 className="text-[16px]" />
-                </Button>
+                </IconButton>
               }
               title="Assign Access Template"
               size="lg"
@@ -147,12 +162,15 @@ export function getEmployeeColumns({
               dialogClassName="sm:max-w-[465px]"
             >
               {({ close }: { close: () => void }) => (
-                <AssignAccessTemplateForm onSuccess={close} />
+                <AssignAccessTemplateForm
+                  onSuccess={close}
+                  employeeBranch={branch}
+                />
               )}
             </FormDialog>
-            <Button
+            <IconButton
               type="button"
-              className="rounded-sm p-1 w-6 h-6"
+              variant="default"
               onClick={() =>
                 navigate({
                   to: '/employee/assign-approval/$id',
@@ -161,13 +179,21 @@ export function getEmployeeColumns({
               }
             >
               <GitBranch className="text-[16px]" />
-            </Button>
-            <Button type="button" className="rounded-sm p-1 w-6 h-6">
+            </IconButton>
+            <IconButton
+              type="button"
+              variant="default"
+              onClick={() => actions?.onBlock?.(id)}
+            >
               <Ban className="text-[16px]" />
-            </Button>
-            <Button type="button" className="rounded-sm p-1 w-6 h-6 bg-chart-3">
+            </IconButton>
+            <IconButton
+              type="button"
+              variant="destructive"
+              onClick={() => actions?.onDelete?.(id)}
+            >
               <Trash2 className="text-badge-text-3" />
-            </Button>
+            </IconButton>
           </div>
         );
       },

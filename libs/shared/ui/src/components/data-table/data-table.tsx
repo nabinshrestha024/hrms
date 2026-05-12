@@ -70,7 +70,7 @@ function DataTable<TData>({
 
   return (
     <HRCard
-      cardClassName={`w-full p-6 border-none rounded-xl bg-white shadow-none ${className}`}
+      cardClassName={`w-full p-3 lg:p-6 border-none rounded-xl bg-white shadow-none ${className}`}
       cardContentClassName="p-0"
     >
       {toolbar}
