@@ -18,7 +18,7 @@ export const Route = createFileRoute('/_authenticated/attendance/work-record')({
 
 function RouteComponent() {
   return (
-    <ContentShell title="Work Record" padded>
+    <ContentShell title="Work Record" padded titleClassName="lg:px-12 px-6">
       <Suspense fallback={null}>
         <WorkRecord />
       </Suspense>

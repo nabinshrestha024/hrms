@@ -270,7 +270,7 @@ export function ListPage<T>(props: ListPageProps<T>) {
     // Default: standard `px-12 py-6` padding that owns the page chrome.
     // `flat` strips the padding for use inside a parent that already pads.
     <div
-      className={`flex justify-between items-center
+      className={`flex flex-col gap-1 lg:flex-row lg:justify-between lg:items-center
         ${flat ? 'mb-6' : 'px-6 xl:px-12 py-6'}`}
     >
       <div

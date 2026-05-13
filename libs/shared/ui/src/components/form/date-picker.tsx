@@ -46,7 +46,7 @@ export function DatePicker({
   };
 
   return (
-    <Field className="w-60">
+    <Field className="w-50">
       <Popover>
         <PopoverTrigger asChild className={className}>
           <Button

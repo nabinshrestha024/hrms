@@ -14,6 +14,10 @@ export function getAttendanceHistoryColumn(
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Employee ID" />
       ),
+      meta: {
+        className: 'sticky left-0 z-20 bg-white',
+        headerClassName: 'sticky left-0  z-30 bg-card',
+      },
       cell: ({ row }) => <>{row.getValue('employeeId')}</>,
     },
     {

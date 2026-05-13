@@ -101,6 +101,7 @@ export function AddTimeRequestForm({
       onSubmit={onsubmit}
       submitLabel="Submit Request"
       isDialogForm={true}
+      fieldsetClassName="max-h-150 overflow-auto pr-2"
     />
   );
 }

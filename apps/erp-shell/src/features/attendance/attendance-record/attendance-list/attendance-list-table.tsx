@@ -16,7 +16,7 @@ export const AttendanceListTable = ({ data }: AttendanceListTableProps) => {
       <DataTable
         table={table.table}
         columns={columns}
-        className="p-0 rounded-none"
+        className="lg:p-0 p-0 rounded-none"
       />
     </>
   );
