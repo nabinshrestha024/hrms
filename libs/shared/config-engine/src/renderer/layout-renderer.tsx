@@ -55,7 +55,7 @@ export function LayoutRenderer({
             </div>
           )}
           <div
-            className="grid gap-4 grid-cols-1 lg:grid-cols-2"
+            className={`grid gap-4 grid-cols-1 lg:grid-cols-2 ${node.classname}`}
             // style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
           >
             {node.children.map((child, i) => (

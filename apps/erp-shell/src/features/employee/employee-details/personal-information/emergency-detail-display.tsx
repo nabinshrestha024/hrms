@@ -10,9 +10,12 @@ export const EmergencyDetailDisplay = ({
     <>
       <HRCard
         cardClassName="border-none p-0 rounded-none shadow-none bg-white"
-        cardContentClassName="p-0"
+        cardContentClassName="p-0 flex flex-col gap-4"
       >
-        <div className="grid grid-cols-5 gap-4">
+        <div className="text-[16px] font-medium leading-6 text-foreground">
+          Emergency Contact
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 lg:gap-4">
           <div className="flex flex-col gap-3">
             <span className="text-[12px] font-medium leading-4 text-secondary-foreground">
               Emergency Contact

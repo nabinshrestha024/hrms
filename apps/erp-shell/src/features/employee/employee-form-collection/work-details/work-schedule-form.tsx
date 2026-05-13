@@ -18,7 +18,7 @@ export const WorkScheduleTypeForm = () => {
         WORK SCHEDULE & TYPE
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2gap-4">
         <Controller
           name="shift"
           control={control}

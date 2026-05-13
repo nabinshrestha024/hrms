@@ -139,7 +139,7 @@ export const EmployeeForm = ({ setOpen }: Props) => {
         <form onSubmit={handleSubmit(onsubmit)}>
           <div className="flex flex-col gap-3">
             <HRCard
-              cardClassName="max-h-[600px] overflow-auto p-4 border border-border shadow-none bg-background "
+              cardClassName="max-h-[500px] xl:max-h-[600px] overflow-auto p-4 border border-border shadow-none bg-background "
               cardContentClassName="p-0"
             >
               {step === 1 && <BasicDetailForm />}

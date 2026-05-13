@@ -26,13 +26,13 @@ export const EditableSection = ({
 }: EditableSectionProps) => {
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col gap-1 md:gap-0 md:flex-row md:justify-between md:items-center">
         <div className="text-[16px] font-medium leading-6 text-foreground">
           {title}
         </div>
 
         {edit ? (
-          <div className="flex gap-3">
+          <div className="flex gap-1 md:gap-3 justify-end">
             <Button onClick={() => setEdit(false)} variant="outline">
               Cancel
             </Button>

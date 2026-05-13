@@ -1,8 +1,9 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
 import { toast } from '@erp/ui';
+import { EducationType } from '../../schema/education-data';
 
-export const createEducationFormConfig: FormViewConfig = {
-  entity: 'education',
+export const editEducationFormConfig: FormViewConfig = {
+  entity: 'edit-education',
   fields: [
     {
       name: 'qualification',
@@ -79,15 +80,19 @@ export const createEducationFormConfig: FormViewConfig = {
   },
 };
 
-interface AddEducationFormProps {
+interface EditEducationFormProps {
   onSuccess?: () => void;
+  selectedEducation?: EducationType;
 }
 
-export function AddEducationForm({ onSuccess }: AddEducationFormProps = {}) {
+export function EditEducationForm({
+  onSuccess,
+  selectedEducation,
+}: EditEducationFormProps = {}) {
   const onsubmit = (_data: Record<string, unknown>) => {
     toast({
       variant: 'success',
-      title: 'Education added successfully',
+      title: 'Education edit successfully',
     });
     onSuccess?.();
     console.warn(_data, 'Eduction');
@@ -95,10 +100,19 @@ export function AddEducationForm({ onSuccess }: AddEducationFormProps = {}) {
 
   return (
     <FormRenderer
-      config={createEducationFormConfig}
+      config={editEducationFormConfig}
       onSubmit={onsubmit}
-      submitLabel="Add Education"
+      submitLabel="Edit Education"
       isDialogForm={true}
+      defaultValues={{
+        qualification: selectedEducation?.qualification || '',
+        university: selectedEducation?.university || '',
+        studyField: selectedEducation?.studyField || '',
+        startYear: selectedEducation?.startYear || '',
+        endYear: selectedEducation?.endYear || '',
+        grade: selectedEducation?.grade || '',
+        status: selectedEducation?.status || '',
+      }}
     />
   );
 }

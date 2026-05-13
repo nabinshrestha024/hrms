@@ -57,7 +57,7 @@ export const LeaveWorkFlow = () => {
               cardContentClassName="p-0 flex flex-col gap-6"
             >
               <div className="flex gap-6 items-center">
-                <div className="flex-1 grid grid-cols-2 gap-4">
+                <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
                   <HRInput
                     Label="Stage Description"
                     type="text"

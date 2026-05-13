@@ -29,3 +29,12 @@ export type leaveBalance = {
   total: number;
   used: number;
 };
+
+export const leave = [
+  { type: 'Mourning Leave', days: 5 },
+  { type: 'Maternity Leave', days: 98 },
+  { type: 'Paternity Leave', days: 15 },
+  { type: 'Marriage Leave', days: 7 },
+  { type: 'Study Leave', days: 14 },
+  { type: 'Bereavement Leave', days: 3 },
+];

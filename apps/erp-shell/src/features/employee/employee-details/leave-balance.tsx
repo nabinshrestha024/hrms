@@ -2,15 +2,15 @@ import { Button, FormDialog } from '@erp/ui';
 import { Plus } from 'lucide-react';
 import { AssignLeaveForm } from './leave-balance/assign-leave-form';
 import { LeaveBalanceCard } from './leave-balance/leave-balance-card';
+import { Employee } from '@erp/data-access';
 
-export const LeaveBalance = () => {
+export const LeaveBalance = ({ employee }: { employee: Employee }) => {
   return (
     <div className="flex flex-col gap-6 max-h-115 overflow-auto pr-3">
       <div className="flex justify-between items-center">
         <div className="text-[18px] font-medium leading-7 text-foreground">
           Leave Balance
         </div>
-
         <FormDialog
           trigger={
             <Button
@@ -29,7 +29,7 @@ export const LeaveBalance = () => {
           componentClassName="sm:max-w-185"
         >
           {({ close }: { close: () => void }) => (
-            <AssignLeaveForm onSuccess={close} />
+            <AssignLeaveForm onSuccess={close} employee={employee} />
           )}
         </FormDialog>
       </div>

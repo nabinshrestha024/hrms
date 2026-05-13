@@ -30,7 +30,7 @@ function RouteComponent() {
     <>
       <div className="w-full  max-h-[calc(100vh-84px)] overflow-auto flex flex-col  bg-background ">
         <div
-          className="flex gap-1 cursor-pointer px-12 pt-6 items-center"
+          className="flex gap-1 cursor-pointer px-6 lg:px-12 pt-6 items-center"
           onClick={() => navigate({ to: '/employee' })}
         >
           <ArrowLeft className="w-4 h-4 text-secondary-foreground" />
@@ -40,7 +40,7 @@ function RouteComponent() {
         </div>
 
         <HRCard
-          cardClassName="w-full  py-6 px-12 bg-background border-none  rounded-none shadow-none"
+          cardClassName="w-full py-6 px-6 lg:px-12 bg-background border-none rounded-none shadow-none"
           cardContentClassName="p-0"
         >
           <div className="flex gap-3">

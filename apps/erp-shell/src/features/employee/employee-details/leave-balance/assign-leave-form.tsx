@@ -4,12 +4,18 @@ import { assignLeaveSchema, type AssignLeaveFormValue } from './AssignLeaveZod';
 import { Badge, CustomAlert, Form, HRLabel, OptionRadioGroup } from '@erp/ui';
 import { UserCard } from '../../../../components/user-card';
 import { Info } from 'lucide-react';
+import { Employee } from '@erp/data-access';
+import { leave } from '../../schema/leave-balance-data';
 
 interface AssignLeaveFormProps {
   onSuccess?: () => void;
+  employee?: Employee;
 }
 
-export const AssignLeaveForm = ({ onSuccess }: AssignLeaveFormProps = {}) => {
+export const AssignLeaveForm = ({
+  onSuccess,
+  employee,
+}: AssignLeaveFormProps = {}) => {
   const form = useForm<AssignLeaveFormValue>({
     resolver: zodResolver(assignLeaveSchema),
     mode: 'onChange',
@@ -22,15 +28,6 @@ export const AssignLeaveForm = ({ onSuccess }: AssignLeaveFormProps = {}) => {
   const onsubmit = (_data: AssignLeaveFormValue) => {
     onSuccess?.();
   };
-
-  const leave = [
-    { type: 'Mourning Leave', days: 5 },
-    { type: 'Maternity Leave', days: 98 },
-    { type: 'Paternity Leave', days: 15 },
-    { type: 'Marriage Leave', days: 7 },
-    { type: 'Study Leave', days: 14 },
-    { type: 'Bereavement Leave', days: 3 },
-  ];
 
   const leaveOptions = leave.map((val) => ({
     value: val.type,
@@ -52,9 +49,9 @@ export const AssignLeaveForm = ({ onSuccess }: AssignLeaveFormProps = {}) => {
   return (
     <div className="w-full flex flex-col gap-4">
       <UserCard
-        employeeId="EID 012 "
-        employeeName="John Doe"
-        department="Technical"
+        employeeId={employee?.employeeId}
+        employeeName={`${employee?.firstName} ${employee?.lastName}`}
+        department={employee?.department}
       />
 
       <Form form={form} onSubmit={onsubmit}>

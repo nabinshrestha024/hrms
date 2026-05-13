@@ -37,7 +37,7 @@ export const PersonalInformationForm = () => {
               />
               <span>Accepts JPG, PNG, JPEG under 5MB.</span>
             </div>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
               <HRInput
                 Label="First Name"
                 isRequired={true}
@@ -64,7 +64,7 @@ export const PersonalInformationForm = () => {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               <HRInput
                 Label="Personal Email"
                 isRequired={true}
@@ -95,7 +95,7 @@ export const PersonalInformationForm = () => {
                 )}
               />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               <Controller
                 control={control}
                 name="gender"

@@ -11,7 +11,7 @@ export const BankDetailForm = () => {
     <div className="flex flex-col gap-6">
       <div className="text-[16px] font-semibold leading-6">SALARY</div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <HRInput
           Label="Bank Name"
           type="text"
@@ -21,7 +21,7 @@ export const BankDetailForm = () => {
           {...register('bankName')}
         />
       </div>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <HRInput
           Label="Bank Account Number"
           type="text"
@@ -32,7 +32,7 @@ export const BankDetailForm = () => {
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <HRInput
           Label="Bank Account Name"
           type="text"

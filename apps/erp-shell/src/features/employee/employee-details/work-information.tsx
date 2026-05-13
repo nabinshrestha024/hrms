@@ -2,9 +2,9 @@ import type { Employee } from '@erp/data-access';
 import { useState } from 'react';
 import { EditableSection } from './editable-section';
 import { EmployeeDetailDisplay } from './work-information/employee-detail-display';
-import { EmployeeDetailEditForm } from './work-information/employee-detail-edit-form';
 import { FinancialDetailDisplay } from './work-information/financial-detail-display';
 import { FinancialDetailEditForm } from './work-information/financial-detail-edit-form';
+import { EmployeeDetailEditForm } from './work-information/employee-detail-edit-form';
 
 export const WorkInformation = ({ employee }: { employee: Employee }) => {
   const [editEmployee, setEditEmployee] = useState(false);
@@ -20,7 +20,7 @@ export const WorkInformation = ({ employee }: { employee: Employee }) => {
           title="Employee Details"
           edit={editEmployee}
           setEdit={setEditEmployee}
-          formId="employee"
+          formId="employee-detail-edit-form"
           DisplayComponent={EmployeeDetailDisplay}
           EditComponent={EmployeeDetailEditForm}
           employee={employee}
@@ -30,7 +30,7 @@ export const WorkInformation = ({ employee }: { employee: Employee }) => {
           title="Financial Details"
           edit={editFinance}
           setEdit={setEditFinance}
-          formId="finance"
+          formId="financial-data-edit-form"
           DisplayComponent={FinancialDetailDisplay}
           EditComponent={FinancialDetailEditForm}
           employee={employee}

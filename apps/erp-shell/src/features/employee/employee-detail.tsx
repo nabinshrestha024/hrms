@@ -1,11 +1,11 @@
 import type { Employee } from '@erp/data-access';
 import { HRTabs } from '@erp/ui';
 import { AttendanceInformation } from './employee-details/attendance';
-import { Document } from './employee-details/document';
 import { Education } from './employee-details/education';
 import { LeaveBalance } from './employee-details/leave-balance';
 import { PersonalInformation } from './employee-details/personal-information';
 import { WorkInformation } from './employee-details/work-information';
+import { Documents } from './employee-details/document';
 
 export const EmployeeDetail = ({ employee }: { employee: Employee }) => {
   const tabsData = [
@@ -31,7 +31,7 @@ export const EmployeeDetail = ({ employee }: { employee: Employee }) => {
       id: 4,
       value: 'Leave Balance',
       triggerText: 'Leave Balance',
-      content: <LeaveBalance />,
+      content: <LeaveBalance employee={employee} />,
     },
     {
       id: 5,
@@ -49,7 +49,7 @@ export const EmployeeDetail = ({ employee }: { employee: Employee }) => {
       id: 7,
       value: 'Document',
       triggerText: 'Document',
-      content: <Document />,
+      content: <Documents />,
     },
   ];
   return (
@@ -57,10 +57,10 @@ export const EmployeeDetail = ({ employee }: { employee: Employee }) => {
       <HRTabs
         defaultValue="Personal Information"
         tabClassName=" flex flex-col gap-8"
-        tabListClassName="flex py-0 px-3 bg-white rounded-[6px] border border-border"
+        tabListClassName="md:max-w-[804px] overflow-auto lg:max-w-full flex py-0 px-3 bg-white rounded-[6px] border border-border"
         tabList={tabsData}
         tabTriggerClassName="h-9 data-[state=active]:text-primary data-[state=active]:bg-transparent data-[state=active]:rounded-none data-[state=active]:shadow-none px-4 py-3  text-[14px] font-medium leading-5 text-secondary-foreground data-[state=active]:border-b-2 data-[state=active]:border-b-primary"
-        tabsContentClassName="py-6 pl-6 pr-3 border border-border rounded-[8px] bg-white "
+        tabsContentClassName="py-6 pl-3 lg:pl-6 pr-1.5 lg:pr-3 border border-border rounded-[8px] bg-white "
       />
     </div>
   );
