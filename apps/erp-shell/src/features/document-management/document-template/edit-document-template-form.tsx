@@ -13,11 +13,19 @@ import {
   CreateTemplateFormValue,
   createTemplateSchema,
 } from './zod/CreateDocumentForm.zod';
-
-export const CreateTemplateForm = () => {
+import { DocumentTemplate } from '@erp/data-access';
+type EditTemplateProps = {
+  selectedDocument: DocumentTemplate;
+};
+export const EditTemplateForm = ({ selectedDocument }: EditTemplateProps) => {
   const form = useForm<CreateTemplateFormValue>({
     resolver: zodResolver(createTemplateSchema),
     mode: 'onChange',
+    defaultValues: {
+      documentTitle: selectedDocument.name,
+      category: selectedDocument.categroy,
+      documentBody: selectedDocument.documentBody,
+    },
   });
   const {
     register,
@@ -29,7 +37,7 @@ export const CreateTemplateForm = () => {
 
   const onsubmit = (data: CreateTemplateFormValue) => {
     console.warn('Template Data:', data);
-    toast({ title: 'Template Created Successfully.', variant: 'success' });
+    toast({ title: 'Template Edited Successfully.', variant: 'success' });
     close();
   };
 

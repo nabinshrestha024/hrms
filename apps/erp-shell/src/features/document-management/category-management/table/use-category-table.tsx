@@ -4,10 +4,16 @@ import { getCategoryColumns } from './get-category-column';
 
 interface CategoryTableProps {
   data: DocumentCategory[];
+  onEdit?: (branch: DocumentCategory) => void;
+  onDelete?: (id: string) => void;
 }
 
-export function useCategoryTable({ data }: CategoryTableProps) {
-  const columns = getCategoryColumns();
+export function useCategoryTable({
+  data,
+  onDelete,
+  onEdit,
+}: CategoryTableProps) {
+  const columns = getCategoryColumns({ onEdit, onDelete });
 
   const tableState = useServerTableState<DocumentCategory>({
     data,
