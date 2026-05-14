@@ -7,6 +7,7 @@ export { SubNav } from './components/sidebar/sub-nav';
 export { TopBar } from './components/sidebar/top-bar';
 export { findActiveModule, navModules } from './lib/nav-config';
 export type { NavModule, NavSubItem } from './lib/nav-config';
+export { getVisibleModules } from './lib/get-visible-role';
 
 // Hooks
 export { useIsMobile } from './hooks/use-mobile';

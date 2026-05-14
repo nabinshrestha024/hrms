@@ -1,8 +1,9 @@
-import { Bell, ChevronsUpDown } from 'lucide-react';
+import { ChevronsUpDown, KeyRound, LogOut, User } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { HRCard } from '../card/card';
 import { ActionDropdown } from '../dropdown/action-drop-down';
 import { useNavigate } from '@tanstack/react-router';
+import { Notification } from './notification';
 interface TopBarProps {
   onLogout?: () => void;
 }
@@ -44,9 +45,7 @@ export function TopBar({ onLogout }: TopBarProps) {
         </div>
 
         <div className="flex gap-2.5 items-center">
-          <div className="w-8 h-8  rounded-full p-2 bg-chart-1 cursor-pointer">
-            <Bell className="text-ring w-4 h-4" />
-          </div>
+          <Notification />
           <ActionDropdown
             open={open}
             onOpenChange={setOpen}
@@ -72,17 +71,42 @@ export function TopBar({ onLogout }: TopBarProps) {
             }
             actions={[
               {
-                label: 'Profile',
+                label: (
+                  <div className="flex gap-2 items-center">
+                    <KeyRound className="w-4 h-4 text-foreground" />
+                    <span className="text-[14px] font-normal leading-5">
+                      Employee Contract
+                    </span>
+                  </div>
+                ),
+              },
+              {
+                label: (
+                  <div className="flex gap-2 items-center">
+                    <User className="w-4 h-4 text-foreground" />
+                    <span className="text-[14px] font-normal leading-5">
+                      Personal Profile
+                    </span>
+                  </div>
+                ),
                 onClick: () => {
                   navigate({ to: '/profile' });
                 },
               },
               {
-                label: 'Logout',
+                label: (
+                  <div className="flex gap-2 items-center">
+                    <LogOut className="w-4 h-4 text-foreground" />
+                    <span className="text-[14px] font-normal leading-5">
+                      Sign Out
+                    </span>
+                  </div>
+                ),
                 onClick: () => {
                   onLogout?.();
                   navigate({ to: '/login' });
                 },
+                className: ' border-t border-t-border',
               },
             ]}
           />

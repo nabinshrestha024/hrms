@@ -56,6 +56,7 @@ export interface NavModule {
   /** Which tenant module keys gate this item (empty = always shown) */
   modules?: string[];
   subItems?: NavSubItem[];
+  roles?: Array<'admin' | 'hr_manager' | 'employee'>;
 }
 
 export const navModules: NavModule[] = [
@@ -64,6 +65,7 @@ export const navModules: NavModule[] = [
     label: 'Dashboard',
     icon: ChartPie,
     href: '/dashboard',
+    roles: ['admin', 'employee', 'hr_manager'],
   },
   {
     id: 'calendar',
@@ -79,6 +81,7 @@ export const navModules: NavModule[] = [
         icon: Layers,
       },
     ],
+    roles: ['admin', 'employee', 'hr_manager'],
   },
   {
     id: 'company-setup',
@@ -99,14 +102,16 @@ export const navModules: NavModule[] = [
       },
       { label: 'Department', href: '/company-setup/department', icon: Network },
     ],
+    roles: ['admin', 'hr_manager'],
   },
   {
     id: 'employees',
     label: 'Employee',
     icon: Users,
     href: '/employee',
-    modules: ['hr'],
+    modules: ['emplopyee'],
     subItems: [{ label: 'Employee', href: '/employee', icon: Users }],
+    roles: ['admin', 'hr_manager'],
   },
 
   {
@@ -115,6 +120,7 @@ export const navModules: NavModule[] = [
     icon: File,
     href: '/document-management/',
     modules: ['documents'],
+    roles: ['admin', 'hr_manager'],
     subItems: [
       {
         label: 'Missing Documents',
@@ -154,6 +160,8 @@ export const navModules: NavModule[] = [
     icon: UserSearch,
     href: '/attendance',
     modules: ['attendance'],
+    roles: ['admin', 'employee', 'hr_manager'],
+
     subItems: [
       { label: 'Attendance Record', href: '/attendance', icon: UserSearch },
       {
@@ -175,6 +183,8 @@ export const navModules: NavModule[] = [
     icon: TentTree,
     href: '/leave-management',
     modules: ['leave'],
+    roles: ['admin', 'employee', 'hr_manager'],
+
     subItems: [
       { label: 'Leave Requests', href: '/leave-management/', icon: SquareUser },
       {
@@ -196,6 +206,7 @@ export const navModules: NavModule[] = [
     icon: Computer,
     href: '/assets-management',
     modules: ['assets'],
+    roles: ['admin', 'hr_manager'],
     subItems: [
       {
         label: 'Categories',
@@ -219,7 +230,8 @@ export const navModules: NavModule[] = [
     label: 'Directories',
     icon: BookUser,
     href: '/directories',
-    modules: ['hr'],
+    modules: ['directories'],
+    roles: ['admin', 'employee', 'hr_manager'],
     subItems: [{ label: 'Directories', href: '/directories', icon: BookUser }],
   },
 
@@ -229,6 +241,7 @@ export const navModules: NavModule[] = [
     icon: Settings,
     href: '/configuration',
     modules: ['configuration'],
+    roles: ['admin', 'hr_manager'],
     subItems: [
       {
         label: 'Leave Type',
@@ -250,7 +263,8 @@ export const navModules: NavModule[] = [
     label: 'Policy Configuration',
     icon: FileCheck2,
     href: '/policy-configuration/',
-    modules: ['configuration'],
+    modules: ['policy-configuration'],
+    roles: ['admin', 'hr_manager'],
     subItems: [
       {
         label: 'Leave Deduction',
@@ -277,6 +291,7 @@ export const navModules: NavModule[] = [
     icon: CreditCard,
     href: '/payroll/',
     modules: ['payroll'],
+    roles: ['admin', 'hr_manager'],
     subItems: [
       { label: 'Generate Payroll', href: '/payroll/', icon: Play },
       {
@@ -299,6 +314,7 @@ export const navModules: NavModule[] = [
     icon: UserPlus,
     href: '/onboarding-offboarding/',
     modules: ['onboarding'],
+    roles: ['admin', 'hr_manager'],
     subItems: [
       {
         label: 'Job Openings',
@@ -333,6 +349,7 @@ export const navModules: NavModule[] = [
     label: 'Master Setup',
     href: '/master-setup',
     modules: ['hr'],
+    roles: ['admin', 'hr_manager'],
     icon: Columns3Cog,
     subItems: [
       {

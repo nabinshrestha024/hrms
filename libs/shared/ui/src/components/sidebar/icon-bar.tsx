@@ -1,7 +1,7 @@
 import { cn } from '@erp/utils';
 import { LucideGalleryVerticalEnd } from 'lucide-react';
 import type { ComponentType } from 'react';
-import { findActiveModule, navModules } from '../../lib/nav-config';
+import { NavModule } from '../../lib/nav-config';
 import {
   Tooltip,
   TooltipContent,
@@ -12,6 +12,7 @@ import type { NavLinkProps } from './shell-layout';
 interface IconBarProps {
   currentPath: string;
   modulesEnabled?: string[];
+  navModules: NavModule[];
   linkComponent?: ComponentType<NavLinkProps>;
 }
 
@@ -26,18 +27,20 @@ function DefaultLink({ to, children, className }: NavLinkProps) {
 export function IconBar({
   currentPath,
   modulesEnabled,
+  navModules,
   linkComponent,
 }: IconBarProps) {
   const LinkComp = linkComponent ?? DefaultLink;
-  const activeModule = findActiveModule(currentPath);
+  // const activeModule = findActiveModule(currentPath);
 
-  const filteredModules = modulesEnabled
-    ? navModules.filter(
-        (m) =>
-          !m.modules || m.modules.some((mod) => modulesEnabled.includes(mod))
-      )
-    : navModules;
+  // const filteredModules = modulesEnabled
+  //   ? navModules.filter(
+  //       (m) =>
+  //         !m.modules || m.modules.some((mod) => modulesEnabled.includes(mod))
+  //     )
+  //   : navModules;
 
+  const activeModule = navModules.find((m) => currentPath.startsWith(m.href));
   return (
     <div className="relative flex flex-col w-16 bg-black shrink-0">
       {/* Logo — 36px indigo square */}
@@ -51,7 +54,7 @@ export function IconBar({
 
       {/* Module icons — pl-12, py-36 as per Figma */}
       <nav className="flex-1 flex flex-col items-center pl-3 py-9">
-        {filteredModules.map((mod) => {
+        {navModules.map((mod) => {
           const isActive = activeModule?.id === mod.id;
           const Icon = mod.icon;
 
