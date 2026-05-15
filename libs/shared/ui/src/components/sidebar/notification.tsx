@@ -16,8 +16,8 @@ export const Notification = () => {
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        align="end"
-        className="w-75 max-h-35 overflow-hidden px-0 py-1 shadow-none rounded-xl border border-border"
+        align="center"
+        className="w-75 mt-2 max-h-35 overflow-hidden px-0 py-1 shadow-none rounded-xl border border-border"
       >
         <DropdownMenuLabel className="p-0 bg-white flex flex-col">
           <div className="flex-1">

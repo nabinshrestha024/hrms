@@ -215,6 +215,8 @@ export { TabsFlex } from './components/tabs/tabs-flex';
 export { OptionCheckboxGroup } from './components/form/check-box/custom-checkbox';
 export { LimitedOptionCheckboxGroup } from './components/form/check-box/assign-template-checkbox';
 
+export { FileUpload } from './components/form/file-uploade';
+
 export { CheckboxGroup } from './components/form/check-box/checkbox-group';
 
 export { OptionSwitchCheckboxGroup } from './components/form/check-box/switch-checkbox';

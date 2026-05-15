@@ -1,9 +1,10 @@
-import { ChevronsUpDown, KeyRound, LogOut, User } from 'lucide-react';
+import { Camera, ChevronsUpDown, KeyRound, LogOut, User } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { HRCard } from '../card/card';
 import { ActionDropdown } from '../dropdown/action-drop-down';
 import { useNavigate } from '@tanstack/react-router';
 import { Notification } from './notification';
+import { FileUpload } from '../form/file-uploade';
 interface TopBarProps {
   onLogout?: () => void;
 }
@@ -29,6 +30,8 @@ export function TopBar({ onLogout }: TopBarProps) {
   const isAfter6AM = minutes >= 6 * 60;
   const isAfter4PM = minutes >= 16 * 60;
   const [open, setOpen] = useState(false);
+
+  // const { control } = useFormContext();
   return (
     <>
       <HRCard
@@ -49,6 +52,7 @@ export function TopBar({ onLogout }: TopBarProps) {
           <ActionDropdown
             open={open}
             onOpenChange={setOpen}
+            dropdownClassName="w-[225px]"
             trigger={
               <div className="flex items-center gap-2 px-2 py-1.5 bg-card rounded-lg cursor-pointer">
                 <div className="w-8 h-8 ">
@@ -72,17 +76,47 @@ export function TopBar({ onLogout }: TopBarProps) {
             actions={[
               {
                 label: (
-                  <div className="flex gap-2 items-center">
-                    <KeyRound className="w-4 h-4 text-foreground" />
+                  <div className="flex  gap-2 items-center p-3">
+                    <FileUpload
+                      className="relative w-12 h-12  bg-chart-10 rounded-[400px] flex flex-col justify-center items-center"
+                      subLable=""
+                      icon={User}
+                      iconClass="w-5 h-5 text-white"
+                      buttonClassName="text-black absolute bottom-0 right-0"
+                      browseText={
+                        <div className="rounded-full bg-[#E5E7EB] w-5 h-5 flex items-center justify-center">
+                          <Camera size={12} />
+                        </div>
+                      }
+                      previewClassName="rounded-full"
+                      drag
+                    />
+                    <div className="flex flex-col gap-1 items-start">
+                      <span className="text-[14px] font-semibold leading-5">
+                        John Doe
+                      </span>
+                      <span className="text-[12px] font-normal text-secondary-foreground leading-4">
+                        Project Manager
+                      </span>
+                    </div>
+                  </div>
+                ),
+                className: 'h-20 px-0',
+              },
+              {
+                label: (
+                  <div className="flex gap-2 items-center px-3 py-2">
+                    <KeyRound className="w-3 h-3 text-foreground" />
                     <span className="text-[14px] font-normal leading-5">
                       Employee Contract
                     </span>
                   </div>
                 ),
+                className: ' border-t border-t-border px-0',
               },
               {
                 label: (
-                  <div className="flex gap-2 items-center">
+                  <div className="flex gap-2 items-center px-3 py-2">
                     <User className="w-4 h-4 text-foreground" />
                     <span className="text-[14px] font-normal leading-5">
                       Personal Profile
@@ -92,10 +126,11 @@ export function TopBar({ onLogout }: TopBarProps) {
                 onClick: () => {
                   navigate({ to: '/profile' });
                 },
+                className: 'px-0',
               },
               {
                 label: (
-                  <div className="flex gap-2 items-center">
+                  <div className="flex gap-2 items-center px-3 py-2">
                     <LogOut className="w-4 h-4 text-foreground" />
                     <span className="text-[14px] font-normal leading-5">
                       Sign Out
@@ -106,7 +141,7 @@ export function TopBar({ onLogout }: TopBarProps) {
                   onLogout?.();
                   navigate({ to: '/login' });
                 },
-                className: ' border-t border-t-border',
+                className: ' border-t border-t-border px-0',
               },
             ]}
           />
