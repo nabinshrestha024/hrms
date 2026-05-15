@@ -13,7 +13,7 @@ export const ReviewApprovalManagement = () => {
       data={data}
       renderTable={(filtered) => <ReviewApprovalCard data={filtered} />}
       dropdowns={[
-        { key: 'type', label: 'Document Type' },
+        { key: 'type', label: 'DocumentType' },
         { key: 'status', label: 'Status' },
       ]}
       filterFn={(rows, { search, dropdowns }) => {

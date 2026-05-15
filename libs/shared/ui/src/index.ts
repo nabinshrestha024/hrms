@@ -8,6 +8,8 @@ export { TopBar } from './components/sidebar/top-bar';
 export { findActiveModule, navModules } from './lib/nav-config';
 export type { NavModule, NavSubItem } from './lib/nav-config';
 export { getVisibleModules } from './lib/get-visible-role';
+export { getDateRangeData } from './lib/get-date-range-data';
+export { getProfileDropdownData } from './lib/get-profile-dropdown-data';
 
 // Hooks
 export { useIsMobile } from './hooks/use-mobile';

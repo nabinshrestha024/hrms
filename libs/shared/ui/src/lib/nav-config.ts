@@ -109,7 +109,7 @@ export const navModules: NavModule[] = [
     label: 'Employee',
     icon: Users,
     href: '/employee',
-    modules: ['emplopyee'],
+    modules: ['employee'],
     subItems: [{ label: 'Employee', href: '/employee', icon: Users }],
     roles: ['admin', 'hr_manager'],
   },

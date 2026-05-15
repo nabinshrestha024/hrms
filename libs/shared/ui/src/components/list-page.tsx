@@ -1,15 +1,14 @@
 import { useMemo, useState, type ReactNode } from 'react';
 import { ChevronDown, SlidersHorizontal, X } from 'lucide-react';
 import type { DateRange } from 'react-day-picker';
-
 import { ActionDropdown } from './dropdown/action-drop-down';
 import { SearchBar } from './search/search';
 import { Tabs, TabsContent } from '../primitives/tabs';
 import { TabsFlex } from './tabs/tabs-flex';
 import { DatePicker } from './form/date-picker';
 import { Button } from '../primitives/button';
-
 import { cn } from '@erp/utils';
+import { getDateRangeData } from '../lib/get-date-range-data';
 
 export type ListPageView = 'card' | 'table';
 
@@ -147,10 +146,15 @@ export function ListPage<T>(props: ListPageProps<T>) {
   const [dropdownValues, setDropdownValues] = useState<Record<string, string>>(
     {}
   );
+  const [selectedOption, setSelectedOption] = useState<{
+    key: string;
+    value: string;
+  } | null>(null);
 
   const [openDropdownKey, setOpenDropdownKey] = useState<string | null>(null);
 
   const [openFilter, setOpenFilter] = useState(false);
+  const [selectedDateRange, setSelectedDateRange] = useState('');
 
   const setDropdown = (key: string, value: string) => {
     setDropdownValues((prev) => ({
@@ -181,11 +185,34 @@ export function ListPage<T>(props: ListPageProps<T>) {
     return [
       {
         label: 'All',
-        onClick: () => setDropdown(stringKey, ''),
+
+        onClick: () => {
+          setDropdown(stringKey, '');
+
+          setSelectedOption({
+            key: stringKey,
+            value: '',
+          });
+        },
+
+        isActive:
+          selectedOption?.key === stringKey && selectedOption?.value === '',
       },
+
       ...uniqueValues.map((value) => ({
         label: value,
-        onClick: () => setDropdown(stringKey, value),
+
+        onClick: () => {
+          setDropdown(stringKey, value);
+
+          setSelectedOption({
+            key: stringKey,
+            value,
+          });
+        },
+
+        isActive:
+          selectedOption?.key === stringKey && selectedOption?.value === value,
       })),
     ];
   };
@@ -211,9 +238,7 @@ export function ListPage<T>(props: ListPageProps<T>) {
           <div className="hidden lg:flex lg:gap-2 lg:xl:gap-4 lg:items-center">
             {dropdowns?.map((d) => {
               const stringKey = String(d.key);
-
               const selected = dropdownValues[stringKey] ?? '';
-
               return (
                 <ActionDropdown
                   key={stringKey}
@@ -222,8 +247,8 @@ export function ListPage<T>(props: ListPageProps<T>) {
                     setOpenDropdownKey(open ? stringKey : null)
                   }
                   trigger={
-                    <div className="flex gap-2 items-center border rounded-[6px] px-4 py-2 border-border bg-white text-[14px] font-normal cursor-pointer">
-                      <span className="text-foreground text-[14px] font-normal leading-5">
+                    <div className=" flex gap-2 items-center border rounded-[6px] px-4 py-2 border-border bg-white text-[14px] font-normal cursor-pointer">
+                      <span className="w-full text-foreground text-[14px] font-normal leading-5">
                         {selected || d.label}
                       </span>
 
@@ -239,8 +264,12 @@ export function ListPage<T>(props: ListPageProps<T>) {
               <DatePicker
                 value={dateRangeValue}
                 onChange={setDateRangeValue}
-                placeholder="Pick date range"
+                placeholder="Jan 20, 2023 - Feb 09, 2023"
                 className="px-4 py-2.5 border-border"
+                presets={getDateRangeData({
+                  selectedDateRange,
+                  setSelectedDateRange,
+                })}
               />
             )}
           </div>
@@ -288,8 +317,12 @@ export function ListPage<T>(props: ListPageProps<T>) {
               <DatePicker
                 value={dateRangeValue}
                 onChange={setDateRangeValue}
-                placeholder="Pick date range"
+                placeholder="Jan 20, 2023 - Feb 09, 2023"
                 className="px-4 py-2.5 border-border"
+                presets={getDateRangeData({
+                  selectedDateRange,
+                  setSelectedDateRange,
+                })}
               />
             )}
 
@@ -297,7 +330,6 @@ export function ListPage<T>(props: ListPageProps<T>) {
             {onlyOneDropDownFilter &&
               dropdowns?.map((d) => {
                 const stringKey = String(d.key);
-                const selected = dropdownValues[stringKey] ?? '';
                 const mobileKey = `mobile-${stringKey}`;
                 return (
                   <ActionDropdown
@@ -328,7 +360,7 @@ export function ListPage<T>(props: ListPageProps<T>) {
   const filter = (
     <>
       {openFilter && multipleFilters && (
-        <div className="flex flex-wrap gap-2 items-center justify-end">
+        <div className="lg:hidden flex flex-wrap gap-2 items-center justify-end">
           {dropdowns?.map((d) => {
             const stringKey = String(d.key);
             const selected = dropdownValues[stringKey] ?? '';
@@ -358,8 +390,12 @@ export function ListPage<T>(props: ListPageProps<T>) {
             <DatePicker
               value={dateRangeValue}
               onChange={setDateRangeValue}
-              placeholder="Pick date range"
+              placeholder="Jan 20, 2023 - Feb 09, 2023"
               className="px-4 py-2.5 border-border"
+              presets={getDateRangeData({
+                selectedDateRange,
+                setSelectedDateRange,
+              })}
             />
           )}
         </div>
@@ -370,10 +406,7 @@ export function ListPage<T>(props: ListPageProps<T>) {
   const header = title ? (
     <div
       className={cn(
-        `
-        flex flex-col gap-1 
-        ${flat ? 'mb-6' : 'px-6 xl:px-12 py-6'}
-      `
+        `flex flex-col gap-1  ${flat ? 'mb-6' : 'px-6 xl:px-12 py-6'}`
       )}
     >
       <div className={cn(`flex justify-between items-center`)}>
