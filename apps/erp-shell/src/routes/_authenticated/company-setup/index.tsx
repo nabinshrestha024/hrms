@@ -6,7 +6,10 @@ import { useState } from 'react';
 
 export const Route = createFileRoute('/_authenticated/company-setup/')({
   component: BasicInformationForm,
-  beforeLoad: () => ({ breadcrumb: 'Company Profile' }),
+  beforeLoad: () => ({
+    breadcrumb: 'Company Setup',
+    subbreadcrumb: 'Company Profile',
+  }),
 });
 
 export const BasicInformationFormSchema: FormViewConfig = {

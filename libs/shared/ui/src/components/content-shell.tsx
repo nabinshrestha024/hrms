@@ -95,9 +95,9 @@ export function ContentShell({
       )}
 
       {padded ? (
-        <div className="px-3 lg:px-6 pt-0 pb-32.5 ">
+        <div className="px-3 xl:px-6 pt-0 pb-32.5 ">
           <HRCard
-            cardClassName="bg-white rounded-xl p-3 lg:p-6 border border-border shadow-none "
+            cardClassName="bg-white rounded-xl p-3 xl:p-6 border border-border shadow-none "
             cardContentClassName="p-0"
           >
             {children}

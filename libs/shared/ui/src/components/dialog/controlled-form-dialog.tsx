@@ -16,7 +16,7 @@ import { FormIdContext } from './form-id-context';
 type ModalSize = 'sm' | 'md' | 'lg' | 'img';
 
 const dialogContentStyles = cva(
-  'p-0 gap-0 rounded bg-background flex flex-col max-h-[90vh] border-none',
+  'p-0 gap-0 rounded bg-background flex flex-col max-h-[90vh] ',
   {
     variants: {
       size: {

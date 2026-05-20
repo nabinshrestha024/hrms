@@ -17,7 +17,11 @@ export const Route = createFileRoute(
 
 function RouteComponent() {
   return (
-    <ContentShell title="Leave Balance" padded>
+    <ContentShell
+      title="Leave Balance"
+      padded
+      titleClassName="px-6 xl:px-12 py-6"
+    >
       <Suspense fallback={null}>
         <LeaveBalanceCard />
       </Suspense>

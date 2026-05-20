@@ -40,6 +40,7 @@ import {
   Layers3,
   BriefcaseMedical,
   UserMinus,
+  PartyPopper,
 } from 'lucide-react';
 
 export interface NavSubItem {
@@ -74,11 +75,11 @@ export const navModules: NavModule[] = [
     href: '/calendar',
     modules: ['calendar'],
     subItems: [
-      { label: 'Calendar', href: '/calendar/', icon: GitBranch },
+      { label: 'Calendar', href: '/calendar/', icon: Calendar },
       {
         label: 'Events & Holidays',
         href: '/calendar/event-holiday',
-        icon: Layers,
+        icon: PartyPopper,
       },
     ],
     roles: ['admin', 'employee', 'hr_manager'],

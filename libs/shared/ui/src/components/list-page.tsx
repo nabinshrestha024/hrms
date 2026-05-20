@@ -230,12 +230,12 @@ export function ListPage<T>(props: ListPageProps<T>) {
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
             placeholder="Search..."
-            className=" h-10"
+            className="h-10"
           />
         )}
 
         <div className="ml-2 xl:ml-4 flex gap-2 xl:gap-4 items-center">
-          <div className="hidden lg:flex lg:gap-2 lg:xl:gap-4 lg:items-center">
+          <div className="hidden xl:flex lg:gap-2 lg:xl:gap-4 lg:items-center">
             {dropdowns?.map((d) => {
               const stringKey = String(d.key);
               const selected = dropdownValues[stringKey] ?? '';
@@ -259,21 +259,19 @@ export function ListPage<T>(props: ListPageProps<T>) {
                 />
               );
             })}
-
-            {dateRange && (
-              <DatePicker
-                value={dateRangeValue}
-                onChange={setDateRangeValue}
-                placeholder="Jan 20, 2023 - Feb 09, 2023"
-                className="px-4 py-2.5 border-border"
-                presets={getDateRangeData({
-                  selectedDateRange,
-                  setSelectedDateRange,
-                })}
-              />
-            )}
           </div>
-
+          {dateRange && (
+            <DatePicker
+              value={dateRangeValue}
+              onChange={setDateRangeValue}
+              placeholder="Jan 20, 2023 - Feb 09, 2023"
+              className="px-4 py-2.5 border-border"
+              presets={getDateRangeData({
+                selectedDateRange,
+                setSelectedDateRange,
+              })}
+            />
+          )}
           {/* View Toggle */}
           {showToggle && <TabsFlex />}
 
@@ -292,7 +290,7 @@ export function ListPage<T>(props: ListPageProps<T>) {
             ) : null)}
 
           {/* Mobile / Tablet Filters */}
-          <div className="flex lg:hidden">
+          <div className="flex xl:hidden">
             {/* Multiple filters => filter button */}
             {multipleFilters && (
               <Button
@@ -360,7 +358,7 @@ export function ListPage<T>(props: ListPageProps<T>) {
   const filter = (
     <>
       {openFilter && multipleFilters && (
-        <div className="lg:hidden flex flex-wrap gap-2 items-center justify-end">
+        <div className="xl:hidden flex flex-wrap gap-2 items-center justify-end">
           {dropdowns?.map((d) => {
             const stringKey = String(d.key);
             const selected = dropdownValues[stringKey] ?? '';
@@ -385,19 +383,6 @@ export function ListPage<T>(props: ListPageProps<T>) {
               />
             );
           })}
-
-          {dateRange && (
-            <DatePicker
-              value={dateRangeValue}
-              onChange={setDateRangeValue}
-              placeholder="Jan 20, 2023 - Feb 09, 2023"
-              className="px-4 py-2.5 border-border"
-              presets={getDateRangeData({
-                selectedDateRange,
-                setSelectedDateRange,
-              })}
-            />
-          )}
         </div>
       )}
     </>

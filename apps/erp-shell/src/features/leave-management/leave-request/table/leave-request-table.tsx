@@ -16,7 +16,7 @@ export const LeaveRequestTable = ({ data }: LeaveRequestTableProps) => {
       <DataTable
         table={table.table}
         columns={columns}
-        className="p-0 rounded-none"
+        className="xl:p-0 p-0 rounded-none"
       />
     </>
   );
