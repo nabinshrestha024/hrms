@@ -15,11 +15,10 @@ export const LeaveBalanceCard = () => {
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
             {leaveBalanceData.map((items) => {
-              const remaining = items.total - items.used;
               const progress =
                 items.used === 0
-                  ? 100
-                  : Math.max((remaining / items.total) * 100, 0);
+                  ? 0
+                  : Math.min((items.used / items.total) * 100, 100);
 
               const barStyle = {
                 width: `${progress}%`,

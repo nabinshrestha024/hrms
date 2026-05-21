@@ -234,7 +234,7 @@ export function ListPage<T>(props: ListPageProps<T>) {
           />
         )}
 
-        <div className="ml-2 xl:ml-4 flex gap-2 xl:gap-4 items-center">
+        <div className="ml-2 xl:ml-4 flex gap-2 xl:gap-4 items-center ">
           <div className="hidden xl:flex lg:gap-2 lg:xl:gap-4 lg:items-center">
             {dropdowns?.map((d) => {
               const stringKey = String(d.key);

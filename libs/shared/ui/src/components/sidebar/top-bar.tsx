@@ -5,8 +5,13 @@ import { ActionDropdown } from '../dropdown/action-drop-down';
 import { useNavigate } from '@tanstack/react-router';
 import { Notification } from './notification';
 import { getProfileDropdownData } from '../../lib/get-profile-dropdown-data';
+import { ConfirmDialog } from '../dialog/confirm-dialog';
 interface TopBarProps {
   onLogout?: () => void;
+  user?: {
+    name: string;
+    role: string;
+  };
 }
 
 function useCurrentTime() {
@@ -18,7 +23,7 @@ function useCurrentTime() {
   return time;
 }
 
-export function TopBar({ onLogout }: TopBarProps) {
+export function TopBar({ onLogout, user }: TopBarProps) {
   const navigate = useNavigate();
   const now = useCurrentTime();
   const timeStr = now.toLocaleTimeString('en-US', {
@@ -33,15 +38,24 @@ export function TopBar({ onLogout }: TopBarProps) {
   const [selectedOption, setSelectedOption] = useState('');
   // const { control } = useFormContext();
 
-  const actions = getProfileDropdownData({
+  const [showLogoutDialog, setShowLogoutDialog] = useState(false);
+
+  const confirmLogout = () => {
+    onLogout?.();
+
+    navigate({
+      to: '/login',
+    });
+
+    setShowLogoutDialog(false);
+  };
+
+  const dropdownData = getProfileDropdownData({
     navigate,
     selectedOption,
     setSelectedOption,
-    onLogout,
-    user: {
-      name: 'John Doe',
-      role: 'Project Manager',
-    },
+    setShowLogoutDialog,
+    user,
   });
   return (
     <>
@@ -84,10 +98,21 @@ export function TopBar({ onLogout }: TopBarProps) {
                 <ChevronsUpDown className="w-4 h-4 text-foreground" />
               </div>
             }
-            actions={actions}
+            actions={dropdownData}
           />
         </div>
       </HRCard>
+      <ConfirmDialog
+        open={showLogoutDialog}
+        onOpenChange={(open: boolean) => {
+          if (!open) {
+            setShowLogoutDialog(false);
+          }
+        }}
+        description="Are you sure you want to sign out?"
+        destructive
+        onConfirm={confirmLogout}
+      />
     </>
   );
 }

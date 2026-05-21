@@ -1,8 +1,13 @@
-import { DatePicker, HRCard } from '@erp/ui';
+import { DatePicker, getDateRangeData, HRCard } from '@erp/ui';
 import { cardData } from '../schema/attendance-card-data';
 import { AttendanceTable } from './attendance/attendance-table';
+import { useState } from 'react';
+import { DateRange } from 'react-day-picker';
 
 export const AttendanceInformation = () => {
+  const [dateRangeValue, setDateRangeValue] = useState<DateRange | undefined>();
+  const [selectedDateRange, setSelectedDateRange] = useState('');
+
   return (
     <>
       <div className="max-h-115 flex flex-col gap-6  overflow-auto pr-3">
@@ -12,8 +17,14 @@ export const AttendanceInformation = () => {
           </div>
           <div className="flex justify-end">
             <DatePicker
+              value={dateRangeValue}
+              onChange={setDateRangeValue}
               placeholder="Jan 20, 2023 - Feb 09, 2023"
               className="px-4 py-2.5 border-border"
+              presets={getDateRangeData({
+                selectedDateRange,
+                setSelectedDateRange,
+              })}
             />
           </div>
         </div>

@@ -75,7 +75,7 @@ export const navModules: NavModule[] = [
     href: '/calendar',
     modules: ['calendar'],
     subItems: [
-      { label: 'Calendar', href: '/calendar/', icon: Calendar },
+      { label: 'Calendar', href: '/calendar', icon: Calendar },
       {
         label: 'Events & Holidays',
         href: '/calendar/event-holiday',
@@ -93,7 +93,7 @@ export const navModules: NavModule[] = [
     subItems: [
       {
         label: 'Company Profile',
-        href: '/company-setup/',
+        href: '/company-setup',
         icon: Building2,
       },
       {
@@ -119,13 +119,13 @@ export const navModules: NavModule[] = [
     id: 'documents',
     label: 'Documents',
     icon: File,
-    href: '/document-management/',
+    href: '/document-management',
     modules: ['documents'],
     roles: ['admin', 'hr_manager'],
     subItems: [
       {
         label: 'Missing Documents',
-        href: '/document-management/',
+        href: '/document-management',
         icon: FileSearchCorner,
       },
       {
@@ -187,7 +187,7 @@ export const navModules: NavModule[] = [
     roles: ['admin', 'employee', 'hr_manager'],
 
     subItems: [
-      { label: 'Leave Requests', href: '/leave-management/', icon: SquareUser },
+      { label: 'Leave Requests', href: '/leave-management', icon: SquareUser },
       {
         label: 'My Requests',
         href: '/leave-management/my-request',
@@ -263,13 +263,13 @@ export const navModules: NavModule[] = [
     id: 'policy-configuration',
     label: 'Policy Configuration',
     icon: FileCheck2,
-    href: '/policy-configuration/',
+    href: '/policy-configuration',
     modules: ['policy-configuration'],
     roles: ['admin', 'hr_manager'],
     subItems: [
       {
         label: 'Leave Deduction',
-        href: '/policy-configuration/',
+        href: '/policy-configuration',
         icon: CalendarMinus2,
       },
       {
@@ -290,11 +290,11 @@ export const navModules: NavModule[] = [
     id: 'payroll',
     label: 'Payroll',
     icon: CreditCard,
-    href: '/payroll/',
+    href: '/payroll',
     modules: ['payroll'],
     roles: ['admin', 'hr_manager'],
     subItems: [
-      { label: 'Generate Payroll', href: '/payroll/', icon: Play },
+      { label: 'Generate Payroll', href: '/payroll', icon: Play },
       {
         label: 'Salary Structure',
         href: '/payroll/salary-structure',
@@ -313,13 +313,13 @@ export const navModules: NavModule[] = [
     id: 'onboarding',
     label: 'Onboarding & Offboarding',
     icon: UserPlus,
-    href: '/onboarding-offboarding/',
+    href: '/onboarding-offboarding',
     modules: ['onboarding'],
     roles: ['admin', 'hr_manager'],
     subItems: [
       {
         label: 'Job Openings',
-        href: '/onboarding-offboarding/',
+        href: '/onboarding-offboarding',
         icon: BriefcaseMedical,
       },
       {
@@ -386,6 +386,7 @@ export const navModules: NavModule[] = [
  * Find which module owns a given path.
  * Returns the NavModule whose href prefix matches the path.
  */
+
 export function findActiveModule(path: string): NavModule | undefined {
   if (path === '/dashboard')
     return navModules.find((m) => m.id === 'dashboard');

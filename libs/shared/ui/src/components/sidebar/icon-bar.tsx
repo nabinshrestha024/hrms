@@ -1,7 +1,7 @@
 import { cn } from '@erp/utils';
 import { LucideGalleryVerticalEnd } from 'lucide-react';
 import type { ComponentType } from 'react';
-import { NavModule } from '../../lib/nav-config';
+import { findActiveModule, NavModule } from '../../lib/nav-config';
 import {
   Tooltip,
   TooltipContent,
@@ -31,7 +31,7 @@ export function IconBar({
   linkComponent,
 }: IconBarProps) {
   const LinkComp = linkComponent ?? DefaultLink;
-  // const activeModule = findActiveModule(currentPath);
+  const activeModule = findActiveModule(currentPath);
 
   // const filteredModules = modulesEnabled
   //   ? navModules.filter(
@@ -40,7 +40,7 @@ export function IconBar({
   //     )
   //   : navModules;
 
-  const activeModule = navModules.find((m) => currentPath.startsWith(m.href));
+  // const activeModule = navModules.find((m) => currentPath.startsWith(m.href));
   return (
     <div className="relative flex flex-col w-16 bg-black shrink-0">
       {/* Logo — 36px indigo square */}

@@ -5,7 +5,7 @@ interface ProfileDropdownDataProps {
   navigate: any;
   selectedOption: string;
   setSelectedOption: (value: string) => void;
-  onLogout?: () => void;
+  setShowLogoutDialog: (value: boolean) => void;
   user?: {
     name: string;
     role: string;
@@ -31,7 +31,7 @@ export const getProfileDropdownData = ({
   navigate,
   selectedOption,
   setSelectedOption,
-  onLogout,
+  setShowLogoutDialog,
   user,
 }: ProfileDropdownDataProps) => {
   return [
@@ -52,6 +52,7 @@ export const getProfileDropdownData = ({
               </div>
             }
           />
+
           <div className="flex flex-col gap-1 items-start">
             <span className="text-[14px] font-semibold leading-5">
               {user?.name ?? 'John Doe'}
@@ -65,18 +66,18 @@ export const getProfileDropdownData = ({
       ),
       className: 'h-20 px-0',
     },
+
     {
       label: <DropdownItem icon={KeyRound} label="Employee Contract" />,
-
       className: 'border-t border-t-border px-0',
       isActive: selectedOption === 'Employee Contract',
       onClick: () => setSelectedOption('Employee Contract'),
     },
+
     {
       label: <DropdownItem icon={User} label="Personal Profile" />,
       className: 'px-0',
       isActive: selectedOption === 'Personal Profile',
-
       onClick: () => {
         setSelectedOption('Personal Profile');
 
@@ -85,14 +86,12 @@ export const getProfileDropdownData = ({
         });
       },
     },
+
     {
       label: <DropdownItem icon={LogOut} label="Sign Out" />,
       className: 'border-t border-t-border px-0',
       onClick: () => {
-        onLogout?.();
-        navigate({
-          to: '/login',
-        });
+        setShowLogoutDialog(true);
       },
     },
   ];
