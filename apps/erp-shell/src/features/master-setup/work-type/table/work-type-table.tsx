@@ -4,10 +4,12 @@ import { useWorkTable } from './use-work-type-table';
 
 interface WorkTableProps {
   data: WorkType[];
+  onEdit?: (workType: WorkType) => void;
+  onDelete?: (id: string) => void;
 }
 
-export const WorkTable = ({ data }: WorkTableProps) => {
-  const { columns, table } = useWorkTable({ data });
+export const WorkTable = ({ data, onEdit, onDelete }: WorkTableProps) => {
+  const { columns, table } = useWorkTable({ data, onEdit, onDelete });
 
   return (
     <DataTable

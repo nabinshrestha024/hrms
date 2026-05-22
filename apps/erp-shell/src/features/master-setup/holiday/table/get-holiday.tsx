@@ -3,8 +3,13 @@ import { DataTableColumnHeader } from '@erp/ui';
 import type { ColumnDef } from '@tanstack/react-table';
 import { Edit, Trash2 } from 'lucide-react';
 import { IconButton } from '../../../../components/icon-button';
-
-export function getHolidayColumn(): ColumnDef<HolidayType>[] {
+interface ColumnActions {
+  onEdit?: (holiday: HolidayType) => void;
+  onDelete?: (id: string) => void;
+}
+export function getHolidayColumn(
+  actions?: ColumnActions
+): ColumnDef<HolidayType>[] {
   return [
     {
       accessorKey: 'name',
@@ -32,12 +37,20 @@ export function getHolidayColumn(): ColumnDef<HolidayType>[] {
     {
       id: 'actions',
       header: 'Action',
-      cell: () => (
+      cell: ({ row }) => (
         <div className="flex items-center gap-2 justify-center">
-          <IconButton variant="default">
+          <IconButton
+            variant="default"
+            tooltip="Edit"
+            onClick={() => actions?.onEdit?.(row.original)}
+          >
             <Edit className="w-4 h-4" />
           </IconButton>
-          <IconButton variant="destructive">
+          <IconButton
+            variant="destructive"
+            tooltip="Delete"
+            onClick={() => actions?.onDelete?.(row.original.id)}
+          >
             <Trash2 className="w-4 h-4" />
           </IconButton>
         </div>

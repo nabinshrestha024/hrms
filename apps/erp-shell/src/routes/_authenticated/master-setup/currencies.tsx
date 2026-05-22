@@ -4,7 +4,7 @@ import { lazy, Suspense } from 'react';
 
 const Currency = lazy(() =>
   import('../../../features/master-setup/currency-type/currency').then((m) => ({
-    default: m.Currency,
+    default: m.CurrencyManagement,
   }))
 );
 

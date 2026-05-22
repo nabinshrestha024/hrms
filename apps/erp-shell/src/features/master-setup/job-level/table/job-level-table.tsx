@@ -4,10 +4,16 @@ import { useJobLevelTable } from './use-job-level-table';
 
 interface JobLevelTableProps {
   data: JobLevel[];
+  onEdit?: (jobLevel: JobLevel) => void;
+  onDelete?: (id: string) => void;
 }
 
-export const JobLevelTable = ({ data }: JobLevelTableProps) => {
-  const { columns, table } = useJobLevelTable({ data });
+export const JobLevelTable = ({
+  data,
+  onEdit,
+  onDelete,
+}: JobLevelTableProps) => {
+  const { columns, table } = useJobLevelTable({ data, onEdit, onDelete });
 
   return (
     <DataTable
