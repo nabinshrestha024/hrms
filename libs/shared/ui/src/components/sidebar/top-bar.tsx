@@ -55,7 +55,10 @@ export function TopBar({ onLogout, user }: TopBarProps) {
     selectedOption,
     setSelectedOption,
     setShowLogoutDialog,
-    user,
+    user: {
+      name: 'John Doe',
+      role: 'Project Manager',
+    },
   });
   return (
     <>
