@@ -116,7 +116,7 @@ export function ControlledFormDialog({
   size = 'md',
   formId,
   okText,
-  cancelText = 'Cancel',
+  cancelText,
   onCancel,
   isSubmitting,
   dialogClassName,
