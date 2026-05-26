@@ -11,8 +11,12 @@ import { getShiftIcon } from '../shift-icon';
 function formatTimeRange(start: string, end: string): string {
   return `${start}-${end}`;
 }
+interface ColumnActions {
+  onEdit?: (shift: Shift) => void;
+  onDelete?: (id: string) => void;
+}
 
-export function getShiftColumn(): ColumnDef<Shift>[] {
+export function getShiftColumn(actions?: ColumnActions): ColumnDef<Shift>[] {
   return [
     {
       id: 'name',
@@ -116,13 +120,25 @@ export function getShiftColumn(): ColumnDef<Shift>[] {
     {
       id: 'actions',
       header: 'Action',
-      cell: () => (
+      cell: ({ row }) => (
         <div className="flex items-center gap-2 justify-center">
-          <IconButton variant="default">
-            <Edit className="w-4 h-4" />
+          <IconButton
+            type="button"
+            aria-label="Edit branch"
+            variant="default"
+            onClick={() => actions?.onEdit?.(row.original)}
+            tooltip="Edit"
+          >
+            <Edit className="w-4 h-4 text-black font-bold" />
           </IconButton>
-          <IconButton variant="destructive">
-            <Trash2 className="w-4 h-4" />
+          <IconButton
+            type="button"
+            variant="destructive"
+            aria-label="Delete branch"
+            onClick={() => actions?.onDelete?.(row.original.id)}
+            tooltip="Delete"
+          >
+            <Trash2 className="w-4 h-4 text-badge-text-3 font-bold" />
           </IconButton>
         </div>
       ),

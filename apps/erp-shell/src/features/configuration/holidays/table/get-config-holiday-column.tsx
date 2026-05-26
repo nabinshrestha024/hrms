@@ -13,8 +13,13 @@ function dayOfWeek(date: string): string {
   if (isNaN(parsed.getTime())) return '—';
   return parsed.toLocaleDateString('en-US', { weekday: 'long' });
 }
-
-export function getConfigurationHolidayColumn(): ColumnDef<Holiday>[] {
+interface ColumnActions {
+  onEdit?: (holiday: Holiday) => void;
+  onDelete?: (id: string) => void;
+}
+export function getConfigurationHolidayColumn(
+  actions?: ColumnActions
+): ColumnDef<Holiday>[] {
   return [
     {
       id: 'name',
@@ -57,13 +62,25 @@ export function getConfigurationHolidayColumn(): ColumnDef<Holiday>[] {
     {
       id: 'actions',
       header: 'Action',
-      cell: () => (
+      cell: ({ row }) => (
         <div className="flex items-center gap-2 justify-center">
-          <IconButton variant="default">
-            <Edit className="w-4 h-4" />
+          <IconButton
+            type="button"
+            aria-label="Edit branch"
+            variant="default"
+            onClick={() => actions?.onEdit?.(row.original)}
+            tooltip="Edit"
+          >
+            <Edit className="w-4 h-4 text-black font-bold" />
           </IconButton>
-          <IconButton variant="destructive">
-            <Trash2 className="w-4 h-4" />
+          <IconButton
+            type="button"
+            variant="destructive"
+            aria-label="Delete branch"
+            onClick={() => actions?.onDelete?.(row.original.id)}
+            tooltip="Delete"
+          >
+            <Trash2 className="w-4 h-4 text-badge-text-3 font-bold" />
           </IconButton>
         </div>
       ),
