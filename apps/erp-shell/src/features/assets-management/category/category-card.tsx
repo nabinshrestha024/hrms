@@ -8,9 +8,11 @@ import { getAssetCategoryIcon } from './asset-category-icon';
 
 interface CategoryProps {
   data: AssetCategory[];
+  onEdit?: (assetCategory: AssetCategory) => void;
+  onDelete?: (id: string) => void;
 }
 
-export const CategoryCard = ({ data }: CategoryProps) => {
+export const CategoryCard = ({ data, onEdit, onDelete }: CategoryProps) => {
   const [openTable, setOpenTable] = useState(false);
   const [category, setCategory] = useState('');
   const { data: assetsResponse } = useAssets({ pageSize: 100 });
@@ -40,10 +42,18 @@ export const CategoryCard = ({ data }: CategoryProps) => {
                   <Icon className="w-4 h-4 " />
                 </IconButton>
                 <div className="flex gap-2">
-                  <IconButton variant="default">
+                  <IconButton
+                    variant="default"
+                    onClick={() => onEdit?.(items)}
+                    tooltip="Edit"
+                  >
                     <Edit className="w-4 h-4 text-black font-bold" />
                   </IconButton>
-                  <IconButton variant="destructive">
+                  <IconButton
+                    variant="destructive"
+                    onClick={() => onDelete?.(items.id)}
+                    tooltip="Delete"
+                  >
                     <Trash2 className="w-4 h-4 text-badge-text-3 font-bold" />
                   </IconButton>
                 </div>
