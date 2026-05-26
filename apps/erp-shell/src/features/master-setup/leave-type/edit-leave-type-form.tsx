@@ -1,5 +1,9 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
-import { LeavePayType, useCreateLeavePayType } from '@erp/data-access';
+import {
+  LeavePayType,
+  useCreateLeavePayType,
+  useUpdateLeavePayType,
+} from '@erp/data-access';
 import { toast, useDialogClose } from '@erp/ui';
 
 export const editLeaveTypeFormConfig: FormViewConfig = {
@@ -52,10 +56,10 @@ interface EditLeaveTypeFormProps {
 export function EditLeaveTypeForm({
   selectedLeaveType,
 }: EditLeaveTypeFormProps) {
-  const createLeavePayType = useCreateLeavePayType();
+  const updateLeavePayType = useUpdateLeavePayType(selectedLeaveType?.id ?? '');
   const close = useDialogClose();
   const onsubmit = (data: Record<string, unknown>) => {
-    createLeavePayType.mutate(
+    updateLeavePayType.mutate(
       {
         name: String(data.name ?? ''),
         code: String(data.code ?? ''),

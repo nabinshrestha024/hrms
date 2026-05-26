@@ -1,5 +1,9 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
-import { Currency, useCreateCurrency } from '@erp/data-access';
+import {
+  Currency,
+  useCreateCurrency,
+  useUpdateCurrency,
+} from '@erp/data-access';
 import { toast, useDialogClose } from '@erp/ui';
 
 export const editCurrencyFormConfig: FormViewConfig = {
@@ -52,10 +56,10 @@ interface EditCurrencyFormProps {
 }
 
 export function EditCurrencyForm({ selectedCurrency }: EditCurrencyFormProps) {
-  const createCurrency = useCreateCurrency();
+  const updateCurrency = useUpdateCurrency(selectedCurrency?.id ?? '');
   const close = useDialogClose();
   const onsubmit = (data: Record<string, unknown>) => {
-    createCurrency.mutate(
+    updateCurrency.mutate(
       {
         code: String(data.code ?? ''),
         name: String(data.name ?? ''),

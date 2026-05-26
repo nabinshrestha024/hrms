@@ -1,5 +1,9 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
-import { HolidayType, useCreateHolidayType } from '@erp/data-access';
+import {
+  HolidayType,
+  useCreateHolidayType,
+  useUpdateHolidayType,
+} from '@erp/data-access';
 import { toast, useDialogClose } from '@erp/ui';
 
 export const editHolidayFormConfig: FormViewConfig = {
@@ -46,10 +50,10 @@ interface editHolidayFormProps {
 }
 
 export function EditHolidayForm({ selectedHolidayType }: editHolidayFormProps) {
-  const createHolidayType = useCreateHolidayType();
+  const updateHolidayType = useUpdateHolidayType(selectedHolidayType?.id ?? '');
   const close = useDialogClose();
   const onsubmit = (data: Record<string, unknown>) => {
-    createHolidayType.mutate(
+    updateHolidayType.mutate(
       {
         name: String(data.name ?? ''),
         color: String(data.color ?? ''),

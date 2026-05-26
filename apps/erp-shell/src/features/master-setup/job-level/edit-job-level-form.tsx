@@ -1,5 +1,9 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
-import { JobLevel, useCreateJobLevel } from '@erp/data-access';
+import {
+  JobLevel,
+  useCreateJobLevel,
+  useUpdateJobLevel,
+} from '@erp/data-access';
 import { toast, useDialogClose } from '@erp/ui';
 
 export const editJobLevelFormConfig: FormViewConfig = {
@@ -46,10 +50,10 @@ interface EditJobLevelFormProps {
 }
 
 export function EditJobLevelForm({ selectedJob }: EditJobLevelFormProps) {
-  const createJobLevel = useCreateJobLevel();
+  const updateJobLevel = useUpdateJobLevel(selectedJob?.id ?? '');
   const close = useDialogClose();
   const onsubmit = (data: Record<string, unknown>) => {
-    createJobLevel.mutate(
+    updateJobLevel.mutate(
       {
         name: String(data.name ?? ''),
         rank: Number(data.rank ?? 1),

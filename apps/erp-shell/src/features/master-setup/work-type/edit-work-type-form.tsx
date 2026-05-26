@@ -1,5 +1,9 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
-import { useCreateWorkType, WorkType } from '@erp/data-access';
+import {
+  useCreateWorkType,
+  useUpdateWorkType,
+  WorkType,
+} from '@erp/data-access';
 import { toast, useDialogClose } from '@erp/ui';
 
 export const editWorkTypeFormConfig: FormViewConfig = {
@@ -37,21 +41,24 @@ interface EditWorkTypeFormProps {
 }
 
 export function EditWorkTypeForm({ selectedWorkType }: EditWorkTypeFormProps) {
-  const createWorkType = useCreateWorkType();
+  const updateWorkType = useUpdateWorkType(selectedWorkType?.id ?? '');
   const close = useDialogClose();
   const onsubmit = (data: Record<string, unknown>) => {
-    createWorkType.mutate(
+    updateWorkType.mutate(
       {
         name: String(data.name ?? ''),
         description: data.description ? String(data.description) : undefined,
       },
       {
         onSuccess: () => {
-          toast({ variant: 'success', title: 'Work type added' });
+          toast({ variant: 'success', title: 'Work type updated' });
           close();
         },
         onError: () => {
-          toast({ variant: 'destructive', title: 'Failed to add work type' });
+          toast({
+            variant: 'destructive',
+            title: 'Failed to update work type',
+          });
         },
       }
     );
