@@ -26,6 +26,7 @@ import { Route as AuthenticatedDirectoriesIndexRouteImport } from './routes/_aut
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
 import { Route as AuthenticatedConfigurationIndexRouteImport } from './routes/_authenticated/configuration/index'
 import { Route as AuthenticatedCompanySetupIndexRouteImport } from './routes/_authenticated/company-setup/index'
+import { Route as AuthenticatedCalendarIndexRouteImport } from './routes/_authenticated/calendar/index'
 import { Route as AuthenticatedAttendanceIndexRouteImport } from './routes/_authenticated/attendance/index'
 import { Route as AuthenticatedAssetsManagementIndexRouteImport } from './routes/_authenticated/assets-management/index'
 import { Route as AuthenticatedPolicyConfigurationWorkflowRouteImport } from './routes/_authenticated/policy-configuration/workflow'
@@ -54,6 +55,7 @@ import { Route as AuthenticatedConfigurationShiftsRouteImport } from './routes/_
 import { Route as AuthenticatedConfigurationHolidaysRouteImport } from './routes/_authenticated/configuration/holidays'
 import { Route as AuthenticatedCompanySetupDepartmentRouteImport } from './routes/_authenticated/company-setup/department'
 import { Route as AuthenticatedCompanySetupBranchRouteImport } from './routes/_authenticated/company-setup/branch'
+import { Route as AuthenticatedCalendarEventHolidayRouteImport } from './routes/_authenticated/calendar/event-holiday'
 import { Route as AuthenticatedAttendanceWorkRecordRouteImport } from './routes/_authenticated/attendance/work-record'
 import { Route as AuthenticatedAttendanceMyAttendanceRouteImport } from './routes/_authenticated/attendance/my-attendance'
 import { Route as AuthenticatedAssetsManagementAssignmentHistoryRouteImport } from './routes/_authenticated/assets-management/assignment-history'
@@ -156,6 +158,12 @@ const AuthenticatedCompanySetupIndexRoute =
   AuthenticatedCompanySetupIndexRouteImport.update({
     id: '/company-setup/',
     path: '/company-setup/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedCalendarIndexRoute =
+  AuthenticatedCalendarIndexRouteImport.update({
+    id: '/calendar/',
+    path: '/calendar/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedAttendanceIndexRoute =
@@ -326,6 +334,12 @@ const AuthenticatedCompanySetupBranchRoute =
     path: '/company-setup/branch',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedCalendarEventHolidayRoute =
+  AuthenticatedCalendarEventHolidayRouteImport.update({
+    id: '/calendar/event-holiday',
+    path: '/calendar/event-holiday',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedAttendanceWorkRecordRoute =
   AuthenticatedAttendanceWorkRecordRouteImport.update({
     id: '/attendance/work-record',
@@ -378,6 +392,7 @@ export interface FileRoutesByFullPath {
   '/assets-management/assignment-history': typeof AuthenticatedAssetsManagementAssignmentHistoryRoute
   '/attendance/my-attendance': typeof AuthenticatedAttendanceMyAttendanceRoute
   '/attendance/work-record': typeof AuthenticatedAttendanceWorkRecordRoute
+  '/calendar/event-holiday': typeof AuthenticatedCalendarEventHolidayRoute
   '/company-setup/branch': typeof AuthenticatedCompanySetupBranchRoute
   '/company-setup/department': typeof AuthenticatedCompanySetupDepartmentRoute
   '/configuration/holidays': typeof AuthenticatedConfigurationHolidaysRoute
@@ -406,6 +421,7 @@ export interface FileRoutesByFullPath {
   '/policy-configuration/workflow': typeof AuthenticatedPolicyConfigurationWorkflowRoute
   '/assets-management/': typeof AuthenticatedAssetsManagementIndexRoute
   '/attendance/': typeof AuthenticatedAttendanceIndexRoute
+  '/calendar/': typeof AuthenticatedCalendarIndexRoute
   '/company-setup/': typeof AuthenticatedCompanySetupIndexRoute
   '/configuration/': typeof AuthenticatedConfigurationIndexRoute
   '/dashboard/': typeof AuthenticatedDashboardIndexRoute
@@ -431,6 +447,7 @@ export interface FileRoutesByTo {
   '/assets-management/assignment-history': typeof AuthenticatedAssetsManagementAssignmentHistoryRoute
   '/attendance/my-attendance': typeof AuthenticatedAttendanceMyAttendanceRoute
   '/attendance/work-record': typeof AuthenticatedAttendanceWorkRecordRoute
+  '/calendar/event-holiday': typeof AuthenticatedCalendarEventHolidayRoute
   '/company-setup/branch': typeof AuthenticatedCompanySetupBranchRoute
   '/company-setup/department': typeof AuthenticatedCompanySetupDepartmentRoute
   '/configuration/holidays': typeof AuthenticatedConfigurationHolidaysRoute
@@ -459,6 +476,7 @@ export interface FileRoutesByTo {
   '/policy-configuration/workflow': typeof AuthenticatedPolicyConfigurationWorkflowRoute
   '/assets-management': typeof AuthenticatedAssetsManagementIndexRoute
   '/attendance': typeof AuthenticatedAttendanceIndexRoute
+  '/calendar': typeof AuthenticatedCalendarIndexRoute
   '/company-setup': typeof AuthenticatedCompanySetupIndexRoute
   '/configuration': typeof AuthenticatedConfigurationIndexRoute
   '/dashboard': typeof AuthenticatedDashboardIndexRoute
@@ -486,6 +504,7 @@ export interface FileRoutesById {
   '/_authenticated/assets-management/assignment-history': typeof AuthenticatedAssetsManagementAssignmentHistoryRoute
   '/_authenticated/attendance/my-attendance': typeof AuthenticatedAttendanceMyAttendanceRoute
   '/_authenticated/attendance/work-record': typeof AuthenticatedAttendanceWorkRecordRoute
+  '/_authenticated/calendar/event-holiday': typeof AuthenticatedCalendarEventHolidayRoute
   '/_authenticated/company-setup/branch': typeof AuthenticatedCompanySetupBranchRoute
   '/_authenticated/company-setup/department': typeof AuthenticatedCompanySetupDepartmentRoute
   '/_authenticated/configuration/holidays': typeof AuthenticatedConfigurationHolidaysRoute
@@ -514,6 +533,7 @@ export interface FileRoutesById {
   '/_authenticated/policy-configuration/workflow': typeof AuthenticatedPolicyConfigurationWorkflowRoute
   '/_authenticated/assets-management/': typeof AuthenticatedAssetsManagementIndexRoute
   '/_authenticated/attendance/': typeof AuthenticatedAttendanceIndexRoute
+  '/_authenticated/calendar/': typeof AuthenticatedCalendarIndexRoute
   '/_authenticated/company-setup/': typeof AuthenticatedCompanySetupIndexRoute
   '/_authenticated/configuration/': typeof AuthenticatedConfigurationIndexRoute
   '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
@@ -541,6 +561,7 @@ export interface FileRouteTypes {
     | '/assets-management/assignment-history'
     | '/attendance/my-attendance'
     | '/attendance/work-record'
+    | '/calendar/event-holiday'
     | '/company-setup/branch'
     | '/company-setup/department'
     | '/configuration/holidays'
@@ -569,6 +590,7 @@ export interface FileRouteTypes {
     | '/policy-configuration/workflow'
     | '/assets-management/'
     | '/attendance/'
+    | '/calendar/'
     | '/company-setup/'
     | '/configuration/'
     | '/dashboard/'
@@ -594,6 +616,7 @@ export interface FileRouteTypes {
     | '/assets-management/assignment-history'
     | '/attendance/my-attendance'
     | '/attendance/work-record'
+    | '/calendar/event-holiday'
     | '/company-setup/branch'
     | '/company-setup/department'
     | '/configuration/holidays'
@@ -622,6 +645,7 @@ export interface FileRouteTypes {
     | '/policy-configuration/workflow'
     | '/assets-management'
     | '/attendance'
+    | '/calendar'
     | '/company-setup'
     | '/configuration'
     | '/dashboard'
@@ -648,6 +672,7 @@ export interface FileRouteTypes {
     | '/_authenticated/assets-management/assignment-history'
     | '/_authenticated/attendance/my-attendance'
     | '/_authenticated/attendance/work-record'
+    | '/_authenticated/calendar/event-holiday'
     | '/_authenticated/company-setup/branch'
     | '/_authenticated/company-setup/department'
     | '/_authenticated/configuration/holidays'
@@ -676,6 +701,7 @@ export interface FileRouteTypes {
     | '/_authenticated/policy-configuration/workflow'
     | '/_authenticated/assets-management/'
     | '/_authenticated/attendance/'
+    | '/_authenticated/calendar/'
     | '/_authenticated/company-setup/'
     | '/_authenticated/configuration/'
     | '/_authenticated/dashboard/'
@@ -819,6 +845,13 @@ declare module '@tanstack/react-router' {
       path: '/company-setup'
       fullPath: '/company-setup/'
       preLoaderRoute: typeof AuthenticatedCompanySetupIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/calendar/': {
+      id: '/_authenticated/calendar/'
+      path: '/calendar'
+      fullPath: '/calendar/'
+      preLoaderRoute: typeof AuthenticatedCalendarIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/attendance/': {
@@ -1017,6 +1050,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCompanySetupBranchRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/calendar/event-holiday': {
+      id: '/_authenticated/calendar/event-holiday'
+      path: '/calendar/event-holiday'
+      fullPath: '/calendar/event-holiday'
+      preLoaderRoute: typeof AuthenticatedCalendarEventHolidayRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/attendance/work-record': {
       id: '/_authenticated/attendance/work-record'
       path: '/attendance/work-record'
@@ -1075,6 +1115,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedAssetsManagementAssignmentHistoryRoute: typeof AuthenticatedAssetsManagementAssignmentHistoryRoute
   AuthenticatedAttendanceMyAttendanceRoute: typeof AuthenticatedAttendanceMyAttendanceRoute
   AuthenticatedAttendanceWorkRecordRoute: typeof AuthenticatedAttendanceWorkRecordRoute
+  AuthenticatedCalendarEventHolidayRoute: typeof AuthenticatedCalendarEventHolidayRoute
   AuthenticatedCompanySetupBranchRoute: typeof AuthenticatedCompanySetupBranchRoute
   AuthenticatedCompanySetupDepartmentRoute: typeof AuthenticatedCompanySetupDepartmentRoute
   AuthenticatedConfigurationHolidaysRoute: typeof AuthenticatedConfigurationHolidaysRoute
@@ -1103,6 +1144,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedPolicyConfigurationWorkflowRoute: typeof AuthenticatedPolicyConfigurationWorkflowRoute
   AuthenticatedAssetsManagementIndexRoute: typeof AuthenticatedAssetsManagementIndexRoute
   AuthenticatedAttendanceIndexRoute: typeof AuthenticatedAttendanceIndexRoute
+  AuthenticatedCalendarIndexRoute: typeof AuthenticatedCalendarIndexRoute
   AuthenticatedCompanySetupIndexRoute: typeof AuthenticatedCompanySetupIndexRoute
   AuthenticatedConfigurationIndexRoute: typeof AuthenticatedConfigurationIndexRoute
   AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
@@ -1130,6 +1172,8 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
     AuthenticatedAttendanceMyAttendanceRoute,
   AuthenticatedAttendanceWorkRecordRoute:
     AuthenticatedAttendanceWorkRecordRoute,
+  AuthenticatedCalendarEventHolidayRoute:
+    AuthenticatedCalendarEventHolidayRoute,
   AuthenticatedCompanySetupBranchRoute: AuthenticatedCompanySetupBranchRoute,
   AuthenticatedCompanySetupDepartmentRoute:
     AuthenticatedCompanySetupDepartmentRoute,
@@ -1179,6 +1223,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedAssetsManagementIndexRoute:
     AuthenticatedAssetsManagementIndexRoute,
   AuthenticatedAttendanceIndexRoute: AuthenticatedAttendanceIndexRoute,
+  AuthenticatedCalendarIndexRoute: AuthenticatedCalendarIndexRoute,
   AuthenticatedCompanySetupIndexRoute: AuthenticatedCompanySetupIndexRoute,
   AuthenticatedConfigurationIndexRoute: AuthenticatedConfigurationIndexRoute,
   AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
