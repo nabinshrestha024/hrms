@@ -15,7 +15,7 @@ export const MyAttendanceDetails = () => {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="grid grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
         {cardData.map((items) => (
           <HRCard
             key={items.event}
@@ -34,6 +34,7 @@ export const MyAttendanceDetails = () => {
       <ListPage<Attendance>
         dateRange
         data={data}
+        controlClassName="mb-0"
         renderTable={(filtered) => <MyAttendanceTable data={filtered} />}
       />
     </div>

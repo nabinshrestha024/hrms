@@ -25,8 +25,8 @@ export function getAttendanceListColumn(): ColumnDef<AttendanceListRecord>[] {
         <DataTableColumnHeader column={column} title="Employee Name" />
       ),
       meta: {
-        className: 'sticky left-[143px] z-20 bg-white',
-        headerClassName: 'sticky left-[143px]  z-30 bg-card',
+        className: 'md:sticky md:left-[143px] md:z-20 md:bg-white',
+        headerClassName: 'md:sticky md:left-[143px]  md:z-30 md:bg-card',
       },
       cell: ({ row }) => <>{row.getValue('employeeName')}</>,
     },
@@ -160,7 +160,7 @@ export function getAttendanceListColumn(): ColumnDef<AttendanceListRecord>[] {
             size="lg"
             cancelText="Cancel"
             formId="add-time-request-form"
-            dialogClassName="sm:max-w-[709px]"
+            dialogClassName="lg:max-w-[709px] "
             componentClassName="py-4 pl-4 pr-2"
           >
             {({ close }: { close: () => void }) => (

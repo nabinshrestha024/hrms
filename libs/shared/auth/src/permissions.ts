@@ -20,6 +20,7 @@ export const PERM_SUBJECTS = {
   HR_DEPARTMENTS: 'hr:departments',
   HR_BRANCHES: 'hr:branches',
   HR_DIRECTORIES: 'hr:directories',
+  HR_NOTICE: 'hr:notice',
 
   ATTENDANCE_RECORDS: 'attendance:records',
 
@@ -114,6 +115,7 @@ export const ADMIN_PERMISSIONS: string[] = [
   ...permsFor(PERM_SUBJECTS.HR_DEPARTMENTS, CRUD),
   ...permsFor(PERM_SUBJECTS.HR_BRANCHES, CRUD),
   ...permsFor(PERM_SUBJECTS.HR_DIRECTORIES, READ_ONLY),
+  ...permsFor(PERM_SUBJECTS.HR_NOTICE, ['create']),
 
   ...permsFor(PERM_SUBJECTS.ATTENDANCE_RECORDS, [...CRUD, 'approve']),
 
@@ -162,6 +164,7 @@ export const HR_MANAGER_PERMISSIONS: string[] = [
   ...permsFor(PERM_SUBJECTS.HR_DEPARTMENTS, ['read']),
   ...permsFor(PERM_SUBJECTS.HR_BRANCHES, READ_ONLY),
   ...permsFor(PERM_SUBJECTS.HR_DIRECTORIES, READ_ONLY),
+  ...permsFor(PERM_SUBJECTS.HR_NOTICE, ['create']),
 
   ...permsFor(PERM_SUBJECTS.ATTENDANCE_RECORDS, READ_ONLY),
 
@@ -204,6 +207,7 @@ export const EMPLOYEE_PERMISSIONS: string[] = [
   // Self-service only.
   ...permsFor(PERM_SUBJECTS.HR_EMPLOYEES, READ_ONLY),
   ...permsFor(PERM_SUBJECTS.HR_DIRECTORIES, READ_ONLY),
+  ...permsFor(PERM_SUBJECTS.HR_NOTICE, READ_ONLY),
 
   ...permsFor(PERM_SUBJECTS.ATTENDANCE_RECORDS, [...READ_ONLY, 'create']),
 

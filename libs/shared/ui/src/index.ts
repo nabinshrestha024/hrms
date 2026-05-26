@@ -7,6 +7,9 @@ export { SubNav } from './components/sidebar/sub-nav';
 export { TopBar } from './components/sidebar/top-bar';
 export { findActiveModule, navModules } from './lib/nav-config';
 export type { NavModule, NavSubItem } from './lib/nav-config';
+export { getVisibleModules } from './lib/get-visible-role';
+export { getDateRangeData } from './lib/get-date-range-data';
+export { getProfileDropdownData } from './lib/get-profile-dropdown-data';
 
 // Hooks
 export { useIsMobile } from './hooks/use-mobile';
@@ -213,6 +216,8 @@ export { HRTabs } from './components/tabs/tabs';
 export { TabsFlex } from './components/tabs/tabs-flex';
 export { OptionCheckboxGroup } from './components/form/check-box/custom-checkbox';
 export { LimitedOptionCheckboxGroup } from './components/form/check-box/assign-template-checkbox';
+
+export { FileUpload } from './components/form/file-uploade';
 
 export { CheckboxGroup } from './components/form/check-box/checkbox-group';
 

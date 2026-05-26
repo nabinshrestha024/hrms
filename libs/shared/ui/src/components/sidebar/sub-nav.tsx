@@ -53,7 +53,7 @@ export function SubNav({
 
         {/* Sub-items — each with unique icon */}
         {hasSubItems && (
-          <nav className="flex-1 flex flex-col">
+          <nav className="flex-1 flex flex-col ">
             {subItems.map((item) => {
               const isActive =
                 currentPath === item.href ||

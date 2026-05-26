@@ -18,7 +18,11 @@ export const Route = createFileRoute('/_authenticated/attendance/')({
 
 function RouteComponent() {
   return (
-    <ContentShell title="Attendance Record" padded>
+    <ContentShell
+      title="Attendance Record"
+      padded
+      titleClassName="lg:px-12 px-6"
+    >
       <Suspense fallback={null}>
         <AttendanceDetail />
       </Suspense>

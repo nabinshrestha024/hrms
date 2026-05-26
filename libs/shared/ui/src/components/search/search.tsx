@@ -20,7 +20,7 @@ export const SearchBar = ({
 }) => {
   return (
     <InputGroup
-      className={`rounded-[6px] bg-white border border-border flex items-center ${className}`}
+      className={`rounded-[6px] bg-white border border-border flex items-center focus-visible:border-primary  ${className}`}
     >
       <InputGroupInput
         value={value}

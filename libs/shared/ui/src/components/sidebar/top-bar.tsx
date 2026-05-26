@@ -1,10 +1,17 @@
-import { Bell, ChevronsUpDown } from 'lucide-react';
+import { ChevronsUpDown } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { HRCard } from '../card/card';
 import { ActionDropdown } from '../dropdown/action-drop-down';
 import { useNavigate } from '@tanstack/react-router';
+import { Notification } from './notification';
+import { getProfileDropdownData } from '../../lib/get-profile-dropdown-data';
+import { ConfirmDialog } from '../dialog/confirm-dialog';
 interface TopBarProps {
   onLogout?: () => void;
+  user?: {
+    name: string;
+    role: string;
+  };
 }
 
 function useCurrentTime() {
@@ -16,7 +23,7 @@ function useCurrentTime() {
   return time;
 }
 
-export function TopBar({ onLogout }: TopBarProps) {
+export function TopBar({ onLogout, user }: TopBarProps) {
   const navigate = useNavigate();
   const now = useCurrentTime();
   const timeStr = now.toLocaleTimeString('en-US', {
@@ -28,6 +35,31 @@ export function TopBar({ onLogout }: TopBarProps) {
   const isAfter6AM = minutes >= 6 * 60;
   const isAfter4PM = minutes >= 16 * 60;
   const [open, setOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState('');
+  // const { control } = useFormContext();
+
+  const [showLogoutDialog, setShowLogoutDialog] = useState(false);
+
+  const confirmLogout = () => {
+    onLogout?.();
+
+    navigate({
+      to: '/login',
+    });
+
+    setShowLogoutDialog(false);
+  };
+
+  const dropdownData = getProfileDropdownData({
+    navigate,
+    selectedOption,
+    setSelectedOption,
+    setShowLogoutDialog,
+    user: {
+      name: 'John Doe',
+      role: 'Project Manager',
+    },
+  });
   return (
     <>
       <HRCard
@@ -44,12 +76,11 @@ export function TopBar({ onLogout }: TopBarProps) {
         </div>
 
         <div className="flex gap-2.5 items-center">
-          <div className="w-8 h-8  rounded-full p-2 bg-chart-1 cursor-pointer">
-            <Bell className="text-ring w-4 h-4" />
-          </div>
+          <Notification />
           <ActionDropdown
             open={open}
             onOpenChange={setOpen}
+            dropdownClassName="w-[225px]"
             trigger={
               <div className="flex items-center gap-2 px-2 py-1.5 bg-card rounded-lg cursor-pointer">
                 <div className="w-8 h-8 ">
@@ -70,24 +101,21 @@ export function TopBar({ onLogout }: TopBarProps) {
                 <ChevronsUpDown className="w-4 h-4 text-foreground" />
               </div>
             }
-            actions={[
-              {
-                label: 'Profile',
-                onClick: () => {
-                  navigate({ to: '/profile' });
-                },
-              },
-              {
-                label: 'Logout',
-                onClick: () => {
-                  onLogout?.();
-                  navigate({ to: '/login' });
-                },
-              },
-            ]}
+            actions={dropdownData}
           />
         </div>
       </HRCard>
+      <ConfirmDialog
+        open={showLogoutDialog}
+        onOpenChange={(open: boolean) => {
+          if (!open) {
+            setShowLogoutDialog(false);
+          }
+        }}
+        description="Are you sure you want to sign out?"
+        destructive
+        onConfirm={confirmLogout}
+      />
     </>
   );
 }

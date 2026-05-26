@@ -46,7 +46,8 @@
     "src/**/*.jsx",
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/components/form/Radio"
+    "src/components/form/Radio",
+    "src/components/get-visible-modules.ts"
   ],
   "references": [
     {

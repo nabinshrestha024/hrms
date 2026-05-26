@@ -13,7 +13,11 @@ export const FilteredAssetsTable = ({ data }: AssetsTableProps) => {
 
   return (
     <>
-      <DataTable table={table.table} columns={columns} className="p-0" />
+      <DataTable
+        table={table.table}
+        columns={columns}
+        className="xl:p-0 p-0 rounded-none"
+      />
     </>
   );
 };

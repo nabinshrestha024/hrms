@@ -9,6 +9,7 @@ export const VisibilityManagement = () => {
   return (
     <ListPage<EmployeeDocument>
       title="Document Visibility"
+      search
       dateRange
       data={data}
       renderTable={(filtered) => <VisbilityTable data={filtered} />}

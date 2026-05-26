@@ -2,6 +2,7 @@ import { useNotices, type Notice as NoticeType } from '@erp/data-access';
 import { Badge, Button, FormDialog, Skeleton } from '@erp/ui';
 import { CreateAnnouncementForm } from './create-announcement/create-announcement-form';
 import { getSortData } from '@erp/utils';
+import { Can, PERM_SUBJECTS } from '@erp/auth';
 
 export const Notice = () => {
   const { data, isLoading } = useNotices();
@@ -83,25 +84,27 @@ export const Notice = () => {
         </div>
 
         <div className="flex justify-end">
-          <FormDialog
-            trigger={
-              <Button
-                type="button"
-                variant="secondary"
-                className="cursor-pointer text-[14px] font-medium leading-5 text-white"
-              >
-                Create Now
-              </Button>
-            }
-            title="Create Announcement"
-            size="lg"
-            okText="Add"
-            cancelText="Cancel"
-            dialogClassName="max-h-[150vh]"
-            componentClassName="py-4 pl-4 pr-2"
-          >
-            <CreateAnnouncementForm />
-          </FormDialog>
+          <Can action="create" subject={PERM_SUBJECTS.HR_NOTICE}>
+            <FormDialog
+              trigger={
+                <Button
+                  type="button"
+                  variant="secondary"
+                  className="cursor-pointer text-[14px] font-medium leading-5 text-white"
+                >
+                  Create Now
+                </Button>
+              }
+              title="Create Announcement"
+              size="lg"
+              okText="Add"
+              cancelText="Cancel"
+              dialogClassName="max-h-[150vh]"
+              componentClassName="py-4 pl-4 pr-2"
+            >
+              <CreateAnnouncementForm />
+            </FormDialog>
+          </Can>
         </div>
       </div>
     </>

@@ -1,5 +1,3 @@
-// employee-card-actions.tsx
-
 import { Ban, Eye, GitBranch, Settings2, Trash2 } from 'lucide-react';
 
 import type { Employee } from '@erp/data-access';
