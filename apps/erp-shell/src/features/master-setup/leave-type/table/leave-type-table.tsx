@@ -4,10 +4,16 @@ import { useLeaveTypeTable } from './use-leave-type-table';
 
 interface LeaveTypeTableProps {
   data: LeavePayType[];
+  onEdit?: (leaveType: LeavePayType) => void;
+  onDelete?: (id: string) => void;
 }
 
-export const LeaveTypeTable = ({ data }: LeaveTypeTableProps) => {
-  const { columns, table } = useLeaveTypeTable({ data });
+export const LeaveTypeTable = ({
+  data,
+  onDelete,
+  onEdit,
+}: LeaveTypeTableProps) => {
+  const { columns, table } = useLeaveTypeTable({ data, onDelete, onEdit });
 
   return (
     <DataTable

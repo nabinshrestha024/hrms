@@ -4,10 +4,16 @@ import { getCurrencyColumn } from './get-currency';
 
 interface CurrencyTableProps {
   data: Currency[];
+  onEdit?: (currency: Currency) => void;
+  onDelete?: (id: string) => void;
 }
 
-export function useCurrencyTable({ data }: CurrencyTableProps) {
-  const columns = getCurrencyColumn();
+export function useCurrencyTable({
+  data,
+  onEdit,
+  onDelete,
+}: CurrencyTableProps) {
+  const columns = getCurrencyColumn({ onEdit, onDelete });
 
   const table = useServerTableState<Currency>({
     data,

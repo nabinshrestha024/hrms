@@ -4,10 +4,12 @@ import { getHolidayColumn } from './get-holiday';
 
 interface HolidayTableProps {
   data: HolidayType[];
+  onEdit?: (holiday: HolidayType) => void;
+  onDelete?: (id: string) => void;
 }
 
-export function useHolidayTable({ data }: HolidayTableProps) {
-  const columns = getHolidayColumn();
+export function useHolidayTable({ data, onEdit, onDelete }: HolidayTableProps) {
+  const columns = getHolidayColumn({ onEdit, onDelete });
 
   const table = useServerTableState<HolidayType>({
     data,
