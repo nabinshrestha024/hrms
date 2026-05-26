@@ -51,29 +51,31 @@ export const RichEditor = ({ onChange }: RichEditorProps) => {
   return (
     <div className="border rounded-[6px] py-2.5">
       <div className="flex flex-col gap-2 px-3 pb-2.5 mb-2">
-        <div className="flex gap-1 items-center ">
+        <div className="flex flex-col md:flex-row gap-1 md:items-center ">
           <HeadingDropdown editor={editor} />
           <MarkDown editor={editor} />
-          <TextSize editor={editor} />
-          <Alignment editor={editor} />
-          <Button
-            type="button"
-            variant="outline"
-            tooltip="Link"
-            onClick={() => {
-              const url = prompt('Enter URL');
-              if (url) {
-                editor.chain().focus().toggleLink().run();
-              }
-            }}
-            className={`flex items-center rounded-[6px] cursor-pointer ${
-              editor.isActive('link')
-                ? 'bg-black text-white'
-                : 'bg-white text-black'
-            }`}
-          >
-            <Link className="w-4 h-4" />
-          </Button>
+          <div className="flex gap-1 items-center ">
+            <TextSize editor={editor} />
+            <Alignment editor={editor} />
+            <Button
+              type="button"
+              variant="outline"
+              tooltip="Link"
+              onClick={() => {
+                const url = prompt('Enter URL');
+                if (url) {
+                  editor.chain().focus().toggleLink().run();
+                }
+              }}
+              className={`flex items-center rounded-[6px] cursor-pointer ${
+                editor.isActive('link')
+                  ? 'bg-black text-white'
+                  : 'bg-white text-black'
+              }`}
+            >
+              <Link className="w-4 h-4" />
+            </Button>
+          </div>
         </div>
         <UndoRedo editor={editor} />
       </div>

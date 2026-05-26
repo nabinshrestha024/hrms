@@ -29,6 +29,7 @@ export const documentReviewSchema = z.object({
   employeeDepartment: z.string().min(1),
   status: documentReviewStatusEnum,
   rejectedReason: z.string().max(1000).optional(),
+  file: z.string(),
   ...timestampsSchema.shape,
 });
 

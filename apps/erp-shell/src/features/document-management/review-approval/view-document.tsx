@@ -17,7 +17,16 @@ export const ViewDocument = ({ id }: ViewDocumentProps) => {
       {data
         .filter((val) => val.employeeId === id)
         .map((val) => (
-          <div key={val.id}>{val.size}</div>
+          <div
+            key={val.id}
+            className="w-77.74 md:w-124.25 h-78.25 overflow-hidden "
+          >
+            <img
+              src={val.file}
+              alt="document"
+              className="w-full h-full object-contain"
+            />
+          </div>
         ))}
     </HRCard>
   );

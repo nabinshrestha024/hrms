@@ -15,6 +15,10 @@ export function getMissingDocumentColumns(): ColumnDef<
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Employee Id" />
       ),
+      meta: {
+        className: 'sticky left-0 z-20 bg-white',
+        headerClassName: 'sticky left-0  z-30 bg-card',
+      },
       cell: ({ row }) => <>{row.getValue('employeeId')}</>,
     },
     {
@@ -22,6 +26,10 @@ export function getMissingDocumentColumns(): ColumnDef<
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Employee Name" />
       ),
+      meta: {
+        className: ' md:sticky md:left-[125px] md:z-20 md:bg-white',
+        headerClassName: ' md:sticky md:left-[125px]  md:z-30 md:bg-card',
+      },
       cell: ({ row }) => <>{row.getValue('employeeName')}</>,
     },
     {
@@ -39,7 +47,6 @@ export function getMissingDocumentColumns(): ColumnDef<
       cell: ({ row }) => <>{row.getValue('branch')}</>,
     },
     {
-      // Count column — derived from the array length rather than a stored field.
       id: 'missingDocument',
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Missing Document" />
@@ -84,15 +91,15 @@ export function getMissingDocumentColumns(): ColumnDef<
                 employeeId={row.original.employeeId}
                 employeeName={row.original.employeeName}
                 department={row.original.department}
-                className="rounded-none bg-background"
+                className="rounded-none bg-tansparent"
               />
             }
             size="lg"
             formId="missing-document-card"
             okText="Send Reminder"
             cancelText="Cancel"
-            componentClassName="border-none shadow-none p-0 rounded-none bg-background"
-            dialogClassName="sm:max-w-[465px]"
+            componentClassName="border-none shadow-none p-0 rounded-none bg-background mt-0"
+            dialogClassName="sm:max-w-[465px] gap-4"
           >
             {({ close }: { close: () => void }) => (
               <MissingDocumentCard id={id} onSuccess={close} />

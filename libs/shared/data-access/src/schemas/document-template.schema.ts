@@ -20,6 +20,9 @@ export const documentTemplateSchema = z.object({
    * (Replaces the misnamed legacy `fileName` field whose value was
    * actually one of these two kinds.)
    */
+  file: z.string().optional(),
+  categroy: z.string().min(1).max(100),
+  documentBody: z.string().min(1).optional(),
   kind: documentTemplateKindEnum,
   ...timestampsSchema.shape,
 });

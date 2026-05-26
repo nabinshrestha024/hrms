@@ -9,8 +9,14 @@ function formatCreatedDate(iso: string): string {
   if (isNaN(d.getTime())) return '—';
   return d.toISOString().slice(0, 10);
 }
+interface ColumnActions {
+  onEdit?: (branch: DocumentCategory) => void;
+  onDelete?: (id: string) => void;
+}
 
-export function getCategoryColumns(): ColumnDef<DocumentCategory, unknown>[] {
+export function getCategoryColumns(
+  actions?: ColumnActions
+): ColumnDef<DocumentCategory, unknown>[] {
   return [
     {
       accessorKey: 'name',
@@ -40,10 +46,16 @@ export function getCategoryColumns(): ColumnDef<DocumentCategory, unknown>[] {
       ),
       cell: ({ row }) => (
         <div className="flex gap-2 items-center justify-center">
-          <IconButton variant="default">
+          <IconButton
+            variant="default"
+            onClick={() => actions?.onEdit?.(row.original)}
+          >
             <Edit className="w-4 h-4 text-black font-bold" />
           </IconButton>
-          <IconButton variant="destructive">
+          <IconButton
+            variant="destructive"
+            onClick={() => actions?.onDelete?.(row.original.id)}
+          >
             <Trash2 className="w-4 h-4 text-badge-text-3 font-bold" />
           </IconButton>
         </div>

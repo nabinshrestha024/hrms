@@ -17,6 +17,7 @@ export const MissingDocumentCard = ({ id }: MissingDocumentCardProps) => {
       cardClassName="rounded-[4px] border border-border shadow-none bg-white p-4"
       cardContentClassName="p-0 flex flex-col gap-6"
     >
+      <div className="text-[14px] font-medium leading-5">Missing Document</div>
       {data
         .filter((val) => val.employeeId === id)
         .map((val) => (
@@ -24,7 +25,7 @@ export const MissingDocumentCard = ({ id }: MissingDocumentCardProps) => {
             {val.missingDocs.map((doc, i) => (
               <div
                 key={i}
-                className="p-3 bg-chart-6 border border-chart-4 rounded-xl text-[14px] font-medium leading-5"
+                className="p-3 bg-chart-6 border border-border-1 rounded-xl text-[14px] font-medium leading-5"
               >
                 {doc}
               </div>

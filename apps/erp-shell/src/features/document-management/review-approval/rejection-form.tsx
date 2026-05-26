@@ -1,11 +1,15 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
-import { useUpdateDocumentReview } from '@erp/data-access';
+import { DocumentReview, useUpdateDocumentReview } from '@erp/data-access';
 import { toast } from '@erp/ui';
-import { InitialsCard } from '../../../components/initial-avatar';
 import { UserCard } from '../../../components/user-card';
 
-export const addRejectionFormConfig: FormViewConfig = {
+export const addRejectionFormConfig = ({
+  document,
+}: {
+  document: DocumentReview;
+}): FormViewConfig => ({
   entity: 'rejection',
+
   fields: [
     {
       name: 'documentName',
@@ -25,39 +29,47 @@ export const addRejectionFormConfig: FormViewConfig = {
       validation: { required: true },
     },
   ],
+
   layout: {
     type: 'section',
+
     header: 'Send Rejection Reason To:',
+
     title: (
       <UserCard
-        employeeName="Sarah Johnson
-"
-        employeeId="EID 012"
-        department="Technical"
+        employeeName={document.employeeName ?? ''}
+        employeeId={document.employeeId ?? ''}
+        department={document.employeeDepartment ?? ''}
       />
     ),
+
     children: [
       { type: 'field', name: 'documentName' },
       { type: 'field', name: 'rejectionReason' },
     ],
   },
-};
-interface rejectionFormProps {
+});
+
+interface RejectionFormProps {
   documentId?: string;
+  document: DocumentReview;
   onSuccess?: () => void;
 }
+
 export function RejectionForm({
+  document,
   documentId,
   onSuccess,
-}: rejectionFormProps = {}) {
+}: RejectionFormProps) {
   const updateReview = useUpdateDocumentReview(documentId ?? '');
 
-  const onsubmit = (data: Record<string, unknown>) => {
+  const onSubmit = (data: Record<string, unknown>) => {
     if (!documentId) {
       toast({
         variant: 'destructive',
         title: 'Missing document context',
       });
+
       return;
     }
 
@@ -68,11 +80,19 @@ export function RejectionForm({
       },
       {
         onSuccess: () => {
-          toast({ variant: 'success', title: 'Rejection message sent' });
+          toast({
+            variant: 'success',
+            title: 'Rejection message sent',
+          });
+
           onSuccess?.();
         },
+
         onError: () => {
-          toast({ variant: 'destructive', title: 'Failed to send rejection' });
+          toast({
+            variant: 'destructive',
+            title: 'Failed to send rejection',
+          });
         },
       }
     );
@@ -80,8 +100,10 @@ export function RejectionForm({
 
   return (
     <FormRenderer
-      config={addRejectionFormConfig}
-      onSubmit={onsubmit}
+      config={addRejectionFormConfig({
+        document,
+      })}
+      onSubmit={onSubmit}
       submitLabel="Add Rejection"
       isDialogForm={true}
       fieldsetClassName="border border-border p-4 bg-white"
