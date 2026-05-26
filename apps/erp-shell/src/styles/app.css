@@ -59,6 +59,11 @@
   --color-text-3: var(--text-3);
   --color-text-4: var(--text-4);
   --color-text-5: var(--text-5);
+  --color-text-6: var(--text-6);
+
+  --color-bg-1: var(--bg-1);
+
+  --color-border-1: var(--border-1);
 
   --color-card-text: var(--card-text);
   --color-outline: var(--outline);
@@ -152,6 +157,11 @@
   --text-3: #4a5565;
   --text-4: #fe9a00;
   --text-5: #00a63e;
+  --text-6: #18181b;
+
+  --bg-1: #f1f5f9;
+
+  --border-1: #fff085;
 
   /* Semantic status tokens — used by toasts, badges, alerts. */
   --info: #2563eb; /* blue/600 */

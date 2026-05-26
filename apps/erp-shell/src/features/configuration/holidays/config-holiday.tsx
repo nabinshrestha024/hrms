@@ -5,9 +5,15 @@ import { ConfigurationHolidayTable } from './table/config-holiday-table';
 
 interface HolidayTableProps {
   data: Holiday[];
+  onEdit?: (holiday: Holiday) => void;
+  onDelete?: (id: string) => void;
 }
 
-export const ConfigHoliday = ({ data }: HolidayTableProps) => {
+export const ConfigHoliday = ({
+  data,
+  onEdit,
+  onDelete,
+}: HolidayTableProps) => {
   return (
     <div className="px-6 pt-0 pb-32.5">
       <HRCard
@@ -15,7 +21,11 @@ export const ConfigHoliday = ({ data }: HolidayTableProps) => {
         cardContentClassName="p-0 flex flex-col gap-8"
       >
         <ConfigHolidayCard />
-        <ConfigurationHolidayTable data={data} />
+        <ConfigurationHolidayTable
+          data={data}
+          onDelete={onDelete}
+          onEdit={onEdit}
+        />
       </HRCard>
     </div>
   );

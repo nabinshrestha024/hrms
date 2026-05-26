@@ -10,13 +10,16 @@ export const loginSchema = z.object({
 
 export type LoginInput = z.infer<typeof loginSchema>;
 
+export const roleSchema = z.enum(['admin', 'hr_manager', 'employee']);
+
+export type Role = z.infer<typeof roleSchema>;
 // ── Response schemas ────────────────────────────────────────────────
 
 export const userSchema = z.object({
   id: z.string(),
   email: z.string(),
   name: z.string(),
-  role: z.string(),
+  role: roleSchema,
   tenantId: z.string(),
 });
 

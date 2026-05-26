@@ -20,7 +20,7 @@ export const Route = createFileRoute('/_authenticated/configuration/work-week')(
 
 function RouteComponent() {
   return (
-    <ContentShell title="Company Profile">
+    <ContentShell title="Work Week" titleClassName="lg:px-12 px-6 py-6">
       <Suspense fallback={null}>
         <WorkWeekForm />
       </Suspense>

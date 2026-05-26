@@ -20,7 +20,7 @@ export const Route = createFileRoute(
 
 function RouteComponent() {
   return (
-    <ContentShell title="My Attendance" padded>
+    <ContentShell title="My Attendance" padded titleClassName="lg:px-12 px-6">
       <Suspense fallback={null}>
         <MyAttendanceDetails />
       </Suspense>

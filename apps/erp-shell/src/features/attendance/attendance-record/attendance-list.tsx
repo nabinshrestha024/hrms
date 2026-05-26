@@ -5,6 +5,7 @@ import {
   type AttendanceListRecord,
 } from '../schema/AttendanceListData';
 import { AttendanceListTable } from './attendance-list/attendance-list-table';
+import { endOfDay, isWithinInterval, startOfDay } from 'date-fns';
 
 export const AttendanceList = () => {
   const { data: response } = useAttendanceRecords({ pageSize: 100 });
@@ -21,18 +22,32 @@ export const AttendanceList = () => {
         { key: 'shift', label: 'Shift' },
         { key: 'status', label: 'Status' },
       ]}
-      filterFn={(data, { search, dropdowns }) => {
+      filterFn={(data, { search, dateRange, dropdowns }) => {
         return data.filter((item) => {
           const matchesSearch = item.employeeName
             .toLowerCase()
             .includes(search.toLowerCase());
+
+          let matchesDate = true;
+
+          if (dateRange?.from && dateRange?.to) {
+            const itemDate =
+              (item.date as any) instanceof Date
+                ? item.date
+                : new Date(item.date as any);
+
+            matchesDate = isWithinInterval(itemDate, {
+              start: startOfDay(dateRange.from),
+              end: endOfDay(dateRange.to),
+            });
+          }
 
           const matchesDropdowns = Object.entries(dropdowns).every(
             ([key, value]) =>
               !value || String(item[key as keyof typeof item]) === value
           );
 
-          return matchesSearch && matchesDropdowns;
+          return matchesSearch && matchesDropdowns && matchesDate;
         });
       }}
     />

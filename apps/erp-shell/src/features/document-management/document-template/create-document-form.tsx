@@ -27,7 +27,6 @@ export const CreateTemplateForm = () => {
 
   const close = useDialogClose();
 
-  console.warn('Errors:', errors);
   const onsubmit = (data: CreateTemplateFormValue) => {
     console.warn('Template Data:', data);
     toast({ title: 'Template Created Successfully.', variant: 'success' });
@@ -43,7 +42,7 @@ export const CreateTemplateForm = () => {
         <div className="text-[16px] font-medium leading-6 text-foreground ">
           Create Internal Policy
         </div>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <HRInput
             Label="Document Title"
             isRequired

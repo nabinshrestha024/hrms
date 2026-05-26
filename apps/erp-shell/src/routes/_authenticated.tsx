@@ -10,6 +10,7 @@ import { authReady, useAuth, useAuthStore } from '@erp/auth';
 import { useTenant } from '@erp/tenant';
 import { AppBreadcrumb } from '../components/app-breadcrumb';
 import { RouteError } from '../components/route-error';
+import { getVisibleModules, navModules } from '@erp/ui';
 
 function RouterLink({ to, children, className }: NavLinkProps) {
   return (
@@ -54,6 +55,11 @@ function AuthenticatedLayout() {
   const { user, logout } = useAuth();
   const { tenant, isDark, setIsDark } = useTenant();
   const { location } = useRouterState();
+  const visibleModules = getVisibleModules(
+    navModules,
+    user?.role ?? 'employee',
+    tenant.modulesEnabled
+  );
 
   const userInitials = user?.name
     ?.split(' ')
@@ -75,6 +81,7 @@ function AuthenticatedLayout() {
       }
       userInitials={userInitials}
       modulesEnabled={tenant.modulesEnabled}
+      navModules={visibleModules}
       isDark={isDark}
       onToggleTheme={() => setIsDark(!isDark)}
       onLogout={logout}

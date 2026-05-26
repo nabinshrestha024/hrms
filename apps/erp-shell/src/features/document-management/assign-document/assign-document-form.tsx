@@ -1,6 +1,8 @@
 import { FormRenderer, type FormViewConfig } from '@erp/config-engine';
-import { useCreateEmployeeDocument } from '@erp/data-access';
-import { Button, HRCard, toast } from '@erp/ui';
+import { EmployeeDocument, useCreateEmployeeDocument } from '@erp/data-access';
+import { Button, ConfirmDialog, HRCard, toast } from '@erp/ui';
+import { useNavigate } from '@tanstack/react-router';
+import { useState } from 'react';
 
 export const addAssignDocumentFormConfig: FormViewConfig = {
   entity: 'assignDocument',
@@ -18,8 +20,8 @@ export const addAssignDocumentFormConfig: FormViewConfig = {
       type: 'select',
       label: 'Select Document Template',
       placeholder: 'Offer Letter',
-      isRequired: true,
-      validation: { required: true },
+      // isRequired: true,
+      // validation: { required: true },
     },
     {
       name: 'note',
@@ -50,7 +52,10 @@ export const addAssignDocumentFormConfig: FormViewConfig = {
 
 export function AssignDocumentForm() {
   const createEmployeeDocument = useCreateEmployeeDocument();
-
+  const [discardTarget, setDiscardTarget] = useState<EmployeeDocument | null>(
+    null
+  );
+  const navigate = useNavigate();
   const onsubmit = (data: Record<string, unknown>) => {
     createEmployeeDocument.mutate(
       {
@@ -73,35 +78,53 @@ export function AssignDocumentForm() {
       }
     );
   };
-
+  const confirmDiscard = async () => {
+    navigate({
+      to: '/document-management/assign-document',
+      reloadDocument: true,
+    });
+  };
   return (
-    <HRCard
-      cardClassName="p-6 border-none rounded-xl shadow-none bg-white"
-      cardContentClassName="p-0 flex flex-col gap-6"
-    >
-      <FormRenderer
-        config={addAssignDocumentFormConfig}
-        onSubmit={onsubmit}
-        submitLabel="Add Assign Document"
-        isDialogForm={false}
+    <>
+      <HRCard
+        cardClassName="p-6 border-none rounded-xl shadow-none bg-white"
+        cardContentClassName="p-0 flex flex-col gap-6"
+      >
+        <FormRenderer
+          config={addAssignDocumentFormConfig}
+          onSubmit={onsubmit}
+          submitLabel="Add Assign Document"
+          isDialogForm={false}
+        />
+        <div className="bg-white flex justify-end gap-6">
+          <Button
+            type="button"
+            variant="outline"
+            className="text-[14px] font-medium leading-5 text-muted-foreground "
+            onClick={() => {
+              setDiscardTarget({} as EmployeeDocument);
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            type="submit"
+            variant="secondary"
+            className="flex gap-2 text-[14px] font-medium leading-5 text-white items-center"
+            form="assignDocument-form"
+          >
+            Assign Document
+          </Button>
+        </div>
+      </HRCard>
+      <ConfirmDialog
+        open={discardTarget !== null}
+        onOpenChange={(open: boolean) => !open && setDiscardTarget(null)}
+        description="Are you sure you want to discard the changes?"
+        confirmText="Yes"
+        destructive
+        onConfirm={confirmDiscard}
       />
-      <div className="bg-white flex justify-end gap-6">
-        <Button
-          type="button"
-          variant="outline"
-          className="text-[14px] font-medium leading-5 text-muted-foreground "
-        >
-          Cancel
-        </Button>
-        <Button
-          type="submit"
-          variant="secondary"
-          className="flex gap-2 text-[14px] font-medium leading-5 text-white items-center"
-          form="assignDocument-form"
-        >
-          Assign Document
-        </Button>
-      </div>
-    </HRCard>
+    </>
   );
 }

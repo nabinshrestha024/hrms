@@ -3,16 +3,16 @@ export interface JWTPayload {
   tenantId: string;
   email: string;
   name: string;
-  role: string;
+  role: Role;
   permissions: string[];
   exp: number;
 }
-
+export type Role = 'admin' | 'hr_manager' | 'employee';
 export interface User {
   id: string;
   email: string;
   name: string;
-  role: string;
+  role: Role;
   tenantId: string;
 }
 

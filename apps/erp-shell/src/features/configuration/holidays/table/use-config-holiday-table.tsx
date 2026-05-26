@@ -4,10 +4,16 @@ import { getConfigurationHolidayColumn } from './get-config-holiday-column';
 
 interface HolidayTableProps {
   data: Holiday[];
+  onEdit?: (holiday: Holiday) => void;
+  onDelete?: (id: string) => void;
 }
 
-export function useConfigurationHolidayTable({ data }: HolidayTableProps) {
-  const columns = getConfigurationHolidayColumn();
+export function useConfigurationHolidayTable({
+  data,
+  onDelete,
+  onEdit,
+}: HolidayTableProps) {
+  const columns = getConfigurationHolidayColumn({ onDelete, onEdit });
 
   const table = useServerTableState<Holiday>({
     data,

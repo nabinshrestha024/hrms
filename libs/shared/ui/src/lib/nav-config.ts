@@ -40,6 +40,7 @@ import {
   Layers3,
   BriefcaseMedical,
   UserMinus,
+  PartyPopper,
 } from 'lucide-react';
 
 export interface NavSubItem {
@@ -56,6 +57,7 @@ export interface NavModule {
   /** Which tenant module keys gate this item (empty = always shown) */
   modules?: string[];
   subItems?: NavSubItem[];
+  roles?: Array<'admin' | 'hr_manager' | 'employee'>;
 }
 
 export const navModules: NavModule[] = [
@@ -64,6 +66,7 @@ export const navModules: NavModule[] = [
     label: 'Dashboard',
     icon: ChartPie,
     href: '/dashboard',
+    roles: ['admin', 'employee', 'hr_manager'],
   },
   {
     id: 'calendar',
@@ -72,13 +75,14 @@ export const navModules: NavModule[] = [
     href: '/calendar',
     modules: ['calendar'],
     subItems: [
-      { label: 'Calendar', href: '/calendar/', icon: GitBranch },
+      { label: 'Calendar', href: '/calendar', icon: Calendar },
       {
         label: 'Events & Holidays',
         href: '/calendar/event-holiday',
-        icon: Layers,
+        icon: PartyPopper,
       },
     ],
+    roles: ['admin', 'employee', 'hr_manager'],
   },
   {
     id: 'company-setup',
@@ -89,7 +93,7 @@ export const navModules: NavModule[] = [
     subItems: [
       {
         label: 'Company Profile',
-        href: '/company-setup/',
+        href: '/company-setup',
         icon: Building2,
       },
       {
@@ -99,26 +103,29 @@ export const navModules: NavModule[] = [
       },
       { label: 'Department', href: '/company-setup/department', icon: Network },
     ],
+    roles: ['admin', 'hr_manager'],
   },
   {
     id: 'employees',
     label: 'Employee',
     icon: Users,
     href: '/employee',
-    modules: ['hr'],
+    modules: ['employee'],
     subItems: [{ label: 'Employee', href: '/employee', icon: Users }],
+    roles: ['admin', 'hr_manager'],
   },
 
   {
     id: 'documents',
     label: 'Documents',
     icon: File,
-    href: '/document-management/',
+    href: '/document-management',
     modules: ['documents'],
+    roles: ['admin', 'hr_manager'],
     subItems: [
       {
         label: 'Missing Documents',
-        href: '/document-management/',
+        href: '/document-management',
         icon: FileSearchCorner,
       },
       {
@@ -154,6 +161,8 @@ export const navModules: NavModule[] = [
     icon: UserSearch,
     href: '/attendance',
     modules: ['attendance'],
+    roles: ['admin', 'employee', 'hr_manager'],
+
     subItems: [
       { label: 'Attendance Record', href: '/attendance', icon: UserSearch },
       {
@@ -175,8 +184,10 @@ export const navModules: NavModule[] = [
     icon: TentTree,
     href: '/leave-management',
     modules: ['leave'],
+    roles: ['admin', 'employee', 'hr_manager'],
+
     subItems: [
-      { label: 'Leave Requests', href: '/leave-management/', icon: SquareUser },
+      { label: 'Leave Requests', href: '/leave-management', icon: SquareUser },
       {
         label: 'My Requests',
         href: '/leave-management/my-request',
@@ -196,6 +207,7 @@ export const navModules: NavModule[] = [
     icon: Computer,
     href: '/assets-management',
     modules: ['assets'],
+    roles: ['admin', 'hr_manager'],
     subItems: [
       {
         label: 'Categories',
@@ -219,7 +231,8 @@ export const navModules: NavModule[] = [
     label: 'Directories',
     icon: BookUser,
     href: '/directories',
-    modules: ['hr'],
+    modules: ['directories'],
+    roles: ['admin', 'employee', 'hr_manager'],
     subItems: [{ label: 'Directories', href: '/directories', icon: BookUser }],
   },
 
@@ -229,6 +242,7 @@ export const navModules: NavModule[] = [
     icon: Settings,
     href: '/configuration',
     modules: ['configuration'],
+    roles: ['admin', 'hr_manager'],
     subItems: [
       {
         label: 'Leave Type',
@@ -249,12 +263,13 @@ export const navModules: NavModule[] = [
     id: 'policy-configuration',
     label: 'Policy Configuration',
     icon: FileCheck2,
-    href: '/policy-configuration/',
-    modules: ['configuration'],
+    href: '/policy-configuration',
+    modules: ['policy-configuration'],
+    roles: ['admin', 'hr_manager'],
     subItems: [
       {
         label: 'Leave Deduction',
-        href: '/policy-configuration/',
+        href: '/policy-configuration',
         icon: CalendarMinus2,
       },
       {
@@ -275,10 +290,11 @@ export const navModules: NavModule[] = [
     id: 'payroll',
     label: 'Payroll',
     icon: CreditCard,
-    href: '/payroll/',
+    href: '/payroll',
     modules: ['payroll'],
+    roles: ['admin', 'hr_manager'],
     subItems: [
-      { label: 'Generate Payroll', href: '/payroll/', icon: Play },
+      { label: 'Generate Payroll', href: '/payroll', icon: Play },
       {
         label: 'Salary Structure',
         href: '/payroll/salary-structure',
@@ -297,12 +313,13 @@ export const navModules: NavModule[] = [
     id: 'onboarding',
     label: 'Onboarding & Offboarding',
     icon: UserPlus,
-    href: '/onboarding-offboarding/',
+    href: '/onboarding-offboarding',
     modules: ['onboarding'],
+    roles: ['admin', 'hr_manager'],
     subItems: [
       {
         label: 'Job Openings',
-        href: '/onboarding-offboarding/',
+        href: '/onboarding-offboarding',
         icon: BriefcaseMedical,
       },
       {
@@ -333,6 +350,7 @@ export const navModules: NavModule[] = [
     label: 'Master Setup',
     href: '/master-setup',
     modules: ['hr'],
+    roles: ['admin', 'hr_manager'],
     icon: Columns3Cog,
     subItems: [
       {
@@ -368,6 +386,7 @@ export const navModules: NavModule[] = [
  * Find which module owns a given path.
  * Returns the NavModule whose href prefix matches the path.
  */
+
 export function findActiveModule(path: string): NavModule | undefined {
   if (path === '/dashboard')
     return navModules.find((m) => m.id === 'dashboard');

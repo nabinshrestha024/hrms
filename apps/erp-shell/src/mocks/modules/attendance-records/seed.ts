@@ -19,7 +19,7 @@ export const attendanceRecordSeed: AttendanceRecord[] = [
     branch: 'Kathmandu',
     workType: 'Office',
     employeeType: 'Full-Time',
-    date: '2026-03-20',
+    date: '2026-05-20',
     shift: 'Morning',
     checkIn: '09:05',
     checkOut: '17:30',

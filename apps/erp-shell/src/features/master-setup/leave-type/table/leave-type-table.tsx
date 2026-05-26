@@ -4,16 +4,22 @@ import { useLeaveTypeTable } from './use-leave-type-table';
 
 interface LeaveTypeTableProps {
   data: LeavePayType[];
+  onEdit?: (leaveType: LeavePayType) => void;
+  onDelete?: (id: string) => void;
 }
 
-export const LeaveTypeTable = ({ data }: LeaveTypeTableProps) => {
-  const { columns, table } = useLeaveTypeTable({ data });
+export const LeaveTypeTable = ({
+  data,
+  onDelete,
+  onEdit,
+}: LeaveTypeTableProps) => {
+  const { columns, table } = useLeaveTypeTable({ data, onDelete, onEdit });
 
   return (
     <DataTable
       table={table.table}
       columns={columns}
-      className="p-0 rounded-none"
+      className="xl:p-0 p-0 rounded-none"
     />
   );
 };

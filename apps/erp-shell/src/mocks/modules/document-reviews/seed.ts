@@ -18,6 +18,7 @@ export const documentReviewSeed: DocumentReview[] = [
     employeeName: 'Sarah Pandey',
     employeeDepartment: 'Technical',
     status: 'pending',
+    file: '/Image.png',
     createdAt: '2024-03-15T00:00:00Z',
     updatedAt: '2024-03-15T00:00:00Z',
   },
@@ -32,6 +33,7 @@ export const documentReviewSeed: DocumentReview[] = [
     employeeName: 'Ram Kumar',
     employeeDepartment: 'Technical',
     status: 'accepted',
+    file: '/Image.png',
     createdAt: '2024-03-15T00:00:00Z',
     updatedAt: '2024-03-15T00:00:00Z',
   },
@@ -45,6 +47,7 @@ export const documentReviewSeed: DocumentReview[] = [
     employeeId: 'EID03',
     employeeName: 'John Doe',
     employeeDepartment: 'Technical',
+    file: '/Image.png',
     status: 'rejected',
     rejectedReason:
       'Document is too blurry and text is not readable. Please upload a clearer scan or photo.',

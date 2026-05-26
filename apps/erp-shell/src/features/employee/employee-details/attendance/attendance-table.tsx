@@ -18,7 +18,7 @@ export const AttendanceTable = ({
 
   return (
     <>
-      <DataTable className="p-0 lg:p-0" table={table} columns={columns} />
+      <DataTable className="p-0 xl:p-0" table={table} columns={columns} />
     </>
   );
 };

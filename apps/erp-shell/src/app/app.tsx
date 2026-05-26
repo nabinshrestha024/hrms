@@ -17,6 +17,8 @@ import { PluginProvider } from '@erp/plugin-core';
 import { toast } from '@erp/ui';
 import { routeTree } from '../routeTree.gen';
 
+export type Role = 'admin' | 'hr_manager' | 'employee';
+
 export interface BreadcrumbContext {
   breadcrumb?: string;
 }
@@ -48,7 +50,7 @@ function AuthenticatedApp() {
           id: string;
           email: string;
           name: string;
-          role: string;
+          role: Role;
           tenantId: string;
         };
         permissions: string[];

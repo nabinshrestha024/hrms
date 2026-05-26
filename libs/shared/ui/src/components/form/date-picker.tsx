@@ -8,8 +8,16 @@ import {
   PopoverTrigger,
 } from '../../primitives/popover';
 import { Calendar } from '../../primitives/calendar';
-import { CalendarDays } from 'lucide-react';
+import { CalendarDays, CheckIcon } from 'lucide-react';
 import { Field } from '../../primitives/field';
+
+type Preset = {
+  label: string;
+  from: Date;
+  to?: Date;
+  isActive?: boolean;
+  onClick?: () => void;
+};
 
 interface DatePickerProps {
   className?: string;
@@ -19,6 +27,8 @@ interface DatePickerProps {
   defaultMonth?: Date;
   numberOfMonths?: number;
   placeholder?: string;
+
+  presets?: Preset[];
 }
 
 export function DatePicker({
@@ -27,8 +37,9 @@ export function DatePicker({
   value,
   onChange,
   defaultMonth,
-  numberOfMonths = 2,
+  numberOfMonths = 1,
   placeholder = 'Pick a date',
+  presets,
 }: DatePickerProps) {
   const [internalDate, setInternalDate] = React.useState<DateRange | undefined>(
     value
@@ -43,6 +54,15 @@ export function DatePicker({
   const handleSelect = (date: DateRange | undefined) => {
     setInternalDate(date);
     onChange?.(date);
+  };
+
+  const handlePreset = (preset: Preset) => {
+    const range: DateRange = {
+      from: preset.from,
+      to: preset.to ?? preset.from,
+    };
+
+    handleSelect(range);
   };
 
   return (
@@ -73,13 +93,41 @@ export function DatePicker({
         </PopoverTrigger>
 
         <PopoverContent className="w-auto p-0" align="end">
-          <Calendar
-            mode="range"
-            defaultMonth={defaultMonth ?? selectedDate?.from ?? new Date()}
-            selected={selectedDate}
-            onSelect={handleSelect}
-            numberOfMonths={numberOfMonths}
-          />
+          <div className="flex">
+            <Calendar
+              mode="range"
+              defaultMonth={defaultMonth ?? selectedDate?.from ?? new Date()}
+              selected={selectedDate}
+              onSelect={handleSelect}
+              numberOfMonths={1}
+            />
+
+            {presets?.length ? (
+              <div className="border-l p-2 flex flex-col gap-2 min-w-35 items-start">
+                {presets.map((preset) => (
+                  <Button
+                    key={preset.label}
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      handlePreset(preset);
+                      preset.onClick?.();
+                    }}
+                    className={`w-full border-none flex justify-between items-center ${
+                      preset.isActive
+                        ? 'border border-primary bg-primary-foreground '
+                        : ''
+                    }`}
+                  >
+                    {preset.label}
+                    {preset.isActive && (
+                      <CheckIcon className="w-5 h-5 text-primary" />
+                    )}
+                  </Button>
+                ))}
+              </div>
+            ) : null}
+          </div>
         </PopoverContent>
       </Popover>
     </Field>

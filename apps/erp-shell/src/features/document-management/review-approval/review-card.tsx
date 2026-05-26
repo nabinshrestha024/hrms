@@ -1,18 +1,9 @@
-import { Can, PERM_SUBJECTS } from '@erp/auth';
-import { useUpdateDocumentReview, type DocumentReview } from '@erp/data-access';
-import { Badge, Button, FormDialog, HRCard, toast } from '@erp/ui';
-import {
-  CalendarDays,
-  Check,
-  Download,
-  Eye,
-  File,
-  FileInput,
-  X,
-} from 'lucide-react';
+import { type DocumentReview } from '@erp/data-access';
+import { FormDialog, HRCard } from '@erp/ui';
+import { CalendarDays, Download, Eye, File, FileInput } from 'lucide-react';
 import { IconButton } from '../../../components/icon-button';
-import { RejectionForm } from './rejection-form';
 import { ViewDocument } from './view-document';
+import { ReviewActions } from './review-action';
 
 interface ReviewApprovalCardProps {
   data: DocumentReview[];
@@ -20,14 +11,34 @@ interface ReviewApprovalCardProps {
 
 export const ReviewApprovalCard = ({ data }: ReviewApprovalCardProps) => {
   return (
-    <div className="px-6">
+    <div className="px-3 lg:px-6">
       <HRCard
-        cardClassName="p-6 border-none rounded-xl shadow-none bg-white"
+        cardClassName="p-3 lg:p-6 border-none rounded-xl shadow-none bg-white"
         cardContentClassName="p-0 flex flex-col gap-6"
       >
-        {data.map((items) => (
-          <div className="border border-border rounded-xl p-6" key={items.id}>
-            <div className="flex justify-between items-center">
+        {data.map((items) => {
+          const handleDownload = async () => {
+            try {
+              const response = await fetch(items.file);
+              const blob = await response.blob();
+              const url = window.URL.createObjectURL(blob);
+              const link = document.createElement('a');
+              link.href = url;
+              link.download = items.fileName || 'document';
+              document.body.appendChild(link);
+              link.click();
+              link.remove();
+              window.URL.revokeObjectURL(url);
+            } catch (error) {
+              console.error('Download failed', error);
+            }
+          };
+          return (
+            <HRCard
+              cardClassName="border border-border rounded-xl p-3 lg:p-6 shadow-none bg-white"
+              cardContentClassName="p-0 flex flex-col gap-1 md:gap-0 md:flex-row md:justify-between md:items-center"
+              key={items.id}
+            >
               <div className="flex flex-col gap-1">
                 <div className="flex flex-col gap-2">
                   <div className="flex gap-2 items-center  ">
@@ -43,13 +54,16 @@ export const ReviewApprovalCard = ({ data }: ReviewApprovalCardProps) => {
                       title={items.fileName}
                       size="lg"
                       okText={
-                        <div className="flex gap-2 items-center">
+                        <div
+                          className="flex gap-2 items-center"
+                          onClick={handleDownload}
+                        >
                           <Download className="w-4 h-4 text-white" />
                           Download
                         </div>
                       }
                       componentClassName="border-none shadow-none p-0 rounded-none bg-background"
-                      dialogClassName="sm:max-w-[465px]"
+                      dialogClassName="sm:max-w-[563px]"
                     >
                       <ViewDocument id={items.employeeId} />
                     </FormDialog>
@@ -81,80 +95,13 @@ export const ReviewApprovalCard = ({ data }: ReviewApprovalCardProps) => {
                   </div>
                 )}
               </div>
-
-              <ReviewActions document={items} />
-            </div>
-          </div>
-        ))}
+              <div className="flex justify-start">
+                <ReviewActions document={items} />
+              </div>
+            </HRCard>
+          );
+        })}
       </HRCard>
-    </div>
-  );
-};
-
-const ReviewActions = ({ document }: { document: DocumentReview }) => {
-  const updateReview = useUpdateDocumentReview(document.id);
-
-  if (document.status === 'accepted') {
-    return <Badge variant="secondary">Approved</Badge>;
-  }
-  if (document.status === 'rejected') {
-    return <Badge variant="destructive">Rejected</Badge>;
-  }
-
-  const onApprove = () => {
-    updateReview.mutate(
-      { status: 'accepted' },
-      {
-        onSuccess: () => {
-          toast({ variant: 'success', title: 'Document approved' });
-        },
-        onError: () => {
-          toast({
-            variant: 'destructive',
-            title: 'Failed to approve document',
-          });
-        },
-      }
-    );
-  };
-
-  return (
-    <div className="flex gap-4">
-      <Can action="approve" subject={PERM_SUBJECTS.DOCUMENTS_REVIEWS}>
-        <Button
-          type="button"
-          variant="primary"
-          className="flex gap-2 items-center"
-          onClick={onApprove}
-        >
-          <Check /> Approve
-        </Button>
-      </Can>
-
-      <Can action="reject" subject={PERM_SUBJECTS.DOCUMENTS_REVIEWS}>
-        <FormDialog
-          trigger={
-            <Button
-              type="button"
-              variant="destructive"
-              className="flex items-center gap-2 bg-destructive"
-            >
-              <X /> Reject
-            </Button>
-          }
-          title="Rejection Message"
-          size="lg"
-          formId="rejection-form"
-          okText="Send Rejection"
-          cancelText="Cancel"
-          componentClassName="border-none shadow-none p-0 rounded-none bg-background"
-          dialogClassName="sm:max-w-[465px]"
-        >
-          {({ close }: { close: () => void }) => (
-            <RejectionForm documentId={document.id} onSuccess={close} />
-          )}
-        </FormDialog>
-      </Can>
     </div>
   );
 };

@@ -15,7 +15,11 @@ export const Route = createFileRoute('/_authenticated/leave-management/')({
 
 function RouteComponent() {
   return (
-    <ContentShell title="Leave Request" padded>
+    <ContentShell
+      title="Leave Request"
+      padded
+      titleClassName="px-6 xl:px-12 py-6"
+    >
       <Suspense fallback={null}>
         <LeaveRequest />
       </Suspense>

@@ -17,7 +17,7 @@ export const Route = createFileRoute(
 
 function RouteComponent() {
   return (
-    <ContentShell title="My Request" padded>
+    <ContentShell title="My Request" padded titleClassName="px-6 xl:px-12 py-6">
       <Suspense fallback={null}>
         <MyRequestDetails />
       </Suspense>

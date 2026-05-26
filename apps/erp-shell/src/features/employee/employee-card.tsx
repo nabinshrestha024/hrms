@@ -36,7 +36,7 @@ export const EmployeeCard = ({
       <div className="px-3 xl:px-6 pb-19.5 bg-background">
         <HRCard
           cardClassName="border-none p-3 xl:p-6 rounded-xl bg-white shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]"
-          cardContentClassName="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 p-0"
+          cardContentClassName="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 p-0"
         >
           {data.length > 0 ? (
             <>
@@ -66,7 +66,7 @@ export const EmployeeCard = ({
                                 setOpenDropdown(isOpen ? index : null)
                               }
                               trigger={
-                                <div className="flex items-center text-[14px] font-normal">
+                                <div className="flex items-center text-[14px] font-normal cursor-pointer">
                                   <EllipsisVertical className="w-4 h-4 text-secondary-foreground" />
                                 </div>
                               }

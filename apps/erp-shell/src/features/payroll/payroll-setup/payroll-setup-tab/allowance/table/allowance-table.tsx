@@ -1,6 +1,6 @@
 import { DataTable } from '@erp/ui';
-import { Allowance } from '../../../../../../mocks/modules/payroll-setup-allowance/seed';
 import { useAllowanceTable } from './use-allowance-table';
+import { Allowance } from '@erp/data-access';
 
 interface AllowanceTableProps {
   data: Allowance[];
@@ -11,7 +11,11 @@ export const AllowanceTable = ({ data }: AllowanceTableProps) => {
 
   return (
     <>
-      <DataTable table={table} columns={columns} className="px-0 py-0" />
+      <DataTable
+        table={table}
+        columns={columns}
+        className="xl:p-0 p-0 rounded-none"
+      />
     </>
   );
 };

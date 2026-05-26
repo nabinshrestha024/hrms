@@ -4,16 +4,22 @@ import { useCurrencyTable } from './use-currency-table';
 
 interface CurrencyTableProps {
   data: Currency[];
+  onEdit?: (currency: Currency) => void;
+  onDelete?: (id: string) => void;
 }
 
-export const CurrencyTable = ({ data }: CurrencyTableProps) => {
-  const { columns, table } = useCurrencyTable({ data });
+export const CurrencyTable = ({
+  data,
+  onDelete,
+  onEdit,
+}: CurrencyTableProps) => {
+  const { columns, table } = useCurrencyTable({ data, onDelete, onEdit });
 
   return (
     <DataTable
       table={table.table}
       columns={columns}
-      className="p-0 rounded-none"
+      className="xl:p-0 p-0 rounded-none"
     />
   );
 };

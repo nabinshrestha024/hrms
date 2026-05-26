@@ -14,7 +14,7 @@ export const TaxConfigurationTable = ({ data }: TaxConfigurationTableProps) => {
       <DataTable
         table={table}
         columns={columns}
-        className="px-0 py-0"
+        className="xl:p-0 p-0 rounded-none"
         isPagination={true}
       />
     </>

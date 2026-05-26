@@ -13,10 +13,10 @@ import {
   SheetDescription,
   SheetTitle,
 } from '../../primitives/sheet';
-import { MobileNav } from '../mobile-nav';
 import { IconBar } from './icon-bar';
 import { SubNav } from './sub-nav';
 import { TopBar } from './top-bar';
+import { NavModule } from '../../lib/nav-config';
 
 export interface NavLinkProps {
   to: string;
@@ -36,6 +36,7 @@ interface ShellLayoutProps {
   isDark?: boolean;
   onToggleTheme?: () => void;
   onLogout?: () => void;
+  navModules?: NavModule[];
   linkComponent?: ComponentType<NavLinkProps>;
 }
 
@@ -48,6 +49,7 @@ export function ShellLayout({
   userInitials,
   userAvatar,
   modulesEnabled,
+  navModules,
   isDark = false,
   onToggleTheme,
   onLogout,
@@ -73,6 +75,7 @@ export function ShellLayout({
         <IconBar
           currentPath={currentPath}
           modulesEnabled={modulesEnabled}
+          navModules={navModules ?? []}
           linkComponent={linkComponent}
         />
 
@@ -113,6 +116,7 @@ export function ShellLayout({
               <IconBar
                 currentPath={currentPath}
                 modulesEnabled={modulesEnabled}
+                navModules={navModules ?? []}
                 linkComponent={linkComponent}
               />
               <SubNav
@@ -128,7 +132,6 @@ export function ShellLayout({
       {/* Main content area */}
       <div className="flex flex-1 flex-col overflow-hidden">
         <TopBar onLogout={onLogout} />
-
         <main className="flex-1 pb-16 md:pb-0 bg-background">{children}</main>
       </div>
 

@@ -1,6 +1,6 @@
 import { useCreateHoliday } from '@erp/data-access';
 import {
-  Button,
+  Form,
   HRCard,
   HRDateField,
   HRInput,
@@ -17,15 +17,16 @@ import {
 } from '../zod/ConfigHoliday.Zod';
 
 export const ConfigHolidayForm = () => {
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm<ConfigHolidayTemplateFormValue>({
+  const form = useForm<ConfigHolidayTemplateFormValue>({
     resolver: zodResolver(configHolidayTemplateSchema),
     mode: 'onChange',
   });
+
+  const {
+    register,
+    control,
+    formState: { errors },
+  } = form;
 
   const close = useDialogClose();
   const createHoliday = useCreateHoliday();
@@ -76,9 +77,9 @@ export const ConfigHolidayForm = () => {
     },
   ];
   return (
-    <form onSubmit={handleSubmit(onsubmit)}>
+    <Form onSubmit={onsubmit} form={form}>
       <HRCard
-        cardClassName="p-4 border border-border rounded-[4px]"
+        cardClassName="p-0 border-none rounded-none shadow-none"
         cardContentClassName="p-0 flex flex-col gap-6"
       >
         <div className="flex flex-col gap-4  ">
@@ -130,17 +131,7 @@ export const ConfigHolidayForm = () => {
             {...register('description')}
           />
         </div>
-
-        <div className="bg-white flex justify-end gap-4">
-          <Button type="button" variant="outline" onClick={() => close()}>
-            Cancel
-          </Button>
-
-          <Button type="submit" variant="secondary">
-            Add Holiday
-          </Button>
-        </div>
       </HRCard>
-    </form>
+    </Form>
   );
 };

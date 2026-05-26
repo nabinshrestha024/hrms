@@ -64,6 +64,7 @@ export function DocumentTemplateForm({
     createTemplate.mutate(
       {
         name: String(data.documentTitle ?? ''),
+        categroy: String(data.category ?? ''),
         kind: 'file',
       },
       {
