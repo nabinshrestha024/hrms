@@ -4,10 +4,12 @@ import { getShiftColumn } from './get-shift-column';
 
 interface ShiftProps {
   data: Shift[];
+  onEdit?: (shift: Shift) => void;
+  onDelete?: (id: string) => void;
 }
 
-export function useShiftTable({ data }: ShiftProps) {
-  const columns = getShiftColumn();
+export function useShiftTable({ data, onDelete, onEdit }: ShiftProps) {
+  const columns = getShiftColumn({ onDelete, onEdit });
 
   const table = useServerTableState<Shift>({
     data,

@@ -1,4 +1,4 @@
-import { useCreateHoliday } from '@erp/data-access';
+import { Holiday, useCreateHoliday, useUpdateHoliday } from '@erp/data-access';
 import {
   Form,
   HRCard,
@@ -16,10 +16,21 @@ import {
   configHolidayTemplateSchema,
 } from '../zod/ConfigHoliday.Zod';
 
-export const ConfigHolidayForm = () => {
+interface EditConfigHolidayFormProps {
+  selectedHoliday?: Holiday;
+}
+export const EditConfigHolidayForm = ({
+  selectedHoliday,
+}: EditConfigHolidayFormProps) => {
   const form = useForm<ConfigHolidayTemplateFormValue>({
     resolver: zodResolver(configHolidayTemplateSchema),
     mode: 'onChange',
+    defaultValues: {
+      holidayName: selectedHoliday?.name,
+      date: selectedHoliday?.date ? new Date(selectedHoliday.date) : undefined,
+      holidayType: selectedHoliday?.type,
+      description: selectedHoliday?.description,
+    },
   });
 
   const {
@@ -29,10 +40,10 @@ export const ConfigHolidayForm = () => {
   } = form;
 
   const close = useDialogClose();
-  const createHoliday = useCreateHoliday();
+  const updateHoliday = useUpdateHoliday(selectedHoliday?.id || '');
 
   const onsubmit = (data: ConfigHolidayTemplateFormValue) => {
-    createHoliday.mutate(
+    updateHoliday.mutate(
       {
         name: data.holidayName,
         date: data.date.toISOString().split('T')[0],
@@ -41,11 +52,11 @@ export const ConfigHolidayForm = () => {
       },
       {
         onSuccess: () => {
-          toast({ title: 'Holiday Added', variant: 'success' });
+          toast({ title: 'Holiday Edited', variant: 'success' });
           close();
         },
         onError: () => {
-          toast({ variant: 'destructive', title: 'Failed to add holiday' });
+          toast({ variant: 'destructive', title: 'Failed to edit holiday' });
         },
       }
     );

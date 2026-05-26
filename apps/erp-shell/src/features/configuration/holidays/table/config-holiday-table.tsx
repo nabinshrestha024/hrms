@@ -4,10 +4,20 @@ import { useConfigurationHolidayTable } from './use-config-holiday-table';
 
 interface HolidayTableProps {
   data: Holiday[];
+  onEdit?: (holiday: Holiday) => void;
+  onDelete?: (id: string) => void;
 }
 
-export const ConfigurationHolidayTable = ({ data }: HolidayTableProps) => {
-  const { columns, table } = useConfigurationHolidayTable({ data });
+export const ConfigurationHolidayTable = ({
+  data,
+  onDelete,
+  onEdit,
+}: HolidayTableProps) => {
+  const { columns, table } = useConfigurationHolidayTable({
+    data,
+    onDelete,
+    onEdit,
+  });
 
   return (
     <DataTable
