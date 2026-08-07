@@ -69,6 +69,7 @@ export function IconBar({
                       ? 'border-l-3 border-l-sidebar-primary bg-sidebar-foreground'
                       : ''
                   )}
+                  aria-label={mod.label}
                 >
                   <Icon className="size-5" strokeWidth={1.5} />
                 </LinkComp>

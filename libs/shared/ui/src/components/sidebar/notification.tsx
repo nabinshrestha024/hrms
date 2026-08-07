@@ -5,15 +5,19 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '../../primitives/dropdown-menu';
+import { Button } from '../../primitives/button';
 
 export const Notification = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div className="w-8 h-8 relative rounded-full p-2 bg-chart-1 cursor-pointer">
+        <Button
+          className="w-8 h-8 relative rounded-full p-2 bg-chart-1 cursor-pointer"
+          aria-label="Notification"
+        >
           <Bell className="text-ring w-4 h-4" />
           <span className="absolute top-0 right-0 flex items-center justify-center h-2 w-2 px-1 text-[10px] font-semibold text-white bg-badge-text-3 rounded-full"></span>
-        </div>
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="center"

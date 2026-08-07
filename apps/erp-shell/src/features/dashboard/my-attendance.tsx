@@ -62,23 +62,26 @@ export const MyAttendance = () => {
                 `}
                   >
                     {val.event === 'Present' && (
-                      <IconButton variant="secondary">
+                      <IconButton
+                        variant="secondary"
+                        aria-label="Present Symbol"
+                      >
                         <Clock4 className="w-4 h-4 " />
                       </IconButton>
                     )}
                     {val.event === 'Leave' && (
-                      <IconButton variant="primary">
+                      <IconButton variant="primary" aria-label="Leave Symbol">
                         <Clock4 className="w-4 h-4 " />
                       </IconButton>
                     )}
                     {val.event === 'Late' && (
-                      <IconButton variant="warning">
+                      <IconButton variant="warning" aria-label="Late Symbol">
                         <ClockAlert className="w-4 h-4 " />
                       </IconButton>
                     )}
                     {val.event === 'Weekend' && (
-                      <IconButton variant="default">
-                        <CircleX className="w-4 h-4 " />
+                      <IconButton variant="default" aria-label="Weekend Symbol">
+                        <CircleX className="w-4 h-4" />
                       </IconButton>
                     )}
                   </div>
@@ -114,7 +117,7 @@ export const MyAttendance = () => {
           className="flex gap-3 items-center"
           onClick={() => navigate({ to: '/attendance/my-attendance' })}
         >
-          <IconButton variant="request">
+          <IconButton variant="request" aria-label="Calendar">
             <CalendarClock className="w-4 h-4" />
           </IconButton>
           <div className="text-[12px] leading-4 font-medium text-primary hover:underline hover:underline-primary hover:text-primary cursor-pointer">

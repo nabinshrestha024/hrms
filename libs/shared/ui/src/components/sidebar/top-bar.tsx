@@ -6,6 +6,7 @@ import { useNavigate } from '@tanstack/react-router';
 import { Notification } from './notification';
 import { getProfileDropdownData } from '../../lib/get-profile-dropdown-data';
 import { ConfirmDialog } from '../dialog/confirm-dialog';
+import { Button } from '../../primitives/button';
 interface TopBarProps {
   onLogout?: () => void;
   user?: {
@@ -82,10 +83,11 @@ export function TopBar({ onLogout, user }: TopBarProps) {
             onOpenChange={setOpen}
             dropdownClassName="w-[225px]"
             trigger={
-              <div className="flex items-center gap-2 px-2 py-1.5 bg-card rounded-lg cursor-pointer">
+              <Button className="flex items-center gap-2 px-2 py-1.5 bg-card rounded-lg cursor-pointer">
                 <div className="w-8 h-8 ">
                   <img
                     src="/Image.png"
+                    fetchPriority="high"
                     alt="profile"
                     className="w-full h-full object-cover rounded-xl"
                   />
@@ -99,7 +101,7 @@ export function TopBar({ onLogout, user }: TopBarProps) {
                   </span>
                 </div>
                 <ChevronsUpDown className="w-4 h-4 text-foreground" />
-              </div>
+              </Button>
             }
             actions={dropdownData}
           />

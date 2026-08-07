@@ -86,11 +86,15 @@ function LoginPage() {
   return (
     <>
       {forgetPassword === false ? (
-        <div className="flex min-h-screen justify-between bg-background lg:px-15 xl:px-30 py-15.5">
+        <div
+          className="flex min-h-screen justify-between bg-background lg:px-15 xl:px-30 py-15.5"
+          role="main"
+        >
           <div className="w-164.5 h-176 overflow-hidden rounded-3xl">
             <img
-              src="/login.jpg"
-              alt="login"
+              src="/login.svg"
+              alt="Image banner for login page"
+              fetchPriority="high"
               className="w-full h-full object-contain"
             />
           </div>
@@ -143,8 +147,9 @@ function LoginPage() {
                       <Button
                         type="button"
                         variant="outline"
+                        aria-label="Password visibility toggle"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-4 top-5 -translate-y-1/2 text-gray-400 border-none rounded-none p-0 h-auto"
+                        className="absolute right-4 top-5 -translate-y-1/2 text-gray-400 border-none rounded-none p-1 h-auto"
                       >
                         {showPassword ? (
                           <Eye size={18} />

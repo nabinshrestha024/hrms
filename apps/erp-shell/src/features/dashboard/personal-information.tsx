@@ -29,7 +29,9 @@ export const PersonalInformation = () => {
             <div className="w-29.5 h-29.5 ">
               <img
                 src={items.image}
-                alt="profile"
+                alt="profile image"
+                fetchPriority="high"
+                loading="eager"
                 className="w-full h-full rounded-full object-cover"
               />
             </div>

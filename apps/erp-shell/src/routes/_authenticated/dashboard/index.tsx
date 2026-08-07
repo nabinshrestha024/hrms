@@ -9,6 +9,28 @@ import { QuickAction } from '../../../features/dashboard/quick-action';
 import { TeamRequest } from '../../../features/dashboard/team-request';
 
 export const Route = createFileRoute('/_authenticated/dashboard/')({
+  head: () => ({
+    meta: [
+      {
+        title: 'Dashboard | HRMS',
+      },
+      {
+        name: 'description',
+        content:
+          'HRMS dashboard for employee attendance, requests, notices, events, and workforce management.',
+      },
+      {
+        name: 'robots',
+        content: 'noindex, nofollow',
+      },
+    ],
+    links: [
+      {
+        rel: 'canonical',
+        href: 'http://localhost:4200/dashboard',
+      },
+    ],
+  }),
   component: RouteComponent,
 });
 
