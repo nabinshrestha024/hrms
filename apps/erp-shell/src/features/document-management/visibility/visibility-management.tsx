@@ -14,7 +14,7 @@ export const VisibilityManagement = () => {
       data={data}
       renderTable={(filtered) => <VisbilityTable data={filtered} />}
       dropdowns={[
-        { key: 'category', label: 'All Category' },
+        { key: 'category', label: 'Category' },
         // Schema field renamed `visibility` -> `visible`. Boolean values
         // surface as "true" / "false" strings in the dropdown — same as
         // the legacy behaviour.
