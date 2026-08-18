@@ -93,9 +93,15 @@ export const MyAttendance = () => {
                     >
                       {val.event}
                     </span>
-                    <span className="text-[12px] leading-5 font-normal text-secondary-foreground line-clamp-1">
-                      {val.clockIn} - {val.clockOut} . {val.workingHours}
-                    </span>
+                    <div className="text-[12px] leading-5 font-normal text-secondary-foreground line-clamp-1">
+                      {val.clockIn && val.clockOut && val.workingHours ? (
+                        <span>
+                          {val.clockIn} - {val.clockOut} . {val.workingHours}
+                        </span>
+                      ) : (
+                        <span>-</span>
+                      )}
+                    </div>
                   </div>
                 </div>
                 <div className="flex flex-col items-center">

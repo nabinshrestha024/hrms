@@ -74,7 +74,7 @@ export function getEmployeeDetailColumns(): ColumnDef<GeneratePayroll>[] {
       accessorFn: (row) =>
         `${row.absentDays} ${row.lateMinutes} ${row.overtimeHours}`,
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Employee Name" />
+        <DataTableColumnHeader column={column} title="Status" />
       ),
       cell: ({ row }) => {
         const absentDays = row.original.absentDays;

@@ -58,7 +58,9 @@ export const MyRequest = () => {
                   </span>
                 </div>
                 <span className="text-[12px] leading-4 font-normal text-secondary-foreground">
-                  {val.subType} . {val.day} . {val.date}
+                  {val.subType && <span>{val.subType} .</span>}{' '}
+                  {val.day && <span>{val.day} .</span>}{' '}
+                  {val.date && <span>{val.date}</span>}
                 </span>
               </div>
               <div

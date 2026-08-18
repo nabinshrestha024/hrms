@@ -30,7 +30,9 @@ export const OT = ({ data }: OTProps) => {
               </span>
 
               <span className="text-[12px] leading-4 font-normal text-secondary-foreground">
-                {val.hours} {val.subType} . {val.date}
+                {val.hours && <span>{val.hours} .</span>}{' '}
+                {val.subType && <span>{val.subType} .</span>}{' '}
+                {val.date && <span>{val.date}</span>}
               </span>
             </div>
           </div>
