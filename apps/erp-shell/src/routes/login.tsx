@@ -8,6 +8,7 @@ import { Eye, EyeOff, Lock, Mail } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ForgetPassword } from '../features/forget-password/forget-password';
+import { mocksEnabled } from '../mocks/enabled';
 
 export const Route = createFileRoute('/login')({
   component: LoginPage,
@@ -173,10 +174,10 @@ function LoginPage() {
                 </Button>
               </form>
             </div>
-            {import.meta.env.DEV && (
+            {mocksEnabled && (
               <div className="border-t border-border pt-4">
                 <p className="text-xs text-muted-foreground">
-                  Dev-only demo credentials:
+                  Demo credentials:
                 </p>
                 <ul className="mt-1 space-y-1 text-xs text-muted-foreground">
                   <li>admin@gmail.com / Test@123</li>
