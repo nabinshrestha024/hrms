@@ -14,7 +14,7 @@ export const LeaveLogTable = ({ data }: LeaveLogTableProps) => {
   return (
     <>
       <div className="max-w-273.5">
-        <DataTable table={table} columns={columns} className="p-0" />
+        <DataTable table={table} columns={columns} className="p-0 xl:p-0" />
       </div>
     </>
   );

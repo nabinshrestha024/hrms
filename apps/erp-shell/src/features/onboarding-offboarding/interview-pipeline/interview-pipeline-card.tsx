@@ -42,7 +42,7 @@ export const InterviewPipelineCard = () => {
                       onOpenChange={(isOpen) => setOpen(isOpen ? index : null)}
                       dropdownClassName="items-start"
                       trigger={
-                        <div className="flex  items-center   text-[14px] font-normal">
+                        <div className="flex  items-center text-[14px] font-normal">
                           <Ellipsis className="w-4 h-4 text-secondary-foreground" />
                         </div>
                       }
