@@ -18,7 +18,7 @@ export const Route = createFileRoute('/_authenticated/assets-management/')({
 
 function RouteComponent() {
   return (
-    <ContentShell title="Category">
+    <ContentShell title="Category" titleClassName="lg:px-12 px-6">
       <div className="px-6 pt-0 pb-32.5">
         <Suspense fallback={null}>
           <CategoryManagement />

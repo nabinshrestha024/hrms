@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './styles/app.css';
 import App from './app/app';
+import { mocksEnabled } from './mocks/enabled';
+import './styles/app.css';
 
 async function bootstrap() {
-  // Start MSW in development mode
-  if (import.meta.env.DEV) {
+  if (mocksEnabled) {
     const { initMsw } = await import('./mocks/init-msw');
     await initMsw();
   }
