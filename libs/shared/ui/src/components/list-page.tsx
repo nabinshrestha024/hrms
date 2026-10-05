@@ -252,7 +252,10 @@ export function ListPage<T>(props: ListPageProps<T>) {
                         {selected || d.label}
                       </span>
 
-                      <ChevronDown className="w-5 h-5 text-secondary-foreground" />
+                      <ChevronDown
+                        className="w-5 h-5 text-secondary-foreground"
+                        aria-label="down-arrow"
+                      />
                     </div>
                   }
                   actions={dropdownActionsFor(d.key)}
@@ -303,9 +306,13 @@ export function ListPage<T>(props: ListPageProps<T>) {
                   <X
                     className="w-4 h-4 cursor-pointer"
                     onClick={() => setOpenFilter((prev) => prev)}
+                    aria-label="delete-icon"
                   />
                 ) : (
-                  <SlidersHorizontal className="w-4 h-4 cursor-pointer" />
+                  <SlidersHorizontal
+                    className="w-4 h-4 cursor-pointer"
+                    aria-label="slider-icon"
+                  />
                 )}
               </Button>
             )}
@@ -341,6 +348,7 @@ export function ListPage<T>(props: ListPageProps<T>) {
                         variant="outline"
                         type="button"
                         className="h-10 flex items-center gap-2"
+                        aria-label="slider-icon"
                       >
                         <SlidersHorizontal className="w-4 h-4" />
                       </Button>
@@ -376,7 +384,10 @@ export function ListPage<T>(props: ListPageProps<T>) {
                       {selected || d.label}
                     </span>
 
-                    <ChevronDown className="w-5 h-5 text-secondary-foreground" />
+                    <ChevronDown
+                      className="w-5 h-5 text-secondary-foreground"
+                      aria-label="down-arrow"
+                    />
                   </div>
                 }
                 actions={dropdownActionsFor(d.key)}

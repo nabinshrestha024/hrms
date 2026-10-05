@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Inter'), url('/fonts/Inter-Black.woff2') format('woff2');
+  font-display: swap;
+}

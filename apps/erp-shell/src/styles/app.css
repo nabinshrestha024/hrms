@@ -12,7 +12,7 @@
 
 @theme inline {
   --color-background: var(--background);
-  --color-background-foreground: var(--background-foreground: );
+  --color-background-foreground: var(--background-foreground);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
@@ -227,14 +227,24 @@
 
 /* Layer 3: Tenant overrides — applied at runtime via JS in Phase 2 */
 
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Inter'), url('/fonts/Inter-Black.woff2') format('woff2');
+  font-display: swap;
+}
+
 @layer base {
   * {
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter';
   }
 }
+
 .notice-scroll::-webkit-scrollbar {
   width: 6px;
 }
@@ -252,6 +262,9 @@
   background-color: #3b28d1;
 }
 
+.fc-scrollgrid-sync-inner {
+  padding: 2px;
+}
 .fc-day-sat,
 .fc-day-sun {
   color: red;
@@ -260,6 +273,7 @@
   padding: 12px 0 12px 0;
   display: flex;
   justify-content: start;
+  width: 100%;
   height: 111px;
   cursor: pointer;
 }
@@ -273,7 +287,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
   margin: 0;
   color: red;
 }

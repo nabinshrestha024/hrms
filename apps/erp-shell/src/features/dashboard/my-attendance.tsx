@@ -63,22 +63,28 @@ export const MyAttendance = () => {
                   >
                     {val.event === 'Present' && (
                       <IconButton variant="secondary">
-                        <Clock4 className="w-4 h-4 " />
+                        <Clock4 className="w-4 h-4 " aria-label="clock-icon" />
                       </IconButton>
                     )}
                     {val.event === 'Leave' && (
                       <IconButton variant="primary">
-                        <Clock4 className="w-4 h-4 " />
+                        <Clock4 className="w-4 h-4 " aria-label="clock-icon" />
                       </IconButton>
                     )}
                     {val.event === 'Late' && (
                       <IconButton variant="warning">
-                        <ClockAlert className="w-4 h-4 " />
+                        <ClockAlert
+                          className="w-4 h-4 "
+                          aria-label="clockAlert-icon"
+                        />
                       </IconButton>
                     )}
                     {val.event === 'Weekend' && (
                       <IconButton variant="default">
-                        <CircleX className="w-4 h-4 " />
+                        <CircleX
+                          className="w-4 h-4 "
+                          aria-label="circleX-icon"
+                        />
                       </IconButton>
                     )}
                   </div>
@@ -121,7 +127,10 @@ export const MyAttendance = () => {
           onClick={() => navigate({ to: '/attendance/my-attendance' })}
         >
           <IconButton variant="request">
-            <CalendarClock className="w-4 h-4" />
+            <CalendarClock
+              className="w-4 h-4"
+              aria-label="calendarClock-icon"
+            />
           </IconButton>
           <div className="text-[12px] leading-4 font-medium text-primary hover:underline hover:underline-primary hover:text-primary cursor-pointer">
             My Attendance Records

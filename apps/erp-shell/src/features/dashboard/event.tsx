@@ -62,22 +62,28 @@ export const Event = () => {
                   >
                     {val.eventType === 'Event' && (
                       <IconButton variant="secondary">
-                        <PartyPopper className="w-4 h-4" />
+                        <PartyPopper
+                          className="w-4 h-4"
+                          aria-label="partyPopper-icon"
+                        />
                       </IconButton>
                     )}
                     {val.eventType === 'Anniversary' && (
                       <IconButton variant="primary">
-                        <Sparkles className="w-4 h-4 " />
+                        <Sparkles
+                          className="w-4 h-4 "
+                          aria-label="sparkles-icon"
+                        />
                       </IconButton>
                     )}
                     {val.eventType === 'Birthday' && (
                       <IconButton variant="primary">
-                        <Gift className="w-4 h-4 " />
+                        <Gift className="w-4 h-4 " aria-label="gift-icon" />
                       </IconButton>
                     )}
                     {val.eventType === 'Holiday' && (
                       <IconButton variant="destructive">
-                        <Flag className="w-4 h-4 " />
+                        <Flag className="w-4 h-4 " aria-label="flag-icon" />
                       </IconButton>
                     )}
                   </div>

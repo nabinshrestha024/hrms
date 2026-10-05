@@ -25,6 +25,7 @@ export interface ContentShellProps {
   /** Extra classes for the outer scroll container. */
   className?: string;
   titleClassName?: string;
+  headingClassName?: string;
   children: ReactNode;
 }
 
@@ -66,6 +67,7 @@ export function ContentShell({
   className,
   titleClassName,
   children,
+  headingClassName,
 }: ContentShellProps) {
   return (
     <div
@@ -81,7 +83,9 @@ export function ContentShell({
           className={`flex justify-between items-start gap-4 px-0 py-6 ${titleClassName}`}
         >
           <div className="flex flex-col">
-            <span className="text-[24px] font-semibold leading-8 text-foreground">
+            <span
+              className={`text-[24px] font-semibold leading-8 text-foreground ${headingClassName}`}
+            >
               {title}
             </span>
             {subtitle && (

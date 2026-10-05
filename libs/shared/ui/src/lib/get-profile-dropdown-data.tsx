@@ -21,7 +21,7 @@ const DropdownItem = ({
 }) => {
   return (
     <div className="flex gap-2 items-center px-3 py-2">
-      <Icon className="w-4 h-4 text-foreground" />
+      <Icon className="w-4 h-4 text-foreground" aria-label={label} />
       <span className="text-[14px] font-normal leading-5">{label}</span>
     </div>
   );
@@ -48,7 +48,7 @@ export const getProfileDropdownData = ({
             drag
             browseText={
               <div className="flex w-5 h-5 items-center justify-center rounded-full bg-[#E5E7EB]">
-                <Camera size={12} />
+                <Camera size={12} aria-label="camera-icon" />
               </div>
             }
           />

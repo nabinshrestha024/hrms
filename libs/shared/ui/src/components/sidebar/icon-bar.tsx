@@ -47,7 +47,10 @@ export function IconBar({
       <div className="px-3.5 py-4.25">
         <div className="p-2.5 rounded-lg bg-sidebar-primary">
           <div className="w-4 h-4">
-            <LucideGalleryVerticalEnd className="text-white w-4 h-4" />
+            <LucideGalleryVerticalEnd
+              className="text-white w-4 h-4"
+              aria-label="main-icon"
+            />
           </div>
         </div>
       </div>
@@ -70,7 +73,11 @@ export function IconBar({
                 )}
               >
                 <TooltipTrigger asChild>
-                  <Icon className="size-5" strokeWidth={1.5} />
+                  <Icon
+                    className="size-5"
+                    strokeWidth={1.5}
+                    aria-label={mod.label}
+                  />
                 </TooltipTrigger>
               </LinkComp>
               <TooltipContent

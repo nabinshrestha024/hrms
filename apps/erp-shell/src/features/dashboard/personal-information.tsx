@@ -28,9 +28,10 @@ export const PersonalInformation = () => {
           <div className="flex gap-3">
             <div className="w-29.5 h-29.5 ">
               <img
-                src={items.image}
                 alt="profile"
+                fetchPriority="high"
                 className="w-full h-full rounded-full object-cover"
+                src={items.image}
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -42,12 +43,22 @@ export const PersonalInformation = () => {
                   {items.position}
                 </span>
               </div>
-              <div className={`text-[12px] leading-4 font-semibold `}>
+              <div className={``}>
                 {items.status === 'Active' && (
-                  <Badge variant="secondary">Active</Badge>
+                  <Badge
+                    variant="secondary"
+                    className="py-1 px-2 text-[12px] leading-4 font-semibold "
+                  >
+                    Active
+                  </Badge>
                 )}
                 {items.status === 'Inactive' && (
-                  <Badge variant="default">Inactive</Badge>
+                  <Badge
+                    variant="default"
+                    className="text-[12px] leading-4 font-semibold "
+                  >
+                    Inactive
+                  </Badge>
                 )}
               </div>
             </div>
@@ -57,7 +68,10 @@ export const PersonalInformation = () => {
               cardClassName="p-2 border-none bg-background rounded-xl shadow-none"
               cardContentClassName="flex items-center gap-2 p-0"
             >
-              <Hash className="w-4 h-4 text-secondary-foreground" />
+              <Hash
+                className="w-4 h-4 text-secondary-foreground"
+                aria-label="hash-icon"
+              />
               <div className="flex flex-col gap-1">
                 <span className="text-[12px] text-secondary-foreground font-normal leading-4">
                   Employee Id
@@ -71,7 +85,10 @@ export const PersonalInformation = () => {
               cardClassName="p-2 border-none bg-background rounded-xl shadow-none"
               cardContentClassName="flex items-center gap-2 p-0"
             >
-              <Building2 className="w-4 h-4 text-secondary-foreground" />
+              <Building2
+                className="w-4 h-4 text-secondary-foreground"
+                aria-label="building-icon"
+              />
               <div className="flex flex-col gap-1">
                 <span className="text-[12px] text-secondary-foreground font-normal leading-4">
                   Department
@@ -85,7 +102,10 @@ export const PersonalInformation = () => {
               cardClassName="p-2 border-none bg-background rounded-xl shadow-none"
               cardContentClassName="flex items-center gap-2 p-0"
             >
-              <Mail className="w-4 h-4 text-secondary-foreground" />
+              <Mail
+                className="w-4 h-4 text-secondary-foreground"
+                aria-label="mail-icon"
+              />
               <div className="flex flex-col gap-1">
                 <span className="text-[12px] text-secondary-foreground font-normal leading-4">
                   Email
@@ -101,7 +121,10 @@ export const PersonalInformation = () => {
               cardClassName="p-2 border-none bg-background rounded-xl shadow-none"
               cardContentClassName="flex items-center gap-2 p-0"
             >
-              <Phone className="w-4 h-4 text-secondary-foreground" />
+              <Phone
+                className="w-4 h-4 text-secondary-foreground"
+                aria-label="phone-icon"
+              />
               <div className="flex flex-col gap-1">
                 <span className="text-[12px] text-secondary-foreground font-normal leading-4">
                   Phone Number

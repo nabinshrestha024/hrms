@@ -8,13 +8,13 @@ export function TabsFlex() {
         value="table"
         className="flex-1 m-0 p-2 rounded-none text-secondary-foreground rounded-l-xl data-[state=active]:text-white border border-primary  data-[state=active]:bg-primary cursor-pointer"
       >
-        <List className="w-4 h-4" />
+        <List className="w-4 h-4" aria-label="list-icon" />
       </TabsTrigger>
       <TabsTrigger
         value="card"
         className="flex-1 m-0 p-2 rounded-none text-secondary-foreground rounded-r-xl data-[state=active]:text-white border border-primary  data-[state=active]:bg-primary cursor-pointer"
       >
-        <Grid2X2 className="w-4 h-4" />
+        <Grid2X2 className="w-4 h-4" aria-label="grid-icon" />
       </TabsTrigger>
     </TabsList>
   );

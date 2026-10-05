@@ -31,9 +31,8 @@ export const DepartmentCard = ({
                   cardContentClassName="flex flex-col gap-4 p-0"
                 >
                   <div className="flex justify-between items-center">
-                    <div className="w-6 h-6 flex items-center justify-center rounded-sm bg-primary p-1">
-                      <Network className="w-4 h-4 text-white font-normal" />
-                    </div>
+                    <Network className="w-8 h-8 text-black font-normal" />
+
                     <div className="flex gap-2">
                       <Can
                         action="update"
