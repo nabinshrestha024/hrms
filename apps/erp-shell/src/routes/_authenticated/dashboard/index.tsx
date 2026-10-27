@@ -29,6 +29,7 @@ function RouteComponent() {
       subtitle={today}
       className="pb-21.5 px-6 lg:px-12"
       titleClassName="lg:px-0"
+      headingClassName="tracking-[-0.144px]"
     >
       <div className="w-full  flex flex-col gap-4">
         <div className="flex flex-col lg:flex-row gap-4">

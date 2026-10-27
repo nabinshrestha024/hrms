@@ -139,6 +139,7 @@ export function getEmployeeColumns({
             <IconButton
               type="button"
               variant="default"
+              aria-label="view"
               onClick={() =>
                 navigate({
                   to: '/employee/employee-details/$id',
@@ -150,7 +151,11 @@ export function getEmployeeColumns({
             </IconButton>
             <FormDialog
               trigger={
-                <IconButton type="button" variant="default">
+                <IconButton
+                  type="button"
+                  variant="default"
+                  aria-label="setting"
+                >
                   <Settings2 className="text-[16px]" />
                 </IconButton>
               }
@@ -171,6 +176,7 @@ export function getEmployeeColumns({
             <IconButton
               type="button"
               variant="default"
+              aria-label="gitBranch"
               onClick={() =>
                 navigate({
                   to: '/employee/assign-approval/$id',
@@ -183,6 +189,7 @@ export function getEmployeeColumns({
             <IconButton
               type="button"
               variant="default"
+              aria-label="block"
               onClick={() => actions?.onBlock?.(id)}
             >
               <Ban className="text-[16px]" />
@@ -190,6 +197,7 @@ export function getEmployeeColumns({
             <IconButton
               type="button"
               variant="destructive"
+              aria-label="delete"
               onClick={() => actions?.onDelete?.(id)}
             >
               <Trash2 className="text-badge-text-3" />

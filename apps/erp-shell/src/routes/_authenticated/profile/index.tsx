@@ -10,12 +10,19 @@ const ProfileHeader = lazy(() =>
 
 export const Route = createFileRoute('/_authenticated/profile/')({
   component: RouteComponent,
-  beforeLoad: () => ({ subbreadcrumb: 'My Profile' }),
+  beforeLoad: () => ({
+    breadcrumb: 'Overview',
+    subbreadcrumb: 'My Profile',
+  }),
 });
 
 function RouteComponent() {
   return (
-    <ContentShell title="Profile" className="bg-background">
+    <ContentShell
+      title="Profile"
+      className="bg-background"
+      titleClassName="px-12"
+    >
       <Suspense fallback={null}>
         <ProfileHeader />
       </Suspense>

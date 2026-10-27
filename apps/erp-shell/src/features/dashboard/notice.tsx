@@ -48,13 +48,14 @@ export const Notice = () => {
             >
               <div className="w-17.5 h-17.5 rounded-xl p-px border border-border bg-border">
                 <img
-                  src={val.image}
                   alt={val.title}
+                  fetchPriority="high"
                   className="w-full h-full rounded-xl object-cover"
+                  src={val.image}
                 />
               </div>
               <div className="flex-1 flex-col gap-1">
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center">
                   <span className="text-[14px] text-foreground font-medium leading-5 line-clamp-1">
                     {val.title}
                   </span>

@@ -20,7 +20,7 @@ export const VisibilityManagement = () => {
         // the legacy behaviour.
         { key: 'visible', label: 'Status' },
       ]}
-      filterFn={(rows, { search, dropdowns }) => {
+      filterFn={(rows, { search, dropdowns, dateRange }) => {
         return rows.filter((row) => {
           const matchesSearch = row.employeeName
             .toLowerCase()
@@ -30,7 +30,12 @@ export const VisibilityManagement = () => {
             ([key, value]) =>
               !value || String(row[key as keyof typeof row]) === value
           );
-          return matchesSearch && matchesDropdowns;
+          const matchesDate =
+            (!dateRange?.from ||
+              new Date(row.uploadDate) >= new Date(dateRange.from)) &&
+            (!dateRange?.to ||
+              new Date(row.uploadDate) <= new Date(dateRange.to));
+          return matchesSearch && matchesDropdowns && matchesDate;
         });
       }}
     />

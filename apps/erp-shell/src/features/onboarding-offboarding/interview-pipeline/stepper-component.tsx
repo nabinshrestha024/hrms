@@ -9,12 +9,11 @@ export const PipelineStepper = ({ stages }: { stages: Stage[] }) => {
 
   return (
     <div className="ml-15">
-      {/* Steps */}
       <div className="flex gap-4 relative">
         {stages.map((step, index) => {
           const isCompleted = step.status === 'completed';
           const isActive = step.status === 'active';
-
+          const isLast = index === stages.length - 1;
           return (
             <div
               key={index}
@@ -39,7 +38,7 @@ export const PipelineStepper = ({ stages }: { stages: Stage[] }) => {
                     >
                       <Clock className="w-5 h-5 text-white" />
                     </IconButton>
-                    <div className="w-7 h-1 bg-chart-10"></div>
+                    {!isLast && <div className="w-7 h-1 bg-chart-10" />}
                   </div>
                 ) : (
                   <div className=" flex gap-2 items-center">
@@ -49,7 +48,7 @@ export const PipelineStepper = ({ stages }: { stages: Stage[] }) => {
                     >
                       <Clock className="w-5 h-5 text-secondary-foreground" />
                     </IconButton>
-                    <div className="w-7 h-1 bg-chart-10"></div>
+                    {!isLast && <div className="w-7 h-1 bg-chart-10" />}
                   </div>
                 )}
               </div>

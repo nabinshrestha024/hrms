@@ -50,7 +50,7 @@ export const ActionDropdown = ({
               action.onClick?.();
               onOpenChange(false);
             }}
-            className={`text-[14px] font-normal leading-5 cursor-pointer text-foreground justify-start rounded-none px-2  ${
+            className={`text-[14px] font-normal leading-5 cursor-pointer text-foreground justify-start rounded-none px-2 ${
               action.className
             } ${action.isActive ? 'bg-muted' : ''}`}
           >

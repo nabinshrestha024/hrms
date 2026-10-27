@@ -1,5 +1,5 @@
 import type { Employee } from '@erp/data-access';
-import { ActionDropdown, ControlledFormDialog, HRCard } from '@erp/ui';
+import { ActionDropdown, Button, ControlledFormDialog, HRCard } from '@erp/ui';
 import { Dot, EllipsisVertical } from 'lucide-react';
 
 import { InitialsCard } from '../../components/initial-avatar';
@@ -66,9 +66,12 @@ export const EmployeeCard = ({
                                 setOpenDropdown(isOpen ? index : null)
                               }
                               trigger={
-                                <div className="flex items-center text-[14px] font-normal cursor-pointer">
-                                  <EllipsisVertical className="w-4 h-4 text-secondary-foreground" />
-                                </div>
+                                <Button className="flex items-center text-[14px] font-normal cursor-pointer bg-transparent">
+                                  <EllipsisVertical
+                                    className="w-4 h-4 text-secondary-foreground"
+                                    aria-label="ellipsis-icon"
+                                  />
+                                </Button>
                               }
                               dropdownClassName="px-0"
                               actions={getEmployeeCardActions({

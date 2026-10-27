@@ -5,15 +5,19 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '../../primitives/dropdown-menu';
+import { Button } from '../../primitives/button';
 
 export const Notification = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div className="w-8 h-8 relative rounded-full p-2 bg-chart-1 cursor-pointer">
-          <Bell className="text-ring w-4 h-4" />
+        <Button
+          className="w-8 h-8 relative rounded-full p-2 bg-chart-1 cursor-pointer"
+          type="button"
+        >
+          <Bell className="text-ring w-4 h-4" aria-label="notification-icon" />
           <span className="absolute top-0 right-0 flex items-center justify-center h-2 w-2 px-1 text-[10px] font-semibold text-white bg-badge-text-3 rounded-full"></span>
-        </div>
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="center"
@@ -25,7 +29,10 @@ export const Notification = () => {
               Notifications
             </div>
             <div className="flex gap-2 items-center justify-center border-b border-b-border px-3 py-4">
-              <BellMinus className="w-4 h-4 text-secondary-foreground" />
+              <BellMinus
+                className="w-4 h-4 text-secondary-foreground"
+                aria-label="notification-icon"
+              />
               <span className="text-[12px] font-normal leading-4 text-secondary-foreground">
                 No new notifications at this time
               </span>

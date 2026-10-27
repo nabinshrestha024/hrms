@@ -87,19 +87,20 @@ function LoginPage() {
   return (
     <>
       {forgetPassword === false ? (
-        <div className="flex min-h-screen justify-between bg-background lg:px-15 xl:px-30 py-15.5">
+        <div className="flex min-h-screen justify-between items-center bg-background lg:px-15 xl:px-30 py-15.5">
           <div className="w-164.5 h-176 overflow-hidden rounded-3xl">
             <img
-              src="/login.jpg"
               alt="login"
+              fetchPriority="high"
               className="w-full h-full object-contain"
+              src="/login.jpg"
             />
           </div>
           <div className="w-107.25 bg-card my-auto">
             <div className="flex flex-col gap-8">
-              <div className="text-[24px] text-text-6 font-medium leading-8 text-center">
+              <h2 className="text-[24px] text-text-6 font-medium leading-8 text-center">
                 Sign in with email
-              </div>
+              </h2>
 
               <form onSubmit={onSubmit} className="flex flex-col gap-8">
                 <div className="flex flex-col gap-3.5">
@@ -108,6 +109,7 @@ function LoginPage() {
                       <Mail
                         size={18}
                         className="absolute left-4 top-5 -translate-y-1/2 text-gray-400"
+                        aria-label="mail-icon"
                       />
 
                       <HRInput
@@ -127,6 +129,7 @@ function LoginPage() {
                       <Lock
                         size={18}
                         className="absolute left-4 top-5 -translate-y-1/2 text-gray-400 z-10"
+                        aria-label="lock-icon"
                       />
 
                       <HRInput
@@ -148,9 +151,9 @@ function LoginPage() {
                         className="absolute right-4 top-5 -translate-y-1/2 text-gray-400 border-none rounded-none p-0 h-auto"
                       >
                         {showPassword ? (
-                          <Eye size={18} />
+                          <Eye size={18} aria-label="eye-icon" />
                         ) : (
-                          <EyeOff size={18} />
+                          <EyeOff size={18} aria-label="eyeOff-icon" />
                         )}
                       </Button>
                     </div>

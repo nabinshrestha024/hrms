@@ -22,7 +22,10 @@ export const QuickAction = () => {
                 cardContentClassName="flex flex-col p-0 gap-3 items-center cursor-pointer"
               >
                 <div className="rounded-sm bg-chart-1 p-1">
-                  <Icon className="w-4 h-4 text-primary" />
+                  <Icon
+                    className="w-4 h-4 text-primary"
+                    aria-label={val.action}
+                  />
                 </div>
 
                 <div className="flex flex-col items-center gap-2">
